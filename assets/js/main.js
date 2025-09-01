@@ -1,36 +1,44 @@
-// This function runs when the page content is fully loaded
+// This function runs when the page content is fully loaded.
 document.addEventListener('DOMContentLoaded', function() {
     
     /**
      * --- Reusable Components (Header & Footer) ---
-     * This is a modern way to avoid copying and pasting your header and footer HTML on every page.
-     * It fetches the HTML from the component files and injects it into the correct place.
-     * @param {string} elementId - The ID of the element to load the component into.
-     * @param {string} filePath - The path to the HTML component file.
+     * Fetches HTML from component files and injects it into the correct place.
      */
     const loadComponent = (elementId, filePath) => {
         const element = document.getElementById(elementId);
         if (element) {
             fetch(filePath)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.text();
-                })
+                .then(response => response.text())
                 .then(data => {
                     element.innerHTML = data;
+                    // After the header is loaded, initialize the mobile menu functionality
+                    if (elementId === 'main-header') {
+                        initMobileMenu();
+                    }
                 })
                 .catch(error => console.error(`Error loading component from ${filePath}:`, error));
         }
     };
 
-    // Load the header and footer into their respective placeholder divs
+    /**
+     * --- Mobile Menu Toggle ---
+     * This new function handles the hamburger menu logic.
+     */
+    const initMobileMenu = () => {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    };
+
+    // Load the header and footer on every page
     loadComponent('main-header', '/components/header.html');
     loadComponent('main-footer', '/components/footer.html');
 
-    // --- You can add other site-wide logic here ---
-    // For example, logic for a mobile navigation menu, analytics, etc.
-    console.log("By Locals.. site initialized!");
-
+    console.log("Voted On By Locals site initialized!");
 });
