@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ambassadors | By Locals.. Charleston</title>
-    
+    <title>Ambassadors | Voted On By Locals</title>
+    <meta name="description" content="Interested in starting a Voted On By Locals guide for your own city? Learn more about becoming an ambassador.">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/main.js" defer></script>
@@ -19,8 +20,8 @@
                 <h1 class="text-3xl sm:text-4xl font-bold text-center font-poppins">Become an Ambassador</h1>
                 
                 <div class="text-lg leading-relaxed text-gray-800 space-y-4">
-                    <p>The vision for <strong>By Locals..</strong> is bigger than just one city. We want to build a network of authentic guides across the country, each one run by a passionate local who knows their city's food scene inside and out.</p>
-                    <p>If this idea resonates with you, and you find yourself wishing a "By Locals" guide existed for your own town, we'd love to hear from you. We're looking for people to launch and lead their own local rankings.</p>
+                    <p>The vision for this project is bigger than just Charleston. We want to build a network of authentic guides across the country, each one run by a passionate local who knows their city's food scene inside and out.</p>
+                    <p>If this idea resonates with you, and you find yourself wishing a similar guide existed for your own town, we'd love to hear from you. We're looking for people to launch and lead their own local rankings.</p>
                 </div>
 
                 <div class="space-y-4 pt-6 border-t border-gray-200">
@@ -35,23 +36,13 @@
 
                 <div class="pt-6 border-t border-gray-200">
                     <h2 class="text-2xl font-bold font-poppins mb-4">Sound like you? Reach out.</h2>
-                    <form class="space-y-4">
-                        <div>
-                            <label for="name" class="block text-sm font-medium text-gray-700">Your Name</label>
-                            <input type="text" name="name" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange">
-                        </div>
-                         <div>
-                            <label for="email" class="block text-sm font-medium text-gray-700">Your Email</label>
-                            <input type="email" name="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange">
-                        </div>
-                         <div>
-                            <label for="city" class="block text-sm font-medium text-gray-700">Your City & State</label>
-                            <input type="text" name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" placeholder="e.g., Austin, TX">
-                        </div>
-                        <div>
-                            <label for="message" class="block text-sm font-medium text-gray-700">Tell us a little about yourself</label>
-                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange"></textarea>
-                        </div>
+                    
+                    <!-- UPDATED FORM TAG -->
+                    <form name="ambassador-inquiry" method="POST" data-netlify="true" action="/thank-you.html" class="space-y-4">
+                        <div><label for="name" class="block text-sm font-medium text-gray-700">Your Name</label><input type="text" name="name" id="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" required></div>
+                        <div><label for="email" class="block text-sm font-medium text-gray-700">Your Email</label><input type="email" name="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" required></div>
+                        <div><label for="city" class="block text-sm font-medium text-gray-700">Your City & State</label><input type="text" name="city" id="city" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" placeholder="e.g., Austin, TX" required></div>
+                        <div><label for="message" class="block text-sm font-medium text-gray-700">Tell us a little about yourself</label><textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" required></textarea></div>
                         <button type="submit" class="w-full sm:w-auto bg-brand-orange text-white font-bold py-2 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-md">
                             Send Inquiry
                         </button>
@@ -62,6 +53,5 @@
     </main>
 
     <footer id="main-footer"></footer>
-
 </body>
 </html>
