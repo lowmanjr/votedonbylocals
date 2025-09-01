@@ -40,26 +40,3 @@
         </div>
     </div>
 </nav>
-```eof
-
-### **3. `/components/footer.html` (Updated for Mobile)**
-
-This is a simpler fix. The flexbox container will now stack vertically (`flex-col`) on the smallest screens and switch to a row (`sm:flex-row`) on slightly larger phone screens and up.
-
-```html:Footer Component (Updated):/components/footer.html
-<div class="border-t border-gray-300/50 mt-16">
-    <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8 text-center text-gray-500">
-        <p class="font-bold mb-4 font-poppins">A community-driven guide to Charleston, SC.</p>
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-4 text-sm">
-             <a href="/ambassadors.html" class="hover:text-brand-orange">Become an Ambassador</a>
-             <span class="hidden sm:inline">&bull;</span>
-             <a href="/suggest-category.html" class="hover:text-brand-orange">Suggest a Category</a>
-             <span class="hidden sm:inline">&bull;</span>
-             <a href="mailto:hello@votedonbylocals.com" class="hover:text-brand-orange">Contact</a>
-        </div>
-        <p class="text-xs mt-4">&copy; 2025 Voted On By Locals</p>
-    </div>
-</div>
-```eof
-
-After you replace these three files, your website's header and footer will be perfectly optimized for any device.
