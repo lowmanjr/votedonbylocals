@@ -1,0 +1,25 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700&display=swap');
+
+/* Define global styles and brand identity */
+body {
+    background-color: #FFF8F0; /* Creamy Off-White */
+    color: #4A4A4A; /* Dark Grey */
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* Define a reusable class for the Poppins font, used for headings */
+.font-poppins {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Define reusable classes for your brand color */
+.brand-orange {
+    color: #E67E22;
+}
+.bg-brand-orange {
+    background-color: #E67E22;
+}
+.border-brand-orange {
+    border-color: #E67E22;
+}

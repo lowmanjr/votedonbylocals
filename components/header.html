@@ -1,0 +1,42 @@
+<nav class="bg-white/80 backdrop-blur-sm sticky top-0 z-20 shadow-sm">
+    <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+            <a href="/" class="flex items-center gap-2" aria-label="Homepage">
+                <svg class="w-7 h-7 brand-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M12 2.25c-4.473 0-8.106 3.633-8.106 8.106 0 4.472 8.106 11.394 8.106 11.394s8.106-6.922 8.106-11.394C20.106 5.883 16.473 2.25 12 2.25Zm0 11.25a3.375 3.375 0 1 0 0-6.75 3.375 3.375 0 0 0 0 6.75Z" clip-rule="evenodd" /></svg>
+                <span class="font-poppins font-bold text-xl text-gray-800">Voted On By Locals</span>
+            </a>
+
+            <div class="hidden md:flex items-center gap-6 font-bold text-sm">
+                <div class="relative group">
+                    <a href="/" class="text-gray-600 hover:text-brand-orange transition-colors flex items-center gap-1">
+                        Rankings
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 transition-transform group-hover:rotate-180"><path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <div class="absolute right-0 hidden group-hover:block bg-white shadow-lg rounded-md mt-2 py-2 w-56 z-30">
+                        <a href="/rankings/best-nice-restaurants.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best Nice Restaurants</a>
+                        <a href="/rankings/best-new-restaurants.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best New Restaurants</a>
+                        <a href="/rankings/best-pizza.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best Pizza</a>
+                        <a href="/rankings/best-tex-mex.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best Tex-Mex</a>
+                        <a href="/rankings/best-coffee-shops.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best Coffee Shops</a>
+                        <a href="/rankings/best-casual-spots.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best Casual Spots</a>
+                        <a href="/rankings/best-burger.html" class="block px-4 py-2 text-gray-700 hover:bg-orange-50">Best Burger</a>
+                    </div>
+                </div>
+                <a href="/about.html" class="text-gray-600 hover:text-brand-orange transition-colors">About</a>
+                <a href="/vote.html" class="bg-brand-orange text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity">Cast Your Vote</a>
+            </div>
+
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-700 hover:text-brand-orange">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="/" class="block py-2 px-4 text-sm font-bold text-gray-700 hover:bg-orange-50">Rankings</a>
+            <a href="/about.html" class="block py-2 px-4 text-sm font-bold text-gray-700 hover:bg-orange-50">About</a>
+            <a href="/vote.html" class="block py-2 px-4 text-sm font-bold text-gray-700 hover:bg-orange-50">Cast Your Vote</a>
+        </div>
+    </div>
+</nav>

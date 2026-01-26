@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HYJ35LGKCS');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote | Voted On By Locals</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body class="antialiased">
+
+    <header id="main-header"></header>
+
+    <main>
+        <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div class="bg-white/50 p-8 sm:p-10 rounded-xl shadow-sm">
+                <h1 class="text-3xl sm:text-4xl font-bold text-center font-poppins mb-2">Cast Your Vote</h1>
+                <p class="text-center text-gray-600 mb-8">Help us build the best guide to Charleston, by locals for everyone.</p>
+
+                <form name="vote" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/thank-you.html?id=vote" class="space-y-8">
+                    <p class="hidden">
+                        <label>Don’t fill this out if you’re human: <input name="bot-field" /></label>
+                    </p>
+
+                    <fieldset class="space-y-4">
+                        <legend class="text-xl font-bold font-poppins mb-2">Step 1: Verification</legend>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Your Email Address</label>
+                            <input type="email" name="email" id="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" placeholder="you@domain.com" required>
+                        </div>
+                        <div>
+                            <label for="zipcode" class="block text-sm font-medium text-gray-700">Your Charleston-area Zip Code</label>
+                            <input type="text" name="zipcode" id="zipcode" class="mt-1 block w-full sm:w-1/2 rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" placeholder="e.g., 29401" required>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="space-y-4">
+                        <legend class="text-xl font-bold font-poppins mb-2">Step 2: Choose a Category</legend>
+                        <div>
+                            <label for="category" class="block text-sm font-medium text-gray-700">What are you ranking?</label>
+                            <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange">
+                                <option>Best Nice Restaurants</option>
+                                <option>Best New Restaurants</option>
+                                <option>Best Pizza</option>
+                                <option>Best Tex-Mex</option>
+                                <option>Best Coffee Shops</option>
+                                <option>Best Casual Spots</option>
+                                <option>Best Burger</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="space-y-4">
+                        <legend class="text-xl font-bold font-poppins mb-2">Step 3: Rank Your Top 5</legend>
+                        <div class="space-y-3">
+                            <div><label for="rank1" class="block text-sm font-medium text-gray-700">#1 Spot</label><input type="text" name="rank1" id="rank1" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange" required></div>
+                            <div><label for="rank2" class="block text-sm font-medium text-gray-700">#2 Spot</label><input type="text" name="rank2" id="rank2" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange"></div>
+                            <div><label for="rank3" class="block text-sm font-medium text-gray-700">#3 Spot</label><input type="text" name="rank3" id="rank3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange"></div>
+                            <div><label for="rank4" class="block text-sm font-medium text-gray-700">#4 Spot</label><input type="text" name="rank4" id="rank4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange"></div>
+                            <div><label for="rank5" class="block text-sm font-medium text-gray-700">#5 Spot</label><input type="text" name="rank5" id="rank5" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange"></div>
+                        </div>
+                    </fieldset>
+
+                    <div class="pt-6 border-t border-gray-200">
+                        <button type="submit" class="w-full bg-brand-orange text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-md text-lg">
+                            Submit My Vote
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+</body>
+</html>

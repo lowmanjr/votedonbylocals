@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Default Config
+      gtag('config', 'G-HYJ35LGKCS');
+
+      // --- ROBUST EVENT TRACKING ---
+      // This script checks the URL for ?id=vote or ?id=suggestion
+      // and sends a specific "generate_lead" event to Google.
+      window.onload = function() {
+          const urlParams = new URLSearchParams(window.location.search);
+          const formId = urlParams.get('id');
+
+          if (formId === 'vote') {
+              gtag('event', 'generate_lead', {
+                  'event_category': 'Form',
+                  'event_label': 'Vote Submission',
+                  'value': 1 
+              });
+              console.log('Analytics Event Fired: Vote Submission');
+          } else if (formId === 'suggestion') {
+              gtag('event', 'generate_lead', {
+                  'event_category': 'Form',
+                  'event_label': 'Category Suggestion',
+                  'value': 1
+              });
+              console.log('Analytics Event Fired: Category Suggestion');
+          }
+      };
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks! | Voted On By Locals</title>
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/js/main.js" defer></script>
+</head>
+<body class="antialiased">
+
+    <header id="main-header"></header>
+
+    <main>
+        <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center">
+            <div class="bg-white/50 p-8 sm:p-12 rounded-xl shadow-sm">
+                <h1 class="text-3xl sm:text-4xl font-bold font-poppins">Thank You!</h1>
+                <p class="text-lg text-gray-700 mt-4">Your submission has been received. We appreciate you helping to build the most authentic guide to Charleston.</p>
+                <a href="/" class="inline-block mt-8 bg-brand-orange text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-md">
+                    Return to Rankings
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+</body>
+</html>
