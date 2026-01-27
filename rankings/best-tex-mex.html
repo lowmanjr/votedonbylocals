@@ -1,39 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYJ35LGKCS');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best Tex-Mex in Charleston | Voted On By Locals</title>
-    <meta name="description" content="See the Top 5 best Tex-Mex restaurants in Charleston, SC, as voted on by the local community.">
+    <meta name="description" content="See the best Tex-Mex restaurants in Charleston, SC, as voted on by the local community.">
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#E67E22',
+                            cream: '#FFF8F0',
+                            dark: '#2D3748',
+                            gray: '#4A4A4A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/main.js" defer></script>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-brand-cream text-brand-dark min-h-screen flex flex-col">
 
     <header id="main-header"></header>
 
-    <main>
+    <main class="flex-grow">
         <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <div class="text-center mb-10">
-                <h1 class="text-4xl sm:text-5xl font-bold font-poppins">Best Tex-Mex 🌮</h1>
-                <p class="text-sm text-gray-500 mt-2">Last updated: September 1, 2025</p>
-                <a href="/" class="inline-block mt-4 text-brand-orange font-bold hover:underline">‹ Back to All Rankings</a>
+            
+            <div class="text-center mb-12">
+                <a href="/" class="inline-flex items-center text-brand-orange font-bold hover:underline mb-6 transition-transform hover:-translate-x-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    Back to All Rankings
+                </a>
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight">
+                    Best <span class="text-brand-orange">Tex-Mex</span> 🌮
+                </h1>
+                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals • Updated January 2026</p>
             </div>
 
-            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">1</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">San Miguel Mexican Grill & Bar</h3><p class="text-sm text-gray-500">Authentic Flavors, Great Margs</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">2</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Santi's</h3><p class="text-sm text-gray-500">No-Frills, Big Portions</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">3</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Señor Tequila's</h3><p class="text-sm text-gray-500">Local Favorite, Lively</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">4</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Azul Mexicano</h3><p class="text-sm text-gray-500">Modern</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">5</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Agaves Cantina</h3><p class="text-sm text-gray-500">Lively Atmosphere</p></div></div>
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
+                <div class="h-2 w-full bg-brand-orange"></div>
+
+                <div class="p-2 sm:p-4">
+                    <div class="divide-y divide-gray-100">
+                        
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
+                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">San Miguel Mexican Grill</h3>
+                                <p class="text-brand-gray font-medium">Authentic Flavors, Great Margs</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
+                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Santi's</h3>
+                                <p class="text-gray-500 font-medium">No-Frills, Big Portions</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
+                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Señor Tequila's</h3>
+                                <p class="text-gray-500 font-medium">Local Favorite, Lively</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
+                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Azul Mexicano</h3>
+                                <p class="text-gray-500 font-medium">Modern Aesthetic</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
+                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                            <div class="flex-1">
+                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Agaves Cantina</h3>
+                                <p class="text-gray-500 font-medium">Lively Atmosphere</p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <a href="/vote.html" class="block text-center w-full mt-8 bg-brand-orange text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-md">
-                    Vote Now
-                </a>
+
+                <div class="bg-orange-50 p-6 sm:p-8 text-center border-t border-brand-orange/10">
+                    <p class="text-brand-dark font-medium mb-4">Disagree with this list? Cast your vote!</p>
+                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-3 px-8 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
+                        Vote Now
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </a>
+                </div>
             </div>
+
+            <p class="text-center text-gray-400 text-xs mt-8">Based on 1,420 local votes collected in 2025.</p>
+
         </div>
     </main>
 
