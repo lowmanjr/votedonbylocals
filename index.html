@@ -15,56 +15,89 @@
     <title>Voted On By Locals | Authentic Charleston Restaurant Rankings</title>
     <meta name="description" content="The community-driven guide to the best independent restaurants in Charleston, SC. Click to see the latest rankings for best nice restaurants, pizza, and more.">
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#E67E22',
+                            cream: '#FFF8F0',
+                            dark: '#2D3748',
+                            gray: '#4A4A4A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/main.js" defer></script>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-brand-cream text-brand-dark">
 
     <header id="main-header"></header>
 
     <main>
         <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
             <div class="text-center mb-12">
-                <h1 class="text-4xl sm:text-5xl font-bold font-poppins">The Charleston Rankings</h1>
+                <h1 class="text-4xl sm:text-5xl font-bold font-poppins text-brand-dark">The Charleston Rankings</h1>
                 <p class="text-lg text-gray-600 mt-2">The most authentic guide to CHS, as voted on by locals.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <a href="/rankings/best-nice-restaurants.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
+                <a href="/rankings/best-nice-restaurants.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
                     <h2 class="text-2xl font-bold font-poppins">Best Nice Restaurants</h2>
                     <p class="text-gray-600 mt-1">The definitive list for a special night out.</p>
                 </a>
                 
-                <a href="/rankings/best-new-restaurants.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
+                <a href="/rankings/best-new-restaurants.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
                     <h2 class="text-2xl font-bold font-poppins">Best New Restaurants</h2>
                     <p class="text-gray-600 mt-1">The hottest new spots in town. ✨</p>
                 </a>
 
-                <a href="/rankings/best-pizza.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
+                <a href="/rankings/best-new-coffee-shop.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-orange text-white text-xs font-bold px-2 py-1 rounded-bl-lg">NEW</div>
+                    <h2 class="text-2xl font-bold font-poppins">Best New Coffee Shop</h2>
+                    <p class="text-gray-600 mt-1">Espresso, pastries, and tiny tinis. ☕</p>
+                </a>
+
+                <a href="/rankings/best-pizza.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
                     <h2 class="text-2xl font-bold font-poppins">Best Pizza</h2>
                     <p class="text-gray-600 mt-1">From wood-fired to classic slices. 🍕</p>
                 </a>
                 
-                <a href="/rankings/best-tex-mex.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
+                <a href="/rankings/best-burger.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins">Best Burger</h2>
+                    <p class="text-gray-600 mt-1">From dive bars to smash hits. 🍔</p>
+                </a>
+
+                <a href="/rankings/best-tex-mex.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
                     <h2 class="text-2xl font-bold font-poppins">Best Tex-Mex</h2>
                     <p class="text-gray-600 mt-1">Tacos, margs, and more. 🌮</p>
                 </a>
                 
-                <a href="/rankings/best-coffee-shops.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
+                <a href="/rankings/best-coffee-shops.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
                     <h2 class="text-2xl font-bold font-poppins">Best Coffee Shops</h2>
                     <p class="text-gray-600 mt-1">Brews, bites, and vibes. ☕</p>
                 </a>
 
-                <a href="/rankings/best-casual-spots.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
+                <a href="/rankings/best-casual-spots.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
                     <h2 class="text-2xl font-bold font-poppins">Best Casual Spots</h2>
                     <p class="text-gray-600 mt-1">Easy eats for any day of the week. 🤙</p>
-                </a>
-                
-                <a href="/rankings/best-burger.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center">
-                    <h2 class="text-2xl font-bold font-poppins">Best Burger</h2>
-                    <p class="text-gray-600 mt-1">From dive bars to smash hits. 🍔</p>
                 </a>
 
             </div>
