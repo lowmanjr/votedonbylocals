@@ -12,16 +12,23 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Voted On By Locals | Authentic Charleston Restaurant Rankings</title>
-    <meta name="description" content="The community-driven guide to the best independent restaurants in Charleston, SC. Click to see the latest rankings for best nice restaurants, pizza, and more.">
+    <meta name="description" content="The community-driven guide to the best independent restaurants in Charleston, SC. Real votes from locals for the best pizza, burgers, fine dining, and more.">
+    <meta name="keywords" content="Charleston SC restaurants, best food Charleston, local favorites Charleston, Charleston rankings">
+    
+    <meta property="og:title" content="Voted On By Locals | Charleston's Authentic Food Guide">
+    <meta property="og:description" content="Stop guessing where to eat. See the rankings voted on by actual Charleston locals.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://votedonbylocals.com/">
+    
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script>
         tailwind.config = {
             theme: {
@@ -43,68 +50,104 @@
         }
     </script>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Charleston Restaurant Rankings",
+      "description": "A collection of top-rated restaurant lists in Charleston, SC voted on by locals.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Voted On By Locals"
+      }
+    }
+    </script>
+
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/main.js" defer></script>
+
+    <style>
+        /* Subtle dot pattern for the Hero section */
+        .bg-dot-pattern {
+            background-image: radial-gradient(#E67E22 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+    </style>
 </head>
-<body class="antialiased bg-brand-cream text-brand-dark">
+<body class="antialiased bg-brand-cream text-brand-dark flex flex-col min-h-screen">
 
     <header id="main-header"></header>
 
-    <main>
-        <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <div class="text-center mb-12">
-                <h1 class="text-4xl sm:text-5xl font-bold font-poppins text-brand-dark">The Charleston Rankings</h1>
-                <p class="text-lg text-gray-600 mt-2">The most authentic guide to CHS, as voted on by locals.</p>
+    <main class="flex-grow">
+        
+        <div class="relative bg-orange-50 border-b border-brand-orange/10">
+            <div class="absolute inset-0 bg-dot-pattern opacity-10 pointer-events-none"></div>
+            <div class="container mx-auto max-w-4xl px-4 py-16 sm:py-20 text-center relative z-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-brand-orange/10 text-brand-orange text-xs font-bold tracking-wider uppercase mb-4">
+                    Updated for 2026
+                </span>
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight mb-4">
+                    The Charleston <span class="text-brand-orange">Rankings</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto">
+                    The most authentic guide to the Holy City, as voted on by the people who actually live here.
+                </p>
             </div>
+        </div>
 
+        <div class="container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 
-                <a href="/rankings/best-nice-restaurants.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best Nice Restaurants</h2>
-                    <p class="text-gray-600 mt-1">The definitive list for a special night out.</p>
+                <a href="/rankings/best-nice-restaurants.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best Nice Restaurants</h2>
+                    </div>
+                    <p class="text-gray-600">The definitive list for a special night out.</p>
                 </a>
                 
-                <a href="/rankings/best-new-restaurants.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best New Restaurants</h2>
+                <a href="/rankings/best-new-restaurants.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best New Restaurants</h2>
                     <p class="text-gray-600 mt-1">The hottest new spots in town. ✨</p>
                 </a>
 
-                <a href="/rankings/best-new-coffee-shop.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-brand-orange text-white text-xs font-bold px-2 py-1 rounded-bl-lg">NEW</div>
-                    <h2 class="text-2xl font-bold font-poppins">Best New Coffee Shop</h2>
+                <a href="/rankings/best-new-coffee-shop.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-brand-orange/20 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded-bl-lg shadow-sm">NEW</div>
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best New Coffee Shop</h2>
                     <p class="text-gray-600 mt-1">Espresso, pastries, and tiny tinis. ☕</p>
                 </a>
 
-                <a href="/rankings/best-pizza.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best Pizza</h2>
+                <a href="/rankings/best-pizza.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best Pizza</h2>
                     <p class="text-gray-600 mt-1">From wood-fired to classic slices. 🍕</p>
                 </a>
                 
-                <a href="/rankings/best-burger.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best Burger</h2>
+                <a href="/rankings/best-burger.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best Burger</h2>
                     <p class="text-gray-600 mt-1">From dive bars to smash hits. 🍔</p>
                 </a>
 
-                <a href="/rankings/best-tex-mex.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best Tex-Mex</h2>
+                <a href="/rankings/best-tex-mex.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best Tex-Mex</h2>
                     <p class="text-gray-600 mt-1">Tacos, margs, and more. 🌮</p>
                 </a>
                 
-                <a href="/rankings/best-coffee-shops.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best Coffee Shops</h2>
+                <a href="/rankings/best-coffee-shops.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best Coffee Shops</h2>
                     <p class="text-gray-600 mt-1">Brews, bites, and vibes. ☕</p>
                 </a>
 
-                <a href="/rankings/best-casual-spots.html" class="block bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow text-center border border-transparent hover:border-brand-orange/20">
-                    <h2 class="text-2xl font-bold font-poppins">Best Casual Spots</h2>
+                <a href="/rankings/best-casual-spots.html" class="group block bg-white p-8 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-transparent hover:border-brand-orange/20">
+                    <h2 class="text-2xl font-bold font-poppins text-brand-dark group-hover:text-brand-orange transition-colors">Best Casual Spots</h2>
                     <p class="text-gray-600 mt-1">Easy eats for any day of the week. 🤙</p>
                 </a>
 
             </div>
 
-            <div class="text-center mt-12">
-                <a href="/suggest-category.html" class="inline-block border-2 border-dashed border-brand-orange text-brand-orange font-bold py-3 px-8 rounded-lg hover:bg-orange-50 transition-colors duration-300">
-                    + Suggest a New Category
+            <div class="text-center mt-16">
+                <a href="/suggest-category.html" class="inline-flex items-center gap-2 border-2 border-dashed border-brand-orange text-brand-orange font-bold py-3 px-8 rounded-xl hover:bg-orange-50 transition-colors duration-300">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+                    Suggest a New Category
                 </a>
             </div>
 
