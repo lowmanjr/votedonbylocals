@@ -1,42 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYJ35LGKCS');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Best Pizza in Charleston | Voted On By Locals</title>
-    <meta name="description" content="See the Top 5 best pizza places in Charleston, SC, as voted on by the local community.">
+    
+    <title>Best Pizza in Charleston, SC | Locals Guide (2026)</title>
+    <meta name="description" content="Discover the best pizza in Charleston, SC. From authentic Neapolitan to crispy Detroit style, explore the top spots voted on by the local community.">
+    <meta name="keywords" content="Best pizza Charleston SC, Charleston pizza rankings, local favorites Charleston, Neapolitan pizza Charleston, Detroit style pizza Charleston">
+    
+    <meta property="og:title" content="Best Pizza in Charleston | Voted On By Locals">
+    <meta property="og:description" content="The definitive guide to the best slices in the Holy City.">
+    <meta property="og:type" content="website">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Tutti Pizza",
+            "servesCuisine": "Neapolitan Pizza",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Dough Boyz",
+            "servesCuisine": "Wood-Fired Pizza"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Restaurant",
+            "name": "D'Allesandro's Pizza",
+            "servesCuisine": "Pizza"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Toni's Detroit Style Pizza",
+            "servesCuisine": "Detroit Style Pizza"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Park Pizza Co",
+            "servesCuisine": "Pizza"
+          }
+        }
+      ]
+    }
+    </script>
+
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#E67E22',
+                            cream: '#FFF8F0',
+                            dark: '#2D3748',
+                            gray: '#4A4A4A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/main.js" defer></script>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-brand-cream text-brand-dark min-h-screen flex flex-col">
 
     <header id="main-header"></header>
 
-    <main>
+    <main class="flex-grow">
         <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            
             <div class="text-center mb-10">
-                <h1 class="text-4xl sm:text-5xl font-bold font-poppins">Best Pizza 🍕</h1>
-                <p class="text-sm text-gray-500 mt-2">Last updated: September 1, 2025</p>
-                <a href="/" class="inline-block mt-4 text-brand-orange font-bold hover:underline">‹ Back to All Rankings</a>
+                <a href="/" class="inline-flex items-center justify-center py-2 px-4 mb-6 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                    Back to All Rankings
+                </a>
+                
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight">
+                    Best <span class="text-brand-orange">Pizza</span> 🍕
+                </h1>
+                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals</p>
+                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-2 shadow-sm">
+                    Updated February 2026
+                </div>
             </div>
 
-            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-lg">
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">1</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Tutti Pizza</h3><p class="text-sm text-gray-500">Authentic Neapolitan</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">2</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Dough Boyz</h3><p class="text-sm text-gray-500">Mobile Wood-Fired Kitchen 🔥</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">3</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">D'Allesandro's Pizza</h3><p class="text-sm text-gray-500">Laid-back, Downtown Staple</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">4</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Toni's Detroit Style Pizza</h3><p class="text-sm text-gray-500">Thick, Cheesy, Crispy Edges</p></div></div><hr>
-                    <div class="flex items-center gap-4"><div class="text-4xl font-bold brand-orange opacity-70 w-10 text-center">5</div><div class="flex-1"><h3 class="font-bold text-lg text-gray-800">Park Pizza Co</h3><p class="text-sm text-gray-500">Park Circle Neighborhood Spot</p></div></div>
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
+                <div class="h-2 w-full bg-brand-orange"></div>
+
+                <div class="p-2 sm:p-4">
+                    <div class="divide-y divide-gray-100">
+                        
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="pizza slice">🍕</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Tutti Pizza</h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Authentic Neapolitan</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="pizza slice">🍕</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Dough Boyz</h2>
+                                <p class="text-gray-500 font-medium text-sm sm:text-base">Mobile Wood-Fired Kitchen 🔥</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="pizza slice">🍕</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">D'Allesandro's Pizza</h2>
+                                <p class="text-gray-500 font-medium text-sm sm:text-base">Laid-back, Downtown Staple</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="pizza slice">🍕</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Toni's Detroit Style Pizza</h2>
+                                <p class="text-gray-500 font-medium text-sm sm:text-base">Thick, Cheesy, Crispy Edges</p>
+                            </div>
+                        </div>
+
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="pizza slice">🍕</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Park Pizza Co</h2>
+                                <p class="text-gray-500 font-medium text-sm sm:text-base">Park Circle Neighborhood Spot</p>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <a href="/vote.html" class="block text-center w-full mt-8 bg-brand-orange text-white font-bold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-300 shadow-md">
-                    Vote Now
-                </a>
+
+                <div class="bg-orange-50 p-6 sm:p-8 text-center border-t border-brand-orange/10">
+                    <p class="text-brand-dark font-medium mb-4 text-lg">Have a different favorite?</p>
+                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-4 px-10 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95">
+                        Vote for Best Pizza
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </a>
+                </div>
             </div>
+
+            <p class="text-center text-gray-400 text-xs mt-8"></p>
+
         </div>
     </main>
-    
+
     <footer id="main-footer"></footer>
 </body>
 </html>
