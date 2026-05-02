@@ -13,10 +13,22 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
-/* Define reusable classes for your brand color */
-.brand-orange {
-    color: #E67E22;
-}
+/*
+   Brand color classes used as a fallback by top-level pages that don't
+   yet have an inline Tailwind config (about, vote, suggest-category,
+   ambassadors, thank-you). The 8 ranking pages and index.html resolve
+   these via Tailwind's inline config and don't need this fallback.
+
+   Once those 5 pages are upgraded to include their own inline Tailwind
+   config + font preconnect+link, these rules can be deleted. For now
+   they stay — deleting them visually breaks those 5 pages.
+
+   See _template-analysis.md "Tracked items" for the upgrade follow-up.
+
+   `.brand-orange` (bare class, no Tailwind prefix) was removed — it had
+   only ever been used by the OLD ranking pages' numeric rank columns,
+   which are gone after the canonical port.
+*/
 .bg-brand-orange {
     background-color: #E67E22;
 }

@@ -1,6 +1,58 @@
+<!--
+  CANONICAL TOP-5 RANKING TEMPLATE — Voted On By Locals
+  -----------------------------------------------------
+  This file is the proposed single source of truth for ranking pages.
+  All <!-- REPLACE: ... --> markers are content fields a maintainer fills in.
+  All <!-- KEEP -->-marked sections should remain identical across every
+  ranking page so the chrome stays consistent.
+
+  Conforming pages: best-pizza, best-burger, best-tex-mex, best-coffee-shops,
+  best-casual-spots, best-nice-restaurants, best-new-restaurants.
+
+  NOT for: best-new-coffee-shop (single-winner format — separate template).
+
+  Per-page content fields (see _template-analysis.md §6):
+    - {{slug}}              → file name without extension, e.g. "best-pizza"
+    - {{Category}}          → display name, e.g. "Pizza"
+    - {{Emoji}}             → page theme emoji, e.g. "🍕"
+    - {{EmojiAriaLabel}}    → emoji aria-label, e.g. "pizza slice"
+    - {{Year}}              → ranking year for <title>, e.g. "2026"
+    - {{MonthYear}}         → updated date, e.g. "February 2026"
+    - {{Description}}       → long keyword-rich copy (~150 chars), used by
+                              <meta description> and JSON-LD description
+    - {{ShareTagline}}      → short hook-driven copy (~60–110 chars), used
+                              by og:description and twitter:description only
+    - {{Keywords}}          → comma-separated keyword string
+    - 5 × {{Restaurant}}, {{Tagline}}, {{Cuisine}} (last is for JSON-LD)
+
+  Intentional design decisions — DO NOT "fix" without explicit discussion:
+
+    1. Page-theme emoji is reused for every restaurant row.
+       Each row's icon is the SAME emoji as the page hero ({{Emoji}}). This
+       is the convention. Per-restaurant emoji is intentionally NOT a content
+       field — it would imply a richer per-restaurant content model we have
+       not committed to, and it would visually fragment the list. Do not
+       introduce per-restaurant emoji without an explicit decision to change
+       the convention.
+
+    2. Favicon uses a relative path; OG/Twitter images use absolute URLs.
+       This asymmetry is correct, not a bug. Favicons are loaded in the
+       browser with the document as the base URL, so a relative path
+       resolves fine. OG/Twitter images, by contrast, are fetched out-of-
+       context by social platforms (Facebook, X, iMessage, Slack, LinkedIn,
+       Discord) which have no document base — they REQUIRE absolute URLs.
+       Relative og:image paths silently break previews on every platform.
+
+    3. Vote-count footers are intentionally absent.
+       Earlier pages had hardcoded "Based on N local votes…" copy with
+       fabricated numbers (e.g. 1,769 / 1,420). That has been removed and
+       is not a content field here. When real aggregate vote data exists,
+       add it back as a proper component — not a string placeholder.
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- KEEP: Google Analytics ----------------------------------------- -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -9,16 +61,151 @@
       gtag('config', 'G-HYJ35LGKCS');
     </script>
 
+    <!-- KEEP: Standard meta -------------------------------------------- -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Best Burger in Charleston | Voted On By Locals</title>
+
+    <!-- REPLACE: SEO meta ---------------------------------------------- -->
+    <title>Best Burger in Charleston, SC | Locals Guide (2026)</title>
     <meta name="description" content="See the best burgers in Charleston, SC, from classic taverns to new hotspots, as voted on by the local community.">
+    <meta name="keywords" content="best burger Charleston SC, Charleston burger rankings, best burgers Charleston, smash burgers Charleston, local favorites Charleston">
+
+    <!-- REPLACE: Canonical URL ----------------------------------------- -->
+    <link rel="canonical" href="https://votedonbylocals.com/rankings/best-burger.html">
+
+    <!-- REPLACE: Open Graph -------------------------------------------- -->
+    <meta property="og:title" content="Best Burger in Charleston | Voted On By Locals">
+    <meta property="og:description" content="Charleston's best burgers — from dive-bar legends to instant classics.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://votedonbylocals.com/rankings/best-burger.html">
+    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-best-burger.png">
+    <meta property="og:site_name" content="Voted On By Locals">
+
+    <!-- REPLACE: Twitter card ------------------------------------------ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Best Burger in Charleston | Voted On By Locals">
+    <meta name="twitter:description" content="Charleston's best burgers — from dive-bar legends to instant classics.">
+    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-best-burger.png">
+
+    <!--
+      REPLACE: JSON-LD structured data.
+
+      aggregateRating is INTENTIONALLY ABSENT from this schema.
+
+      We do not yet have real vote-aggregation data. Adding a fabricated
+      ratingValue + ratingCount (or one derived from the old hardcoded
+      "1,769 votes" copy) would be a structured-data lie that Google can
+      penalize as deceptive markup.
+
+      When real aggregate data exists, add an "aggregateRating" object
+      to each Restaurant item below using actual ratingValue (1–5 scale)
+      and ratingCount (integer). Optionally also add an aggregateRating
+      to the ItemList itself. Schema reference:
+      https://schema.org/aggregateRating
+
+      JSON does not support comments — do NOT add // or /* */ inside the
+      <script> body. Any guidance lives in this HTML comment, outside it.
+
+      The "@type" of each item below is per-page configurable. The default
+      is "Restaurant", which works for most pages. Override on a per-page
+      basis when a more specific subclass of FoodEstablishment applies:
+        - best-coffee-shops    → "CafeOrCoffeeShop"
+        - (future bar page)    → "BarOrPub"
+        - (future club page)   → "NightClub"
+        - (future bakery page) → "Bakery"
+      All these subclass "FoodEstablishment" and pass Google validation.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Best Burger in Charleston, SC",
+      "description": "See the best burgers in Charleston, SC, from classic taverns to new hotspots, as voted on by the local community.",
+      "url": "https://votedonbylocals.com/rankings/best-burger.html",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Heavy's Barburger",
+            "servesCuisine": "Burgers",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Moe's Crosstown Tavern",
+            "servesCuisine": "Burgers",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Lowland",
+            "servesCuisine": "Burgers",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Home Team BBQ",
+            "servesCuisine": "Barbecue",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 5,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Smash City Burgers",
+            "servesCuisine": "Burgers",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- KEEP: Favicon -------------------------------------------------- -->
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
-    
+
+    <!-- KEEP: Fonts ---------------------------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- KEEP: Tailwind + brand config ---------------------------------- -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -40,7 +227,8 @@
             }
         }
     </script>
-    
+
+    <!-- KEEP: Site styles + JS ----------------------------------------- -->
     <link rel="stylesheet" href="../assets/css/style.css">
     <script src="../assets/js/main.js" defer></script>
 </head>
@@ -50,77 +238,111 @@
 
     <main class="flex-grow">
         <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            
-            <div class="text-center mb-12">
-                <a href="/" class="inline-flex items-center text-brand-orange font-bold hover:underline mb-6 transition-transform hover:-translate-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+
+            <!-- HERO ------------------------------------------------------ -->
+            <div class="text-center mb-10">
+                <a href="/" class="inline-flex items-center justify-center py-2 px-4 mb-6 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
                     Back to All Rankings
                 </a>
+
+                <!-- REPLACE: hero h1 (Category + Emoji) -->
                 <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight">
                     Best <span class="text-brand-orange">Burger</span> 🍔
                 </h1>
-                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals • Updated January 2026</p>
+
+                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals</p>
+
+                <!-- REPLACE: Updated [Month Year] pill -->
+                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-2 shadow-sm">
+                    Updated May 2026
+                </div>
             </div>
 
+            <!-- LIST CARD ------------------------------------------------- -->
             <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
                 <div class="h-2 w-full bg-brand-orange"></div>
 
                 <div class="p-2 sm:p-4">
                     <div class="divide-y divide-gray-100">
-                        
-                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
-                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+
+                        <!--
+                          REPEATING ROW — duplicate ×5, replacing {{Restaurant#}}/{{Tagline#}}.
+                          The emoji at the start of each row is the page theme emoji ({{Emoji}}),
+                          re-used so it visually anchors the list.
+                        -->
+
+                        <!-- REPLACE: row 1 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="hamburger">🍔</span>
+                            </div>
                             <div class="flex-1">
-                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Heavy's Barburger</h3>
-                                <p class="text-brand-gray font-medium">Instant Classic, Griddle Smashed</p>
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Heavy's Barburger</h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Instant Classic, Griddle Smashed</p>
                             </div>
                         </div>
 
-                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
-                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                        <!-- REPLACE: row 2 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="hamburger">🍔</span>
+                            </div>
                             <div class="flex-1">
-                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Moe's Crosstown Tavern</h3>
-                                <p class="text-gray-500 font-medium">Legendary Dive Bar Burger</p>
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Moe's Crosstown Tavern</h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Legendary Dive Bar Burger</p>
                             </div>
                         </div>
 
-                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
-                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                        <!-- REPLACE: row 3 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="hamburger">🍔</span>
+                            </div>
                             <div class="flex-1">
-                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Lowland</h3>
-                                <p class="text-gray-500 font-medium">Gourmet, Hand-cut Fries</p>
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Lowland</h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Gourmet, Hand-cut Fries</p>
                             </div>
                         </div>
 
-                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
-                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                        <!-- REPLACE: row 4 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="hamburger">🍔</span>
+                            </div>
                             <div class="flex-1">
-                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Home Team BBQ</h3>
-                                <p class="text-gray-500 font-medium">Smoky, Underrated Gem</p>
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Home Team BBQ</h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Smoky, Underrated Gem</p>
                             </div>
                         </div>
 
-                        <div class="group p-5 sm:p-6 hover:bg-orange-50/30 transition-colors rounded-xl flex items-center gap-5">
-                            <div class="h-3 w-3 rounded-full bg-brand-orange/40 flex-shrink-0 mt-1"></div>
+                        <!-- REPLACE: row 5 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="hamburger">🍔</span>
+                            </div>
                             <div class="flex-1">
-                                <h3 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1">Smash City Burgers</h3>
-                                <p class="text-gray-500 font-medium">Brick & Mortar, Crispy Edges</p>
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug">Smash City Burgers</h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Brick & Mortar, Crispy Edges</p>
                             </div>
                         </div>
 
                     </div>
                 </div>
 
+                <!-- BOTTOM CTA --------------------------------------------- -->
                 <div class="bg-orange-50 p-6 sm:p-8 text-center border-t border-brand-orange/10">
-                    <p class="text-brand-dark font-medium mb-4">Disagree with this list? Cast your vote!</p>
-                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-3 px-8 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                        Vote Now
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    <p class="text-brand-dark font-medium mb-4 text-lg">Disagree with this list? Cast your vote!</p>
+                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-4 px-10 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95">
+                        Vote for Best Burger
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
                     </a>
                 </div>
             </div>
-
-            <p class="text-center text-gray-400 text-xs mt-8">Based on 1,769 local votes collected in 2025.</p>
 
         </div>
     </main>
