@@ -53,7 +53,7 @@ Update the ranking pages' JSON-LD `ItemList` so each item's `url` field points t
 
 Replace `<script src="https://cdn.tailwindcss.com">` (~3MB JS, JIT-compiles in browser, real Core Web Vitals concern, causes FOUC) with a precompiled CSS file. Probably means introducing a tiny build step (Tailwind CLI, single command) or using a hosted built CSS. The inline `tailwind.config` blocks in each page's `<head>` get consolidated into a single source.
 
-**Why fourth:** This is a performance/infrastructure change that touches every page in the site. Doing it before step 2 means re-doing the migration after step 2 adds detail pages. Doing it after detail pages means the page set is stable. Also a prerequisite — partial — is the 5-top-level-pages chrome upgrade tracked workstream, since those pages would also need to be on the Tailwind path (currently they aren't).
+**Why fourth:** This is a performance/infrastructure change that touches every page in the site. Doing it before step 2 means re-doing the migration after step 2 adds detail pages. Doing it after detail pages means the page set is stable. **Prerequisite:** the 5-top-level-pages chrome upgrade tracked workstream (see `_strategy/TRACKED.md`). Step 4 cannot start until that workstream completes — those pages need to be on the Tailwind path so the build covers them uniformly.
 
 ---
 
@@ -76,7 +76,6 @@ Currently absent. `sitemap.xml` enumerates all crawlable URLs for search engines
 ### Step 7: Final polish — ⏳ not started
 
 Catch-all for cross-cutting items that surface during the migration but don't fit any single step. Expected contents:
-- 5-top-level-pages chrome upgrade (or earlier — could move up to step 4 prerequisite)
 - Replace client-side `fetch()` of `header.html`/`footer.html` with build-time inlining (currently `assets/js/main.js` injects header/footer at runtime — small FOUC risk, no nav for JS-disabled clients)
 - Performance audit (Lighthouse, Core Web Vitals)
 - Accessibility audit

@@ -44,10 +44,12 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Why it's tracked, not done now:** Doing the upgrade is mechanically simple but touches 5 pages and changes how visual styles cascade. Wanted the ranking-page migration to land cleanly first.
 
+**Status:** Explicit prerequisite for master plan step 4 (kill Tailwind CDN). Step 4 cannot start until this workstream completes.
+
 **Why it matters:**
+- Prerequisite for master plan step 4 (kill Tailwind CDN) — that step needs the build to apply uniformly across all pages, not just rankings
 - Prerequisite for completing `style.css` pruning (5 of 6 deletions are blocked on this; see also `_strategy/DECISIONS.md` #11)
 - Prerequisite for site-wide visual consistency
-- Prerequisite for the future "kill Tailwind CDN" workstream (master plan step 4) — that step needs to apply uniformly across all pages, not just rankings
 
 **Estimated scope:** Each page needs ~20 lines added to `<head>` (inline Tailwind config, font preconnect, fonts link) and ~5 classes added to `<body>`. No body content changes required.
 
