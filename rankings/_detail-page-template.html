@@ -1,0 +1,453 @@
+<!--
+  CANONICAL DETAIL PAGE TEMPLATE — Voted On By Locals
+  ----------------------------------------------------
+  Source of truth for per-restaurant detail pages. Each ranked restaurant
+  gets its own page following this template.
+
+  Conforming pages (after pilot): /restaurants/*.html (~37 total)
+  Pilot scope: best-pizza's 5 restaurants (per _detail-page-design.md Q7)
+
+  Asset path note: detail pages live at /restaurants/, this template
+  lives at /rankings/. Both are one directory deep, so ../assets/...
+  resolves correctly from either location.
+
+  ──────────────────────────────────────────────────────────────────
+  Per-restaurant content fields (see _detail-page-design.md §Q5):
+
+  REQUIRED — page does not ship without these:
+    {{slug}}              file name without extension, e.g. "d-allesandros"
+    {{RestaurantName}}    display name, e.g. "D'Allesandro's"
+    {{Tagline}}           carried verbatim from the ranking page
+    {{Cuisine}}           primary cuisine, e.g. "Pizza"
+    {{Neighborhood}}      e.g. "Cannonborough", "Park Circle", "Folly Beach"
+    {{StreetAddress}}     "166 Spring St"
+    {{AddressLocality}}   "Charleston" (default)
+    {{AddressRegion}}     "SC" (default)
+    {{PostalCode}}        "29403"
+    {{SchemaType}}        "Restaurant" (default), or CafeOrCoffeeShop /
+                          BarOrPub / Bakery / NightClub per most-specific
+                          applicable subclass of FoodEstablishment
+    {{MonthYear}}         "May 2026" — used by "Updated [Month Year]" pill
+    {{Description}}       ~150 chars, used by <meta description> + JSON-LD
+    {{ShareTagline}}      ~60–110 chars, used by og:description +
+                          twitter:description only
+    {{Keywords}}          comma-separated keyword string
+
+  REQUIRED, REPEATING — at least 1 entry, no upper bound:
+    {{AppearsOn}} entries — for each ranking this restaurant appears on,
+    one entry of {RankingURL, RankingTitle}. See "APPEARS ON" section below
+    for the repeating block to duplicate.
+
+  OPTIONAL — uncomment the relevant block AND fill, or leave commented out.
+  DO NOT ship with placeholder values: empty-and-honest > filled-and-fabricated.
+    {{Phone}}             telephone, format: "+1-843-555-1234"
+    {{Hours}}             schema.org openingHours, e.g. "Mo-Fr 11:00-21:00"
+    {{HoursHumanReadable}} for visible sidebar, e.g. "Mon–Fri: 11am–9pm"
+    {{PriceRange}}        "$" through "$$$$"
+    {{WebsiteURL}}        restaurant's own website
+    {{GeoLat}}            latitude (number, not string)
+    {{GeoLng}}            longitude (number, not string)
+    {{ImageURL}}          restaurant photo (absolute URL)
+    {{EditorialBody}}     multi-paragraph editorial copy (the "flesh" stage)
+
+  ──────────────────────────────────────────────────────────────────
+  Intentional design decisions — DO NOT "fix" without explicit discussion.
+  Anchor: _strategy/DECISIONS.md #13.
+
+    1. Stub-then-flesh editorial scope.
+       Pages may ship with empty {{EditorialBody}} as long as the minimum
+       stub is present (name, tagline, address, cuisine + neighborhood,
+       "Appears on" cross-link). DO NOT auto-generate body copy from
+       existing fields — this would violate the anti-fabrication wedge
+       documented in _strategy/CONTEXT.md.
+
+    2. Optional fields ship empty-or-omitted, NOT with placeholder values.
+       If we don't have hours, we omit openingHours from the JSON-LD AND
+       remove the visible Hours block from the sidebar. We do not write
+       "Call ahead", "Hours vary", or any approximation. Same rule for
+       phone, website, photo, geo. The structural HTML for optional
+       sections is commented out so it can't be accidentally shipped
+       with unfilled placeholders.
+
+    3. Slug is stable through restaurant rebrands.
+       When a restaurant rebrands or changes hands, the slug stays the
+       same. The new name goes in {{RestaurantName}}; the old slug
+       remains the URL. Reason: badges placed on restaurant websites
+       and storefront stickers continue to work without coordinating
+       a redirect cascade.
+
+    4. SchemaType is per-page configurable.
+       Mirrors the per-page override pattern from DECISIONS #5. Default
+       is "Restaurant"; override to the most-specific applicable
+       subclass of FoodEstablishment when accurate.
+
+    5. Future-proof slots are commented-out, not absent.
+       Badge image and "claim this listing" CTA slots are present in
+       the template as HTML comments. They light up when those
+       workstreams activate (badge artifact + claim flow per the
+       flywheel hypothesis in _strategy/CONTEXT.md). Leave them in
+       place and commented-out until then.
+
+    6. JSON-LD has no inline comments inside the <script> body.
+       JSON does not support // or /* */. Guidance for adding optional
+       fields lives in the HTML comment immediately above the script
+       block (with copy-paste-ready snippets), not inside it. Same
+       convention as the rankings canonical.
+
+    7. aggregateRating is intentionally absent.
+       Per DECISIONS #9, no fabricated rating data. Wire it in when the
+       vote-aggregation pipeline exists (currently strategically
+       deferred per _strategy/CONTEXT.md "Things deferred but important").
+
+    8. Cross-links go in HTML, not in JSON-LD.
+       The "Appears on" section creates user-facing navigation between
+       detail pages and ranking pages. It does NOT need a schema.org
+       representation — the rankings cross-link to detail pages via
+       the ItemList item.url field (master plan step 3), which is
+       sufficient for entity resolution. Adding mentions/about/etc.
+       schema for cross-links would be over-engineering.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- KEEP: Google Analytics ----------------------------------------- -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HYJ35LGKCS');
+    </script>
+
+    <!-- KEEP: Standard meta -------------------------------------------- -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- REPLACE: SEO meta ---------------------------------------------- -->
+    <title>{{RestaurantName}} — {{Cuisine}} in Charleston | Voted On By Locals</title>
+    <meta name="description" content="{{Description}}">
+    <meta name="keywords" content="{{Keywords}}">
+
+    <!-- REPLACE: Canonical URL ----------------------------------------- -->
+    <link rel="canonical" href="https://votedonbylocals.com/restaurants/{{slug}}.html">
+
+    <!-- REPLACE: Open Graph -------------------------------------------- -->
+    <meta property="og:title" content="{{RestaurantName}} — {{Cuisine}} in Charleston">
+    <meta property="og:description" content="{{ShareTagline}}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://votedonbylocals.com/restaurants/{{slug}}.html">
+    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-restaurant-{{slug}}.png">
+    <meta property="og:site_name" content="Voted On By Locals">
+
+    <!-- REPLACE: Twitter card ------------------------------------------ -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{RestaurantName}} — {{Cuisine}} in Charleston">
+    <meta name="twitter:description" content="{{ShareTagline}}">
+    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-restaurant-{{slug}}.png">
+
+    <!--
+      REPLACE: JSON-LD structured data.
+
+      The default schema below contains only REQUIRED fields. Optional
+      fields are added by inserting a comma after "servesCuisine" and
+      pasting one or more of the snippets below, in any order, before
+      the closing brace.
+
+      NEVER ship with a literal {{Placeholder}} in the JSON. If a value
+      can't be filled with real data, REMOVE the entire key/value line
+      (and the comma that joins it to its neighbor).
+
+      ── Optional snippet: telephone ──
+        ,"telephone": "{{Phone}}"
+
+      ── Optional snippet: openingHours ──
+        ,"openingHours": "{{Hours}}"
+      (schema.org format: "Mo-Fr 11:00-21:00", or array of strings for
+      multiple ranges. NOT human-readable copy — that goes in the
+      visible sidebar block.)
+
+      ── Optional snippet: priceRange ──
+        ,"priceRange": "{{PriceRange}}"
+
+      ── Optional snippet: restaurant's own website ──
+        ,"sameAs": "{{WebsiteURL}}"
+      (Use sameAs, not url — the top-level "url" is reserved for the
+      Voted On By Locals detail page itself, per schema convention.)
+
+      ── Optional snippet: geo coordinates ──
+        ,"geo": {
+          "@type": "GeoCoordinates",
+          "latitude": {{GeoLat}},
+          "longitude": {{GeoLng}}
+        }
+      (lat/lng are JSON numbers, not strings — no quotes around them.)
+
+      ── Optional snippet: photo ──
+        ,"image": "{{ImageURL}}"
+
+      ── Per-page overrides ──
+      The "@type" defaults to "Restaurant". Override to the most-specific
+      applicable subclass of FoodEstablishment per DECISIONS #5:
+        - coffee shop  → "CafeOrCoffeeShop"
+        - bar          → "BarOrPub"
+        - bakery       → "Bakery"
+        - night club   → "NightClub"
+      All subclass FoodEstablishment and pass Google's structured-data
+      validator.
+
+      ── aggregateRating ──
+      Intentionally absent per DECISIONS #9. Add when real vote-aggregation
+      data exists; do NOT add fabricated values.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "{{SchemaType}}",
+      "name": "{{RestaurantName}}",
+      "description": "{{Description}}",
+      "url": "https://votedonbylocals.com/restaurants/{{slug}}.html",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{StreetAddress}}",
+        "addressLocality": "{{AddressLocality}}",
+        "addressRegion": "{{AddressRegion}}",
+        "postalCode": "{{PostalCode}}",
+        "addressCountry": "US"
+      },
+      "servesCuisine": "{{Cuisine}}"
+    }
+    </script>
+
+    <!-- KEEP: Favicon -------------------------------------------------- -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+
+    <!-- KEEP: Fonts ---------------------------------------------------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- KEEP: Tailwind + brand config ---------------------------------- -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#E67E22',
+                            cream: '#FFF8F0',
+                            dark: '#2D3748',
+                            gray: '#4A4A4A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- KEEP: Site styles + JS ----------------------------------------- -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/main.js" defer></script>
+</head>
+<body class="antialiased bg-brand-cream text-brand-dark min-h-screen flex flex-col">
+
+    <header id="main-header"></header>
+
+    <main class="flex-grow">
+        <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+            <!-- BACK LINK ------------------------------------------------- -->
+            <div class="mb-6">
+                <a href="/" class="inline-flex items-center justify-center py-2 px-4 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to All Rankings
+                </a>
+            </div>
+
+            <!-- HERO ------------------------------------------------------ -->
+            <div class="text-center mb-10">
+
+                <!--
+                  FUTURE-PROOF SLOT: badge image (per DECISIONS #13.5).
+                  Lights up when the badge artifact workstream activates.
+                  Until then, leave commented out.
+
+                  <div class="flex justify-center mb-4">
+                      <img src="https://votedonbylocals.com/assets/images/badge-{{slug}}.png"
+                           alt="Voted on by Charleston locals"
+                           class="h-24 w-auto">
+                  </div>
+                -->
+
+                <!-- REPLACE: hero h1 -->
+                <h1 class="text-4xl sm:text-5xl font-extrabold font-poppins text-brand-dark leading-tight">
+                    {{RestaurantName}}
+                </h1>
+
+                <!-- REPLACE: cuisine + neighborhood subtitle -->
+                <p class="text-brand-gray mt-4 text-lg font-medium">
+                    {{Cuisine}} · {{Neighborhood}}
+                </p>
+
+                <!-- REPLACE: tagline (carried verbatim from ranking page) -->
+                <p class="text-brand-dark mt-3 text-base sm:text-lg italic">
+                    "{{Tagline}}"
+                </p>
+
+                <!-- REPLACE: Updated [Month Year] pill -->
+                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-4 shadow-sm">
+                    Updated {{MonthYear}}
+                </div>
+            </div>
+
+            <!-- MAIN CONTENT CARD ----------------------------------------- -->
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative mb-8">
+                <div class="h-2 w-full bg-brand-orange"></div>
+
+                <div class="p-6 sm:p-8">
+
+                    <!--
+                      EDITORIAL BODY (the "flesh" stage of stub-then-flesh).
+
+                      For minimum-stub pages: leave this section commented
+                      out entirely. The page is still a real page —
+                      structured data, address, cross-links, and the
+                      tagline above all remain.
+
+                      For fleshed pages: uncomment and replace with
+                      multi-paragraph editorial copy. Use <p> tags between
+                      paragraphs. Pull quotes use <blockquote> with the
+                      class shown.
+
+                      <div class="prose prose-lg max-w-none">
+                          <p class="text-brand-dark text-base sm:text-lg leading-relaxed mb-4">
+                              {{EditorialBody paragraph 1}}
+                          </p>
+                          <p class="text-brand-dark text-base sm:text-lg leading-relaxed mb-4">
+                              {{EditorialBody paragraph 2}}
+                          </p>
+
+                          <blockquote class="border-l-4 border-brand-orange pl-4 italic text-brand-gray my-6">
+                              {{Pull quote}}
+                          </blockquote>
+                      </div>
+                    -->
+
+                    <!-- INFO SIDEBAR (address always present; other fields conditional) -->
+                    <div class="border-t border-gray-100 pt-6">
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
+
+                        <!-- REPLACE: address (always required) -->
+                        <div class="mb-4">
+                            <p class="text-brand-dark font-medium">{{StreetAddress}}</p>
+                            <p class="text-brand-gray text-sm">{{AddressLocality}}, {{AddressRegion}} {{PostalCode}}</p>
+                        </div>
+
+                        <!--
+                          OPTIONAL: hours block. Uncomment AND fill.
+                          Use {{HoursHumanReadable}} for the visible copy
+                          (e.g., "Mon–Fri: 11am–9pm"), NOT the schema.org
+                          machine format.
+
+                          <div class="mb-4">
+                              <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
+                              <p class="text-brand-dark text-sm whitespace-pre-line">{{HoursHumanReadable}}</p>
+                          </div>
+                        -->
+
+                        <!--
+                          OPTIONAL: phone block. Uncomment AND fill.
+
+                          <div class="mb-4">
+                              <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
+                              <p class="text-brand-dark text-sm">
+                                  <a href="tel:{{Phone}}" class="hover:text-brand-orange transition-colors">{{Phone}}</a>
+                              </p>
+                          </div>
+                        -->
+
+                        <!--
+                          OPTIONAL: website block. Uncomment AND fill.
+
+                          <div class="mb-4">
+                              <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Website</p>
+                              <p class="text-brand-dark text-sm break-all">
+                                  <a href="{{WebsiteURL}}" rel="noopener" target="_blank" class="text-brand-orange hover:underline">{{WebsiteURL}}</a>
+                              </p>
+                          </div>
+                        -->
+
+                        <!--
+                          OPTIONAL: price range block. Uncomment AND fill.
+
+                          <div class="mb-4">
+                              <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Price</p>
+                              <p class="text-brand-dark text-sm">{{PriceRange}}</p>
+                          </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
+            <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">
+                <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Appears on</h2>
+                <ul class="space-y-2">
+                    <!--
+                      REPEATING ROW — one <li> per ranking this restaurant
+                      appears on. At least one entry required (the primary
+                      ranking that brought us here); duplicate this <li>
+                      block for additional rankings.
+                    -->
+                    <li>
+                        <a href="{{AppearsOn1.RankingURL}}" class="inline-flex items-center text-brand-orange hover:underline font-medium">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                            </svg>
+                            {{AppearsOn1.RankingTitle}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!--
+              FUTURE-PROOF SLOT: claim CTA (per DECISIONS #13.5).
+              Lights up when the claim flow workstream activates
+              (monetization path B, see _strategy/CONTEXT.md).
+              Until then, leave commented out.
+
+              <div class="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 mb-8 text-center">
+                  <h2 class="font-poppins font-bold text-lg text-brand-dark mb-2">Own this restaurant?</h2>
+                  <p class="text-brand-gray text-sm mb-4">Claim your listing to upload a photo, edit your tagline, and receive your verified badge + sticker.</p>
+                  <a href="/claim/{{slug}}" class="inline-flex items-center justify-center bg-brand-orange text-white font-poppins font-bold py-3 px-6 rounded-full hover:bg-orange-600 transition-all shadow-sm hover:shadow-md">
+                      Claim this listing
+                  </a>
+              </div>
+            -->
+
+            <!-- BOTTOM CTA ------------------------------------------------ -->
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden">
+                <div class="h-2 w-full bg-brand-orange"></div>
+                <div class="p-6 sm:p-8 text-center">
+                    <p class="text-brand-dark font-medium mb-4 text-lg">Got a Charleston favorite worth shouting about?</p>
+                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-4 px-10 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95">
+                        Cast Your Vote
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer id="main-footer"></footer>
+</body>
+</html>
