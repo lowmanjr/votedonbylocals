@@ -1,0 +1,181 @@
+{
+  "_meta": {
+    "schemaVersion": "1.0",
+    "lastUpdated": "2026-05-02",
+    "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
+    "designAnchor": "_strategy/DECISIONS.md #13",
+    "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
+  },
+  "restaurants": [
+    {
+      "slug": "tutti-pizza",
+      "name": "Tutti Pizza",
+      "tagline": "Authentic Neapolitan",
+      "cuisine": "Neapolitan Pizza",
+      "neighborhood": null,
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": null,
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": null,
+        "addressCountry": "US"
+      },
+      "description": "Tutti Pizza serves authentic Neapolitan-style pies in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
+      "shareTagline": "Authentic Neapolitan, voted best pizza by Charleston locals.",
+      "keywords": "Tutti Pizza Charleston, Neapolitan pizza Charleston SC, best pizza Charleston, authentic Italian pizza",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-pizza.html",
+          "title": "Best Pizza in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": null,
+      "priceRange": null,
+      "websiteURL": null,
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null
+    },
+    {
+      "slug": "dough-boyz",
+      "name": "Dough Boyz",
+      "tagline": "Mobile Wood-Fired Kitchen",
+      "cuisine": "Wood-Fired Pizza",
+      "neighborhood": null,
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": null,
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": null,
+        "addressCountry": "US"
+      },
+      "description": "Dough Boyz serves wood-fired pizza from a mobile kitchen in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
+      "shareTagline": "Mobile wood-fired pizza, voted best by Charleston locals.",
+      "keywords": "Dough Boyz Charleston, wood-fired pizza Charleston SC, mobile pizza Charleston, best pizza Charleston",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-pizza.html",
+          "title": "Best Pizza in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": null,
+      "priceRange": null,
+      "websiteURL": null,
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null
+    },
+    {
+      "slug": "dallesandros-pizza",
+      "name": "D'Allesandro's Pizza",
+      "tagline": "Laid-back, Downtown Staple",
+      "cuisine": "Pizza",
+      "neighborhood": null,
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": null,
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": null,
+        "addressCountry": "US"
+      },
+      "description": "D'Allesandro's Pizza is a laid-back downtown Charleston, SC staple. Voted by Charleston locals as one of the city's best pizza spots.",
+      "shareTagline": "The laid-back downtown pizza staple, voted best by Charleston locals.",
+      "keywords": "D'Allesandro's Pizza Charleston, downtown Charleston pizza, best pizza Charleston SC, Charleston pizza by the slice",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-pizza.html",
+          "title": "Best Pizza in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": null,
+      "priceRange": null,
+      "websiteURL": null,
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null
+    },
+    {
+      "slug": "tonis-detroit-style-pizza",
+      "name": "Toni's Detroit Style Pizza",
+      "tagline": "Thick, Cheesy, Crispy Edges",
+      "cuisine": "Detroit Style Pizza",
+      "neighborhood": null,
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": null,
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": null,
+        "addressCountry": "US"
+      },
+      "description": "Toni's Detroit Style Pizza serves thick, cheesy pies with crispy edges in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
+      "shareTagline": "Thick, cheesy, crispy edges — Detroit-style pizza voted best by Charleston locals.",
+      "keywords": "Toni's Detroit Style Pizza Charleston, Detroit pizza Charleston SC, deep-dish pizza Charleston, best pizza Charleston",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-pizza.html",
+          "title": "Best Pizza in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": null,
+      "priceRange": null,
+      "websiteURL": null,
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null
+    },
+    {
+      "slug": "park-pizza-co",
+      "name": "Park Pizza Co",
+      "tagline": "Park Circle Neighborhood Spot",
+      "cuisine": "Pizza",
+      "neighborhood": "Park Circle",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": null,
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": null,
+        "addressCountry": "US"
+      },
+      "description": "Park Pizza Co is a neighborhood pizza spot in Park Circle, Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
+      "shareTagline": "The Park Circle neighborhood pizza spot, voted best by Charleston locals.",
+      "keywords": "Park Pizza Co Charleston, Park Circle pizza, North Charleston pizza, best pizza Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-pizza.html",
+          "title": "Best Pizza in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": null,
+      "priceRange": null,
+      "websiteURL": null,
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null
+    }
+  ]
+}
