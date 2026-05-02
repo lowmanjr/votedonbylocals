@@ -159,3 +159,34 @@ The point of this log is to prevent the next session (or a future contributor) f
 - **Top-4 vs Top-5 for `best-new-restaurants` (#4 above):** Without the analysis pass, would have padded with a fabricated 5th entry from training data — the exact failure mode this site is positioned against.
 
 The cost of writing an analysis (one document, 5–15 minutes of model time) is much less than the cost of one "we shipped a bug, now reverting" cycle. The pattern is now a workflow norm — see `_strategy/HANDOFF.md` and `_strategy/WORKFLOW.md` for how it carries forward to the next session.
+
+---
+
+## 13. Detail-page design decisions (Step 2 of master plan)
+
+**What was decided:** Eight design choices for the per-restaurant detail pages introduced in step 2 of the master plan. Captured here as a single entry rather than eight separate ones because the choices form a self-consistent system — they were proposed and approved together, and several are paired (Q5/Q8, Q1/Q6).
+
+The full analysis lives at `rankings/_detail-page-design.md`. The decisions:
+
+1. **URL pattern:** `/restaurants/{slug}.html`. Mirrors the existing `/rankings/{slug}.html` convention. Compatible with both plausible multi-city architectures (subdomain → zero retrofit; path-prefix → mechanical bulk migration).
+
+2. **Template approach:** Hybrid — extend `best-new-coffee-shop`'s body shape and chrome, replace single-winner-specific elements (the "Suggest a different winner" CTA reads wrong on a detail page), add detail-page-specific modules (rankings cross-link section, future-proof slots for badge + claim CTA).
+
+3. **Schema type:** Per-restaurant most-specific applicable @type, defaulting to `Restaurant`. Extends the per-page-configurable pattern from #5 above. Field policy split into required (won't ship without), strongly-recommended-where-data-exists, and out-of-scope-pending-other-workstreams (the latter excludes `aggregateRating` per #9 and `acceptsReservations` to avoid implying monetization path C).
+
+4. **Editorial scope:** Stub-then-flesh. Pages ship with a defined minimum stub (name, hero tagline, real address, cuisine + neighborhood sentence, "Appears on" cross-link, optional structured data where available). Body editorial is added later, one tight commit per restaurant. Fabrication and auto-generation explicitly rejected as violations of the brand wedge documented in `_strategy/CONTEXT.md`.
+
+5. **Content fields:** Drafted set in the analysis file. Roughly doubles canonical's count. Future-proof slots for badge image (flywheel) and claim CTA (monetization path B) declared in template but empty until adjacent workstreams activate.
+
+6. **Badge anchor + slug stability:** URL pattern from #1 confirmed badge-friendly. Slugs are stable through rebrands — a renamed restaurant keeps its original slug, with the new name in the page title. Rationale: badges placed on restaurant websites and storefront stickers keep working without coordinating a redirect cascade.
+
+7. **First deliverable scope:** Pilot with `best-pizza`'s 5 detail pages, then bulk-port the rest. Mirrors the proven step-1 pattern (build canonical → port via 1 page → bulk-port). Catches template/schema/data-collection issues on 5 pages instead of 37.
+
+8. **Per-restaurant data store:** Single JSON file at `data/restaurants.json` rather than inline-per-page. Compatible with both forks per `_strategy/CONTEXT.md` line 149; inline forecloses Fork B affordances (vote aggregation, claim flow, multi-city). Read-time strategy: build-step substitution, paired with master plan step 4 (kill Tailwind CDN) which introduces a build step anyway.
+
+**Convergent side effects** (noted explicitly so they're not surprises later):
+- The `best-new-coffee-shop` per-page meta workstream (currently in `_strategy/TRACKED.md`) resolves as a natural side effect of #2 + #3 — the same schema profile applies. Move that workstream into the step-2 execution scope.
+- The `data/restaurants.json` store is also infrastructure for vote aggregation, claim flow, and multi-city — currently all deferred. Step 2 builds the foundation ahead of need.
+- The build step master plan step 4 requires gets pre-justified by step 2's data store — no longer a step-4-specific concern.
+
+**Alternatives considered for each decision:** documented in detail in `rankings/_detail-page-design.md`. Most notable rejections: auto-generated editorial body (#4, brand-wedge violation), inline per-restaurant data (#8, forecloses Fork B), all-37-at-once big-bang ship (#7, risk concentration), URL pattern with city prefix today (#1, prematurely commits to one of two equally-likely multi-city architectures).
