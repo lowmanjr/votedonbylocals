@@ -522,15 +522,13 @@ def step_11_transform_inline_replace_comments(text):
 def step_12_substitute_remaining_placeholders(text, restaurant):
     """Replace all simple `{{Placeholder}}` occurrences in the visible HTML
     with values from the restaurant data. Also handles the AppearsOn
-    placeholders (single-entry only — multi-entry support is a future
-    enhancement).
+    placeholders (one or more entries; the template's single-entry <li> is
+    cloned per entry).
     """
-    # AppearsOn entries (single-entry support for now)
+    # AppearsOn entries (one or more)
     appears_on = restaurant.get('appearsOn', [])
     if appears_on:
-        first = appears_on[0]
-        text = text.replace('{{AppearsOn1.RankingURL}}', first['url'])
-        text = text.replace('{{AppearsOn1.RankingTitle}}', first['title'])
+        text = _render_appears_on_entries(text, appears_on)
 
     # Required scalar fields
     text = text.replace('{{slug}}', restaurant['slug'])
@@ -563,6 +561,29 @@ def step_12_substitute_remaining_placeholders(text, restaurant):
         text = text.replace('{{AreaServed}}', restaurant['areaServed'])
 
     return text
+
+
+def _render_appears_on_entries(text, appears_on):
+    """Clone the template's single-entry <li> block per appearsOn entry.
+    Preserves byte-equality with the prior single-entry implementation when
+    len(appears_on) == 1.
+    """
+    li_pattern = re.compile(
+        r'                    <li>\n                        <a href="\{\{AppearsOn1\.RankingURL\}\}".*?                    </li>',
+        re.DOTALL,
+    )
+    li_template = (
+        '                    <li>\n'
+        '                        <a href="{url}" class="inline-flex items-center text-brand-orange hover:underline font-medium">\n'
+        '                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n'
+        '                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />\n'
+        '                            </svg>\n'
+        '                            {title}\n'
+        '                        </a>\n'
+        '                    </li>'
+    )
+    rendered = '\n'.join(li_template.format(url=e['url'], title=e['title']) for e in appears_on)
+    return li_pattern.sub(rendered, text, count=1)
 
 
 # ---------------------------------------------------------------------------
