@@ -36,25 +36,6 @@ These were authored during the migration with the "if uncertain" rule (use a def
 
 Multi-step efforts. Each has a description, prerequisite, and rough scope estimate.
 
-### Upgrade 5 top-level pages to canonical chrome
-
-**Files:** `about.html`, `vote.html`, `suggest-category.html`, `ambassadors.html`, `thank-you.html`.
-
-**Current state:** These 5 pages are still on the pre-canonical chrome pattern: no inline Tailwind config, no font preconnect+link, body uses bare `antialiased` instead of the full canonical body classes (`antialiased bg-brand-cream text-brand-dark min-h-screen flex flex-col`). They depend on `style.css`'s plain-CSS class duplications (`.bg-brand-orange`, `.border-brand-orange`, `.font-poppins`, the `@import` for Google Fonts, and hardcoded body background/color) to render correctly.
-
-**Why it's tracked, not done now:** Doing the upgrade is mechanically simple but touches 5 pages and changes how visual styles cascade. Wanted the ranking-page migration to land cleanly first.
-
-**Status:** Explicit prerequisite for master plan step 4 (kill Tailwind CDN). Step 4 cannot start until this workstream completes.
-
-**Why it matters:**
-- Prerequisite for master plan step 4 (kill Tailwind CDN) — that step needs the build to apply uniformly across all pages, not just rankings
-- Prerequisite for completing `style.css` pruning (5 of 6 deletions are blocked on this; see also `_strategy/DECISIONS.md` #11)
-- Prerequisite for site-wide visual consistency
-
-**Estimated scope:** Each page needs ~20 lines added to `<head>` (inline Tailwind config, font preconnect, fonts link) and ~5 classes added to `<body>`. No body content changes required.
-
-**Order of operations when ready:** (1) upgrade the 5 pages → (2) verify all 14 routes still render → (3) delete the 5 blocked `style.css` rules (one of which is the body rule's `background-color`/`color` declarations rather than a whole-rule deletion) → (4) verify again. Same dependency-audit-then-execute pattern used in CLEANUP 1.
-
 ### `best-new-coffee-shop.html` per-page meta harmonization
 
 **Current state:** During step 1, the chrome of `best-new-coffee-shop` was harmonized to canonical KEEP blocks (GA, fonts, Tailwind config, body classes, header/footer pattern), but the per-page meta (title, description, OG tags, JSON-LD) was deliberately not touched. The page currently has:
@@ -163,3 +144,5 @@ These are explicitly held until the master plan reaches the right step. They are
 - **2026-05-03 — Step 2 pilot port (best-pizza, 5 of ~37 detail pages).** Pilot ships 5 detail pages at /restaurants/{slug}.html with full chrome, JSON-LD, address/hours/phone/price/website where data exists. Generator script (commit 9c6b3f7) is reusable for the bulk port. Strategic decisions captured in DECISIONS #14. Bulk port for the remaining ~32 pages tracked above as a separate workstream.
 
 - **2026-05-03 — canonical-template boilerplate removed from 7 ranking pages.** Initially scoped as a single-file cleanup on `best-pizza.html`. Pre-flight grep found the boilerplate was actually propagated to all 7 ranking pages during step 1 harmonization, plus an extended page-deviation note on `best-new-restaurants.html`. Resolved per D2: full delete from 6 pages, surgical rewrite preserving the page-specific deviation note on the 7th. Convention-level notes (emoji reuse, vote-count absence, favicon-vs-OG asymmetry) verified durable in DECISIONS #1 / #2 / #10 before delete. See commit 902c584.
+
+- **2026-05-03 — 5 top-level pages chrome upgrade.** about.html, vote.html, suggest-category.html, ambassadors.html, and thank-you.html now share the canonical chrome (inline Tailwind config + font preconnect/stylesheet + canonical body classes). Side effect: focus:border-brand-orange / focus:ring-brand-orange Tailwind variants on form inputs now resolve correctly (were silent no-ops before — variants need brand-orange in Tailwind's config, which only the inline config provides). Sibling commit pruned 2 redundant style.css declarations + 2 redundant rules (DECISIONS #11). .font-poppins retained pending step 4. Unblocks PLAN.md step 4. See commits 689d3d2 (chrome upgrade) and f60c5e5 (style.css prune).
