@@ -49,6 +49,11 @@
     {{GeoLng}}            longitude (number, not string)
     {{ImageURL}}          restaurant photo (absolute URL)
     {{EditorialBody}}     multi-paragraph editorial copy (the "flesh" stage)
+    {{AreaServed}}        for mobile vendors / pop-ups only — descriptive
+                          text replacing the address block (e.g.,
+                          "Greater Charleston (mobile/pop-up)"). When
+                          present, address fields should all be null
+                          and SchemaType should be FoodEstablishment.
 
   ──────────────────────────────────────────────────────────────────
   Intentional design decisions — DO NOT "fix" without explicit discussion.
@@ -106,6 +111,32 @@
        the ItemList item.url field (master plan step 3), which is
        sufficient for entity resolution. Adding mentions/about/etc.
        schema for cross-links would be over-engineering.
+
+    9. Mobile vendor pattern (per DECISIONS #14).
+       For food trucks, pop-ups, and other vendors without a fixed
+       street address: SchemaType is "FoodEstablishment" (not
+       "Restaurant"). All address sub-fields except addressLocality
+       and addressRegion are null. The new {{AreaServed}} field
+       carries descriptive operating-area text. JSON-LD swaps the
+       "address" key for an "areaServed" string. Visible "Where to
+       find it" sidebar block is replaced with an "Area served"
+       block pointing customers to the vendor's social channels for
+       current location/schedule. The address block and the area-served
+       block are both present in the template as commented HTML — fill
+       exactly one per page, never both.
+
+    10. Hours-vary fallback for restaurants with unreliable hours data.
+       When a restaurant's hours can't be sourced reliably (own site
+       broken, third-party sources conflict, etc.), schema.org
+       openingHours stays null — DO NOT fabricate. The visible
+       sidebar can use the canonical fallback copy:
+
+         "Hours vary — see [restaurant-website] or call [phone] for
+          current hours."
+
+       This is honest content that solves the user need (how to find
+       hours) without claiming knowledge we don't have. Per the
+       anti-fabrication wedge in _strategy/CONTEXT.md.
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -166,6 +197,11 @@
       multiple ranges. NOT human-readable copy — that goes in the
       visible sidebar block.)
 
+      If hours can't be sourced reliably, OMIT this field entirely from
+      the JSON-LD. The visible sidebar can still use the hours-vary
+      fallback copy per intentional decision #10. Never put fabricated
+      values in openingHours — Google treats this as deceptive markup.
+
       ── Optional snippet: priceRange ──
         ,"priceRange": "{{PriceRange}}"
 
@@ -185,13 +221,22 @@
       ── Optional snippet: photo ──
         ,"image": "{{ImageURL}}"
 
+      ── Mobile vendor: replace "address" with "areaServed" ──
+      For mobile vendors (SchemaType: "FoodEstablishment"), DELETE the
+      entire "address" object and replace with:
+        ,"areaServed": "{{AreaServed}}"
+      The address block is incompatible with mobile vendors — schema.org
+      requires a fixed PostalAddress. Use areaServed instead.
+
       ── Per-page overrides ──
       The "@type" defaults to "Restaurant". Override to the most-specific
       applicable subclass of FoodEstablishment per DECISIONS #5:
-        - coffee shop  → "CafeOrCoffeeShop"
-        - bar          → "BarOrPub"
-        - bakery       → "Bakery"
-        - night club   → "NightClub"
+        - coffee shop      → "CafeOrCoffeeShop"
+        - bar              → "BarOrPub"
+        - bakery           → "Bakery"
+        - night club       → "NightClub"
+        - mobile vendor    → "FoodEstablishment" (with {{AreaServed}}
+                              instead of address — see Edit 1d below)
       All subclass FoodEstablishment and pass Google's structured-data
       validator.
 
@@ -343,11 +388,26 @@
                     <div class="border-t border-gray-100 pt-6">
                         <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
 
-                        <!-- REPLACE: address (always required) -->
+                        <!-- REPLACE: address (always required for fixed-location restaurants) -->
+                        <!-- For MOBILE VENDORS: comment out this address block AND the
+                             "Where to find it" h2 above; uncomment the AREA SERVED block below.
+                             See intentional decision #9. -->
                         <div class="mb-4">
                             <p class="text-brand-dark font-medium">{{StreetAddress}}</p>
                             <p class="text-brand-gray text-sm">{{AddressLocality}}, {{AddressRegion}} {{PostalCode}}</p>
                         </div>
+
+                        <!--
+                          MOBILE VENDOR ALTERNATIVE: area served (per intentional decision #9).
+                          For mobile vendors / pop-ups, comment out the address div above
+                          AND the "Where to find it" h2, then uncomment this block AND
+                          replace "Where to find it" h2 with "Area served" h2.
+
+                          <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Area served</h2>
+                          <div class="mb-4">
+                              <p class="text-brand-dark font-medium">{{AreaServed}}</p>
+                          </div>
+                        -->
 
                         <!--
                           OPTIONAL: hours block. Uncomment AND fill.
