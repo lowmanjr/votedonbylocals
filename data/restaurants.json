@@ -356,6 +356,815 @@
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null
+    },
+    {
+      "slug": "heavys-barburger",
+      "name": "Heavy's Barburger",
+      "tagline": "Instant Classic, Griddle Smashed",
+      "cuisine": "Burgers",
+      "neighborhood": "NoMo",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1137 Morrison Dr",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Heavy's Barburger is a NoMo griddle-smashed burger spot in Charleston, SC. Voted by Charleston locals as one of the city's best burgers.",
+      "shareTagline": "Instant-classic griddle smashed burgers, voted best by Charleston locals.",
+      "keywords": "Heavy's Barburger Charleston, smash burger Charleston, NoMo burger spot, best burger Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        }
+      ],
+      "phone": "+1-843-212-3302",
+      "hours": "Mo-Su 11:00-22:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://heavysbarburger.com"
+    },
+    {
+      "slug": "moes-crosstown-tavern",
+      "name": "Moe's Crosstown Tavern",
+      "tagline": "Legendary Dive Bar Burger",
+      "cuisine": "American",
+      "neighborhood": "Hampton Park",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "714 Rutledge Ave",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Moe's Crosstown Tavern is a Hampton Park dive bar in Charleston, SC, known for its legendary burger. Voted by Charleston locals as one of the city's best burgers.",
+      "shareTagline": "The legendary dive-bar burger, voted best by Charleston locals.",
+      "keywords": "Moe's Crosstown Tavern Charleston, dive bar burger Charleston, Hampton Park bar, best burger Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        }
+      ],
+      "phone": "+1-843-641-0469",
+      "hours": "Mo-Su 11:00-02:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–2am",
+      "priceRange": "$$",
+      "websiteURL": "https://moescrosstowntavern.com"
+    },
+    {
+      "slug": "lowland",
+      "name": "Lowland",
+      "tagline": "Gourmet, Hand-cut Fries",
+      "cuisine": "American",
+      "neighborhood": "Lower King",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "36 George St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Lowland is a Lower King restaurant in Charleston, SC serving a gourmet burger with hand-cut fries. Voted by Charleston locals as one of the city's best burgers.",
+      "shareTagline": "Gourmet burger and hand-cut fries, voted best by Charleston locals.",
+      "keywords": "Lowland Charleston, gourmet burger Charleston, Lower King restaurant, best burger Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        }
+      ],
+      "phone": "+1-854-895-4137",
+      "hours": "Tu-Sa 17:30-22:00",
+      "hoursHumanReadable": "Tue–Sat: 5:30pm–10pm\nSun–Mon: Closed",
+      "priceRange": "$$$",
+      "websiteURL": "https://lowlandcharleston.com"
+    },
+    {
+      "slug": "home-team-bbq",
+      "name": "Home Team BBQ",
+      "tagline": "BBQ, Wings, Good Times",
+      "cuisine": "Barbecue",
+      "neighborhood": "West Ashley",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1205 Ashley River Rd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29407",
+        "addressCountry": "US"
+      },
+      "description": "Home Team BBQ is a West Ashley barbecue joint in Charleston, SC famous for its smoked meats, wings, and burgers. Voted by Charleston locals as one of the city's best casual spots and best burgers.",
+      "shareTagline": "BBQ, wings, and a great burger — voted best by Charleston locals.",
+      "keywords": "Home Team BBQ Charleston, Charleston barbecue, West Ashley BBQ, Charleston wings, best burger Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        },
+        {
+          "url": "/rankings/best-casual-spots.html",
+          "title": "Best Casual Spots in Charleston"
+        }
+      ],
+      "phone": "+1-843-225-7427",
+      "hours": "Mo-Su 11:00-22:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://hometeambbq.com"
+    },
+    {
+      "slug": "smash-city-burgers",
+      "name": "Smash City Burgers",
+      "tagline": "Brick & Mortar, Crispy Edges",
+      "cuisine": "Burgers",
+      "neighborhood": "Eastside",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "47 Cooper St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Smash City Burgers is an Eastside Charleston, SC burger spot known for its crispy-edged smash burgers. Voted by Charleston locals as one of the city's best burgers.",
+      "shareTagline": "Crispy-edged smash burgers, voted best by Charleston locals.",
+      "keywords": "Smash City Burgers Charleston, smash burger Charleston, Eastside Charleston restaurant, best burger Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        }
+      ],
+      "phone": "+1-843-732-2510",
+      "hours": "Mo-Su 11:00-21:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–9pm",
+      "priceRange": "$",
+      "websiteURL": "https://smashcityburgers.com"
+    },
+    {
+      "slug": "san-miguel-mexican-grill",
+      "name": "San Miguel Mexican Grill",
+      "tagline": "Authentic Flavors, Great Margs",
+      "cuisine": "Tex-Mex",
+      "neighborhood": "Mt Pleasant",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1711 Shoremeade Rd Suite 110",
+        "addressLocality": "Mt Pleasant",
+        "addressRegion": "SC",
+        "postalCode": "29464",
+        "addressCountry": "US"
+      },
+      "description": "San Miguel Mexican Grill is a Mt Pleasant Tex-Mex spot near Charleston, SC known for authentic flavors and great margaritas. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "shareTagline": "Authentic flavors and great margs, voted best Tex-Mex by Charleston locals.",
+      "keywords": "San Miguel Mexican Grill Charleston, Mt Pleasant Tex-Mex, Charleston margaritas, best Tex-Mex Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-tex-mex.html",
+          "title": "Best Tex-Mex in Charleston"
+        }
+      ],
+      "phone": "+1-843-352-2997",
+      "hours": "Mo-Su 11:00-22:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://sanmiguelchs.com"
+    },
+    {
+      "slug": "santis",
+      "name": "Santi's",
+      "tagline": "No-Frills, Big Portions",
+      "cuisine": "Tex-Mex",
+      "neighborhood": "NoMo",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1302 Meeting Street Rd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Santi's is a NoMo Tex-Mex spot in Charleston, SC known for no-frills service and big portions. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "shareTagline": "No-frills, big portions — voted best Tex-Mex by Charleston locals.",
+      "keywords": "Santi's Charleston, NoMo Tex-Mex Charleston, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-tex-mex.html",
+          "title": "Best Tex-Mex in Charleston"
+        }
+      ],
+      "phone": "+1-843-351-1628",
+      "hours": "Mo-Su 11:00-22:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://santisrestaurantemexicanosc.com"
+    },
+    {
+      "slug": "senor-tequilas",
+      "name": "Señor Tequila's",
+      "tagline": "Local Favorite, Lively",
+      "cuisine": "Tex-Mex",
+      "neighborhood": "West Ashley",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1836 Ashley River Rd Ste A",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29407",
+        "addressCountry": "US"
+      },
+      "description": "Señor Tequila's is a West Ashley Tex-Mex restaurant in Charleston, SC, a lively local favorite. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "shareTagline": "Lively West Ashley Tex-Mex, voted best by Charleston locals.",
+      "keywords": "Señor Tequila's Charleston, West Ashley Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-tex-mex.html",
+          "title": "Best Tex-Mex in Charleston"
+        }
+      ],
+      "phone": "+1-843-852-0561",
+      "hours": "Mo-Th 11:00-22:00,Fr-Sa 11:00-23:00,Su 11:00-21:30",
+      "hoursHumanReadable": "Mon–Thu: 11am–10pm\nFri–Sat: 11am–11pm\nSun: 11am–9:30pm",
+      "priceRange": "$",
+      "websiteURL": "https://srtequilacharleston.com"
+    },
+    {
+      "slug": "azul-mexicano",
+      "name": "Azul Mexicano",
+      "tagline": "Modern Aesthetic",
+      "cuisine": "Mexican",
+      "neighborhood": "Park Circle",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1078 E Montague Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Azul Mexicano is a Park Circle Mexican restaurant in North Charleston, SC, known for its modern aesthetic. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "shareTagline": "Modern Mexican in Park Circle, voted best by Charleston locals.",
+      "keywords": "Azul Mexicano Charleston, Park Circle Mexican, North Charleston restaurant, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-tex-mex.html",
+          "title": "Best Tex-Mex in Charleston"
+        }
+      ],
+      "phone": "+1-843-203-3754",
+      "hours": "Mo-We 11:00-21:30,Th 11:00-22:00,Fr-Sa 11:00-22:30,Su 11:00-21:00",
+      "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
+      "priceRange": "$$",
+      "websiteURL": "https://azulmexicanorestaurante.com"
+    },
+    {
+      "slug": "agaves-cantina",
+      "name": "Agaves Cantina",
+      "tagline": "Lively Atmosphere",
+      "cuisine": "Tex-Mex",
+      "neighborhood": "Daniel Island",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "885 Island Park Dr",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29492",
+        "addressCountry": "US"
+      },
+      "description": "Agaves Cantina is a Daniel Island Tex-Mex restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "shareTagline": "Lively Daniel Island Tex-Mex, voted best by Charleston locals.",
+      "keywords": "Agaves Cantina Charleston, Daniel Island Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-tex-mex.html",
+          "title": "Best Tex-Mex in Charleston"
+        }
+      ],
+      "phone": "+1-843-971-6790",
+      "hours": "Mo-Su 11:00-22:00",
+      "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://agavescantina.com"
+    },
+    {
+      "slug": "chico-feo",
+      "name": "Chico Feo",
+      "tagline": "Funky, Folly Beach Staple",
+      "cuisine": "Caribbean",
+      "neighborhood": "Folly Beach",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "122 E Ashley Ave",
+        "addressLocality": "Folly Beach",
+        "addressRegion": "SC",
+        "postalCode": "29439",
+        "addressCountry": "US"
+      },
+      "description": "Chico Feo is a Folly Beach Caribbean-influenced restaurant in the Charleston, SC area, a funky local staple. Voted by Charleston locals as one of the city's best casual spots.",
+      "shareTagline": "Funky Folly Beach staple, voted best casual by Charleston locals.",
+      "keywords": "Chico Feo Folly Beach, Caribbean Folly Beach, Charleston casual restaurant, best casual spots Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-casual-spots.html",
+          "title": "Best Casual Spots in Charleston"
+        }
+      ],
+      "phone": "+1-843-906-2710",
+      "hours": "Mo-Su 12:00-02:00",
+      "hoursHumanReadable": "Mon–Sun: 12pm–2am",
+      "priceRange": "$$",
+      "websiteURL": "https://chicofeo.com"
+    },
+    {
+      "slug": "bon-banh-mi-southeast-asian-kitchen",
+      "name": "Bon Banh Mi Southeast Asian Kitchen",
+      "tagline": "Vietnamese Sandwiches, Quick Bites",
+      "cuisine": "Vietnamese",
+      "neighborhood": "Cannonborough-Elliotborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "162 Spring St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Bon Banh Mi Southeast Asian Kitchen serves Vietnamese sandwiches and quick bites in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best casual spots.",
+      "shareTagline": "Vietnamese sandwiches and quick bites, voted best casual by Charleston locals.",
+      "keywords": "Bon Banh Mi Charleston, Vietnamese Charleston, Cannonborough Vietnamese, best casual spots Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-casual-spots.html",
+          "title": "Best Casual Spots in Charleston"
+        }
+      ],
+      "phone": "+1-843-414-7320",
+      "hours": "Mo-Th 11:00-20:00,Fr-Sa 11:00-21:00,Su 11:00-17:00",
+      "hoursHumanReadable": "Mon–Thu: 11am–8pm\nFri–Sat: 11am–9pm\nSun: 11am–5pm",
+      "priceRange": "$$",
+      "websiteURL": "https://bonbanhmi.com"
+    },
+    {
+      "slug": "edmunds-oast",
+      "name": "Edmund's Oast",
+      "tagline": "Brewery, Great Food",
+      "cuisine": "American",
+      "neighborhood": "Pacific Box & Crate",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1505 King St #115",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Edmund's Oast is a brewery and restaurant at Pacific Box & Crate in North Charleston, SC, known for great food alongside its house-brewed beer. Voted by Charleston locals as one of the city's best casual spots.",
+      "shareTagline": "Brewery plus great food, voted best casual by Charleston locals.",
+      "keywords": "Edmund's Oast Charleston, Charleston brewery, Pacific Box Crate, best casual spots Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-casual-spots.html",
+          "title": "Best Casual Spots in Charleston"
+        }
+      ],
+      "phone": "+1-843-718-3224",
+      "hours": "Mo-Th 11:00-21:00,Fr-Sa 11:00-22:00,Su 11:00-21:00",
+      "hoursHumanReadable": "Mon–Thu: 11am–9pm\nFri–Sat: 11am–10pm\nSun: 11am–9pm",
+      "priceRange": "$$",
+      "websiteURL": "https://edmundsoast.com"
+    },
+    {
+      "slug": "teds-butcherblock",
+      "name": "Ted's Butcherblock",
+      "tagline": "Prime Sandwiches, Local Butcher",
+      "cuisine": "Butcher",
+      "neighborhood": "Ansonborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "334 East Bay St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Ted's Butcherblock is an Ansonborough butcher shop and sandwich counter in Charleston, SC, known for prime sandwiches built from house-cut meats. Voted by Charleston locals as one of the city's best casual spots.",
+      "shareTagline": "Prime sandwiches from a local butcher, voted best casual by Charleston locals.",
+      "keywords": "Ted's Butcherblock Charleston, Charleston butcher shop, Ansonborough sandwiches, best casual spots Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-casual-spots.html",
+          "title": "Best Casual Spots in Charleston"
+        }
+      ],
+      "phone": "+1-843-577-0094",
+      "hours": "Tu-Th 11:00-19:00,Fr 11:00-20:00,Sa 11:00-17:00",
+      "hoursHumanReadable": "Tue–Thu: 11am–7pm\nFri: 11am–8pm\nSat: 11am–5pm\nSun–Mon: Closed",
+      "priceRange": "$$",
+      "websiteURL": "https://tedsbutcherblock.com"
+    },
+    {
+      "slug": "verns",
+      "name": "Vern's",
+      "tagline": "Cozy, Neighborhood Bistro",
+      "cuisine": "New American",
+      "neighborhood": "Cannonborough-Elliotborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "41 Bogard St #A",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Vern's is a cozy New American neighborhood bistro in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best nice restaurants.",
+      "shareTagline": "Cozy neighborhood bistro, voted best nice restaurant by Charleston locals.",
+      "keywords": "Vern's Charleston, New American Charleston, Cannonborough bistro, best nice restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-nice-restaurants.html",
+          "title": "Best Nice Restaurants in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "Mo 17:00-22:00,Th-Su 17:00-22:00",
+      "hoursHumanReadable": "Mon: 5pm–10pm\nTue–Wed: Closed\nThu–Sun: 5pm–10pm",
+      "priceRange": "$$$$",
+      "websiteURL": "https://vernschs.com"
+    },
+    {
+      "slug": "chubby-fish",
+      "name": "Chubby Fish",
+      "tagline": "Creative Seafood, Always Fresh",
+      "cuisine": "Seafood",
+      "neighborhood": "Cannonborough-Elliotborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "252 Coming St #A",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Chubby Fish is a Cannonborough-Elliotborough seafood restaurant in Charleston, SC serving creative, always-fresh dishes. Voted by Charleston locals as one of the city's best nice restaurants.",
+      "shareTagline": "Creative, always-fresh seafood, voted best by Charleston locals.",
+      "keywords": "Chubby Fish Charleston, Charleston seafood restaurant, Cannonborough seafood, best nice restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-nice-restaurants.html",
+          "title": "Best Nice Restaurants in Charleston"
+        }
+      ],
+      "phone": "+1-854-222-3949",
+      "hours": "Tu-Sa 17:00-22:00",
+      "hoursHumanReadable": "Tue–Sat: 5pm–10pm\nSun–Mon: Closed",
+      "priceRange": "$$$",
+      "websiteURL": "https://chubbyfishcharleston.com"
+    },
+    {
+      "slug": "zero-george",
+      "name": "Zero George",
+      "tagline": "Elegant, Upscale Experience",
+      "cuisine": "American",
+      "neighborhood": "Ansonborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "0 George St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Zero George is an elegant upscale restaurant in Ansonborough, Charleston, SC. Voted by Charleston locals as one of the city's best nice restaurants.",
+      "shareTagline": "Elegant upscale dining in Ansonborough, voted best by Charleston locals.",
+      "keywords": "Zero George Charleston, upscale Charleston restaurant, Ansonborough fine dining, best nice restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-nice-restaurants.html",
+          "title": "Best Nice Restaurants in Charleston"
+        }
+      ],
+      "phone": "+1-843-817-7900",
+      "hours": "Tu-Su 17:00-22:00",
+      "hoursHumanReadable": "Tue–Sun: 5pm–10pm\nMon: Closed",
+      "priceRange": "$$$$",
+      "websiteURL": "https://zerorestaurantcharleston.com"
+    },
+    {
+      "slug": "fig",
+      "name": "FIG",
+      "tagline": "American, Seasonal",
+      "cuisine": "American",
+      "neighborhood": "Ansonborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "232 Meeting St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "FIG is a seasonal American restaurant in Ansonborough, Charleston, SC. Voted by Charleston locals as one of the city's best nice restaurants.",
+      "shareTagline": "Seasonal American in Ansonborough, voted best by Charleston locals.",
+      "keywords": "FIG Charleston, seasonal American Charleston, Ansonborough fine dining, best nice restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-nice-restaurants.html",
+          "title": "Best Nice Restaurants in Charleston"
+        }
+      ],
+      "phone": "+1-843-805-5900",
+      "hours": "Tu-Th 17:30-22:30,Fr-Sa 17:30-23:00",
+      "hoursHumanReadable": "Tue–Thu: 5:30pm–10:30pm\nFri–Sat: 5:30pm–11pm\nSun–Mon: Closed",
+      "priceRange": "$$$$",
+      "websiteURL": "https://eatatfig.com"
+    },
+    {
+      "slug": "malagon",
+      "name": "Malagón",
+      "tagline": "Spanish Market & Tapería",
+      "cuisine": "Spanish",
+      "neighborhood": "Cannonborough",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "33 Spring St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Malagón is a Spanish market and tapería in Cannonborough, Charleston, SC. Voted by Charleston locals as one of the city's best nice restaurants.",
+      "shareTagline": "Spanish market and tapería in Cannonborough, voted best by Charleston locals.",
+      "keywords": "Malagón Charleston, Spanish Charleston, Cannonborough tapas, best nice restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-nice-restaurants.html",
+          "title": "Best Nice Restaurants in Charleston"
+        }
+      ],
+      "phone": "+1-843-926-0475",
+      "hours": "Tu-Su 11:00-22:00",
+      "hoursHumanReadable": "Tue–Sun: 11am–10pm\nMon: Closed",
+      "priceRange": "$$$",
+      "websiteURL": "https://malagonchs.com"
+    },
+    {
+      "slug": "merci",
+      "name": "Merci",
+      "tagline": "Charming French Bistro",
+      "cuisine": "French",
+      "neighborhood": "Harleston Village",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "28 Pitt St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Merci is a charming French bistro in Harleston Village, Charleston, SC. Voted by Charleston locals as one of the city's best new restaurants.",
+      "shareTagline": "Charming French bistro, voted best new by Charleston locals.",
+      "keywords": "Merci Charleston, French bistro Charleston, Harleston Village restaurant, best new restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-new-restaurants.html",
+          "title": "Best New Restaurants in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "We-Sa 17:00-22:00",
+      "hoursHumanReadable": "Wed–Sat: 5pm–10pm\nSun–Tue: Closed",
+      "priceRange": "$$$",
+      "websiteURL": "https://mercichs.com"
+    },
+    {
+      "slug": "bar-weems",
+      "name": "Bar Weems",
+      "tagline": "Handmade Ramen & Cocktails",
+      "cuisine": "Japanese",
+      "neighborhood": "Park Circle",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1921 Reynolds Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Bar Weems is a Park Circle Japanese restaurant in North Charleston, SC, serving handmade ramen and cocktails. Voted by Charleston locals as one of the city's best new restaurants.",
+      "shareTagline": "Handmade ramen and cocktails in Park Circle, voted best new by Charleston locals.",
+      "keywords": "Bar Weems Charleston, Park Circle ramen, North Charleston Japanese, best new restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-new-restaurants.html",
+          "title": "Best New Restaurants in Charleston"
+        }
+      ],
+      "phone": "+1-854-202-1175",
+      "hours": "We-Sa 17:00-01:00",
+      "hoursHumanReadable": "Wed–Sat: 5pm–1am\nSun–Tue: Closed",
+      "priceRange": "$$",
+      "websiteURL": "https://barweems.com"
+    },
+    {
+      "slug": "the-wedge",
+      "name": "The Wedge",
+      "tagline": "Authentic NY-Style Deli Sandwiches",
+      "cuisine": "American Deli",
+      "neighborhood": "West Ashley",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "2487 Ashley River Rd Unit 2",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29414",
+        "addressCountry": "US"
+      },
+      "description": "The Wedge is a West Ashley deli in Charleston, SC, serving authentic NY-style sandwiches. Voted by Charleston locals as one of the city's best new restaurants.",
+      "shareTagline": "Authentic NY-style deli sandwiches, voted best new by Charleston locals.",
+      "keywords": "The Wedge Charleston, NY-style deli Charleston, West Ashley sandwiches, best new restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-new-restaurants.html",
+          "title": "Best New Restaurants in Charleston"
+        }
+      ],
+      "phone": "+1-914-708-6071",
+      "hours": "We-Su 08:00-14:00",
+      "hoursHumanReadable": "Wed–Sun: 8am–2pm\nMon–Tue: Closed",
+      "priceRange": "$",
+      "websiteURL": "https://www.instagram.com/thewedgechs/"
+    },
+    {
+      "slug": "ok-donna",
+      "name": "OK Donna",
+      "tagline": "Neighborhood Pasta & Pizza",
+      "cuisine": "Italian",
+      "neighborhood": "Upper King",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1117 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "OK Donna is an Upper King Italian restaurant in Charleston, SC, serving neighborhood pasta and pizza. Voted by Charleston locals as one of the city's best new restaurants.",
+      "shareTagline": "Neighborhood pasta and pizza on Upper King, voted best new by Charleston locals.",
+      "keywords": "OK Donna Charleston, Italian Charleston, Upper King pasta, best new restaurants Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-new-restaurants.html",
+          "title": "Best New Restaurants in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "Mo 17:00-23:00,We-Su 17:00-23:00",
+      "hoursHumanReadable": "Mon: 5pm–11pm\nTue: Closed\nWed–Sun: 5pm–11pm",
+      "priceRange": "$$",
+      "websiteURL": "https://ok-donna.com"
     }
   ]
 }
