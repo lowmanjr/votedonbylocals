@@ -181,6 +181,181 @@
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null
+    },
+    {
+      "slug": "harken-cafe",
+      "name": "Harken Cafe",
+      "tagline": "Cozy, Downtown Gem",
+      "cuisine": "Coffee Shop",
+      "neighborhood": "French Quarter",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": "62 Queen St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Harken Cafe is a cozy French Quarter cafe and bakery in downtown Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
+      "shareTagline": "The cozy French Quarter cafe, voted best coffee by Charleston locals.",
+      "keywords": "Harken Cafe Charleston, French Quarter coffee Charleston, downtown Charleston cafe, best coffee Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": "+1-843-718-3626",
+      "hours": "Mo-Fr 07:00-15:00, Sa 08:00-15:00, Su 08:00-13:00",
+      "hoursHumanReadable": "Mon–Fri: 7am–3pm\nSat: 8am–3pm\nSun: 8am–1pm",
+      "priceRange": "$$",
+      "websiteURL": "https://www.harkencafe.com/",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null
+    },
+    {
+      "slug": "sightsee",
+      "name": "Sightsee",
+      "tagline": "Coffee & Retail",
+      "cuisine": "Coffee Shop",
+      "neighborhood": "North Central",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": "698 Rutledge Ave",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Sightsee is a coffee bar and travel-inspired retail shop near Hampton Park in Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
+      "shareTagline": "Coffee plus curated retail, voted best by Charleston locals.",
+      "keywords": "Sightsee Charleston, Hampton Park coffee, North Central Charleston cafe, best coffee Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": "+1-843-212-6538",
+      "hours": "Mo-Fr 07:30-15:00, Sa-Su 08:00-15:00",
+      "hoursHumanReadable": "Mon–Fri: 7:30am–3pm\nSat–Sun: 8am–3pm",
+      "priceRange": "$$",
+      "websiteURL": "https://www.sightseeshop.com/",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null
+    },
+    {
+      "slug": "babas-on-cannon",
+      "name": "Babas on Cannon",
+      "tagline": "European-style Cafe",
+      "cuisine": "European Café",
+      "neighborhood": "Cannonborough-Elliotborough",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": "11 Cannon St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Babas on Cannon is an old-world European-style cafe and aperitivo bar in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
+      "shareTagline": "Old-world European cafe and apéro bar, voted best by Charleston locals.",
+      "keywords": "Babas on Cannon Charleston, European cafe Charleston, Cannonborough cafe, best coffee Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": "+1-843-284-6260",
+      "hours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
+      "hoursHumanReadable": "Mon: Closed\nTue–Thu: 7am–8pm\nFri–Sat: 7am–10pm\nSun: 7am–6pm",
+      "priceRange": "$$",
+      "websiteURL": "https://babascharleston.com/",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null
+    },
+    {
+      "slug": "second-state-coffee",
+      "name": "Second State Coffee",
+      "tagline": "Local Roaster",
+      "cuisine": "Coffee Roastery",
+      "neighborhood": "Harleston Village",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": "70.5 Beaufain St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Second State Coffee is a Charleston, SC specialty coffee roaster and cafe with multiple locations including downtown Beaufain Street. Voted by Charleston locals as one of the city's best coffee shops.",
+      "shareTagline": "Charleston-roasted specialty coffee, voted best by locals.",
+      "keywords": "Second State Coffee Charleston, Charleston coffee roaster, Beaufain Street cafe, best coffee Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
+      "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
+      "priceRange": "$$",
+      "websiteURL": "https://secondstatecoffee.com/",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null
+    },
+    {
+      "slug": "the-harbinger-cafe-bakery",
+      "name": "The Harbinger Cafe & Bakery",
+      "tagline": "Charming, Great Pastries",
+      "cuisine": "Café and Bakery",
+      "neighborhood": "North Central",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "May 2026",
+      "address": {
+        "streetAddress": "1107 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "The Harbinger Cafe & Bakery is a charming North Central cafe and bakery on King Street in Charleston, SC, known for housemade pastries. Voted by Charleston locals as one of the city's best coffee shops.",
+      "shareTagline": "Charming King Street cafe and bakery, voted best by Charleston locals.",
+      "keywords": "Harbinger Cafe Charleston, King Street bakery, North Central Charleston cafe, best coffee Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": "+1-843-637-3410",
+      "hours": "Mo-Fr 07:00-15:00, Sa 08:00-15:00, Su 08:00-13:00",
+      "hoursHumanReadable": "Mon–Fri: 7am–3pm\nSat: 8am–3pm\nSun: 8am–1pm",
+      "priceRange": "$$",
+      "websiteURL": "https://www.theharbingercafe.com/",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null
     }
   ]
 }
