@@ -1,0 +1,616 @@
+#!/usr/bin/env python3
+"""Generate restaurants/{slug}.html from the template + restaurants.json data.
+
+Usage:
+    python scripts/generate_detail_page.py <slug>
+    python scripts/generate_detail_page.py <slug> --output PATH
+    python scripts/generate_detail_page.py --all
+
+Reference target: restaurants/park-pizza-co.html. The script must
+produce a byte-identical file when run for slug 'park-pizza-co'.
+
+Architecture: template-as-source-of-truth. The template carries all
+structural HTML; this script applies a 12-step transformation
+pipeline to fill in per-restaurant data and resolve the
+optional-block conventions documented in the template's intentional
+decisions block.
+"""
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).parent.parent
+TEMPLATE_PATH = ROOT / 'rankings' / '_detail-page-template.html'
+DATA_PATH = ROOT / 'data' / 'restaurants.json'
+
+
+# ---------------------------------------------------------------------------
+# Pipeline entry point
+# ---------------------------------------------------------------------------
+
+def generate(template, restaurant):
+    """Apply the 12-step transformation pipeline to produce final HTML."""
+    text = template
+    text = step_1_strip_top_docblock(text)
+    text = step_2_replace_jsonld_docblock(text, restaurant)
+    text = step_3_substitute_jsonld_script(text, restaurant)
+    text = step_4_strip_future_proof_blocks(text)
+    text = step_5_strip_editorial_body(text, restaurant)
+    text = step_6_simplify_info_sidebar_comment(text)
+    text = step_7_handle_address_section(text, restaurant)
+    text = step_8_handle_optional_sidebar_blocks(text, restaurant)
+    text = step_9_strip_appears_on_repeating_comment(text)
+    text = step_10_transform_section_replace_comments(text)
+    text = step_11_transform_inline_replace_comments(text)
+    text = step_12_substitute_remaining_placeholders(text, restaurant)
+    return text
+
+
+# ---------------------------------------------------------------------------
+# Step 1: top docblock
+# ---------------------------------------------------------------------------
+
+def step_1_strip_top_docblock(text):
+    """Remove the template's top documentation comment (the giant <!-- ... -->
+    that starts the file with field docs and intentional-decisions).
+    """
+    return re.sub(r'^<!--.*?-->\n', '', text, count=1, flags=re.DOTALL)
+
+
+# ---------------------------------------------------------------------------
+# Step 2: JSON-LD docblock → single-line section header
+# ---------------------------------------------------------------------------
+
+def step_2_replace_jsonld_docblock(text, restaurant):
+    """Replace the JSON-LD HTML comment block (containing optional-snippet
+    guidance) with a single-line section header
+    `    <!-- JSON-LD: <SchemaType> ----...---- -->`.
+
+    The dash padding is computed to match the standard KEEP-comment width
+    derived from the template (which keeps section headers visually aligned).
+    """
+    schema_type = restaurant['schemaType']
+    width = _derive_comment_width(text)
+    header_inner = f'JSON-LD: {schema_type}'
+    # `<!-- TEXT --DASHES-- -->` = 5 + len(TEXT) + 1 + N + 1 + 3 = 10 + len(TEXT) + N
+    dash_count = width - 10 - len(header_inner)
+    new_header = f'    <!-- {header_inner} {"-" * dash_count} -->'
+
+    return re.sub(
+        r'    <!--\n\s+REPLACE: JSON-LD.*?-->\n',
+        new_header + '\n',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _derive_comment_width(template):
+    """Measure the standard `<!-- KEEP: ... -->` line width (without leading
+    indent) so we can generate matching-width section headers.
+    """
+    for line in template.split('\n'):
+        s = line.strip()
+        if s.startswith('<!-- KEEP:') and s.endswith('-->') and '---' in s:
+            return len(s)
+    return 73  # safe fallback
+
+
+# ---------------------------------------------------------------------------
+# Step 3: JSON-LD <script> contents
+# ---------------------------------------------------------------------------
+
+def step_3_substitute_jsonld_script(text, restaurant):
+    """Replace the JSON-LD `<script>` block contents with serialized JSON
+    built from the restaurant data via build_jsonld_dict().
+
+    Field policy:
+      - REQUIRED: @context, @type, name, description, url, address (or
+        areaServed for mobile vendors), servesCuisine.
+      - OPTIONAL added only if non-null in data: telephone, openingHours,
+        priceRange, sameAs, image, geo.
+
+    The serialized JSON is indented with 2-space JSON indent and prefixed
+    with 4 spaces to match the surrounding script-tag indent.
+    """
+    obj = build_jsonld_dict(restaurant)
+    json_text = json.dumps(obj, indent=2, ensure_ascii=False)
+    indented_json = '\n'.join('    ' + line for line in json_text.split('\n'))
+
+    new_script = (
+        '    <script type="application/ld+json">\n'
+        + indented_json + '\n'
+        + '    </script>'
+    )
+
+    return re.sub(
+        r'    <script type="application/ld\+json">\n.*?\n    </script>',
+        new_script,
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def build_jsonld_dict(restaurant):
+    """Build the ordered JSON-LD dict from restaurant data. Field order
+    matches what the template + reference page produces.
+    """
+    obj = {
+        "@context": "https://schema.org",
+        "@type": restaurant['schemaType'],
+        "name": restaurant['name'],
+        "description": restaurant['description'],
+        "url": f"https://votedonbylocals.com/restaurants/{restaurant['slug']}.html",
+    }
+
+    is_mobile_vendor = (
+        restaurant['schemaType'] == 'FoodEstablishment'
+        and restaurant.get('areaServed')
+    )
+
+    if is_mobile_vendor:
+        obj['areaServed'] = restaurant['areaServed']
+    else:
+        addr = restaurant['address']
+        obj['address'] = {
+            "@type": "PostalAddress",
+            "streetAddress": addr['streetAddress'],
+            "addressLocality": addr['addressLocality'],
+            "addressRegion": addr['addressRegion'],
+            "postalCode": addr['postalCode'],
+            "addressCountry": addr.get('addressCountry', 'US'),
+        }
+
+    obj['servesCuisine'] = restaurant['cuisine']
+
+    # Optional fields, in template-snippet order
+    if restaurant.get('phone'):
+        obj['telephone'] = restaurant['phone']
+    if restaurant.get('hours'):
+        obj['openingHours'] = restaurant['hours']
+    if restaurant.get('priceRange'):
+        obj['priceRange'] = restaurant['priceRange']
+    if restaurant.get('websiteURL'):
+        obj['sameAs'] = restaurant['websiteURL']
+    if restaurant.get('imageURL'):
+        obj['image'] = restaurant['imageURL']
+    if restaurant.get('geoLat') is not None and restaurant.get('geoLng') is not None:
+        obj['geo'] = {
+            "@type": "GeoCoordinates",
+            "latitude": restaurant['geoLat'],
+            "longitude": restaurant['geoLng'],
+        }
+
+    return obj
+
+
+# ---------------------------------------------------------------------------
+# Step 4: future-proof slot comment blocks
+# ---------------------------------------------------------------------------
+
+def step_4_strip_future_proof_blocks(text):
+    """Strip the badge-image and claim-CTA future-proof slot comments
+    (template intentional decision #5). Each is a multi-line HTML comment
+    plus a trailing blank line. Removed entirely until the corresponding
+    workstream activates.
+    """
+    text = re.sub(
+        r'                <!--\n\s+FUTURE-PROOF SLOT: badge image.*?                -->\n\n',
+        '',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+    text = re.sub(
+        r'            <!--\n\s+FUTURE-PROOF SLOT: claim CTA.*?            -->\n\n',
+        '',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+    return text
+
+
+# ---------------------------------------------------------------------------
+# Step 5: editorial body
+# ---------------------------------------------------------------------------
+
+def step_5_strip_editorial_body(text, restaurant):
+    """Strip the EDITORIAL BODY commented-out block. If editorialBody is
+    null (stub-then-flesh, page is in stub stage), also remove the
+    `border-t border-gray-100 pt-6` styling from the INFO SIDEBAR outer
+    div — the divider exists only to separate editorial copy from the
+    sidebar, so it's redundant when there's no editorial copy.
+    """
+    text = re.sub(
+        r'                    <!--\n\s+EDITORIAL BODY.*?                    -->\n\n',
+        '',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+    if restaurant.get('editorialBody') is None:
+        text = text.replace(
+            '<div class="border-t border-gray-100 pt-6">',
+            '<div>',
+            1,
+        )
+    return text
+
+
+# ---------------------------------------------------------------------------
+# Step 6: INFO SIDEBAR comment
+# ---------------------------------------------------------------------------
+
+def step_6_simplify_info_sidebar_comment(text):
+    """Shorten the verbose INFO SIDEBAR comment to the simple form."""
+    return text.replace(
+        '<!-- INFO SIDEBAR (address always present; other fields conditional) -->',
+        '<!-- INFO SIDEBAR -->',
+        1,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Step 7: address vs area-served (fixed-location vs mobile-vendor)
+# ---------------------------------------------------------------------------
+
+def step_7_handle_address_section(text, restaurant):
+    """Resolve the address-block conventions per intentional decision #9.
+
+    Fixed-location:
+      - Collapse the 2-line "REPLACE: address" + "For MOBILE VENDORS"
+        instruction into a simple `<!-- Address -->`.
+      - Strip the MOBILE VENDOR ALTERNATIVE comment block + leading blank.
+
+    Mobile vendor (schemaType == FoodEstablishment AND areaServed populated):
+      - Strip the address div + REPLACE/instruction comments.
+      - Replace the MOBILE VENDOR ALTERNATIVE comment block with the
+        active area-served HTML.
+      - Change the h2 from "Where to find it" to "Area served".
+    """
+    is_mobile_vendor = (
+        restaurant['schemaType'] == 'FoodEstablishment'
+        and restaurant.get('areaServed')
+    )
+
+    if is_mobile_vendor:
+        # Strip the fixed-address comment + instruction + address div
+        text = re.sub(
+            r'                        <!-- REPLACE: address \(always required for fixed-location restaurants\) -->\n'
+            r'                        <!-- For MOBILE VENDORS:.*?intentional decision #9\. -->\n'
+            r'                        <div class="mb-4">\n'
+            r'                            <p class="text-brand-dark font-medium">\{\{StreetAddress\}\}</p>\n'
+            r'                            <p class="text-brand-gray text-sm">\{\{AddressLocality\}\}, \{\{AddressRegion\}\} \{\{PostalCode\}\}</p>\n'
+            r'                        </div>\n\n',
+            '',
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+        # Change h2
+        text = text.replace(
+            '<h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>',
+            '<h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Area served</h2>',
+            1,
+        )
+        # Replace the MOBILE VENDOR ALTERNATIVE comment block with active HTML
+        text = re.sub(
+            r'                        <!--\n\s+MOBILE VENDOR ALTERNATIVE.*?                        -->\n',
+            '                        <!-- Area served -->\n'
+            '                        <div class="mb-4">\n'
+            '                            <p class="text-brand-dark font-medium">{{AreaServed}}</p>\n'
+            '                        </div>\n',
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+    else:
+        # Fixed-location: simplify the address comment header
+        text = re.sub(
+            r'                        <!-- REPLACE: address \(always required for fixed-location restaurants\) -->\n'
+            r'                        <!-- For MOBILE VENDORS:.*?intentional decision #9\. -->\n',
+            '                        <!-- Address -->\n',
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+        # Strip MOBILE VENDOR ALTERNATIVE block + leading blank line
+        text = re.sub(
+            r'\n                        <!--\n\s+MOBILE VENDOR ALTERNATIVE.*?                        -->\n',
+            '',
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+
+    return text
+
+
+# ---------------------------------------------------------------------------
+# Step 8: optional sidebar blocks (hours, phone, website, price range)
+# ---------------------------------------------------------------------------
+
+def step_8_handle_optional_sidebar_blocks(text, restaurant):
+    """For each optional sidebar block:
+      - If data has the field, replace the comment block with rendered HTML.
+      - If data lacks the field, remove the comment block + a leading blank
+        line so we don't end up with double blanks between siblings.
+
+    Order: hours, phone, website, price range (matches template order).
+    """
+    text = _handle_one_block(
+        text,
+        comment_marker='OPTIONAL: hours block',
+        rendered=build_hours_block(restaurant['hoursHumanReadable']) if restaurant.get('hoursHumanReadable') else None,
+    )
+    text = _handle_one_block(
+        text,
+        comment_marker='OPTIONAL: phone block',
+        rendered=build_phone_block(restaurant['phone']) if restaurant.get('phone') else None,
+    )
+    text = _handle_one_block(
+        text,
+        comment_marker='OPTIONAL: website block',
+        rendered=build_website_block(restaurant['websiteURL']) if restaurant.get('websiteURL') else None,
+    )
+    text = _handle_one_block(
+        text,
+        comment_marker='OPTIONAL: price range block',
+        rendered=build_price_block(restaurant['priceRange']) if restaurant.get('priceRange') else None,
+    )
+    return text
+
+
+def _handle_one_block(text, *, comment_marker, rendered):
+    """Replace one optional-block comment region with `rendered` HTML, or
+    strip it (plus a leading blank line) if rendered is None.
+    """
+    pattern = (
+        r'                        <!--\n\s+' + re.escape(comment_marker) +
+        r'.*?                        -->\n'
+    )
+    if rendered is not None:
+        return re.sub(pattern, rendered, text, count=1, flags=re.DOTALL)
+    # Strip the block + the leading blank line (so siblings stay single-blank-spaced)
+    return re.sub(r'\n' + pattern, '', text, count=1, flags=re.DOTALL)
+
+
+def build_hours_block(hours_human_readable):
+    """Render the hours sidebar block. Converts `\\n` separators to
+    `<br>\\n` + 32-space continuation indent (the indent inside the <p>).
+    Note: the template's commented version uses class `whitespace-pre-line`;
+    the rendered version uses explicit <br> tags instead, so that class is
+    intentionally NOT included in the output.
+    """
+    lines = hours_human_readable.split('\n')
+    indented_content = '<br>\n                                '.join(lines)
+    return (
+        '                        <!-- Hours -->\n'
+        '                        <div class="mb-4">\n'
+        '                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>\n'
+        '                            <p class="text-brand-dark text-sm">\n'
+        f'                                {indented_content}\n'
+        '                            </p>\n'
+        '                        </div>\n'
+    )
+
+
+def build_phone_block(phone_e164):
+    """Render the phone sidebar block. The tel: href uses E.164 format
+    directly (per RFC 3966); the visible link text uses formatted display
+    `(AAA) PPP-NNNN`.
+    """
+    phone_display = format_phone_display(phone_e164)
+    return (
+        '                        <!-- Phone -->\n'
+        '                        <div class="mb-4">\n'
+        '                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>\n'
+        '                            <p class="text-brand-dark text-sm">\n'
+        f'                                <a href="tel:{phone_e164}" class="hover:text-brand-orange transition-colors">{phone_display}</a>\n'
+        '                            </p>\n'
+        '                        </div>\n'
+    )
+
+
+def format_phone_display(phone_e164):
+    """Convert E.164 `+1-AAA-PPP-NNNN` to display `(AAA) PPP-NNNN`."""
+    if phone_e164.startswith('+1-'):
+        rest = phone_e164[3:]
+        parts = rest.split('-')
+        if len(parts) == 3:
+            return f'({parts[0]}) {parts[1]}-{parts[2]}'
+    return phone_e164
+
+
+def build_website_block(website_url):
+    """Render the website sidebar block. The href uses the full URL as-is;
+    the visible link text strips the scheme (`https://` or `http://`) and
+    any trailing slash for cleaner display.
+    """
+    display = website_url
+    if display.startswith('https://'):
+        display = display[len('https://'):]
+    elif display.startswith('http://'):
+        display = display[len('http://'):]
+    if display.endswith('/'):
+        display = display[:-1]
+    return (
+        '                        <!-- Website -->\n'
+        '                        <div class="mb-4">\n'
+        '                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Website</p>\n'
+        '                            <p class="text-brand-dark text-sm break-all">\n'
+        f'                                <a href="{website_url}" rel="noopener" target="_blank" class="text-brand-orange hover:underline">{display}</a>\n'
+        '                            </p>\n'
+        '                        </div>\n'
+    )
+
+
+def build_price_block(price_range):
+    """Render the price-range sidebar block."""
+    return (
+        '                        <!-- Price range -->\n'
+        '                        <div class="mb-4">\n'
+        '                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Price</p>\n'
+        f'                            <p class="text-brand-dark text-sm">{price_range}</p>\n'
+        '                        </div>\n'
+    )
+
+
+# ---------------------------------------------------------------------------
+# Step 9: APPEARS ON repeating-row comment
+# ---------------------------------------------------------------------------
+
+def step_9_strip_appears_on_repeating_comment(text):
+    """Strip the REPEATING ROW guidance comment from the APPEARS ON section.
+    The placeholder substitution for the actual entries happens in step 12.
+    """
+    return re.sub(
+        r'                    <!--\n\s+REPEATING ROW.*?                    -->\n',
+        '',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+# ---------------------------------------------------------------------------
+# Step 10: section-level REPLACE comments (with separator dashes)
+# ---------------------------------------------------------------------------
+
+def step_10_transform_section_replace_comments(text):
+    """For section-level REPLACE comments (`<!-- REPLACE: <text> ---- -->`),
+    strip the "REPLACE: " prefix and add 9 dashes (the prefix length) so
+    the comment line keeps the same total width as the surrounding KEEP
+    comments.
+    """
+    def repl(m):
+        prefix = m.group(1)  # "<!-- "
+        body = m.group(2)    # text content (no dashes), with trailing space
+        dashes = m.group(3)  # existing dashes
+        suffix = m.group(4)  # " -->"
+        return f'{prefix}{body}{dashes}---------{suffix}'
+    return re.sub(r'(<!-- )REPLACE: ([^-]+)(-+)( -->)', repl, text)
+
+
+# ---------------------------------------------------------------------------
+# Step 11: inline REPLACE comments (no separator dashes)
+# ---------------------------------------------------------------------------
+
+def step_11_transform_inline_replace_comments(text):
+    """For inline REPLACE comments (`<!-- REPLACE: <text> -->`, no dashes),
+    strip the "REPLACE: " prefix and capitalize the first letter of the
+    content. Other casing is preserved (e.g., "REPLACE: Updated [Month
+    Year] pill" stays "Updated [Month Year] pill").
+    """
+    def repl(m):
+        content = m.group(1)
+        if content:
+            content = content[0].upper() + content[1:]
+        return f'<!-- {content} -->'
+    return re.sub(r'<!-- REPLACE: ([^>]+?) -->', repl, text)
+
+
+# ---------------------------------------------------------------------------
+# Step 12: substitute remaining placeholders
+# ---------------------------------------------------------------------------
+
+def step_12_substitute_remaining_placeholders(text, restaurant):
+    """Replace all simple `{{Placeholder}}` occurrences in the visible HTML
+    with values from the restaurant data. Also handles the AppearsOn
+    placeholders (single-entry only — multi-entry support is a future
+    enhancement).
+    """
+    # AppearsOn entries (single-entry support for now)
+    appears_on = restaurant.get('appearsOn', [])
+    if appears_on:
+        first = appears_on[0]
+        text = text.replace('{{AppearsOn1.RankingURL}}', first['url'])
+        text = text.replace('{{AppearsOn1.RankingTitle}}', first['title'])
+
+    # Required scalar fields
+    text = text.replace('{{slug}}', restaurant['slug'])
+    text = text.replace('{{RestaurantName}}', restaurant['name'])
+    text = text.replace('{{Cuisine}}', restaurant['cuisine'])
+    text = text.replace('{{Tagline}}', restaurant['tagline'])
+    text = text.replace('{{MonthYear}}', restaurant['monthYear'])
+    text = text.replace('{{Description}}', restaurant['description'])
+    text = text.replace('{{ShareTagline}}', restaurant['shareTagline'])
+    text = text.replace('{{Keywords}}', restaurant['keywords'])
+
+    if restaurant.get('neighborhood'):
+        text = text.replace('{{Neighborhood}}', restaurant['neighborhood'])
+    else:
+        # Drop the " · {{Neighborhood}}" segment from the hero subtitle
+        # so the cuisine line stands alone (no dangling separator).
+        text = text.replace(' · {{Neighborhood}}', '')
+
+    addr = restaurant.get('address') or {}
+    if addr.get('streetAddress'):
+        text = text.replace('{{StreetAddress}}', addr['streetAddress'])
+    if addr.get('addressLocality'):
+        text = text.replace('{{AddressLocality}}', addr['addressLocality'])
+    if addr.get('addressRegion'):
+        text = text.replace('{{AddressRegion}}', addr['addressRegion'])
+    if addr.get('postalCode'):
+        text = text.replace('{{PostalCode}}', addr['postalCode'])
+
+    if restaurant.get('areaServed'):
+        text = text.replace('{{AreaServed}}', restaurant['areaServed'])
+
+    return text
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+def main():
+    parser = argparse.ArgumentParser(
+        description='Generate a restaurant detail page from the template + data.'
+    )
+    parser.add_argument('slug', nargs='?', help='Restaurant slug (e.g., park-pizza-co)')
+    parser.add_argument('--all', action='store_true', help='Generate every restaurant in restaurants.json')
+    parser.add_argument('--output', help='Output path (default: restaurants/{slug}.html)')
+    args = parser.parse_args()
+
+    if not args.all and not args.slug:
+        parser.error('Provide a slug or use --all')
+    if args.all and args.output:
+        parser.error('--output is not allowed with --all')
+
+    template = TEMPLATE_PATH.read_text(encoding='utf-8')
+    with DATA_PATH.open(encoding='utf-8') as f:
+        data = json.load(f)
+
+    restaurants = data['restaurants']
+
+    if args.all:
+        for r in restaurants:
+            out_path = ROOT / 'restaurants' / f"{r['slug']}.html"
+            _write_lf(out_path, generate(template, r))
+            print(f'Wrote {out_path}')
+    else:
+        r = next((x for x in restaurants if x['slug'] == args.slug), None)
+        if r is None:
+            sys.exit(f"Slug '{args.slug}' not found in {DATA_PATH}")
+        out_path = Path(args.output) if args.output else ROOT / 'restaurants' / f"{args.slug}.html"
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        _write_lf(out_path, generate(template, r))
+        print(f'Wrote {out_path}')
+
+
+def _write_lf(path, content):
+    """Write content with LF line endings (override Windows CRLF default).
+    The reference page is LF; emitting CRLF would break byte-for-byte parity.
+    """
+    with path.open('w', encoding='utf-8', newline='\n') as f:
+        f.write(content)
+
+
+if __name__ == '__main__':
+    main()
