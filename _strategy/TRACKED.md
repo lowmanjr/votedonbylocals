@@ -59,7 +59,7 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Why it's tracked, not done now:** Designing the Locations module against a single multi-location restaurant in the pilot would over-fit. Better to design once a second multi-location restaurant lands in a different ranking page and we have two independent test cases. The design needs to handle: per-location `Place` microdata in JSON-LD, visual presentation of multiple locations in the sidebar, and how to handle locations across cities (when the editorial scope from #14.1 expands beyond greater Charleston).
 
-**Trigger to activate:** when the bulk port hits a third multi-location restaurant. (Two known: Toni's, D'Allesandro's. Third triggers the design.)
+**Trigger to activate:** ACTIVATED 2026-05-03 by Babas on Cannon (3 locations: Cannon, Meeting, Wentworth) during best-coffee-shops port. Second State Coffee (multiple locations + roastery) also confirms the pattern. Design pass is the next gated workstream — not folded into bulk port.
 
 **Estimated scope:** 1–2 days. Half template + script work; half per-location data collection for the affected restaurants.
 
