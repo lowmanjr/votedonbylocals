@@ -3,8 +3,6 @@
 
 /* Define global styles and brand identity */
 body {
-    background-color: #FFF8F0; /* Creamy Off-White */
-    color: #4A4A4A; /* Dark Grey */
     font-family: 'DM Sans', sans-serif;
 }
 
@@ -14,24 +12,15 @@ body {
 }
 
 /*
-   Brand color classes used as a fallback by top-level pages that don't
-   yet have an inline Tailwind config (about, vote, suggest-category,
-   ambassadors, thank-you). The 8 ranking pages and index.html resolve
-   these via Tailwind's inline config and don't need this fallback.
+   .font-poppins (defined above) is intentionally retained.
+   The Tailwind inline config registers Poppins as a font family but
+   does not auto-emit a `.font-poppins` utility class. Until step 4
+   (kill Tailwind CDN) introduces a build step that handles font-family
+   utilities directly, this plain-CSS class is what makes
+   `class="font-poppins"` markup resolve to Poppins on every page.
 
-   Once those 5 pages are upgraded to include their own inline Tailwind
-   config + font preconnect+link, these rules can be deleted. For now
-   they stay — deleting them visually breaks those 5 pages.
-
-   See _template-analysis.md "Tracked items" for the upgrade follow-up.
-
-   `.brand-orange` (bare class, no Tailwind prefix) was removed — it had
-   only ever been used by the OLD ranking pages' numeric rank columns,
-   which are gone after the canonical port.
+   `.bg-brand-orange` and `.border-brand-orange` were removed in
+   commit 689d3d2's sibling: those were fallbacks for top-level
+   pages without an inline Tailwind config, and as of that commit
+   all pages have the inline config and resolve them via Tailwind.
 */
-.bg-brand-orange {
-    background-color: #E67E22;
-}
-.border-brand-orange {
-    border-color: #E67E22;
-}
