@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.0",
-    "lastUpdated": "2026-05-02",
+    "lastUpdated": "2026-05-03",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -12,14 +12,14 @@
       "name": "Tutti Pizza",
       "tagline": "Authentic Neapolitan",
       "cuisine": "Neapolitan Pizza",
-      "neighborhood": null,
+      "neighborhood": "Westside",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
       "address": {
-        "streetAddress": null,
+        "streetAddress": "700 King St Suite A",
         "addressLocality": "Charleston",
         "addressRegion": "SC",
-        "postalCode": null,
+        "postalCode": "29403",
         "addressCountry": "US"
       },
       "description": "Tutti Pizza serves authentic Neapolitan-style pies in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
@@ -31,15 +31,16 @@
           "title": "Best Pizza in Charleston"
         }
       ],
-      "phone": null,
-      "hours": null,
-      "hoursHumanReadable": null,
-      "priceRange": null,
-      "websiteURL": null,
+      "phone": "+1-843-974-3965",
+      "hours": "We 16:00-21:00, Th 16:00-21:00, Fr 12:00-22:00, Sa 12:00-22:00, Su 12:00-21:00",
+      "hoursHumanReadable": "Wed–Thu: 4pm–9pm\nFri–Sat: 12pm–10pm\nSun: 12pm–9pm\nMon–Tue: Closed",
+      "priceRange": "$$",
+      "websiteURL": "https://www.tuttipizzachs.com/",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
-      "editorialBody": null
+      "editorialBody": null,
+      "areaServed": null
     },
     {
       "slug": "dough-boyz",
@@ -47,7 +48,7 @@
       "tagline": "Mobile Wood-Fired Kitchen",
       "cuisine": "Wood-Fired Pizza",
       "neighborhood": null,
-      "schemaType": "Restaurant",
+      "schemaType": "FoodEstablishment",
       "monthYear": "May 2026",
       "address": {
         "streetAddress": null,
@@ -65,29 +66,30 @@
           "title": "Best Pizza in Charleston"
         }
       ],
-      "phone": null,
+      "phone": "+1-617-240-4549",
       "hours": null,
-      "hoursHumanReadable": null,
+      "hoursHumanReadable": "Schedule varies — see @doughboyzpizzasc on Instagram for current pop-ups and events.",
       "priceRange": null,
-      "websiteURL": null,
+      "websiteURL": "https://www.instagram.com/doughboyzpizzasc/",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
-      "editorialBody": null
+      "editorialBody": null,
+      "areaServed": "Greater Charleston (mobile/pop-up)"
     },
     {
       "slug": "dallesandros-pizza",
       "name": "D'Allesandro's Pizza",
       "tagline": "Laid-back, Downtown Staple",
       "cuisine": "Pizza",
-      "neighborhood": null,
+      "neighborhood": "Cannonborough-Elliotborough",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
       "address": {
-        "streetAddress": null,
+        "streetAddress": "229 St Philip St",
         "addressLocality": "Charleston",
         "addressRegion": "SC",
-        "postalCode": null,
+        "postalCode": "29403",
         "addressCountry": "US"
       },
       "description": "D'Allesandro's Pizza is a laid-back downtown Charleston, SC staple. Voted by Charleston locals as one of the city's best pizza spots.",
@@ -99,15 +101,16 @@
           "title": "Best Pizza in Charleston"
         }
       ],
-      "phone": null,
-      "hours": null,
-      "hoursHumanReadable": null,
-      "priceRange": null,
-      "websiteURL": null,
+      "phone": "+1-843-853-6337",
+      "hours": "Mo 11:00-21:45, Tu-We 11:00-23:00, Th-Sa 11:00-24:00, Su 11:00-23:00",
+      "hoursHumanReadable": "Mon: 11am–9:45pm\nTue–Wed: 11am–11pm\nThu–Sat: 11am–12am\nSun: 11am–11pm",
+      "priceRange": "$$",
+      "websiteURL": "https://www.dalspizza.com/locations/downtown-charleston",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
-      "editorialBody": null
+      "editorialBody": null,
+      "areaServed": null
     },
     {
       "slug": "tonis-detroit-style-pizza",
@@ -118,10 +121,10 @@
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
       "address": {
-        "streetAddress": null,
-        "addressLocality": "Charleston",
+        "streetAddress": "1795 N Hwy 17 Unit 1",
+        "addressLocality": "Mount Pleasant",
         "addressRegion": "SC",
-        "postalCode": null,
+        "postalCode": "29464",
         "addressCountry": "US"
       },
       "description": "Toni's Detroit Style Pizza serves thick, cheesy pies with crispy edges in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
@@ -133,15 +136,16 @@
           "title": "Best Pizza in Charleston"
         }
       ],
-      "phone": null,
+      "phone": "+1-843-416-8232",
       "hours": null,
-      "hoursHumanReadable": null,
-      "priceRange": null,
-      "websiteURL": null,
+      "hoursHumanReadable": "Hours vary — see tonisdetroitpizza.com or call (843) 416-8232 for current hours.",
+      "priceRange": "$$",
+      "websiteURL": "https://tonisdetroitpizza.com/",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
-      "editorialBody": null
+      "editorialBody": null,
+      "areaServed": null
     },
     {
       "slug": "park-pizza-co",
@@ -152,10 +156,10 @@
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
       "address": {
-        "streetAddress": null,
-        "addressLocality": "Charleston",
+        "streetAddress": "1028 E Montague Ave",
+        "addressLocality": "North Charleston",
         "addressRegion": "SC",
-        "postalCode": null,
+        "postalCode": "29405",
         "addressCountry": "US"
       },
       "description": "Park Pizza Co is a neighborhood pizza spot in Park Circle, Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
@@ -167,15 +171,16 @@
           "title": "Best Pizza in Charleston"
         }
       ],
-      "phone": null,
-      "hours": null,
-      "hoursHumanReadable": null,
-      "priceRange": null,
-      "websiteURL": null,
+      "phone": "+1-843-225-7275",
+      "hours": "Mo-Fr 11:00-22:00, Sa 16:00-22:00",
+      "hoursHumanReadable": "Mon–Fri: 11am–10pm\nSat: 4pm–10pm\nSun: Closed",
+      "priceRange": "$",
+      "websiteURL": "https://parkpizzaparkcircle.com/",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
-      "editorialBody": null
+      "editorialBody": null,
+      "areaServed": null
     }
   ]
 }
