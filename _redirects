@@ -1,0 +1,8 @@
+# Restaurant detail-page canonicalization.
+# Netlify's "pretty URLs" feature serves /restaurants/foo.html when the URL
+# /restaurants/foo is requested AND rewrites internal links to drop the .html.
+# This created a canonical asymmetry: page metadata (canonical, og:url, JSON-LD url)
+# all declare /restaurants/foo.html as canonical, but anchors point to /restaurants/foo.
+# The 301! below force-redirects the no-.html form to the .html form so the
+# served URL matches the declared canonical, eliminating the asymmetry.
+/restaurants/:slug  /restaurants/:slug.html  301!
