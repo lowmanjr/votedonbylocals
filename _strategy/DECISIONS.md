@@ -190,3 +190,40 @@ The full analysis lives at `rankings/_detail-page-design.md`. The decisions:
 - The build step master plan step 4 requires gets pre-justified by step 2's data store — no longer a step-4-specific concern.
 
 **Alternatives considered for each decision:** documented in detail in `rankings/_detail-page-design.md`. Most notable rejections: auto-generated editorial body (#4, brand-wedge violation), inline per-restaurant data (#8, forecloses Fork B), all-37-at-once big-bang ship (#7, risk concentration), URL pattern with city prefix today (#1, prematurely commits to one of two equally-likely multi-city architectures).
+
+---
+
+## 14. Detail-page pilot strategic decisions (Step 2 of master plan)
+
+**What was decided:** Four strategic choices that emerged during the data-collection pass for the step 2 pilot port. Captured here as a single entry rather than four separate ones because the choices are tightly coupled — they together define how detail pages handle real-world restaurant complexity that the design analysis (#13) didn't anticipate.
+
+The choices became necessary when actual restaurant data revealed three structural cases the design analysis hadn't covered: a Mt Pleasant restaurant on a "Charleston" ranking page (Toni's), a mobile food vendor with no fixed address (Dough Boyz), and multi-location restaurants (Toni's, D'Allesandro's). The decisions:
+
+1. **Editorial scope: greater Charleston / Lowcountry, not Charleston peninsula.** Mount Pleasant, North Charleston, Daniel Island, James Island, West Ashley, Folly Beach, Sullivan's Island, and Isle of Palms are all editorially "Charleston" for the purposes of Voted On By Locals rankings. The brand wedge is greater Charleston as locals experience it, not the literal city limits.
+
+2. **Structured data uses literal municipality, not the editorial umbrella.** A Mount Pleasant restaurant gets `addressLocality: "Mount Pleasant"` in JSON-LD, NOT `"Charleston"`. The editorial framing ("Charleston") lives in page prose, `<title>`, and meta description; the structured data tells the truth about which municipality the building is in. Same pattern as Disney World listed in Bay Lake, FL while marketed as "Orlando." This preserves both the editorial brand identity and Google's local-search accuracy.
+
+3. **Mobile food vendors use the `FoodEstablishment` schema with `areaServed`, not `Restaurant` with `address`.** Dough Boyz (a mobile pizza pop-up) gets `@type: "FoodEstablishment"`, all address sub-fields except locality/region set to null, and a new `areaServed` field carrying descriptive operating-area text. Visible "Where to find it" sidebar block is replaced with "Area served" pointing customers to the vendor's social channels for current location/schedule. Pattern is reusable for future food trucks, pop-ups, and mobile vendors.
+
+4. **Multi-location restaurants get one detail page per brand, not per location.** A restaurant with multiple locations (Toni's: Mt Pleasant + Wando; D'Allesandro's: Charleston + Summerville + Greenville) gets a single detail page at the brand-level slug (`tonis-detroit-style-pizza`, `dallesandros-pizza`) with the primary location prominently featured. A "Locations" section inside the page will hold additional locations with their own addresses and hours via per-location `Place` microdata, preserving most per-location SEO value without slug proliferation. The pilot ships primary-location-only per multi-location restaurant; the Locations module is a tracked workstream for activation when a second multi-location restaurant ships.
+
+**Alternatives considered:**
+- For #1: scope strictly to Charleston peninsula (rejected — would exclude well-loved local restaurants Charleston locals consider part of their food scene)
+- For #2: flatten all addresses to "Charleston" for editorial consistency (rejected — misrepresents the structured data, hurts local SEO, and Google treats fabricated location data as deceptive markup)
+- For #3: skip mobile vendors entirely from rankings (rejected — Dough Boyz is a real, voted-on Charleston restaurant; excluding it because of an address-shape limitation would distort the rankings); use `Restaurant` with a fake address (rejected — fabrication, violates the brand wedge)
+- For #4: one detail page per location with disambiguating slugs like `dallesandros-pizza-charleston` / `dallesandros-pizza-summerville` (rejected — operator framing emphasized highlighting the restaurant brand identity over per-location SEO; slug proliferation also weakens the badge anchor model from #13.6)
+
+**Convergent side effects:**
+- DECISIONS #13.4 (stub-then-flesh editorial) handled cleanly by the pilot — minimum-stub pages shipped without fabricated body copy, all REQUIRED fields present.
+- The new `areaServed` field is now part of the JSON schema for ALL restaurants (4 of 5 with null, 1 set). Future mobile vendors land cleanly without schema migration.
+- The generator script (`scripts/generate_detail_page.py`, commit 9c6b3f7) encodes all 4 decisions in code. The decisions and their implementation are now coupled — changing the decisions requires updating the script + regenerating affected pages.
+
+**Where the resolution shows up in the codebase:**
+- Decision #1: editorial scope is implicit in the rankings (Toni's appearing on `best-pizza` validates Mt Pleasant inclusion) and in the step-2 commit messages
+- Decision #2: literal municipality values in `data/restaurants.json` for tonis-detroit-style-pizza ("Mount Pleasant") and park-pizza-co ("North Charleston")
+- Decision #3: dough-boyz entry in `data/restaurants.json` (schemaType="FoodEstablishment", null address fields, areaServed populated) + the template's intentional decision #9 + the script's mobile-vendor branch
+- Decision #4: pilot-shipped pages for tonis-detroit-style-pizza and dallesandros-pizza both use brand-level slugs with primary locations only; the Locations module tracked in `_strategy/TRACKED.md`
+
+**Earlier-session details that are now part of this resolution:**
+- The data-collection workflow (Claude chat for web research, Claude Code for repo writes) — see `_strategy/WORKFLOW.md` extension implicitly approved this session
+- Anti-fabrication wedge applied at the field level: Toni's hours stay null because no reliable source could be found; Dough Boyz priceRange stays null because mobile-vendor pricing varies too much. Visible HTML uses honest fallback copy ("Hours vary — see [website]") rather than fabricated values. Per template intentional decision #10.
