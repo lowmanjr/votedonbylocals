@@ -15,11 +15,37 @@
     <title>Ambassadors | Voted On By Locals</title>
     <meta name="description" content="Interested in starting a Voted On By Locals guide for your own city? Learn more about becoming an ambassador.">
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <!-- KEEP: Fonts ---------------------------------------------------- -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- KEEP: Tailwind + brand config ---------------------------------- -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['DM Sans', 'sans-serif'],
+                        poppins: ['Poppins', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#E67E22',
+                            cream: '#FFF8F0',
+                            dark: '#2D3748',
+                            gray: '#4A4A4A'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="stylesheet" href="assets/css/style.css">
     <script src="assets/js/main.js" defer></script>
 </head>
-<body class="antialiased">
+<body class="antialiased bg-brand-cream text-brand-dark min-h-screen flex flex-col">
 
     <header id="main-header"></header>
 
