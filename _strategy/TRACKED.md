@@ -14,21 +14,13 @@ When an item resolves, move it to the bottom under "## Resolved" with a brief no
 
 Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. Each can be resolved independently.
 
-### Cuisine-flag verifications (4 items)
-
-These were authored during the migration with the "if uncertain" rule (use a defensible value, flag for operator verification, don't block on it).
-
-- **`best-casual-spots.html` / Chico Feo.** Shipped: `servesCuisine: "Caribbean-influenced"`. Operator (John) to verify and finalize. Alternatives if menu-actual differs: `Caribbean`, `Latin American`, `Lowcountry`. Single-line JSON-LD edit when finalized.
-
-- **`best-nice-restaurants.html` / Vern's.** Shipped: `servesCuisine: "New American"`. Operator to verify. Bistro-leaning — could read as `French Bistro`, `Continental`, or `Contemporary American` depending on framing. Single-line JSON-LD edit.
-
-- **`best-burger.html` / cuisine values.** Shipped: 4 × `Burgers` + 1 × `Barbecue` (the `Barbecue` is on Home Team BBQ, which is unambiguously a BBQ joint listed for its burger — disambiguated correctly). Operator may want to refine the others: Moe's Crosstown Tavern → `American Tavern`, Lowland → `American`. Up to operator preference; current values are defensible.
-
-- **`best-tex-mex.html` / cuisine values.** Shipped: 5 × `Tex-Mex`. Azul Mexicano in particular ("Modern Aesthetic" tagline) may read better as `Mexican` rather than `Tex-Mex`. Operator to refine if desired.
-
 ### Editorial promotion items (1 item)
 
 - **`best-new-restaurants` Top 4 → Top 5 promotion.** Page currently has 4 entries; subtitle reads "Four standouts — with more to come." Promote to Top 5 on the next refresh **only when a real 5th candidate exists**. Do NOT fabricate a 5th from training data — the whole reason this is a tracked item is that the project explicitly opposes the kind of fabricated content this would be. The Top-4 framing was made intentional, not a gap, so the page is fine as-is until a real 5th lands.
+
+### Netlify pretty-URL canonical asymmetry (1 item)
+
+- **Configure redirect rule for no-`.html` → `.html`.** Netlify currently 200-dual-serves both forms (identical Etag, no redirect). Internal anchors get `.html` stripped by Netlify pretty-URL post-processing; canonical/og:url/JSON-LD all declare the `.html` form. Google honors the canonical, so functionally fine — this is a structural cleanup, not a bug fix. **Attempted in workstream H bulk port (reverted):** `/restaurants/:slug /restaurants/:slug.html 301!` creates an infinite loop because Netlify's `:slug` placeholder matches segments containing `.html` and the `!` flag forces the rule on already-redirected paths (foo.html → foo.html.html → foo.html.html.html…). A working fix likely needs either (a) a two-rule pattern with an explicit `/restaurants/*.html /restaurants/:splat.html 200` passthrough rewrite preceding the 301, or (b) `pretty_urls = false` in netlify.toml to disable Netlify's anchor rewriting at the source. Either approach must be preview-tested in an isolated PR before merge. Discovered during workstream H bulk port PHASE 8 verification.
 
 ---
 
@@ -63,18 +55,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Estimated scope:** 1–2 days. Half template + script work; half per-location data collection for the affected restaurants.
 
-### Multi-entry AppearsOn handling in generator script
-
-**Files affected:** `scripts/generate_detail_page.py`.
-
-**Current state:** Script handles single-entry AppearsOn (one ranking page per restaurant). All 5 pilot restaurants are single-entry. Multi-entry support is a known future extension flagged in the script's docstring.
-
-**Why it's tracked, not done now:** Designing without a real test case risks shipping the wrong abstraction. When the first restaurant appearing on >1 ranking page lands (likely as the bulk port progresses across rankings), we'll have a concrete case to design against.
-
-**Trigger to activate:** when the bulk port hits the first restaurant appearing on >1 ranking page.
-
-**Estimated scope:** ~2 hours — duplicate the AppearsOn `<li>` block per entry in the script's step 12. Mostly mechanical.
-
 ### Title verbosity for cuisine-name overlap
 
 **Files affected:** detail-page `<title>` rendering in the generator script; possibly the JSON schema (new optional `titleCuisine` override field).
@@ -86,18 +66,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 **Trigger to activate:** at the editorial flesh stage for affected restaurants, OR when bulk port reveals more cuisine-name-overlap cases.
 
 **Estimated scope:** ~30 min — add `titleCuisine` to the JSON schema (null by default, optional override), update step 12 in the script to fall back to `cuisine` when `titleCuisine` is null.
-
-### Bulk port of remaining ~32 detail pages
-
-**Files affected:** `data/restaurants.json` (32 new entries), `restaurants/*.html` (32 new pages), generated by existing `scripts/generate_detail_page.py`.
-
-**Current state:** 5 of ~37 detail pages live (the best-pizza pilot). The remaining ~32 restaurants across the other 7 ranking pages have no detail pages yet — they appear on rankings as name + tagline only, the pre-step-2 state.
-
-**Why it's tracked, not done now:** Each of the other 7 ranking pages is its own data-collection pass (~5 restaurants × ~7 fields = ~35 cells per ranking). The pattern is now mechanical (web research → JSON → `python scripts/generate_detail_page.py --all`), but the data collection itself is the gating activity.
-
-**Order of operations:** Recommended one ranking page at a time, mirroring the pilot's tight scope. After each ranking's restaurants land, also do the master plan step 3 work (schema cross-linking) for that ranking page only, so the ranking page → detail page wiring stays current as detail pages ship.
-
-**Estimated scope:** ~3–4 hours per ranking page (data collection + JSON entry + generation + visual review). 7 rankings remaining = 21–28 hours total for full bulk port.
 
 ### BreadcrumbList schema across rankings + details
 
@@ -146,3 +114,11 @@ These are explicitly held until the master plan reaches the right step. They are
 - **2026-05-03 — canonical-template boilerplate removed from 7 ranking pages.** Initially scoped as a single-file cleanup on `best-pizza.html`. Pre-flight grep found the boilerplate was actually propagated to all 7 ranking pages during step 1 harmonization, plus an extended page-deviation note on `best-new-restaurants.html`. Resolved per D2: full delete from 6 pages, surgical rewrite preserving the page-specific deviation note on the 7th. Convention-level notes (emoji reuse, vote-count absence, favicon-vs-OG asymmetry) verified durable in DECISIONS #1 / #2 / #10 before delete. See commit 902c584.
 
 - **2026-05-03 — 5 top-level pages chrome upgrade.** about.html, vote.html, suggest-category.html, ambassadors.html, and thank-you.html now share the canonical chrome (inline Tailwind config + font preconnect/stylesheet + canonical body classes). Side effect: focus:border-brand-orange / focus:ring-brand-orange Tailwind variants on form inputs now resolve correctly (were silent no-ops before — variants need brand-orange in Tailwind's config, which only the inline config provides). Sibling commit pruned 2 redundant style.css declarations + 2 redundant rules (DECISIONS #11). .font-poppins retained pending step 4. Unblocks PLAN.md step 4. See commits 689d3d2 (chrome upgrade) and f60c5e5 (style.css prune).
+
+- **2026-05-03 — Best-coffee-shops detail-page port (5 of ~37, workstream H 1/7).** First ranking-page bulk port. 5 detail pages shipped (Harken Cafe, Sightsee, Babas on Cannon, Second State Coffee, The Harbinger Cafe & Bakery), all schemaType=CafeOrCoffeeShop. Step-3 cross-linking applied in same PR. Multi-location restaurants (Babas, Second State) ship primary-location only per #14.4 — Babas tripped the Locations module trigger. See merged PR #3 commits.
+
+- **2026-05-03 — Workstream H bulk port (24 detail pages across 5 rankings).** 23 unique restaurants (Home Team BBQ shared between best-burger and best-casual-spots) covering 24 ranking-row entries. Closes the bulk-port workstream for all 7 multi-entry rankings (best-pizza pilot + best-coffee-shops + workstream H's 5 rankings = 7 of 7). The featured-winner page best-new-coffee-shop remains separate per its own tracked workstream. Step-3 cross-linking applied in same PR (5 commits, one per ranking). Reconciliations: San Miguel locality → Mt Pleasant, Chico Feo locality → Folly Beach, Edmund's Oast locality → North Charleston, Bar Weems locality → North Charleston, Azul Mexicano cuisine → Mexican. See workstream-h-bulk-port branch commits (bd958c1 data, 0ff23d3 detail pages, b0bb27e/e54137b/c916543/4d6da5a/051e5b9 step-3 cross-link).
+
+- **2026-05-03 — Multi-entry AppearsOn handling in generator script.** Triggered by Home Team BBQ (best-burger + best-casual-spots) during workstream H bulk port. Script's step 12 now clones the template's single-entry `<li>` block per appearsOn entry. Byte-equality preserved for single-entry case (verified against park-pizza-co regeneration → no diff). See commit 776b374.
+
+- **2026-05-03 — Cuisine-flag verifications (4 items).** Resolved during workstream H bulk port. Chico Feo confirmed `Caribbean-influenced` on the ranking page, with `Caribbean` used as the detail-page schema value. Vern's confirmed `New American`. Home Team BBQ on best-burger row confirmed `Barbecue` (no change). Azul Mexicano flipped from `Tex-Mex` to `Mexican` per the "Modern Aesthetic" tagline reading. Other defensible values (Moe's `Burgers`, Lowland `Burgers`, other Tex-Mex `Tex-Mex`) retained as-is. See commits b0bb27e (best-burger) and e54137b (best-tex-mex Azul flip).
