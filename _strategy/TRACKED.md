@@ -118,6 +118,18 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Estimated scope:** ~3–4 hours per ranking page (data collection + JSON entry + generation + visual review). 7 rankings remaining = 21–28 hours total for full bulk port.
 
+### BreadcrumbList schema across rankings + details
+
+**Files affected:** all 8 ranking pages, the detail-page template, all detail pages.
+
+**Current state:** No `BreadcrumbList` JSON-LD anywhere on the site. Considered and deferred during step 3. Ranking-only (`Home → Best Pizza`) is mechanical but low-value as a 2-node breadcrumb. The high-value case (`Home → Best Pizza → {Restaurant}`) requires touching the detail-page template, which was out of step 3 scope.
+
+**Why it's tracked, not done now:** The high-value version requires the detail-page template work; doing only the ranking-side version locks in a 2-node-only convention that gets retrofitted later anyway. Cleaner to add ranking + detail breadcrumbs in one pass once detail-page coverage is global.
+
+**Trigger to activate:** after the bulk-port workstream completes (or as a stage of it, on a per-ranking basis as detail pages ship per ranking).
+
+**Estimated scope:** ~2 hours — one schema block in the ranking template + one in the detail-page template, plus per-page rendering for the 8 rankings and ~37 detail pages.
+
 ---
 
 ## Deferred for later master-plan steps
@@ -149,3 +161,5 @@ These are explicitly held until the master plan reaches the right step. They are
 - **2026-05-03 — Doc consistency: 5-top-level-pages workstream placement.** Resolved via three small edits anchoring the workstream to step 4 as an explicit prerequisite. See commit f66cd17 and DECISIONS log entry context. (Workstream itself remains tracked above — only the placement-fuzziness was resolved.)
 
 - **2026-05-03 — Step 2 pilot port (best-pizza, 5 of ~37 detail pages).** Pilot ships 5 detail pages at /restaurants/{slug}.html with full chrome, JSON-LD, address/hours/phone/price/website where data exists. Generator script (commit 9c6b3f7) is reusable for the bulk port. Strategic decisions captured in DECISIONS #14. Bulk port for the remaining ~32 pages tracked above as a separate workstream.
+
+- **2026-05-03 — canonical-template boilerplate removed from 7 ranking pages.** Initially scoped as a single-file cleanup on `best-pizza.html`. Pre-flight grep found the boilerplate was actually propagated to all 7 ranking pages during step 1 harmonization, plus an extended page-deviation note on `best-new-restaurants.html`. Resolved per D2: full delete from 6 pages, surgical rewrite preserving the page-specific deviation note on the 7th. Convention-level notes (emoji reuse, vote-count absence, favicon-vs-OG asymmetry) verified durable in DECISIONS #1 / #2 / #10 before delete. See commit 902c584.

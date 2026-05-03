@@ -227,3 +227,34 @@ The choices became necessary when actual restaurant data revealed three structur
 **Earlier-session details that are now part of this resolution:**
 - The data-collection workflow (Claude chat for web research, Claude Code for repo writes) — see `_strategy/WORKFLOW.md` extension implicitly approved this session
 - Anti-fabrication wedge applied at the field level: Toni's hours stay null because no reliable source could be found; Dough Boyz priceRange stays null because mobile-vendor pricing varies too much. Visible HTML uses honest fallback copy ("Hours vary — see [website]") rather than fabricated values. Per template intentional decision #10.
+
+---
+
+## #15 — Step 3 cross-linking: defer breadcrumbs entirely; extend #14.2 locality logic back to ranking ItemList
+
+**Date:** 2026-05-03
+**Context:** Step 3 (schema cross-linking on rankings) for `best-pizza.html` — pilot scope. Two of the five design questions in `rankings/_step-3-design.md` were non-obvious enough to log here; the other three (visible HTML cross-links, per-item @type mirror, verification recipe) are mechanical follow-ons of established conventions.
+
+### Q3 — defer BreadcrumbList schema entirely (A over B/C/D)
+
+The mechanical option (B: ranking-only `Home → Best Pizza`) is tempting because it costs ~5 minutes per page and Google sometimes renders 2-node breadcrumbs in SERPs. We declined it.
+
+**Why:** the high-value version is the 3-node detail-page case (`Home → Best Pizza → {Restaurant}`), which requires touching the detail-page template — out of step 3's bootstrap-defined scope. Shipping the ranking-only version locks in a 2-node convention that gets retrofitted when the 3-node version lands later, and the cleanest path is to add ranking + detail breadcrumbs in one pass once detail-page coverage is global. Tracked as a workstream in `_strategy/TRACKED.md`, gated on bulk-port completion (or layered into bulk port on a per-ranking basis).
+
+**Trade-off accepted:** small near-term SEO opportunity cost on the 8 ranking pages until the workstream activates. Acceptable given the bulk port is the gating activity for everything in this neighborhood.
+
+### Q5 — reconcile ranking-page addressLocality to literal municipality (B over A/C)
+
+Detail pages ship with literal municipalities per #14.2 — Toni's = "Mount Pleasant", Park Pizza Co = "North Charleston". The current ranking-page ItemList sets `addressLocality: "Charleston"` for all 5 entries, an editorial-rollup convention that predates #14.2.
+
+The moment step 3 wires `url` cross-links between the two documents, the same restaurant carries two different `addressLocality` values across the structured-data graph on the same site. A search-engine entity resolver could legitimately flag the inconsistency.
+
+**Why B (reconcile in the same PR):** the change is two locality strings; the same JSON-LD block is being touched anyway for the `url` fields; deferring leaves a contradiction the bulk port will inherit on every ranking page with a non-Charleston-municipality entry. Fixing the pattern at best-pizza now sets the right convention for the bulk port — as detail pages ship per ranking, the ranking-page locality reconciles in the same PR.
+
+**Why not A (keep separated):** treating ItemList as "editorial rollup" and detail-page schema as "literal entity" is defensible in the abstract, but the cross-link mechanic of step 3 binds the two documents into one structured-data graph in Google's eyes. The "different scopes" framing dissolves once the url field exists.
+
+**Why not C (defer as tracked workstream):** trivial enough to ship now; deferring just multiplies the same 2-line edit across 7 future ranking-page PRs.
+
+**Trade-off accepted:** broadens step 3's strict "cross-linking only" scope by 2 lines. Surfaced explicitly in the design doc; not silent.
+
+**Convention going forward:** when a ranking page's detail pages ship, the ranking-page ItemList's `addressLocality` per item reconciles to the literal municipality used on the corresponding detail page in the same PR. This makes #14.2 a property of the structured-data graph as a whole rather than detail-pages-only.
