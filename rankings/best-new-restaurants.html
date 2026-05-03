@@ -1,58 +1,8 @@
 <!--
-  CANONICAL TOP-5 RANKING TEMPLATE — Voted On By Locals
-  -----------------------------------------------------
-  This file is the proposed single source of truth for ranking pages.
-  All <!-- REPLACE: ... --> markers are content fields a maintainer fills in.
-  All <!-- KEEP -->-marked sections should remain identical across every
-  ranking page so the chrome stays consistent.
-
-  Conforming pages: best-pizza, best-burger, best-tex-mex, best-coffee-shops,
-  best-casual-spots, best-nice-restaurants, best-new-restaurants.
-
-  NOT for: best-new-coffee-shop (single-winner format — separate template).
-
-  Per-page content fields (see _template-analysis.md §6):
-    - {{slug}}              → file name without extension, e.g. "best-pizza"
-    - {{Category}}          → display name, e.g. "Pizza"
-    - {{Emoji}}             → page theme emoji, e.g. "🍕"
-    - {{EmojiAriaLabel}}    → emoji aria-label, e.g. "pizza slice"
-    - {{Year}}              → ranking year for <title>, e.g. "2026"
-    - {{MonthYear}}         → updated date, e.g. "February 2026"
-    - {{Description}}       → long keyword-rich copy (~150 chars), used by
-                              <meta description> and JSON-LD description
-    - {{ShareTagline}}      → short hook-driven copy (~60–110 chars), used
-                              by og:description and twitter:description only
-    - {{Keywords}}          → comma-separated keyword string
-    - 5 × {{Restaurant}}, {{Tagline}}, {{Cuisine}} (last is for JSON-LD)
-
-  Intentional design decisions — DO NOT "fix" without explicit discussion:
-
-    1. Page-theme emoji is reused for every restaurant row.
-       Each row's icon is the SAME emoji as the page hero ({{Emoji}}). This
-       is the convention. Per-restaurant emoji is intentionally NOT a content
-       field — it would imply a richer per-restaurant content model we have
-       not committed to, and it would visually fragment the list. Do not
-       introduce per-restaurant emoji without an explicit decision to change
-       the convention.
-
-    2. Favicon uses a relative path; OG/Twitter images use absolute URLs.
-       This asymmetry is correct, not a bug. Favicons are loaded in the
-       browser with the document as the base URL, so a relative path
-       resolves fine. OG/Twitter images, by contrast, are fetched out-of-
-       context by social platforms (Facebook, X, iMessage, Slack, LinkedIn,
-       Discord) which have no document base — they REQUIRE absolute URLs.
-       Relative og:image paths silently break previews on every platform.
-
-    3. Vote-count footers are intentionally absent.
-       Earlier pages had hardcoded "Based on N local votes…" copy with
-       fabricated numbers (e.g. 1,769 / 1,420). That has been removed and
-       is not a content field here. When real aggregate vote data exists,
-       add it back as a proper component — not a string placeholder.
-
   Per-page deviations from canonical (this file ONLY):
     - Top 4 not Top 5 — row 5 and JSON-LD position-5 are intentionally
       omitted. "Best New" is a smaller-pool category; pad only when a real
-      5th candidate exists. See _template-analysis.md "Tracked items".
+      5th candidate exists. See _template-analysis.md 'Tracked items' and DECISIONS #4.
     - Hero subtitle modified to acknowledge the Top 4 framing
       ("Four standouts — with more to come.").
 -->
