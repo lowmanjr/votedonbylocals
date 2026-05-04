@@ -85,7 +85,6 @@
     --brand-cream:  {{brandCream}};
     --brand-dark:   {{brandDark}};
     --brand-gray:   {{brandGray}};
-    --orange-50:    #FFF7ED;
     --gray-800:     #1F2937;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -121,7 +120,10 @@
     gap: 12px;
   }
   .brand-mark .icon-bg {
-    background: var(--orange-50);
+    /* See ranking.html for backplate rationale — brand-orange at 14% alpha
+       so it's visible on the OG cream canvas (the live header's #FFF7ED is
+       invisible against #FFF8F0). */
+    background: color-mix(in srgb, var(--brand-orange) 14%, transparent);
     border-radius: 10px;
     padding: 8px;
     display: flex;
