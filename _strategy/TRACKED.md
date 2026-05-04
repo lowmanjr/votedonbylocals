@@ -76,6 +76,18 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Trigger to activate:** when a discrepancy surfaces (e.g., a sitemap audit shows stale `dateModified` vs actual editorial activity), or when a build pipeline / CI is introduced that could host the hook.
 
+### Top-level pages OG coverage
+
+**Files affected:** `about.html`, `vote.html`, `suggest-category.html`, `ambassadors.html`, `thank-you.html`. Possibly new `og-{slug}.png` assets if per-page images chosen over shared default.
+
+**Current state:** 5 top-level pages have no Open Graph block at all — no `og:image`, no `og:title`, no `og:description`, no `og:url`, no `og:site_name`, no Twitter card. PR #16 (master plan step 5) patched `index.html` to add `og:image`, `og:site_name`, and `twitter:card` (closing the twitter-large-image-card-rendering loop with the new `og-default.png`). The other 5 pages remain bare.
+
+**Why it's tracked, not done now:** Each page needs design decisions before the OG block can ship: unique `og-{slug}.png` per page (extending the step-5 pipeline) or shared `og-default.png`? Per-page `og:title` and `og:description` strings? Pulling these into PR #16 would have meant making those design calls under PR pressure rather than deliberately.
+
+**Estimated scope:** ~2 hours, design-first. Decide per-page asset strategy + draft per-page meta strings + extend the OG pipeline if unique images are chosen. Then ~5 small HTML edits + 0-5 new PNG renders.
+
+**Trigger to activate:** when ready to lead with it. Lower-priority than rankings + detail surfaces (these pages get less inbound traffic); not blocking on anything.
+
 ---
 
 ## Deferred for later master-plan steps
