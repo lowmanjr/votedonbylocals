@@ -1,0 +1,51 @@
+{
+  "_meta": {
+    "schemaVersion": "1.1",
+    "lastUpdated": "2026-05-04",
+    "purpose": "Per-ranking content for OG image generation. Read by scripts/generate_og_images.py.",
+    "fieldDocumentation": "og-templates/ranking.html (top docblock)",
+    "fieldPolicy": "Required fields must be filled. Spots = entry count on the ranking page (5 for Top-5, 4 for best-new-restaurants per DECISIONS #4, 1 for best-new-coffee-shop's featured-winner format). Emoji removed in v1.1 — see ranking.html intentional decision #6."
+  },
+  "rankings": [
+    {
+      "slug": "best-pizza",
+      "category": "Pizza",
+      "spots": 5
+    },
+    {
+      "slug": "best-burger",
+      "category": "Burger",
+      "spots": 5
+    },
+    {
+      "slug": "best-tex-mex",
+      "category": "Tex-Mex",
+      "spots": 5
+    },
+    {
+      "slug": "best-coffee-shops",
+      "category": "Coffee Shops",
+      "spots": 5
+    },
+    {
+      "slug": "best-casual-spots",
+      "category": "Casual Spots",
+      "spots": 5
+    },
+    {
+      "slug": "best-nice-restaurants",
+      "category": "Nice Restaurants",
+      "spots": 5
+    },
+    {
+      "slug": "best-new-restaurants",
+      "category": "New Restaurants",
+      "spots": 4
+    },
+    {
+      "slug": "best-new-coffee-shop",
+      "category": "New Coffee Shop",
+      "spots": 1
+    }
+  ]
+}

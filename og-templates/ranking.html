@@ -1,0 +1,204 @@
+<!--
+  OG IMAGE TEMPLATE — RANKING PAGES (1200×630)
+  ─────────────────────────────────────────────
+  Source of truth for the ranking-page Open Graph share-preview image.
+  Rendered headlessly by scripts/generate_og_images.py via Playwright,
+  output to assets/images/og-{slug}.png.
+
+  Conforming pages: all 8 ranking pages (best-pizza, best-burger,
+  best-tex-mex, best-coffee-shops, best-casual-spots, best-nice-restaurants,
+  best-new-restaurants, best-new-coffee-shop). The featured-winner page
+  best-new-coffee-shop uses this template too — its og:image filename
+  (og-best-new-coffee-shop.png) follows the ranking pattern.
+
+  ──────────────────────────────────────────────────────────────────
+  Per-image content fields:
+    {{Category}}      display name, e.g. "Pizza"
+    {{SpotsLabel}}    pluralized entry count, e.g. "5 spots" / "1 spot".
+                      Computed by the script from data/og_rankings.json's
+                      'spots' integer — generic logic, not hand-curated.
+
+  Brand color placeholders (substituted from tailwind.config.js by the
+  script — single source of truth preserved):
+    {{brandOrange}}   #E67E22
+    {{brandCream}}    #FFF8F0
+    {{brandDark}}     #2D3748
+    {{brandGray}}     #4A4A4A
+
+  ──────────────────────────────────────────────────────────────────
+  Intentional design decisions — DO NOT "fix" without explicit discussion:
+
+    1. No date in the image. Originally proposed "Updated {Month Year}"
+       was dropped to (a) avoid cache-busting on monthly refresh and
+       (b) reduce visual clutter at OG display sizes.
+
+    2. Subtitle voice mirrors the site canonical exactly:
+       "As voted by Charleston locals" — same phrasing as the ranking
+       page subtitle (_template-canonical.html line 318). Brand voice
+       lives in one place; OG echoes it.
+
+    3. Brand mark is the exact lockup from components/header.html
+       (lines 5-14): orange map-pin SVG inside an orange-50 rounded
+       square + Title-Case "Voted On By Locals" wordmark. Reproducing
+       the header lockup keeps brand recognition continuous from share
+       preview → landing page.
+
+    4. Orange accent on the {Category} word follows the canonical hero's
+       pattern (_template-canonical.html line 315: <span
+       class="text-brand-orange">{{Category}}</span>). The accent isn't
+       a separate rule/element on the canonical; it's the category word
+       itself rendered orange.
+
+    5. No Tailwind dependency. Inline <style> + Google Fonts <link>.
+       Re-running `npm run build:css` doesn't affect OG output. Brand
+       colors come in as placeholders from tailwind.config.js so the
+       single-source-of-truth invariant holds across both surfaces.
+
+    6. No emoji in the OG image. The on-page hero (canonical line 315)
+       renders {{Emoji}} after the {{Category}} word as a visual anchor.
+       The OG image drops it for two reasons: (a) Segoe UI Emoji is
+       Windows-specific — re-rendering this script on Mac, Linux, CI,
+       or a container would silently change the glyph (and the PNG
+       would ship that glyph forever, since the emoji is baked to
+       pixels at render-time, not text); (b) at OG preview sizes the
+       emoji competes with the orange-on-{Category} accent that already
+       does the cuisine-signaling job. Emoji stays on-page; drops only
+       from OG.
+
+    7. No URL stamp. Initial draft had a votedonbylocals.com anchor at
+       bottom-right. Removed because the brand-mark lockup top-left
+       already reads as a site identity at preview size; the URL stamp
+       doubled the signal without adding information.
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>OG · Ranking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-orange: {{brandOrange}};
+    --brand-cream:  {{brandCream}};
+    --brand-dark:   {{brandDark}};
+    --brand-gray:   {{brandGray}};
+    --orange-50:    #FFF7ED;
+    --gray-800:     #1F2937;
+    --gray-400:     #9CA3AF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--brand-cream);
+    color: var(--brand-dark);
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Right-side dot-pattern panel — same 30×30 grid as the homepage hero
+     (src/input.css), with two adjustments tuned for OG-preview density:
+     dot radius 1px → 1.5px and opacity 0.10 → 0.70. The on-page hero
+     reads as a subtle texture at full viewport width; OG previews are
+     rendered much smaller, so the panel needs more presence to register. */
+  .dot-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 480px;
+    height: 100%;
+    background-image: radial-gradient(var(--brand-orange) 1.5px, transparent 1.5px);
+    background-size: 30px 30px;
+    opacity: 0.7;
+  }
+
+  /* Brand mark — exact lockup from components/header.html. */
+  .brand-mark {
+    position: absolute;
+    top: 56px;
+    left: 64px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark .icon-bg {
+    background: var(--orange-50);
+    border-radius: 10px;
+    padding: 8px;
+    display: flex;
+  }
+  .brand-mark svg { width: 28px; height: 28px; color: var(--brand-orange); }
+  .brand-mark .wordmark {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--gray-800);
+    letter-spacing: -0.015em;
+  }
+
+  /* Headline stack — left-aligned, vertically centered, 64px from edges. */
+  .headline {
+    position: absolute;
+    left: 64px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 720px;
+  }
+  .eyebrow {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 36px;
+    color: var(--brand-gray);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .category {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800;
+    font-size: 132px;
+    line-height: 1.0;
+    color: var(--brand-dark);
+    letter-spacing: -0.04em;
+  }
+  .category .accent { color: var(--brand-orange); }
+  .accent-rule {
+    width: 96px;
+    height: 5px;
+    background: var(--brand-orange);
+    border-radius: 999px;
+    margin: 28px 0 24px;
+  }
+  .meta {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--brand-gray);
+    letter-spacing: -0.005em;
+  }
+  .meta .sep { margin: 0 10px; opacity: 0.4; }
+</style>
+</head>
+<body>
+  <div class="dot-panel"></div>
+
+  <div class="brand-mark">
+    <div class="icon-bg">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" d="M12 2.25c-4.473 0-8.106 3.633-8.106 8.106 0 4.472 8.106 11.394 8.106 11.394s8.106-6.922 8.106-11.394C20.106 5.883 16.473 2.25 12 2.25Zm0 11.25a3.375 3.375 0 1 0 0-6.75 3.375 3.375 0 0 0 0 6.75Z" clip-rule="evenodd" />
+      </svg>
+    </div>
+    <span class="wordmark">Voted On By Locals</span>
+  </div>
+
+  <div class="headline">
+    <div class="eyebrow">Best</div>
+    <div class="category"><span class="accent">{{Category}}</span></div>
+    <div class="accent-rule"></div>
+    <div class="meta">
+      As voted by Charleston locals<span class="sep">·</span>{{SpotsLabel}}
+    </div>
+  </div>
+</body>
+</html>
