@@ -83,6 +83,18 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Estimated scope:** ~2 hours — one schema block in the ranking template + one in the detail-page template, plus per-page rendering for the 8 rankings and ~37 detail pages.
 
+### dateModified maintenance discipline
+
+**Files affected:** detail pages and ranking pages going forward.
+
+**Current state:** 40 pages now carry `datePublished` + `dateModified` JSON-LD fields, both seeded from git-creation-date. `dateModified` is intended to update only when editorial content changes — not on chrome edits.
+
+**Why it's tracked:** No process today guarantees that operator remembers to bump `dateModified` on editorial edits. Risk: stale `dateModified` silently mismeasures content freshness for crawlers. Discipline-only solution today; a pre-commit hook or generator enhancement could automate.
+
+**Estimated scope:** depends on chosen approach. Pre-commit hook = ~30min. Generator-flag-driven update = ~1hr. Pure documentation discipline = no code, just a note in HANDOFF.md or PR template.
+
+**Trigger to activate:** when a discrepancy surfaces (e.g., a sitemap audit shows stale `dateModified` vs actual editorial activity), or when a build pipeline / CI is introduced that could host the hook.
+
 ---
 
 ## Deferred for later master-plan steps
@@ -102,6 +114,8 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-04 — `dateModified` plumbing + sitemap `<lastmod>`.** 33 detail pages + 7 ranking pages = 40 pages now carry `datePublished` and `dateModified` in their JSON-LD, seeded from git-creation-date via `git log --diff-filter=A --format=%aI`. Sitemap emits `<lastmod>` for those 40 pages; the 5 root pages and `best-new-coffee-shop.html` omit it (URL count unchanged at 46). `scripts/add_dates_to_rankings.py` retained as one-shot reference; the detail-page generator now preserves existing dates on regeneration so operator-maintained `dateModified` survives re-runs. Maintenance workflow (operator updates `dateModified` on editorial edits) is tracked separately above.
 
 - **2026-05-04 — Build-time header/footer inlining (master plan step 7, partial).** `components/header.html` and `components/footer.html` now inlined at build time across all 49 pages via `scripts/inline_chrome.py`. `components/` retained as editable source-of-truth (operator edits there, re-runs inliner, commits). Eliminates runtime fetch + FOUC + JS-disabled-empty-nav. `main.js` reduced from 44 to 11 lines. Step 7 (final polish) is broader than this one workstream; the inlining piece is now resolved.
 
