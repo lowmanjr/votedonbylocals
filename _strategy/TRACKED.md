@@ -18,6 +18,10 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 - **`best-new-restaurants` Top 4 → Top 5 promotion.** Page currently has 4 entries; subtitle reads "Four standouts — with more to come." Promote to Top 5 on the next refresh **only when a real 5th candidate exists**. Do NOT fabricate a 5th from training data — the whole reason this is a tracked item is that the project explicitly opposes the kind of fabricated content this would be. The Top-4 framing was made intentional, not a gap, so the page is fine as-is until a real 5th lands.
 
+### Post-May-20 chrome follow-ups (1 item)
+
+- **Add `id="rankings"` to the cards-grid section on `index.html`.** The BreadcrumbList JSON-LD on all 8 ranking pages declares `https://votedonbylocals.com/#rankings` as the intermediate breadcrumb URL. Schema works without the anchor today (fragment falls back to top of document on a homepage that IS the rankings index). Adding the `id` turns the fragment into a real on-page anchor that scrolls to the cards section. Single edit to one `<div>` near `index.html` line 158-160. Held until post-May-20 because it's a chrome edit during the GSC quiet window. No schema changes needed when shipped — the existing JSON-LD already references `/#rankings`. Filed by PR #18 (BreadcrumbList rollout).
+
 ### Netlify pretty-URL canonical asymmetry (1 item)
 
 - **Configure redirect rule for no-`.html` → `.html`.** Netlify currently 200-dual-serves both forms (identical Etag, no redirect). Internal anchors get `.html` stripped by Netlify pretty-URL post-processing; canonical/og:url/JSON-LD all declare the `.html` form. Google honors the canonical, so functionally fine — this is a structural cleanup, not a bug fix. **Attempted in workstream H bulk port (reverted):** `/restaurants/:slug /restaurants/:slug.html 301!` creates an infinite loop because Netlify's `:slug` placeholder matches segments containing `.html` and the `!` flag forces the rule on already-redirected paths (foo.html → foo.html.html → foo.html.html.html…). A working fix likely needs either (a) a two-rule pattern with an explicit `/restaurants/*.html /restaurants/:splat.html 200` passthrough rewrite preceding the 301, or (b) `pretty_urls = false` in netlify.toml to disable Netlify's anchor rewriting at the source. Either approach must be preview-tested in an isolated PR before merge. Discovered during workstream H bulk port PHASE 8 verification.
@@ -51,18 +55,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 **Trigger to activate:** at the editorial flesh stage for affected restaurants, OR when bulk port reveals more cuisine-name-overlap cases.
 
 **Estimated scope:** ~30 min — add `titleCuisine` to the JSON schema (null by default, optional override), update step 12 in the script to fall back to `cuisine` when `titleCuisine` is null.
-
-### BreadcrumbList schema across rankings + details
-
-**Files affected:** all 8 ranking pages, the detail-page template, all detail pages.
-
-**Current state:** No `BreadcrumbList` JSON-LD anywhere on the site. Considered and deferred during step 3. Ranking-only (`Home → Best Pizza`) is mechanical but low-value as a 2-node breadcrumb. The high-value case (`Home → Best Pizza → {Restaurant}`) requires touching the detail-page template, which was out of step 3 scope.
-
-**Why it was tracked, not done earlier:** The high-value version required the detail-page template work; doing only the ranking-side version would have locked in a 2-node-only convention that gets retrofitted later anyway. The plan was to add ranking + detail breadcrumbs in one pass once detail-page coverage was global — now satisfied (see Trigger).
-
-**Trigger to activate:** ELIGIBLE as of 2026-05-04 (bulk port complete; PR #12 closed step 2 + step 3 to 100%). Not the current lead workstream — OG images is. Pull in when ready to lead with it.
-
-**Estimated scope:** ~2 hours — one schema block in the ranking template + one in the detail-page template, plus per-page rendering for the 8 rankings and ~37 detail pages.
 
 ### dateModified maintenance discipline
 
@@ -117,6 +109,8 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-04 — BreadcrumbList schema across rankings + details.** All 8 ranking pages and 33 detail pages now carry `BreadcrumbList` JSON-LD. Ranking shape: Home → Rankings (`/#rankings`) → Best {Category}. Detail shape: Home → {RestaurantName} (no intermediate "Restaurants" node — site has no /restaurants index or nav category, and detail pages are cross-listed across rankings so a parent ranking would be ambiguous). `/#rankings` fragment resolves to the homepage today; small post-May-20 follow-up filed above to add `id="rankings"` to the cards section. Detail-page generator regenerated all 33 pages from `_detail-page-template.html`; ranking pages hand-edited (no ranking-page generator). Schema-only PR — no chrome edits, GSC quiet-window safe. See merged PR #18.
 
 - **2026-05-04 — Hero dot-pattern brand-color duplication.** Moved `.bg-dot-pattern` from `index.html` inline `<style>` into `src/input.css` as `@layer components`, using `theme('colors.brand.orange')` instead of hardcoded `#E67E22`. Brand-color changes in `tailwind.config.js` now propagate automatically. Visual unchanged. See merged PR #14.
 

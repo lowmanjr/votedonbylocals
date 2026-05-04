@@ -59,6 +59,40 @@
     }
     </script>
 
+    <!-- BreadcrumbList — Home → Rankings (/#rankings) → Best New Coffee Shop.
+         The /#rankings fragment resolves to the homepage, which IS the
+         rankings index (hero "The Charleston Rankings" + 8-card grid).
+         Schema works without an explicit id="rankings" anchor on the
+         page (fragment falls back to top of document). A small UX
+         follow-up is tracked to add the id post-May-20 so the fragment
+         scrolls to the cards section instead of the page top. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://votedonbylocals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Rankings",
+          "item": "https://votedonbylocals.com/#rankings"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Best New Coffee Shop",
+          "item": "https://votedonbylocals.com/rankings/best-new-coffee-shop.html"
+        }
+      ]
+    }
+    </script>
+
     <!-- KEEP: Favicon -------------------------------------------------- -->
     <link rel="icon" type="image/png" href="../assets/images/favicon.png">
 
