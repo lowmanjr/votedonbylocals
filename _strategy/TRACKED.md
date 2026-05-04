@@ -28,21 +28,6 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 Multi-step efforts. Each has a description, prerequisite, and rough scope estimate.
 
-### `best-new-coffee-shop.html` per-page meta harmonization
-
-**Current state:** During step 1, the chrome of `best-new-coffee-shop` was harmonized to canonical KEEP blocks (GA, fonts, Tailwind config, body classes, header/footer pattern), but the per-page meta (title, description, OG tags, JSON-LD) was deliberately not touched. The page currently has:
-- A `<title>` and `<meta description>` in single-winner style (kept).
-- No canonical URL, no Open Graph tags (`og:url`, `og:image`, `og:site_name`, `og:description`), and no Twitter card.
-- No JSON-LD at all.
-
-**Why it's tracked, not done now:** This page would need a `LocalBusiness` (or `CafeOrCoffeeShop` if matching the coffee-shops convention) JSON-LD schema, not the `ItemList` of items the canonical uses. That's a different schema profile with different required fields (address, hours, geo coordinates if available, price range, openingHours, etc.). It deserves its own design pass rather than being shoehorned into the canonical's ranking-list shape.
-
-**Why it matters:** This is the only featured-winner page on the site today. If the project adds more (e.g., `best-new-bar`, `best-new-bakery`) the schema decision and the meta-conventions decided here become the template for all future single-winner pages. Worth getting right rather than rushing.
-
-**Estimated scope:** ~1 day. Half of it is schema design (which `LocalBusiness` fields to populate, which to omit, how to handle hours-data accuracy); half is page edits (canonical URL, full OG block, Twitter card, JSON-LD).
-
-**Path forward:** Either roll into step 7 (final polish) or split off as its own micro-workstream when the operator wants to add a second featured-winner page.
-
 ### Detail-page Locations module (multi-location restaurants)
 
 **Files affected:** `rankings/_detail-page-template.html`, `scripts/generate_detail_page.py`, `data/restaurants.json` (schema extension), affected detail pages.
@@ -73,9 +58,9 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Current state:** No `BreadcrumbList` JSON-LD anywhere on the site. Considered and deferred during step 3. Ranking-only (`Home → Best Pizza`) is mechanical but low-value as a 2-node breadcrumb. The high-value case (`Home → Best Pizza → {Restaurant}`) requires touching the detail-page template, which was out of step 3 scope.
 
-**Why it's tracked, not done now:** The high-value version requires the detail-page template work; doing only the ranking-side version locks in a 2-node-only convention that gets retrofitted later anyway. Cleaner to add ranking + detail breadcrumbs in one pass once detail-page coverage is global.
+**Why it was tracked, not done earlier:** The high-value version required the detail-page template work; doing only the ranking-side version would have locked in a 2-node-only convention that gets retrofitted later anyway. The plan was to add ranking + detail breadcrumbs in one pass once detail-page coverage was global — now satisfied (see Trigger).
 
-**Trigger to activate:** after the bulk-port workstream completes (or as a stage of it, on a per-ranking basis as detail pages ship per ranking).
+**Trigger to activate:** ELIGIBLE as of 2026-05-04 (bulk port complete; PR #12 closed step 2 + step 3 to 100%). Not the current lead workstream — OG images is. Pull in when ready to lead with it.
 
 **Estimated scope:** ~2 hours — one schema block in the ranking template + one in the detail-page template, plus per-page rendering for the 8 rankings and ~37 detail pages.
 
@@ -97,8 +82,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 These are explicitly held until the master plan reaches the right step. They aren't blocked on operator judgment — they're blocked on sequencing.
 
-- **OG image generation** — Master plan **step 5**. Canonical references `og:image` URLs at `https://votedonbylocals.com/assets/images/og-{slug}.png` for all 7 ranking pages; none exist yet. Detail pages from step 2 will multiply the need (~37 more). Build all in one Figma file, export in batch.
-
 - **Vote aggregation pipeline** — Not on the master plan; **strategic deferred**. See `_strategy/CONTEXT.md` → "Things deferred but important." Currently votes go to Netlify Forms; rankings are hand-curated. Building a real aggregation backend (Google Sheets / Airtable / a small JSON file) is a prerequisite for `aggregateRating` JSON-LD, for any visible "live vote totals," and for the flywheel-hypothesis claim flow.
 
 - **Fraud prevention** — Not on the master plan; **strategic deferred**. Tied to vote aggregation. Self-reported zip is the only check today; gameability gets worse with any visible vote count.
@@ -112,6 +95,10 @@ These are explicitly held until the master plan reaches the right step. They are
 ## Resolved
 
 - **2026-05-04 — Hero dot-pattern brand-color duplication.** Moved `.bg-dot-pattern` from `index.html` inline `<style>` into `src/input.css` as `@layer components`, using `theme('colors.brand.orange')` instead of hardcoded `#E67E22`. Brand-color changes in `tailwind.config.js` now propagate automatically. Visual unchanged. See merged PR #14.
+
+- **2026-05-04 — Doc reconciliation: PLAN.md status retired, HANDOFF as source of truth.** Per-step status markers (✅/⏳) and stale per-step text removed from `PLAN.md`; `HANDOFF.md` becomes the single source of truth for current per-step status. PLAN.md retains the structural/strategic *why* of each step (content stable across sessions). Edit also removed Step 1's stale "Tracked items remaining" sub-section, Step 2's "Open design questions" sub-section, the entire `## What's next` section in PLAN.md, and HANDOFF's "PLAN.md reconciliation" sub-section under What's next. Net change: PLAN.md ~25% shorter, HANDOFF.md ~10 lines shorter. See merged PR #13.
+
+- **2026-05-04 — `best-new-coffee-shop.html` per-page meta + JSON-LD.** Added canonical URL, full Open Graph block, Twitter card, keywords meta, and `CafeOrCoffeeShop` JSON-LD describing Babas on Wentworth (the featured winner) at 115 Wentworth St, Charleston SC 29401. JSON-LD shape mirrors `babas-on-cannon.html` field-by-field. Triggered PR #8's date-seed mechanism on this page; sitemap `<lastmod>` coverage 40 → 41 pages (URL count unchanged at 46). Master plan step 2 + step 3 now at 100%. Anti-fab: omitted telephone (Cannon's number, location-specific), geo (null in data), image (null in data); shipped from real data: address, openingHours, priceRange, sameAs. JSON-LD `url` points at the featured-winner page itself per new DECISIONS #16. See merged PR #12.
 
 - **2026-05-04 — Inliner `--refresh` flag.** `scripts/inline_chrome.py` now supports `--refresh` to strip existing marker-wrapped chrome and re-inline from `components/*.html`. Closes the friction introduced by PR #9: editing `components/` no longer requires manual placeholder restoration across 49 files. Mutually exclusive with `--check`. Default inline path (skip-if-marker) unchanged — refresh is opt-in.
 
