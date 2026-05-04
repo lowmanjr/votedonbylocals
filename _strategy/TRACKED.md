@@ -22,6 +22,10 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 - **Configure redirect rule for no-`.html` → `.html`.** Netlify currently 200-dual-serves both forms (identical Etag, no redirect). Internal anchors get `.html` stripped by Netlify pretty-URL post-processing; canonical/og:url/JSON-LD all declare the `.html` form. Google honors the canonical, so functionally fine — this is a structural cleanup, not a bug fix. **Attempted in workstream H bulk port (reverted):** `/restaurants/:slug /restaurants/:slug.html 301!` creates an infinite loop because Netlify's `:slug` placeholder matches segments containing `.html` and the `!` flag forces the rule on already-redirected paths (foo.html → foo.html.html → foo.html.html.html…). A working fix likely needs either (a) a two-rule pattern with an explicit `/restaurants/*.html /restaurants/:splat.html 200` passthrough rewrite preceding the 301, or (b) `pretty_urls = false` in netlify.toml to disable Netlify's anchor rewriting at the source. Either approach must be preview-tested in an isolated PR before merge. Discovered during workstream H bulk port PHASE 8 verification.
 
+### Hero dot-pattern brand-color duplication (1 item)
+
+- **`index.html` inline `<style>` hardcodes `#E67E22`.** The `.bg-dot-pattern` rule at index.html:51-57 (hero pattern background, only used on the homepage) hardcodes the brand-orange hex rather than referencing the `brand.orange` token from `tailwind.config.js`. Functionally fine today, but if the brand-orange value ever changes, the hero pattern will silently retain the old color. Resolution options: (a) move the rule into `src/input.css` as a `@layer components` block using `theme('colors.brand.orange')` so it tracks the config; (b) leave inline and add a comment cross-referencing `tailwind.config.js` so future-maintainer-self gets a heads-up. Decided not to bundle into the step-4 migration to keep that PR's scope tight. Surfaced during step-4 PHASE 0 investigation.
+
 ---
 
 ## Tracked workstreams
@@ -85,13 +89,7 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 These are explicitly held until the master plan reaches the right step. They aren't blocked on operator judgment — they're blocked on sequencing.
 
-- **Replacing Tailwind CDN with built CSS** — Master plan **step 4**. The CDN is a real Core Web Vitals concern (~3MB JS at runtime, JIT-compiles in browser, FOUC risk). Currently in use on all 14 pages. Replacing requires either a tiny build step (Tailwind CLI) or a hosted built CSS. Prerequisites: step 2 (detail pages) so the Tailwind class set is stable, and the 5-top-level-pages chrome upgrade workstream so the migration applies uniformly.
-
 - **Replacing client-side header/footer fetch with build-time inlining** — Master plan **step 7** (final polish). `assets/js/main.js` injects `components/header.html` and `components/footer.html` at runtime via `fetch()`. Causes mild FOUC, no nav for JS-disabled clients, slight crawl-pipeline complication. Cleaner with build-time inlining or server-side include. Defer until a build step is introduced (likely as part of step 4).
-
-- **`sitemap.xml`** — Master plan **step 6**. Currently absent. Build after the URL set stabilizes (post-step-2 detail pages, post-step-3 schema cross-links).
-
-- **`robots.txt`** — Master plan **step 6**. Currently absent. Trivial once `sitemap.xml` exists; the file just declares the crawl policy and points at the sitemap.
 
 - **OG image generation** — Master plan **step 5**. Canonical references `og:image` URLs at `https://votedonbylocals.com/assets/images/og-{slug}.png` for all 7 ranking pages; none exist yet. Detail pages from step 2 will multiply the need (~37 more). Build all in one Figma file, export in batch.
 
@@ -106,6 +104,12 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-04 — Tailwind CDN → local built.css (master plan step 4).** All 49 pages migrated from `<script src="cdn.tailwindcss.com">` + the 19-line inline `tailwind.config` block to `<link rel="stylesheet" href=".../assets/css/built.css">`. New tooling: Tailwind v3.4.19 as devDependency, `npm run build:css` produces ~20KB minified output, `scripts/migrate_chrome.py` retained as reference for future mass chrome edits. Eliminates ~3MB of blocking JS at runtime plus the JIT FOUC cycle. `assets/css/style.css` reduced to 4 lines (Tailwind now emits `.font-poppins`). Bonus fix: `index.html` `rel="canonical"` added (was `og:url`-only — surfaced during PR #5 investigation). One new Open one-off surfaced: hero dot-pattern hardcoded brand color (see above).
+
+- **2026-05-04 — `sitemap.xml` (master plan step 6).** 46-URL sitemap live at `https://votedonbylocals.com/sitemap.xml`. Filesystem-scan generator at `scripts/generate_sitemap.py` excludes `_*` working files and `thank-you.html` (the latter also gets `<meta name="robots" content="noindex">`). No `lastmod` — `dateModified` plumbing deferred to a follow-up workstream. See merged PR #5.
+
+- **2026-05-04 — `robots.txt` (master plan step 6).** Allow-all crawl with explicit `Disallow: /rankings/_` for the working-file templates that ship to production but should not be indexed. Sitemap directive points at the production sitemap URL. See merged PR #5.
 
 - **2026-05-03 — Doc consistency: 5-top-level-pages workstream placement.** Resolved via three small edits anchoring the workstream to step 4 as an explicit prerequisite. See commit f66cd17 and DECISIONS log entry context. (Workstream itself remains tracked above — only the placement-fuzziness was resolved.)
 
