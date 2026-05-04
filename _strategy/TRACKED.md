@@ -22,10 +22,6 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 - **Configure redirect rule for no-`.html` → `.html`.** Netlify currently 200-dual-serves both forms (identical Etag, no redirect). Internal anchors get `.html` stripped by Netlify pretty-URL post-processing; canonical/og:url/JSON-LD all declare the `.html` form. Google honors the canonical, so functionally fine — this is a structural cleanup, not a bug fix. **Attempted in workstream H bulk port (reverted):** `/restaurants/:slug /restaurants/:slug.html 301!` creates an infinite loop because Netlify's `:slug` placeholder matches segments containing `.html` and the `!` flag forces the rule on already-redirected paths (foo.html → foo.html.html → foo.html.html.html…). A working fix likely needs either (a) a two-rule pattern with an explicit `/restaurants/*.html /restaurants/:splat.html 200` passthrough rewrite preceding the 301, or (b) `pretty_urls = false` in netlify.toml to disable Netlify's anchor rewriting at the source. Either approach must be preview-tested in an isolated PR before merge. Discovered during workstream H bulk port PHASE 8 verification.
 
-### Hero dot-pattern brand-color duplication (1 item)
-
-- **`index.html` inline `<style>` hardcodes `#E67E22`.** The `.bg-dot-pattern` rule at index.html:51-57 (hero pattern background, only used on the homepage) hardcodes the brand-orange hex rather than referencing the `brand.orange` token from `tailwind.config.js`. Functionally fine today, but if the brand-orange value ever changes, the hero pattern will silently retain the old color. Resolution options: (a) move the rule into `src/input.css` as a `@layer components` block using `theme('colors.brand.orange')` so it tracks the config; (b) leave inline and add a comment cross-referencing `tailwind.config.js` so future-maintainer-self gets a heads-up. Decided not to bundle into the step-4 migration to keep that PR's scope tight. Surfaced during step-4 PHASE 0 investigation.
-
 ---
 
 ## Tracked workstreams
@@ -114,6 +110,8 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-04 — Hero dot-pattern brand-color duplication.** Moved `.bg-dot-pattern` from `index.html` inline `<style>` into `src/input.css` as `@layer components`, using `theme('colors.brand.orange')` instead of hardcoded `#E67E22`. Brand-color changes in `tailwind.config.js` now propagate automatically. Visual unchanged. See merged PR #14.
 
 - **2026-05-04 — Inliner `--refresh` flag.** `scripts/inline_chrome.py` now supports `--refresh` to strip existing marker-wrapped chrome and re-inline from `components/*.html`. Closes the friction introduced by PR #9: editing `components/` no longer requires manual placeholder restoration across 49 files. Mutually exclusive with `--check`. Default inline path (skip-if-marker) unchanged — refresh is opt-in.
 
