@@ -4,7 +4,7 @@ You're picking up the Voted On By Locals project in a fresh session. This page g
 
 ## Read these files in order before doing anything
 
-1. `PLAN.md` (repo root) — the 7-step master plan. Note: PLAN.md per-step status text is **stale relative to actual progress** (it still says "Step 2 ⏳ NEXT"). The "Master plan position" section below is the current truth. PLAN.md reconciliation is a tracked follow-up; see `## What's next`.
+1. `PLAN.md` (repo root) — the 7-step master plan: structural/strategic content (the *why* of each step). Per-step status lives in this HANDOFF (see "Master plan position" below), not in PLAN.md.
 2. `_strategy/DECISIONS.md` — the non-obvious calls already made. Don't re-relitigate these without explicit reason.
 3. `_strategy/CONTEXT.md` — brand positioning, monetization analysis, the "two forks ahead" framing. Read before making strategic suggestions.
 4. `_strategy/TRACKED.md` — outstanding one-off items, tracked workstreams, deferred items, and the running Resolved log. Today's 6 PRs each have a Resolved entry; 7 entries total since PR #5 split into sitemap + robots.
@@ -29,7 +29,7 @@ Six PRs merged, all rebase-clean, zero rollbacks:
 
 ## Master plan position
 
-Current truth (PLAN.md is stale and pending reconciliation — see What's next):
+Current truth (per-step status of record; PLAN.md intentionally omits this):
 
 - **Step 1** (template harmonization) ✅
 - **Step 2** (detail pages) ✅ except `best-new-coffee-shop.html` (own workstream)
@@ -91,15 +91,6 @@ Scope: ~42 images (8 ranking + 33 detail + 1 site default).
 The `og:image` URL is **already declared** in every page's chrome via `<meta property="og:image" content="...og-{slug}.png">`. Today every one of those URLs 404s. Step 5 fulfills the existing promise; the longer this is deferred, the more time passes with broken share previews.
 
 Estimated scope: 1–2 days. Half visual design, half pipeline build, time for export + verification.
-
-### 3. (Doc hygiene, not a workstream): PLAN.md reconciliation
-
-5-min decision, not blocking. PLAN.md per-step state text still says "Step 2 ⏳ NEXT" while reality is steps 2/3/4/6 done and step 7 partial. Two paths:
-
-- **(a) Reconcile PLAN.md** — update the per-step status text to match reality. Keeps PLAN.md as the canonical source for plan position.
-- **(b) Retire PLAN.md status text in favor of HANDOFF** — PLAN.md becomes the structural/strategic document (the *why* of each step), HANDOFF becomes the source of truth for *what's done*.
-
-Surface this when convenient. Don't bundle it with another workstream — it's a doc-hygiene call that deserves a clean decision.
 
 ## Workflow norm (operator preference, reinforced)
 
