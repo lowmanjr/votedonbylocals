@@ -89,8 +89,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 These are explicitly held until the master plan reaches the right step. They aren't blocked on operator judgment — they're blocked on sequencing.
 
-- **Replacing client-side header/footer fetch with build-time inlining** — Master plan **step 7** (final polish). `assets/js/main.js` injects `components/header.html` and `components/footer.html` at runtime via `fetch()`. Causes mild FOUC, no nav for JS-disabled clients, slight crawl-pipeline complication. Cleaner with build-time inlining or server-side include. Defer until a build step is introduced (likely as part of step 4).
-
 - **OG image generation** — Master plan **step 5**. Canonical references `og:image` URLs at `https://votedonbylocals.com/assets/images/og-{slug}.png` for all 7 ranking pages; none exist yet. Detail pages from step 2 will multiply the need (~37 more). Build all in one Figma file, export in batch.
 
 - **Vote aggregation pipeline** — Not on the master plan; **strategic deferred**. See `_strategy/CONTEXT.md` → "Things deferred but important." Currently votes go to Netlify Forms; rankings are hand-curated. Building a real aggregation backend (Google Sheets / Airtable / a small JSON file) is a prerequisite for `aggregateRating` JSON-LD, for any visible "live vote totals," and for the flywheel-hypothesis claim flow.
@@ -104,6 +102,8 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-04 — Build-time header/footer inlining (master plan step 7, partial).** `components/header.html` and `components/footer.html` now inlined at build time across all 49 pages via `scripts/inline_chrome.py`. `components/` retained as editable source-of-truth (operator edits there, re-runs inliner, commits). Eliminates runtime fetch + FOUC + JS-disabled-empty-nav. `main.js` reduced from 44 to 11 lines. Step 7 (final polish) is broader than this one workstream; the inlining piece is now resolved.
 
 - **2026-05-04 — Tailwind CDN → local built.css (master plan step 4).** All 49 pages migrated from `<script src="cdn.tailwindcss.com">` + the 19-line inline `tailwind.config` block to `<link rel="stylesheet" href=".../assets/css/built.css">`. New tooling: Tailwind v3.4.19 as devDependency, `npm run build:css` produces ~20KB minified output, `scripts/migrate_chrome.py` retained as reference for future mass chrome edits. Eliminates ~3MB of blocking JS at runtime plus the JIT FOUC cycle. `assets/css/style.css` reduced to 4 lines (Tailwind now emits `.font-poppins`). Bonus fix: `index.html` `rel="canonical"` added (was `og:url`-only — surfaced during PR #5 investigation). One new Open one-off surfaced: hero dot-pattern hardcoded brand color (see above).
 
