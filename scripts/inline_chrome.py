@@ -181,16 +181,35 @@ def extract_between_markers(html, marker_start, marker_end):
     return html[content_start:content_end]
 
 
+def _normalize_blank_lines(text):
+    """Replace whitespace-only lines with empty strings.
+
+    `textwrap.dedent` normalizes whitespace-only lines on its output but
+    we also need to apply this to the component-side text we're comparing
+    against, otherwise a 12-space "blank" line in components/* shows up
+    as divergence vs. the dedented inlined version.
+    """
+    return '\n'.join(
+        '' if line.strip() == '' else line
+        for line in text.split('\n')
+    )
+
+
 def is_in_sync(extracted, component):
-    """Compare dedented extracted content to component verbatim (newline-trim)."""
-    return textwrap.dedent(extracted).rstrip('\n') == component.rstrip('\n')
+    """Compare dedented extracted content to component, normalizing
+    whitespace-only lines on both sides and trimming trailing newlines.
+    """
+    a = _normalize_blank_lines(textwrap.dedent(extracted))
+    b = _normalize_blank_lines(component)
+    return a.rstrip('\n') == b.rstrip('\n')
 
 
 def make_diff(extracted, component, region):
-    a_lines = (textwrap.dedent(extracted).rstrip('\n') + '\n').splitlines(keepends=True)
-    b_lines = (component.rstrip('\n') + '\n').splitlines(keepends=True)
+    a = _normalize_blank_lines(textwrap.dedent(extracted)).rstrip('\n') + '\n'
+    b = _normalize_blank_lines(component).rstrip('\n') + '\n'
     return ''.join(difflib.unified_diff(
-        a_lines, b_lines,
+        a.splitlines(keepends=True),
+        b.splitlines(keepends=True),
         fromfile=f'inlined ({region})',
         tofile=f'components/{region}.html',
     ))
@@ -285,15 +304,15 @@ def run_check(verbose=False):
                 divergent.append((f, region, extracted, component))
 
     if missing:
-        print(f"✗ {len(missing)} region(s) missing markers:")
+        print(f"[FAIL] {len(missing)} region(s) missing markers:")
         for f, region in missing:
             print(f"  {f.relative_to(PROJECT_ROOT)} ({region})")
         return 2
 
     if divergent:
-        print(f"✗ Divergence detected in {len(divergent)} region(s):")
+        print(f"[FAIL] Divergence detected in {len(divergent)} region(s):")
         for f, region, _, _ in divergent:
-            print(f"  {f.relative_to(PROJECT_ROOT)} — {region} inlined chrome differs from components/{region}.html")
+            print(f"  {f.relative_to(PROJECT_ROOT)}: {region} inlined chrome differs from components/{region}.html")
         if verbose:
             print()
             for f, region, extracted, component in divergent:
@@ -303,7 +322,7 @@ def run_check(verbose=False):
             print("\nRe-run with --verbose for line-level diff.")
         return 1
 
-    print(f"✓ {len(files)} files in sync")
+    print(f"[OK] {len(files)} files in sync")
     return 0
 
 
