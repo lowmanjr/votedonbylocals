@@ -51,7 +51,7 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Why it's tracked, not done now:** Designing the Locations module against a single multi-location restaurant in the pilot would over-fit. Better to design once a second multi-location restaurant lands in a different ranking page and we have two independent test cases. The design needs to handle: per-location `Place` microdata in JSON-LD, visual presentation of multiple locations in the sidebar, and how to handle locations across cities (when the editorial scope from #14.1 expands beyond greater Charleston).
 
-**Trigger to activate:** ACTIVATED 2026-05-03 by Babas on Cannon (3 locations: Cannon, Meeting, Wentworth) during best-coffee-shops port. Second State Coffee (multiple locations + roastery) also confirms the pattern. Design pass is the next gated workstream — not folded into bulk port.
+**Trigger to activate:** ACTIVATED 2026-05-03 by Babas on Cannon (3 locations: Cannon, Meeting, Wentworth) during best-coffee-shops port. Workstream H bulk port surfaced 7 additional multi-location restaurants. Full in-scope set as of 2026-05-04: **8 from workstream H** (babas-on-cannon, heavys-barburger, home-team-bbq, santis, senor-tequilas, azul-mexicano, agaves-cantina, bon-banh-mi-southeast-asian-kitchen) plus **3 from prior PRs** (tonis-detroit-style-pizza, dallesandros-pizza, second-state-coffee) — 11 total, all shipping primary-location-only. Design pass is the next gated workstream — not folded into bulk port.
 
 **Estimated scope:** 1–2 days. Half template + script work; half per-location data collection for the affected restaurants.
 
