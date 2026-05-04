@@ -258,3 +258,35 @@ The moment step 3 wires `url` cross-links between the two documents, the same re
 **Trade-off accepted:** broadens step 3's strict "cross-linking only" scope by 2 lines. Surfaced explicitly in the design doc; not silent.
 
 **Convention going forward:** when a ranking page's detail pages ship, the ranking-page ItemList's `addressLocality` per item reconciles to the literal municipality used on the corresponding detail page in the same PR. This makes #14.2 a property of the structured-data graph as a whole rather than detail-pages-only.
+
+---
+
+## #16 — Featured-winner JSON-LD `url` points at the page itself
+
+**Date:** 2026-05-04
+**Context:** PR #12 — adding JSON-LD to `best-new-coffee-shop.html`. The page features a single winner (Babas on Wentworth) — the location that won "best new coffee shop." Babas-the-brand has 3 locations (Cannon, Meeting, Wentworth); the existing detail page at `/restaurants/babas-on-cannon.html` describes Cannon specifically per DECISIONS #14.4 (multi-location restaurants ship primary-location-only until the Locations module workstream activates). No `/restaurants/babas-on-wentworth.html` exists. The featured-winner page is therefore functionally the detail context for the Wentworth location.
+
+### What was decided
+
+The JSON-LD `url` field on a featured-winner page (a single-winner ranking page like `best-new-coffee-shop.html`) points at the **featured-winner page itself**, not at any detail-page slug.
+
+### Alternatives considered
+
+- **U2 — point at the brand's existing detail page** (`/restaurants/babas-on-cannon.html`). Rejected: misroutes — that page describes Cannon specifically, not Wentworth. The crawler-graph claim becomes "Wentworth's address is at Cannon's URL," which is wrong.
+- **U3 — stand up a new detail page at `/restaurants/babas-on-wentworth.html`** in the same PR. Rejected: scope creep, and sets a dubious precedent for future single-winner pages (would multiply detail-page slugs for every featured-winner location whether or not the editorial scope warrants it).
+
+### Why U1
+
+The featured-winner page IS the detail context for the featured location. Pointing JSON-LD `url` at the page itself is the honest claim — "this page is about this entity, here." The asymmetry with detail-page convention (where `url` points at `/restaurants/{slug}.html`) is intentional: featured-winner pages are a different content shape with no separate detail page, and the schema follows that.
+
+### Convention going forward
+
+When a future single-winner page exists (e.g., `best-new-bar`, `best-new-bakery`):
+1. JSON-LD describes the specific featured location.
+2. JSON-LD `url` is the featured-winner page's own URL (`/rankings/{slug}.html`).
+3. If the featured location is also a multi-location brand, no detail-page-slug retrofit is required — the brand-level detail page (if one exists from the bulk port) describes its primary location independently.
+4. When the Locations module workstream activates, the cross-reference between brand and Wentworth-location may surface via `branchOf` / `parentOrganization` from the brand's detail page side, not from the featured-winner page side.
+
+### Trade-off accepted
+
+Featured-winner JSON-LD doesn't cross-link to the brand's detail page in the structured-data graph. This is acceptable because (a) the editorial cross-link still exists in HTML (the detail page for the brand will mention or link to the featured location once Locations module ships), and (b) over-engineering the JSON-LD graph for a single page when the cross-reference will be established from the other direction is YAGNI.
