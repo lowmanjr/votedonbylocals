@@ -19,12 +19,58 @@ decisions block.
 import argparse
 import json
 import re
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 TEMPLATE_PATH = ROOT / 'rankings' / '_detail-page-template.html'
 DATA_PATH = ROOT / 'data' / 'restaurants.json'
+
+
+def get_git_creation_date(filepath):
+    """Return the ISO-8601 date+tz of the file's first-add commit, or None
+    if git is unavailable or the file has no history.
+
+    Used to seed datePublished + dateModified for new pages.
+    """
+    try:
+        result = subprocess.run(
+            ['git', 'log', '--diff-filter=A', '--format=%aI', '--', str(filepath)],
+            capture_output=True, text=True, check=True, cwd=ROOT,
+        )
+        lines = [l for l in result.stdout.strip().split('\n') if l]
+        # Earliest add wins (in case of delete-then-re-add history).
+        return lines[-1] if lines else None
+    except (subprocess.CalledProcessError, FileNotFoundError):
+        return None
+
+
+def read_existing_dates(filepath):
+    """Read the existing page's JSON-LD and return any datePublished /
+    dateModified it carries. Returns {} if the file doesn't exist or the
+    JSON-LD can't be parsed.
+
+    Used so that regeneration preserves operator-maintained dateModified
+    rather than re-seeding from git on every run.
+    """
+    if not filepath.exists():
+        return {}
+    try:
+        text = filepath.read_text(encoding='utf-8')
+        m = re.search(
+            r'<script type="application/ld\+json">(.+?)</script>',
+            text, re.DOTALL,
+        )
+        if not m:
+            return {}
+        data = json.loads(m.group(1))
+        return {
+            k: data[k] for k in ('datePublished', 'dateModified') if k in data
+        }
+    except (json.JSONDecodeError, OSError):
+        return {}
 
 
 # ---------------------------------------------------------------------------
@@ -138,13 +184,31 @@ def step_3_substitute_jsonld_script(text, restaurant):
 def build_jsonld_dict(restaurant):
     """Build the ordered JSON-LD dict from restaurant data. Field order
     matches what the template + reference page produces.
+
+    datePublished + dateModified are seeded from the file's git first-add
+    commit timestamp on first generation. Subsequent regenerations preserve
+    whatever values are in the existing HTML, so operator-maintained
+    dateModified is not overwritten on re-run.
     """
+    slug = restaurant['slug']
+    detail_path = ROOT / 'restaurants' / f'{slug}.html'
+
+    existing = read_existing_dates(detail_path)
+    seed_date = (
+        get_git_creation_date(detail_path)
+        or datetime.now(timezone.utc).isoformat(timespec='seconds')
+    )
+    date_published = existing.get('datePublished') or seed_date
+    date_modified = existing.get('dateModified') or seed_date
+
     obj = {
         "@context": "https://schema.org",
         "@type": restaurant['schemaType'],
         "name": restaurant['name'],
         "description": restaurant['description'],
-        "url": f"https://votedonbylocals.com/restaurants/{restaurant['slug']}.html",
+        "datePublished": date_published,
+        "dateModified": date_modified,
+        "url": f"https://votedonbylocals.com/restaurants/{slug}.html",
     }
 
     is_mobile_vendor = (
