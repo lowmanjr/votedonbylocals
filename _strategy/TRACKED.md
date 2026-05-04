@@ -88,6 +88,18 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Trigger to activate:** when ready to lead with it. Lower-priority than rankings + detail surfaces (these pages get less inbound traffic); not blocking on anything.
 
+### OG meta-line dedup when restaurant name contains cuisine descriptor
+
+**Files affected:** `og-templates/detail.html` (rendered meta line), `scripts/generate_og_images.py` (`compose_detail_meta` logic) OR `data/restaurants.json` (per-affected-entry hand-curated override field).
+
+**Current state:** OG detail images render the meta line as `{Cuisine} · {Neighborhood}`. When the restaurant name already contains a cuisine descriptor — e.g., "The Harbinger Cafe & Bakery" with cuisine "Café and Bakery" — the share preview reads the descriptor twice. Data-faithful; not a defect, just a redundancy. Spotted on the Harbinger render during step 5 review (PR #16).
+
+**Why it's tracked, not done now:** Two reasonable fix paths and the choice depends on how many entries in `restaurants.json` have this overlap (single-digit edge case → hand-curate; broader pattern → generic suppression rule in the script). The sweep + decision belongs to a separate session, not bundled into step 5. **Conceptually related** to the existing "Title verbosity for cuisine-name overlap" workstream above — same redundancy class, different surface (`<title>` on-site vs. OG meta line). Could be designed and shipped together.
+
+**Estimated scope:** ~30 min — sweep `restaurants.json` for name-contains-cuisine cases, propose either (a) suppress-cuisine-when-redundant rule in `compose_detail_meta` OR (b) optional `ogMetaCuisine` override field per affected entry. Then re-render affected detail PNGs.
+
+**Trigger to activate:** next time we touch detail OG content. Polish-tier; no urgency. Pair with title-verbosity workstream activation.
+
 ---
 
 ## Deferred for later master-plan steps
