@@ -365,7 +365,7 @@
           "title": "Best Coffee Shops in Charleston"
         }
       ],
-      "phone": null,
+      "phone": "+1-843-793-4402",
       "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
       "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
       "priceRange": "$$",
@@ -398,7 +398,7 @@
             "postalCode": "29407",
             "addressCountry": "US"
           },
-          "phone": null,
+          "phone": "+1-843-633-0311",
           "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
           "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
           "websiteURL": null,
@@ -430,7 +430,7 @@
             "postalCode": "29464",
             "addressCountry": "US"
           },
-          "phone": null,
+          "phone": "+1-843-284-8703",
           "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
           "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
           "websiteURL": null,
@@ -653,8 +653,8 @@
             "addressCountry": "US"
           },
           "phone": "+1-843-225-7427",
-          "hours": null,
-          "hoursHumanReadable": null,
+          "hours": "Mo-Su 11:00-24:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–midnight",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
@@ -918,8 +918,8 @@
             "addressCountry": "US"
           },
           "phone": "+1-843-637-4656",
-          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:30",
-          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9:30pm",
+          "hours": "Mo-We 11:00-21:30, Th-Sa 11:00-22:00, Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu–Sat: 11am–10pm\nSun: 11am–9pm",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
@@ -933,9 +933,9 @@
             "postalCode": "29483",
             "addressCountry": "US"
           },
-          "phone": null,
-          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:30",
-          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9:30pm",
+          "phone": "+1-843-275-5391",
+          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
@@ -980,15 +980,15 @@
         {
           "label": "West Ashley",
           "address": {
-            "streetAddress": "3871 W Ashley Cir Unit 320-330",
+            "streetAddress": "3871 W Ashley Cir Unit 320 & 330",
             "addressLocality": "Charleston",
             "addressRegion": "SC",
             "postalCode": "29414",
             "addressCountry": "US"
           },
-          "phone": null,
-          "hours": null,
-          "hoursHumanReadable": null,
+          "phone": "+1-843-718-3370",
+          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
@@ -1018,9 +1018,9 @@
             "postalCode": "29466",
             "addressCountry": "US"
           },
-          "phone": null,
-          "hours": null,
-          "hoursHumanReadable": null,
+          "phone": "+1-843-416-8696",
+          "hours": "Mo-Fr 11:00-21:30, Sa-Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Fri: 11am–9:30pm\nSat–Sun: 11am–9pm",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
@@ -1028,15 +1028,15 @@
         {
           "label": "Summerville",
           "address": {
-            "streetAddress": "205 S Cross Creek Dr",
+            "streetAddress": "205 S Cross Creek Dr Unit B",
             "addressLocality": "Summerville",
             "addressRegion": "SC",
-            "postalCode": "29485",
+            "postalCode": "29486",
             "addressCountry": "US"
           },
-          "phone": null,
-          "hours": null,
-          "hoursHumanReadable": null,
+          "phone": "+1-843-419-6968",
+          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
