@@ -30,6 +30,8 @@ from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
+from _cuisine_dedup import _resolve_display_cuisine
+
 ROOT = Path(__file__).parent.parent
 TEMPLATES_DIR = ROOT / 'og-templates'
 DATA_DIR = ROOT / 'data'
@@ -84,16 +86,25 @@ def pluralize_spots(n):
     return f"{n} spot{'s' if n != 1 else ''}"
 
 
-def compose_detail_meta(cuisine, neighborhood):
-    """'{Cuisine} · {Neighborhood}', or just '{Cuisine}' when neighborhood is null.
+def compose_detail_meta(display_cuisine, neighborhood):
+    """OG image meta-line. `display_cuisine` may be None to indicate cuisine
+    suppression (per DECISIONS #18 — name already contains the cuisine
+    descriptor, so rendering it again would be redundant).
 
-    Mobile vendors (per DECISIONS #14.3) ship with null neighborhood —
-    the on-page hero handles them; OG must too. Falling back to cuisine
-    alone is honest (the data we have) and avoids a trailing separator.
+    Cases:
+      - Both present                                 → "{cuisine} · {neighborhood}"
+      - Cuisine suppressed, neighborhood present     → "{neighborhood}" alone
+      - Cuisine present, neighborhood null (mobile)  → "{cuisine}" alone
+        (per DECISIONS #14.3)
+      - Both absent (edge case)                      → "" (no meta line)
     """
+    if display_cuisine is None and neighborhood:
+        return neighborhood
+    if display_cuisine is None and not neighborhood:
+        return ''
     if neighborhood:
-        return f"{cuisine} · {neighborhood}"
-    return cuisine
+        return f"{display_cuisine} · {neighborhood}"
+    return display_cuisine
 
 
 def compute_name_font_size(name):
@@ -159,11 +170,12 @@ def render_detail(slug, brand_colors):
         sys.exit(f'Slug not found in restaurants.json: {slug}')
 
     template = (TEMPLATES_DIR / 'detail.html').read_text(encoding='utf-8')
+    display_cuisine = _resolve_display_cuisine(entry)
     html = substitute(
         template,
         RestaurantName=entry['name'],
         NameFontSize=compute_name_font_size(entry['name']),
-        MetaLine=compose_detail_meta(entry['cuisine'], entry.get('neighborhood')),
+        MetaLine=compose_detail_meta(display_cuisine, entry.get('neighborhood')),
         **brand_colors,
     )
     output = OUTPUT_DIR / f'og-restaurant-{slug}.png'
