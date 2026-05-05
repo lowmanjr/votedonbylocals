@@ -478,6 +478,75 @@
       "areaServed": null
     },
     {
+      "slug": "pubfare-burger",
+      "name": "Pubfare",
+      "tagline": "Cult-Favorite Smash Burger Pop-Up",
+      "cuisine": "Burgers",
+      "neighborhood": null,
+      "schemaType": "FoodEstablishment",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": "Greater Charleston, SC",
+      "address": {
+        "streetAddress": null,
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": null,
+        "addressCountry": "US"
+      },
+      "description": "Pubfare is a Charleston-area smash burger pop-up known for residencies and recurring events at local breweries and venues. Voted by Charleston locals as one of the city's best burgers.",
+      "shareTagline": "Charleston's cult-favorite smash burger pop-up — voted by locals.",
+      "keywords": "Pubfare Charleston, Charleston smash burger pop-up, Charleston food pop-up, best burger Charleston SC, pop-up burger",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": "Schedule varies — see @pubfarechs on Instagram for current pop-ups and events.",
+      "priceRange": null,
+      "websiteURL": "https://www.instagram.com/pubfarechs/"
+    },
+    {
+      "slug": "little-jacks-tavern",
+      "name": "Little Jack's Tavern",
+      "tagline": "Brisket-Chuck Blend, Sunchoke Relish",
+      "cuisine": "American",
+      "neighborhood": "Upper King",
+      "schemaType": "Restaurant",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "address": {
+        "streetAddress": "710 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Little Jack's Tavern is an Upper King tavern in Charleston, SC, home to the brisket-chuck-blend Tavern Burger that Bon Appétit named the best burger in the country in 2017. Voted by Charleston locals as one of the city's best burgers.",
+      "shareTagline": "Bon Appétit's national burger pick — voted by Charleston locals.",
+      "keywords": "Little Jack's Tavern Charleston, Tavern Burger Charleston, Upper King restaurant, Bon Appetit best burger, best burger Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-burger.html",
+          "title": "Best Burger in Charleston"
+        }
+      ],
+      "phone": "+1-843-531-6868",
+      "hours": "Mo-Su 11:30-22:00",
+      "hoursHumanReadable": "Mon–Sun: 11:30am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://littlejackstavern.com/"
+    },
+    {
       "slug": "heavys-barburger",
       "name": "Heavy's Barburger",
       "tagline": "Instant Classic, Griddle Smashed",
