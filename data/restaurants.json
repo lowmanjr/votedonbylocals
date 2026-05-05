@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "schemaVersion": "1.0",
-    "lastUpdated": "2026-05-03",
+    "schemaVersion": "1.1",
+    "lastUpdated": "2026-05-05",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."

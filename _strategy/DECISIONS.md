@@ -290,3 +290,27 @@ When a future single-winner page exists (e.g., `best-new-bar`, `best-new-bakery`
 ### Trade-off accepted
 
 Featured-winner JSON-LD doesn't cross-link to the brand's detail page in the structured-data graph. This is acceptable because (a) the editorial cross-link still exists in HTML (the detail page for the brand will mention or link to the featured location once Locations module ships), and (b) over-engineering the JSON-LD graph for a single page when the cross-reference will be established from the other direction is YAGNI.
+
+---
+
+## #17 — Multi-location restaurant rendering pattern (Locations module)
+
+**Date:** 2026-05-05
+**Status:** Decided
+**Anchor:** DECISIONS #14.4 (one brand-anchored detail page per multi-location restaurant), DECISIONS #14.1 (editorial scope: greater Charleston), DECISIONS #16 (brand-side cross-link convention).
+
+### Decision
+
+1. **Data shape.** Additive `locations[]` array on `restaurants.json` entries. Single-location entries are unchanged (array absent or `null`); multi-location entries gain the array. A `primaryLocationLabel` field was considered and rejected — the primary presents anonymously in the existing sidebar, so no label field is needed.
+
+2. **JSON-LD pattern.** Top-level Restaurant (or subclass) JSON-LD is unchanged for the primary. Multi-location entries additionally gain an `@id` of form `<canonical>#brand` and a `subOrganization` array with one entry per secondary. Each `subOrganization` entry has `@type` matching the parent, `@id` of form `<canonical>#<location-slug>`, `name` formatted `"<Brand> — <Label>"`, a full PostalAddress `address`, `telephone`, `openingHours`, and a `parentOrganization` back-reference to the top-level `@id`. Rationale: Google's preferred pattern is one page per location, which we deviate from per DECISIONS #14.4 to preserve brand identity and avoid slug proliferation. The "intentional and clearly separated" multi-entity pattern with unique `@id`s is the supported single-page alternative; `subOrganization` with `parentOrganization` back-references establishes the brand→branch relationship cleanly without requiring a separate top-level `Organization` node.
+
+3. **UI pattern.** The sidebar is unchanged for all restaurants — the primary location's address/hours/phone/website/price block stays where it is on every page. Multi-location pages add a full-width "Other locations" section below the editorial body and above the "Appears on" cross-link, with one card per secondary (label heading + address + condensed hours + phone). One pattern scales N=2 through N=5 without per-page branching.
+
+4. **Editorial scope.** Only in-scope locations (currently greater Charleston per DECISIONS #14.1) appear in `locations[]` and the corresponding JSON-LD `subOrganization`. Out-of-scope locations (e.g., Home Team BBQ Aspen CO / Columbia SC / Greenville SC Upstate; D'Allesandro's Greenville SC Upstate) are excluded entirely from both the data and the rendered page. TRACKED carries follow-ups for re-inclusion when editorial scope expands.
+
+### Implementation status
+
+- Schema documented this PR (schemaVersion 1.1, template docblock decision #11, this entry).
+- Template + generator + Babas pilot follows in the next PR.
+- Data populate for the remaining 9 multi-location restaurants in a subsequent PR.
