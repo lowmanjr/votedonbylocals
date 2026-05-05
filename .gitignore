@@ -3,3 +3,6 @@
 
 node_modules/
 __pycache__/
+
+social/node_modules/
+social-assets/
