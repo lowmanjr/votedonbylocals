@@ -314,3 +314,44 @@ Featured-winner JSON-LD doesn't cross-link to the brand's detail page in the str
 - Schema documented this PR (schemaVersion 1.1, template docblock decision #11, this entry).
 - Template + generator + Babas pilot follows in the next PR.
 - Data populate for the remaining 9 multi-location restaurants in a subsequent PR.
+
+---
+
+## #18 — Cuisine-name redundancy dedup
+
+**Date:** 2026-05-05
+**Status:** Decided
+**Anchor:** TRACKED workstreams "Title verbosity for cuisine-name overlap" and "OG meta-line dedup when restaurant name contains cuisine descriptor" — both shipping in this PR. The two TRACKED entries originally proposed surface-named override fields (`titleCuisine`, `ogMetaCuisine`); the design pass collapsed those into a single display-side override (`displayCuisine`) since the same redundancy class affects four mechanical surfaces and a per-surface override would multiply the override-field count without adding expressive power.
+
+### Decision
+
+1. **Data shape.** Single optional `displayCuisine` field (string, nullable) on `restaurants.json` entries. Drives all mechanical display surfaces; no per-surface variant. Single-source-of-truth: when present, used uniformly across `<title>`, `og:title`, `twitter:title`, hero subtitle, and OG image meta-line.
+
+2. **Auto-detect rule.** When `displayCuisine` is null, the generator suppresses cuisine in mechanical display surfaces if normalized cuisine is a substring of normalized name. Normalization: lowercase, NFD-strip-diacritics (`Café` → `cafe`), `&` → `and`, strip apostrophes and other punctuation, collapse whitespace. The `&`/`and` and diacritic folds catch the trigger case (Harbinger: name "Cafe & Bakery" + cuisine "Café and Bakery"). Apostrophe stripping catches names like Toni's, D'Allesandro's, Ted's.
+
+3. **Resolution order at render time.** `displayCuisine` (if non-null) → auto-detect suppression (if cuisine in name) → `cuisine` as-is. Override beats auto-detect because the override is the expression of editorial intent ("we explicitly want this short form"), while auto-detect is the heuristic fallback for the common case.
+
+4. **Mechanical-surfaces-only scope.** Affected surfaces: detail `<title>`, og:title, twitter:title, hero subtitle "Cuisine · Neighborhood", OG image rendered meta-line. NOT affected: detail `<meta description>`, og:description, twitter:description. The hand-authored `description` and `shareTagline` fields may legitimately mention cuisine words as part of natural prose (e.g., Harbinger's shareTagline "Charming King Street cafe and bakery, voted best by Charleston locals." — cuisine words present, but as prose, not a separate slot). Mechanical suppression on prose would mangle editorial. Editorial review of those fields is a separate filed follow-up.
+
+5. **JSON-LD `servesCuisine` preservation.** Always uses the raw `cuisine` field — independent of display resolution. Reasoning: `servesCuisine` is read by Google's entity-resolution graph, not by humans. The redundancy concern is human readability; entity resolution wants the most specific true cuisine label. Keeping `servesCuisine` raw preserves entity-resolution accuracy regardless of what the display renders.
+
+### Cuisine-field corrections shipped in the same PR
+
+- **Tutti Pizza factual correction.** `cuisine` field was "Neapolitan Pizza"; corrected to "New York-Style Pizza" based on Post & Courier coverage and Tutti's own Tock listing. Discovery context: surveying name+cuisine pairs for the dedup workstream surfaced the misclassification — Tutti's name doesn't contain "Neapolitan" so auto-detect wouldn't catch it; verification of the field exposed the editorial drift. `displayCuisine` set to "New York-Style" (drops the redundant "Pizza" word, since name already contains it). Editorial fields (tagline, description, shareTagline, keywords) still reference "Neapolitan" — flagged as part of the editorial-review follow-up.
+- **Second State editorial precision.** `cuisine` field was "Coffee Roastery"; refined to "Specialty Coffee Roaster" — matches Second State's own positioning more precisely. `displayCuisine` set to "Specialty Roaster" (drops "Coffee" which name already contains).
+
+### Trade-offs accepted
+
+- **Auto-detect heuristic may produce false positives or negatives** as the dataset grows. False positive: a future restaurant whose name coincidentally contains its cuisine word but where the editorial intent is to keep cuisine displayed (e.g., a name-twin coincidence). False negative: a future restaurant with a synonym match that the substring rule misses (e.g., name "Espresso Bar X" + cuisine "Coffee Shop"). The `displayCuisine` override path handles both cases — override is the escape hatch for any auto-detect mistake.
+- **Two paths instead of one** (override + auto-detect) is more complex than a single approach (e.g., always require operator-curated `displayCuisine`). Accepted because: (a) the auto-detect rule catches the common case mechanically without per-restaurant editorial work; (b) the override path is needed anyway for the rename cases like Tutti / Second State where the cuisine field was edited for accuracy and the display form happens to differ.
+
+### Follow-ups filed
+
+1. **Editorial review of `description` + `shareTagline` cuisine redundancy** across the 9 dedup-affected restaurants. Mechanical display surfaces handled by `displayCuisine` + auto-detect (this PR); hand-authored prose fields may still contain redundant cuisine words by editorial choice. Pass through when next editing those fields, or never if redundancy reads as natural prose.
+2. **Cuisine-field accuracy audit** across all 33 restaurants. Tutti's "Neapolitan Pizza" misclassification was discovered incidentally during this workstream; other entries may have similar drift. Trigger: when next touching `restaurants.json` data significantly, or proactively if entity-resolution issues surface in GSC.
+
+### Implementation status
+
+- Schema documented this PR (schemaVersion 1.2, template docblock decision #12, this entry).
+- Generator + OG-image pipeline updated this PR (`scripts/_cuisine_dedup.py` shared module + step_13 + `compose_detail_meta`).
+- 9 detail pages + 9 OG PNGs regenerated this PR.

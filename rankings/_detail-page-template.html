@@ -179,6 +179,36 @@
        UI: sidebar unchanged for all restaurants. Multi-loc pages add a
        full-width "Other locations" section below the editorial body and
        above appearsOn, with one card per secondary.
+
+    12. Cuisine-name dedup (per DECISIONS #18 + the 2026-05-05 design pass).
+
+       Schema field: `displayCuisine` (optional string, nullable). Override
+       for the cuisine value used in mechanical display surfaces only.
+       JSON-LD `servesCuisine` always uses the `cuisine` field —
+       entity-resolution signal stays intact independent of display.
+
+       Resolution order applied at render time:
+         1. If `displayCuisine` is non-null, use that.
+         2. Else if normalized cuisine is a substring of normalized name,
+            suppress cuisine in mechanical display surfaces.
+         3. Else use `cuisine` as-is.
+
+       Normalization: lowercase, NFD-strip-diacritics, & → and, strip
+       apostrophes and punctuation, collapse whitespace.
+
+       Affected mechanical surfaces:
+         - Detail `<title>` — pattern "Name — Cuisine in Charleston |
+           Brand" drops the " — Cuisine" segment when cuisine is
+           suppressed.
+         - og:title / twitter:title — same drop pattern.
+         - Hero subtitle — pattern "Cuisine · Neighborhood" becomes
+           "Neighborhood" alone when cuisine is suppressed.
+         - OG image rendered meta-line — same drop as hero subtitle.
+
+       Editorial surfaces NOT touched: detail <meta description>,
+       og:description, twitter:description. Cuisine words there come
+       from hand-authored `description` and `shareTagline` fields;
+       redundancy is editorial choice.
 -->
 <!DOCTYPE html>
 <html lang="en">

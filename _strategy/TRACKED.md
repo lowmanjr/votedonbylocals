@@ -49,6 +49,12 @@ Each is a single data update to a multi-location restaurant's `locations[]` arra
   - **All 9 brands — per-location `websiteURL`**: null. Brand-level `websiteURL` covers them; per-location subpages exist for some (heavysbarburger.com/charleston, secondstatecoffee.com/pages/navy-yard-second-state-coffee, agavescantinamtpleasant.com, etc.) — could populate later if useful for the per-card link.
   - **All 9 brands — per-location `geoLat`/`geoLng`**: null. Easy backfill from Google Maps URL parsing when wanted.
 
+### Cuisine dedup follow-ups (3 items)
+
+- **Editorial review of `description` + `shareTagline` cuisine redundancy across the 9 dedup-affected restaurants.** Mechanical display surfaces (titles, og:title, twitter:title, hero subtitle, OG image meta-line) handled by `displayCuisine` + auto-detect (this PR); hand-authored prose fields (`description`, `shareTagline`) may still contain redundant cuisine words by editorial choice. Pass through when next editing those fields, or never if redundancy reads as natural prose. (Tutti's editorial fields were rewritten in the same PR — those fields explicitly contradicted the cuisine factual correction, which is hard inconsistency rather than benign redundancy. Other 8 are open for incremental review.)
+- **Cuisine-field accuracy audit across all 33 restaurants.** Tutti's misclassification as "Neapolitan Pizza" was discovered incidentally during the dedup workstream when the actual restaurant is New York-style (confirmed via Post & Courier coverage and Tutti's own Tock listing). Other restaurants may have similar drift — the dedup workstream surveyed name+cuisine pairs but didn't verify the cuisine values against external sources. Trigger: when next touching `restaurants.json` data significantly, or proactively if entity-resolution issues surface in GSC.
+- **Toni's Detroit Style Pizza — populate `neighborhood` field.** Currently null because the original data was incomplete. Toni's primary location is at 1311 Highway 17 N, Mt Pleasant — a neighborhood label exists, just wasn't captured (something like "Park West" or "Mt Pleasant" once verified). Currently produces an empty hero `<p>` because Toni's hits both cuisine-suppression (name contains "Detroit Style Pizza") AND null neighborhood — the dedup logic correctly drops cuisine, the existing null-neighborhood logic correctly handles the trailing separator, but the result is an empty subtitle paragraph. Resolves organically when neighborhood gets populated; no template or generator change needed. Trigger: when next researching Toni's data, or proactively if the small visual gap in the hero is worth closing.
+
 ---
 
 ## Tracked workstreams
@@ -71,18 +77,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 **Trigger to activate:** ACTIVATED 2026-05-03 by Babas on Cannon (3 locations: Cannon, Meeting, Wentworth) during best-coffee-shops port. Workstream H bulk port surfaced 7 additional multi-location restaurants. Full in-scope set as of 2026-05-05: **8 from workstream H** (babas-on-cannon, heavys-barburger, home-team-bbq, santis, senor-tequilas, azul-mexicano, agaves-cantina, bon-banh-mi-southeast-asian-kitchen) plus **2 from prior PRs** (dallesandros-pizza, second-state-coffee) — 10 total, all shipping primary-location-only. Design pass is the next gated workstream — not folded into bulk port.
 
 **Estimated scope:** 1–2 days. Half template + script work; half per-location data collection for the affected restaurants.
-
-### Title verbosity for cuisine-name overlap
-
-**Files affected:** detail-page `<title>` rendering in the generator script; possibly the JSON schema (new optional `titleCuisine` override field).
-
-**Current state:** Toni's Detroit Style Pizza ships with `<title>Toni's Detroit Style Pizza — Detroit Style Pizza in Charleston | Voted On By Locals</title>`. Correct given the data; verbose because `name` and `cuisine` overlap. Affects any restaurant whose name contains its cuisine.
-
-**Why it's tracked, not done now:** Pilot is small enough that the verbosity is manageable. The fix (an optional `titleCuisine` override in JSON that the script uses in the title only when present) is one line of script + one optional field, but designing it against just Toni's risks overfitting.
-
-**Trigger to activate:** at the editorial flesh stage for affected restaurants, OR when bulk port reveals more cuisine-name-overlap cases.
-
-**Estimated scope:** ~30 min — add `titleCuisine` to the JSON schema (null by default, optional override), update step 12 in the script to fall back to `cuisine` when `titleCuisine` is null.
 
 ### dateModified maintenance discipline
 
@@ -108,18 +102,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Trigger to activate:** when ready to lead with it. Lower-priority than rankings + detail surfaces (these pages get less inbound traffic); not blocking on anything.
 
-### OG meta-line dedup when restaurant name contains cuisine descriptor
-
-**Files affected:** `og-templates/detail.html` (rendered meta line), `scripts/generate_og_images.py` (`compose_detail_meta` logic) OR `data/restaurants.json` (per-affected-entry hand-curated override field).
-
-**Current state:** OG detail images render the meta line as `{Cuisine} · {Neighborhood}`. When the restaurant name already contains a cuisine descriptor — e.g., "The Harbinger Cafe & Bakery" with cuisine "Café and Bakery" — the share preview reads the descriptor twice. Data-faithful; not a defect, just a redundancy. Spotted on the Harbinger render during step 5 review (PR #16).
-
-**Why it's tracked, not done now:** Two reasonable fix paths and the choice depends on how many entries in `restaurants.json` have this overlap (single-digit edge case → hand-curate; broader pattern → generic suppression rule in the script). The sweep + decision belongs to a separate session, not bundled into step 5. **Conceptually related** to the existing "Title verbosity for cuisine-name overlap" workstream above — same redundancy class, different surface (`<title>` on-site vs. OG meta line). Could be designed and shipped together.
-
-**Estimated scope:** ~30 min — sweep `restaurants.json` for name-contains-cuisine cases, propose either (a) suppress-cuisine-when-redundant rule in `compose_detail_meta` OR (b) optional `ogMetaCuisine` override field per affected entry. Then re-render affected detail PNGs.
-
-**Trigger to activate:** next time we touch detail OG content. Polish-tier; no urgency. Pair with title-verbosity workstream activation.
-
 ---
 
 ## Deferred for later master-plan steps
@@ -137,6 +119,8 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-05 — Cuisine-name redundancy dedup (closes 2 workstreams).** Both originally-separate workstreams shipped together with a unified design (DECISIONS #18). Single optional `displayCuisine` field on `restaurants.json` entries drives all four mechanical display surfaces — detail `<title>`, og:title, twitter:title, hero subtitle, OG image rendered meta-line — replacing the two surface-named override fields originally proposed (`titleCuisine`, `ogMetaCuisine`). Auto-detect rule suppresses cuisine when normalized cuisine is a substring of normalized name (NFD-strip-diacritics, `&` → `and`, strip apostrophes/punctuation, collapse whitespace). 9 of 33 restaurants affected: 7 via auto-detect (dallesandros-pizza, park-pizza-co, smash-city-burgers, azul-mexicano, teds-butcherblock, tonis-detroit-style-pizza, the-harbinger-cafe-bakery), 2 via `displayCuisine` override (tutti-pizza, second-state-coffee). JSON-LD `servesCuisine` always uses raw `cuisine` field — entity-resolution signal stays intact. Two adjacent cuisine-field corrections shipped in the same PR: Tutti factual correction (Neapolitan Pizza → New York-Style Pizza, per Post & Courier + own Tock listing); Second State editorial precision (Coffee Roastery → Specialty Coffee Roaster). Two follow-ups filed (editorial review of prose surfaces; cuisine-field accuracy audit). Window-safe: rendered text edits, no URL/canonical changes. Schema bump v1.1 → v1.2. Closes the "Title verbosity for cuisine-name overlap" and "OG meta-line dedup when restaurant name contains cuisine descriptor" TRACKED workstreams.
 
 - **2026-05-04 — OG backplate fix (color-mix on brand.orange at 14%).** All three OG templates (`ranking.html`, `detail.html`, `default.html`) had a brand-mark backplate using Tailwind's `orange-50` (`#FFF7ED`) — fine on the live header's white nav bar but invisible on the OG cream canvas (`#FFF8F0`, one hex-digit difference). Replaced with `color-mix(in srgb, var(--brand-orange) 14%, transparent)` so the backplate derives from the brand-orange token (single source of truth preserved — brand color edits in `tailwind.config.js` propagate on the next render batch). All 42 OG PNGs re-rendered; spot-checked across composition variants (short detail FIG, wrapped ranking Best Nice Restaurants, default). Schema-additive PR; GSC quiet-window safe (asset refresh only, no chrome edits). See merged PR #17.
 
