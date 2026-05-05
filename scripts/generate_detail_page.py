@@ -269,6 +269,8 @@ def build_jsonld_dict(restaurant):
                 sub_org['telephone'] = loc['phone']
             if loc.get('hours'):
                 sub_org['openingHours'] = loc['hours']
+            if loc.get('websiteURL'):
+                sub_org['sameAs'] = loc['websiteURL']
             sub_orgs.append(sub_org)
         obj['subOrganization'] = sub_orgs
 
@@ -534,10 +536,10 @@ def format_phone_display(phone_e164):
     return phone_e164
 
 
-def build_website_block(website_url):
-    """Render the website sidebar block. The href uses the full URL as-is;
-    the visible link text strips the scheme (`https://` or `http://`) and
-    any trailing slash for cleaner display.
+def _format_website_display(website_url):
+    """Strip scheme (`https://` or `http://`) and trailing slash for cleaner
+    display. Shared by the brand-level sidebar block and the per-location
+    card website row.
     """
     display = website_url
     if display.startswith('https://'):
@@ -546,6 +548,15 @@ def build_website_block(website_url):
         display = display[len('http://'):]
     if display.endswith('/'):
         display = display[:-1]
+    return display
+
+
+def build_website_block(website_url):
+    """Render the website sidebar block. The href uses the full URL as-is;
+    the visible link text strips the scheme (`https://` or `http://`) and
+    any trailing slash for cleaner display.
+    """
+    display = _format_website_display(website_url)
     return (
         '                        <!-- Website -->\n'
         '                        <div class="mb-4">\n'
@@ -638,6 +649,12 @@ def _render_location_card(loc):
     if loc.get('hoursHumanReadable'):
         lines.append(
             f'                        <p class="text-brand-gray text-sm whitespace-pre-line">{loc["hoursHumanReadable"]}</p>'
+        )
+    if loc.get('websiteURL'):
+        website_url = loc['websiteURL']
+        website_display = _format_website_display(website_url)
+        lines.append(
+            f'                        <p class="text-brand-gray text-sm break-all mt-2"><a href="{website_url}" rel="noopener" target="_blank" class="hover:text-brand-orange">{website_display}</a></p>'
         )
     lines.append('                    </div>')
     return '\n'.join(lines)
