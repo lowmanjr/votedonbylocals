@@ -728,7 +728,7 @@
       "slug": "san-miguel-mexican-grill",
       "name": "San Miguel Mexican Grill",
       "tagline": "Authentic Flavors, Great Margs",
-      "cuisine": "Tex-Mex",
+      "cuisine": "Mexican",
       "neighborhood": "Mt Pleasant",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
@@ -744,9 +744,9 @@
         "postalCode": "29464",
         "addressCountry": "US"
       },
-      "description": "San Miguel Mexican Grill is a Mt Pleasant Tex-Mex spot near Charleston, SC known for authentic flavors and great margaritas. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "description": "San Miguel Mexican Grill is a Mt Pleasant Mexican spot near Charleston, SC known for authentic flavors and great margaritas. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "shareTagline": "Authentic flavors and great margs, voted best Tex-Mex by Charleston locals.",
-      "keywords": "San Miguel Mexican Grill Charleston, Mt Pleasant Tex-Mex, Charleston margaritas, best Tex-Mex Charleston SC",
+      "keywords": "San Miguel Mexican Grill Charleston, Mt Pleasant Mexican, Mt Pleasant Tex-Mex, Charleston margaritas, best Tex-Mex Charleston SC",
       "appearsOn": [
         {
           "url": "/rankings/best-tex-mex.html",
@@ -763,7 +763,7 @@
       "slug": "santis",
       "name": "Santi's",
       "tagline": "No-Frills, Big Portions",
-      "cuisine": "Tex-Mex",
+      "cuisine": "Mexican",
       "neighborhood": "NoMo",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
@@ -813,9 +813,9 @@
         "postalCode": "29405",
         "addressCountry": "US"
       },
-      "description": "Santi's is a NoMo Tex-Mex spot in Charleston, SC known for no-frills service and big portions. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "description": "Santi's is a NoMo Mexican spot in Charleston, SC known for no-frills service and big portions. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "shareTagline": "No-frills, big portions — voted best Tex-Mex by Charleston locals.",
-      "keywords": "Santi's Charleston, NoMo Tex-Mex Charleston, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
+      "keywords": "Santi's Charleston, NoMo Mexican Charleston, NoMo Tex-Mex Charleston, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
       "appearsOn": [
         {
           "url": "/rankings/best-tex-mex.html",
@@ -832,7 +832,7 @@
       "slug": "senor-tequilas",
       "name": "Señor Tequila's",
       "tagline": "Local Favorite, Lively",
-      "cuisine": "Tex-Mex",
+      "cuisine": "Mexican",
       "neighborhood": "West Ashley",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
@@ -866,9 +866,9 @@
         "postalCode": "29407",
         "addressCountry": "US"
       },
-      "description": "Señor Tequila's is a West Ashley Tex-Mex restaurant in Charleston, SC, a lively local favorite. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "description": "Señor Tequila's is a West Ashley Mexican restaurant in Charleston, SC, a lively local favorite. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "shareTagline": "Lively West Ashley Tex-Mex, voted best by Charleston locals.",
-      "keywords": "Señor Tequila's Charleston, West Ashley Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
+      "keywords": "Señor Tequila's Charleston, West Ashley Mexican, West Ashley Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
       "appearsOn": [
         {
           "url": "/rankings/best-tex-mex.html",
@@ -970,7 +970,7 @@
       "slug": "agaves-cantina",
       "name": "Agaves Cantina",
       "tagline": "Lively Atmosphere",
-      "cuisine": "Tex-Mex",
+      "cuisine": "Mexican",
       "neighborhood": "Daniel Island",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
@@ -1052,9 +1052,9 @@
         "postalCode": "29492",
         "addressCountry": "US"
       },
-      "description": "Agaves Cantina is a Daniel Island Tex-Mex restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+      "description": "Agaves Cantina is a Daniel Island Mexican restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "shareTagline": "Lively Daniel Island Tex-Mex, voted best by Charleston locals.",
-      "keywords": "Agaves Cantina Charleston, Daniel Island Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
+      "keywords": "Agaves Cantina Charleston, Daniel Island Mexican, Daniel Island Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC",
       "appearsOn": [
         {
           "url": "/rankings/best-tex-mex.html",
