@@ -1,0 +1,25 @@
+{
+  "name": "votedonbylocals-social",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Social asset pipeline (cards + reels) for votedonbylocals rankings",
+  "scripts": {
+    "render:card": "tsx scripts/render-card.ts",
+    "render:reel": "tsx scripts/render-reel.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.1.0",
+    "@fontsource/poppins": "^5.1.0",
+    "@resvg/resvg-js": "^2.6.2",
+    "react": "^18.3.1",
+    "satori": "^0.12.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "@types/react": "^18.3.11",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  }
+}
