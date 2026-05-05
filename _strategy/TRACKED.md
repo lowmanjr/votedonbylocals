@@ -26,6 +26,10 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 - **Configure redirect rule for no-`.html` → `.html`.** Netlify currently 200-dual-serves both forms (identical Etag, no redirect). Internal anchors get `.html` stripped by Netlify pretty-URL post-processing; canonical/og:url/JSON-LD all declare the `.html` form. Google honors the canonical, so functionally fine — this is a structural cleanup, not a bug fix. **Attempted in workstream H bulk port (reverted):** `/restaurants/:slug /restaurants/:slug.html 301!` creates an infinite loop because Netlify's `:slug` placeholder matches segments containing `.html` and the `!` flag forces the rule on already-redirected paths (foo.html → foo.html.html → foo.html.html.html…). A working fix likely needs either (a) a two-rule pattern with an explicit `/restaurants/*.html /restaurants/:splat.html 200` passthrough rewrite preceding the 301, or (b) `pretty_urls = false` in netlify.toml to disable Netlify's anchor rewriting at the source. Either approach must be preview-tested in an isolated PR before merge. Discovered during workstream H bulk port PHASE 8 verification.
 
+### Top-level OG follow-ups (1 item)
+
+- **Consider unique `og-toplevel-ambassadors.png` if multi-city outreach scales.** Currently `ambassadors.html` shares `og-default.png` with the other 4 top-level pages. The page is the most likely outbound-share target on the site (multi-city pitch in DMs, partner outreach), so a bespoke share-preview image — eyebrow "Multi-city" / hero "Ambassadors" / meta "Bring your city's food scene" or similar — could meaningfully lift click-through on shared links. Trigger: ambassador inquiry volume crosses a threshold worth bespoke imagery for the multi-city pitch. Implementation: extend `scripts/generate_og_images.py` with a `render_toplevel(slug, …)` family (template + data manifest), or hand-author a one-off PNG in the same brand vocabulary. Lower-priority until the trigger fires; current shared-default state is brand-consistent and shipped.
+
 ---
 
 ## Tracked workstreams
@@ -68,18 +72,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Trigger to activate:** when a discrepancy surfaces (e.g., a sitemap audit shows stale `dateModified` vs actual editorial activity), or when a build pipeline / CI is introduced that could host the hook.
 
-### Top-level pages OG coverage
-
-**Files affected:** `about.html`, `vote.html`, `suggest-category.html`, `ambassadors.html`, `thank-you.html`. Possibly new `og-{slug}.png` assets if per-page images chosen over shared default.
-
-**Current state:** 5 top-level pages have no Open Graph block at all — no `og:image`, no `og:title`, no `og:description`, no `og:url`, no `og:site_name`, no Twitter card. PR #16 (master plan step 5) patched `index.html` to add `og:image`, `og:site_name`, and `twitter:card` (closing the twitter-large-image-card-rendering loop with the new `og-default.png`). The other 5 pages remain bare.
-
-**Why it's tracked, not done now:** Each page needs design decisions before the OG block can ship: unique `og-{slug}.png` per page (extending the step-5 pipeline) or shared `og-default.png`? Per-page `og:title` and `og:description` strings? Pulling these into PR #16 would have meant making those design calls under PR pressure rather than deliberately.
-
-**Estimated scope:** ~2 hours, design-first. Decide per-page asset strategy + draft per-page meta strings + extend the OG pipeline if unique images are chosen. Then ~5 small HTML edits + 0-5 new PNG renders.
-
-**Trigger to activate:** when ready to lead with it. Lower-priority than rankings + detail surfaces (these pages get less inbound traffic); not blocking on anything.
-
 ### OG meta-line dedup when restaurant name contains cuisine descriptor
 
 **Files affected:** `og-templates/detail.html` (rendered meta line), `scripts/generate_og_images.py` (`compose_detail_meta` logic) OR `data/restaurants.json` (per-affected-entry hand-curated override field).
@@ -109,6 +101,8 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-05 — Top-level pages OG coverage.** All 5 top-level pages (`about.html`, `vote.html`, `suggest-category.html`, `ambassadors.html`, `thank-you.html`) now carry the full OG block + Twitter card + canonical, matching the site convention from rankings + details + index.html. Image strategy: shared `og-default.png` for all 5 (matches `index.html`; zero pipeline work). Scope expanded slightly to address two adjacent gaps in the same `<head>` blocks: (1) all 5 also lacked `<link rel="canonical">`, now added; (2) `vote.html` lacked `<meta name="description">` entirely, now added. `thank-you.html` included for brand consistency despite being `noindex` + sitemap-excluded — share previews still benefit on the rare deliberate share; meta description skipped on thank-you (noindex makes it moot). Window-safe: additive metadata only, no URL changes, no rendered body changes. Future-candidate for unique per-page image is `ambassadors.html` if multi-city outreach scales — filed as a separate Open one-off follow-up above. Design pass completed 2026-05-05.
 
 - **2026-05-04 — OG backplate fix (color-mix on brand.orange at 14%).** All three OG templates (`ranking.html`, `detail.html`, `default.html`) had a brand-mark backplate using Tailwind's `orange-50` (`#FFF7ED`) — fine on the live header's white nav bar but invisible on the OG cream canvas (`#FFF8F0`, one hex-digit difference). Replaced with `color-mix(in srgb, var(--brand-orange) 14%, transparent)` so the backplate derives from the brand-orange token (single source of truth preserved — brand color edits in `tailwind.config.js` propagate on the next render batch). All 42 OG PNGs re-rendered; spot-checked across composition variants (short detail FIG, wrapped ranking Best Nice Restaurants, default). Schema-additive PR; GSC quiet-window safe (asset refresh only, no chrome edits). See merged PR #17.
 
