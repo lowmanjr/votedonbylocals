@@ -137,6 +137,48 @@
        This is honest content that solves the user need (how to find
        hours) without claiming knowledge we don't have. Per the
        anti-fabrication wedge in _strategy/CONTEXT.md.
+
+    11. Multi-location restaurants (per DECISIONS #14.4 + the 2026-05-05
+       design pass).
+       Schema field: `locations` (optional array on the restaurant entry).
+       When absent or null, the restaurant is single-location and renders
+       byte-equal to a single-loc page. When non-empty, the restaurant is
+       multi-location and renders an "Other locations" section below the
+       editorial body with one card per entry.
+
+       Per-location entry fields:
+         - label (string, required) — operator-authored name for the
+           location ("Daniel Island", "Coleman Blvd", "Wentworth"). Used
+           as card heading and as the suffix in the JSON-LD
+           subOrganization name.
+         - address (PostalAddress object, required) — same shape as the
+           top-level address field.
+         - phone (string|null) — "+1-843-..." format. Null when uncollected.
+         - hours (string|null) — schema.org openingHours format. Null when
+           uncollected.
+         - hoursHumanReadable (string|null) — newline-separated human
+           format matching the top-level field's convention.
+         - websiteURL (string|null) — per-location URL when meaningful;
+           otherwise null and the brand-level top-level websiteURL covers
+           it.
+         - geoLat, geoLng (number|null) — per-location coordinates.
+
+       Editorial scope: only locations within DECISIONS #14.1's editorial
+       scope (currently greater Charleston) appear in the array.
+       Out-of-scope locations are tracked in TRACKED for re-inclusion when
+       scope expands.
+
+       JSON-LD: top-level Restaurant block carries primary unchanged. For
+       multi-loc, top-level gains @id of form <canonical>#brand and a
+       subOrganization array with one entry per secondary. Each
+       subOrganization entry has @type matching parent, @id of form
+       <canonical>#<location-slug>, name formatted "<Brand> — <Label>",
+       full PostalAddress, telephone, openingHours, and parentOrganization
+       back-reference to the top-level @id.
+
+       UI: sidebar unchanged for all restaurants. Multi-loc pages add a
+       full-width "Other locations" section below the editorial body and
+       above appearsOn, with one card per secondary.
 -->
 <!DOCTYPE html>
 <html lang="en">
