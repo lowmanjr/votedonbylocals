@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "schemaVersion": "1.1",
+    "schemaVersion": "1.2",
     "lastUpdated": "2026-05-05",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
@@ -10,8 +10,9 @@
     {
       "slug": "tutti-pizza",
       "name": "Tutti Pizza",
-      "tagline": "Authentic Neapolitan",
-      "cuisine": "Neapolitan Pizza",
+      "tagline": "Old-School New York-Inspired",
+      "cuisine": "New York-Style Pizza",
+      "displayCuisine": "New York-Style",
       "neighborhood": "Westside",
       "schemaType": "Restaurant",
       "monthYear": "May 2026",
@@ -22,9 +23,9 @@
         "postalCode": "29403",
         "addressCountry": "US"
       },
-      "description": "Tutti Pizza serves authentic Neapolitan-style pies in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
-      "shareTagline": "Authentic Neapolitan, voted best pizza by Charleston locals.",
-      "keywords": "Tutti Pizza Charleston, Neapolitan pizza Charleston SC, best pizza Charleston, authentic Italian pizza",
+      "description": "Tutti Pizza serves old-school New York-style pies in Charleston, SC. Voted by Charleston locals as one of the city's best pizza spots.",
+      "shareTagline": "Old-school New York-style, voted best pizza by Charleston locals.",
+      "keywords": "Tutti Pizza Charleston, New York-style pizza Charleston SC, best pizza Charleston, King Street pizza",
       "appearsOn": [
         {
           "url": "/rankings/best-pizza.html",
@@ -343,7 +344,8 @@
       "slug": "second-state-coffee",
       "name": "Second State Coffee",
       "tagline": "Local Roaster",
-      "cuisine": "Coffee Roastery",
+      "cuisine": "Specialty Coffee Roaster",
+      "displayCuisine": "Specialty Roaster",
       "neighborhood": "Harleston Village",
       "schemaType": "CafeOrCoffeeShop",
       "monthYear": "May 2026",

@@ -24,6 +24,8 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
+from _cuisine_dedup import _resolve_display_cuisine
+
 ROOT = Path(__file__).parent.parent
 TEMPLATE_PATH = ROOT / 'rankings' / '_detail-page-template.html'
 DATA_PATH = ROOT / 'data' / 'restaurants.json'
@@ -713,7 +715,20 @@ def step_13_substitute_remaining_placeholders(text, restaurant):
     # Required scalar fields
     text = text.replace('{{slug}}', restaurant['slug'])
     text = text.replace('{{RestaurantName}}', restaurant['name'])
-    text = text.replace('{{Cuisine}}', restaurant['cuisine'])
+
+    # Cuisine — surface-aware resolution per DECISIONS #18.
+    #   None → suppression (drop the cuisine slot from titles + hero subtitle)
+    #   string → substitute (the displayCuisine override or raw cuisine)
+    # JSON-LD `servesCuisine` is built in step_3 from raw `cuisine` and is
+    # NOT affected by this resolution.
+    display_cuisine = _resolve_display_cuisine(restaurant)
+    if display_cuisine is None:
+        text = text.replace(' — {{Cuisine}}', '')
+        text = text.replace('{{Cuisine}} · {{Neighborhood}}', '{{Neighborhood}}')
+        text = text.replace('{{Cuisine}}', '')
+    else:
+        text = text.replace('{{Cuisine}}', display_cuisine)
+
     text = text.replace('{{Tagline}}', restaurant['tagline'])
     text = text.replace('{{MonthYear}}', restaurant['monthYear'])
     text = text.replace('{{Description}}', restaurant['description'])
@@ -726,6 +741,13 @@ def step_13_substitute_remaining_placeholders(text, restaurant):
         # Drop the " · {{Neighborhood}}" segment from the hero subtitle
         # so the cuisine line stands alone (no dangling separator).
         text = text.replace(' · {{Neighborhood}}', '')
+        # Also drop any standalone {{Neighborhood}} that the cuisine-suppression
+        # path may have left when both cuisine and neighborhood are absent
+        # (Toni's Detroit Style Pizza is the live case — cuisine auto-suppressed
+        # because name contains it, and neighborhood is null because the Mt Pleasant
+        # primary location doesn't have one in the dataset). The line above only
+        # catches " · {{Neighborhood}}"; this catches the leading-separator-gone form.
+        text = text.replace('{{Neighborhood}}', '')
 
     addr = restaurant.get('address') or {}
     if addr.get('streetAddress'):
