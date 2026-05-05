@@ -722,6 +722,28 @@ def step_13_substitute_remaining_placeholders(text, restaurant):
     # JSON-LD `servesCuisine` is built in step_3 from raw `cuisine` and is
     # NOT affected by this resolution.
     display_cuisine = _resolve_display_cuisine(restaurant)
+
+    # When both cuisine (display) and neighborhood are absent, drop the
+    # subtitle <p> block entirely. Without this, the cuisine-suppression
+    # and null-neighborhood passes below leave an empty <p> in the hero.
+    # Live case: Toni's Detroit Style Pizza — name-contains-cuisine
+    # auto-suppresses cuisine (DECISIONS #18), and neighborhood is
+    # deliberately null for commercial-corridor addresses without a
+    # clear sub-neighborhood label.
+    if display_cuisine is None and not restaurant.get('neighborhood'):
+        # Note: comment matches the post-step-12 form (REPLACE: prefix
+        # stripped, first letter capitalized), since step_13 runs after
+        # step_12 in the pipeline.
+        text = re.sub(
+            r'\n                <!-- Cuisine \+ neighborhood subtitle -->\n'
+            r'                <p class="text-brand-gray mt-4 text-lg font-medium">\n'
+            r'                    \{\{Cuisine\}\} · \{\{Neighborhood\}\}\n'
+            r'                </p>\n',
+            '',
+            text,
+            count=1,
+        )
+
     if display_cuisine is None:
         text = text.replace(' — {{Cuisine}}', '')
         text = text.replace('{{Cuisine}} · {{Neighborhood}}', '{{Neighborhood}}')
