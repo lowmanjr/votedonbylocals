@@ -59,6 +59,10 @@ Each is a single data update to a multi-location restaurant's `locations[]` arra
 - **Cuisine-field accuracy audit across all 33 restaurants.** Tutti's misclassification as "Neapolitan Pizza" was discovered incidentally during the dedup workstream when the actual restaurant is New York-style (confirmed via Post & Courier coverage and Tutti's own Tock listing). Other restaurants may have similar drift — the dedup workstream surveyed name+cuisine pairs but didn't verify the cuisine values against external sources. Trigger: when next touching `restaurants.json` data significantly, or proactively if entity-resolution issues surface in GSC.
 - **Toni's Detroit Style Pizza — populate `neighborhood` field.** Currently null because the original data was incomplete. Toni's primary location is at 1311 Highway 17 N, Mt Pleasant — a neighborhood label exists, just wasn't captured (something like "Park West" or "Mt Pleasant" once verified). Currently produces an empty hero `<p>` because Toni's hits both cuisine-suppression (name contains "Detroit Style Pizza") AND null neighborhood — the dedup logic correctly drops cuisine, the existing null-neighborhood logic correctly handles the trailing separator, but the result is an empty subtitle paragraph. Resolves organically when neighborhood gets populated; no template or generator change needed. Trigger: when next researching Toni's data, or proactively if the small visual gap in the hero is worth closing.
 
+### Generator follow-ups (1 item)
+
+- **`tel:` URI format inconsistency between `build_phone_block` and `_render_location_card` in `scripts/generate_detail_page.py`.** `build_phone_block` (line 521) emits `tel:+1-843-XXX-XXXX` (dashed); `_render_location_card` (line 633-634) emits `tel:+1843XXXXXXX` (un-dashed). RFC 3966 allows both, but un-dashed is more universally dialer-friendly. Exposed by Second State regen — first time both paths fired together (primary phone block plus location-card phone blocks on the same page). Pre-existing — pick a convention and align.
+
 ---
 
 ## Tracked workstreams
