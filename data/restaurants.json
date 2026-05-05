@@ -497,9 +497,9 @@
             "postalCode": "29492",
             "addressCountry": "US"
           },
-          "phone": null,
-          "hours": "Tu-Su 11:00-21:00",
-          "hoursHumanReadable": "Mon: Closed\nTue–Sun: 11am–9pm",
+          "phone": "+1-843-377-8058",
+          "hours": "Mo-Th 11:00-21:00, Fr-Sa 11:00-22:00, Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Thu: 11am–9pm\nFri–Sat: 11am–10pm\nSun: 11am–9pm",
           "websiteURL": null,
           "geoLat": null,
           "geoLng": null
