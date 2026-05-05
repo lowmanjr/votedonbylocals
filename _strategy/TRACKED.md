@@ -52,7 +52,7 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Status (2026-05-05):**
 - Design pass completed 2026-05-05 — data shape, JSON-LD pattern, UI pattern locked (see DECISIONS #17).
-- Schema v1.1 shipped in this PR; template + generator + Babas pilot follows in subsequent PR.
+- Schema v1.1 shipped in PR #19. Template + generator + Babas pilot shipped in this PR; pilot validates the multi-location rendering pattern with 2 secondaries (Meeting Street + Wentworth) and the conditional null-phone drop. Data populate for the remaining 9 multi-location restaurants follows in a subsequent PR.
 - Toni's Detroit Style Pizza removed from workstream — Clements Ferry second location closed (Yelp marked closed June 2025; official site lists only Mt Pleasant). Restaurant now single-location, exits workstream. Re-verification trigger: reopening announcement or operator-confirmed status change.
 
 **Current state:** Per DECISIONS #14.4, multi-location restaurants ship with primary-location only in the pilot. D'Allesandro's Pizza has additional locations (Nexton Square Summerville is in-scope; Greenville SC Upstate is out-of-scope per DECISIONS #14.1) currently absent. Pages are correct as-shipped — they just don't yet show the additional locations.

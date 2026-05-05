@@ -588,6 +588,36 @@
                 </div>
             </div>
 
+            <!--
+              OTHER LOCATIONS BLOCK (multi-location restaurants only — the
+              generator strips this entire block + leading blank line for
+              single-loc pages, byte-equal to current single-loc rendering.
+              For multi-loc, the generator activates the section and clones
+              LOCATION_CARD once per entry in restaurants.json `locations[]`.
+              See top-docblock decision #11 and DECISIONS #17.
+
+              <section class="border-t border-gray-100 pt-8">
+                  <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <!-- LOCATION_CARD: cloned once per locations[] entry -->
+                      <div class="border border-gray-100 rounded-lg p-5">
+                          <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">{{LocationLabel}}</h3>
+                          <div class="mb-3">
+                              <p class="text-brand-dark font-medium">{{LocationStreetAddress}}</p>
+                              <p class="text-brand-gray text-sm">{{LocationLocality}}, {{LocationRegion}} {{LocationPostalCode}}</p>
+                          </div>
+                          <!-- LOCATION_PHONE: conditional, generator drops this <p> when phone is null -->
+                          <p class="text-brand-gray text-sm mb-2">
+                              <a href="tel:{{LocationPhone}}" class="hover:text-brand-orange">{{LocationPhoneDisplay}}</a>
+                          </p>
+                          <!-- LOCATION_HOURS: conditional, generator drops this <p> when hoursHumanReadable is null -->
+                          <p class="text-brand-gray text-sm whitespace-pre-line">{{LocationHoursHumanReadable}}</p>
+                      </div>
+                      <!-- /LOCATION_CARD -->
+                  </div>
+              </section>
+            -->
+
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">
                 <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Appears on</h2>
