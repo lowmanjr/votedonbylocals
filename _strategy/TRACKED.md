@@ -26,7 +26,7 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 - **Configure redirect rule for no-`.html` → `.html`.** Netlify currently 200-dual-serves both forms (identical Etag, no redirect). Internal anchors get `.html` stripped by Netlify pretty-URL post-processing; canonical/og:url/JSON-LD all declare the `.html` form. Google honors the canonical, so functionally fine — this is a structural cleanup, not a bug fix. **Attempted in workstream H bulk port (reverted):** `/restaurants/:slug /restaurants/:slug.html 301!` creates an infinite loop because Netlify's `:slug` placeholder matches segments containing `.html` and the `!` flag forces the rule on already-redirected paths (foo.html → foo.html.html → foo.html.html.html…). A working fix likely needs either (a) a two-rule pattern with an explicit `/restaurants/*.html /restaurants/:splat.html 200` passthrough rewrite preceding the 301, or (b) `pretty_urls = false` in netlify.toml to disable Netlify's anchor rewriting at the source. Either approach must be preview-tested in an isolated PR before merge. Discovered during workstream H bulk port PHASE 8 verification.
 
-### Locations workstream follow-ups (3 items)
+### Locations workstream follow-ups (4 items)
 
 Each is a single data update to a multi-location restaurant's `locations[]` array, triggered by an external event. Design + schema is locked (DECISIONS #17, schemaVersion 1.1); these are content adds when their triggers fire.
 
@@ -35,6 +35,19 @@ Each is a single data update to a multi-location restaurant's `locations[]` arra
 - **Heavy's Barburger Isle of Palms — third location opens Spring 2026.** A third Heavy's Barburger location opens Spring 2026 on Ocean Boulevard, Isle of Palms. Add as the third entry to Heavy's `locations[]` once open. Trigger: opening confirmation.
 
 - **Toni's Detroit Style Pizza — re-verification.** Toni's exited the Locations workstream 2026-05-05 because the Clements Ferry (Wando/Daniel Island) second location closed (Yelp marked closed June 2025; official site lists only Mt Pleasant). Trigger to re-add Toni's to the workstream and populate `locations[]`: reopening announcement, OR operator-confirmed verification that the closure signal was wrong.
+
+- **Locations data backfill — uncollected per-location fields.** Multiple secondaries shipped in PR #21 with null fields where ground-truth data wasn't surfaced during research. Schema permits null per the existing field policy; the generator drops the corresponding HTML lines cleanly. Backfill incrementally as ground-truth surfaces. Specific gaps:
+  - **Heavy's Daniel Island**: phone null. Hours used the official location page (Tue–Sun 11–9, closed Mon); Instagram bio said Sun–Thu 11–9 / Fri–Sat 11–10 — verify against current state.
+  - **Home Team Mt Pleasant**: hours null. Phone (843-225-7427) routes through the central brand line.
+  - **Señor Tequila Summerville**: hours assumed uniform 11am–10pm per Yelp; the West Ashley primary's Sun-9:30 pattern may also apply — verify.
+  - **Azul James Island and Summerville**: Sat hours assumed = Fri pattern (11am–10:30pm) where source was truncated — verify.
+  - **Azul Summerville**: phone null.
+  - **Agaves West Ashley / Highway 41 / Summerville**: hours and phones null. Coleman Blvd is fully populated.
+  - **Agaves West Ashley postal code (29414)**: best-guess based on West Ashley Circle; the 29407 vs 29414 split runs through West Ashley — verify.
+  - **Agaves Summerville postal code (29485)**: best-guess; Summerville zips split across 29483/29485/29486 — verify.
+  - **Second State per-location phones**: all null. May exist on per-location pages, or all route through 843-793-4402 — verify.
+  - **All 9 brands — per-location `websiteURL`**: null. Brand-level `websiteURL` covers them; per-location subpages exist for some (heavysbarburger.com/charleston, secondstatecoffee.com/pages/navy-yard-second-state-coffee, agavescantinamtpleasant.com, etc.) — could populate later if useful for the per-card link.
+  - **All 9 brands — per-location `geoLat`/`geoLng`**: null. Easy backfill from Google Maps URL parsing when wanted.
 
 ---
 
@@ -48,7 +61,7 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Status (2026-05-05):**
 - Design pass completed 2026-05-05 — data shape, JSON-LD pattern, UI pattern locked (see DECISIONS #17).
-- Schema v1.1 shipped in PR #19. Template + generator + Babas pilot shipped in this PR; pilot validates the multi-location rendering pattern with 2 secondaries (Meeting Street + Wentworth) and the conditional null-phone drop. Data populate for the remaining 9 multi-location restaurants follows in a subsequent PR.
+- Schema v1.1 shipped in PR #19; template + generator + Babas pilot shipped in PR #20; data populate for the remaining 9 in-scope multi-loc brands shipped in this PR. 9 of 10 in-scope brands now render the "Other locations" section (10/10 including the Babas pilot from PR #20). Toni's verification still pending (filed as separate follow-up).
 - Toni's Detroit Style Pizza removed from workstream — Clements Ferry second location closed (Yelp marked closed June 2025; official site lists only Mt Pleasant). Restaurant now single-location, exits workstream. Re-verification trigger: reopening announcement or operator-confirmed status change.
 
 **Current state:** Per DECISIONS #14.4, multi-location restaurants ship with primary-location only in the pilot. D'Allesandro's Pizza has additional locations (Nexton Square Summerville is in-scope; Greenville SC Upstate is out-of-scope per DECISIONS #14.1) currently absent. Pages are correct as-shipped — they just don't yet show the additional locations.

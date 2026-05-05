@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#brand",
       "name": "Home Team BBQ",
       "description": "Home Team BBQ is a West Ashley barbecue joint in Charleston, SC famous for its smoked meats, wings, and burgers. Voted by Charleston locals as one of the city's best casual spots and best burgers.",
       "datePublished": "2026-05-03T19:03:39-04:00",
@@ -54,6 +55,61 @@
         "postalCode": "29407",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#downtown",
+          "name": "Home Team BBQ — Downtown",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "126 Williman St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#brand"
+          },
+          "telephone": "+1-843-225-7427",
+          "openingHours": "Mo-Su 11:00-24:00"
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#sullivan-s-island",
+          "name": "Home Team BBQ — Sullivan's Island",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "2209 Middle St",
+            "addressLocality": "Sullivan's Island",
+            "addressRegion": "SC",
+            "postalCode": "29482",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#brand"
+          },
+          "telephone": "+1-843-883-3131",
+          "openingHours": "Mo-Su 11:00-24:00"
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#mt-pleasant",
+          "name": "Home Team BBQ — Mt Pleasant",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "3563 Highway 17",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29466",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq.html#brand"
+          },
+          "telephone": "+1-843-225-7427"
+        }
+      ],
       "servesCuisine": "Barbecue",
       "telephone": "+1-843-225-7427",
       "openingHours": "Mo-Su 11:00-22:00",
@@ -277,6 +333,38 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Downtown</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">126 Williman St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432257427" class="hover:text-brand-orange">(843) 225-7427</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–midnight</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Sullivan's Island</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">2209 Middle St</p>
+                            <p class="text-brand-gray text-sm">Sullivan's Island, SC 29482</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18438833131" class="hover:text-brand-orange">(843) 883-3131</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–midnight</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Mt Pleasant</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">3563 Highway 17</p>
+                            <p class="text-brand-gray text-sm">Mount Pleasant, SC 29466</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432257427" class="hover:text-brand-orange">(843) 225-7427</a></p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">

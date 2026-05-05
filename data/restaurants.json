@@ -108,6 +108,24 @@
       "websiteURL": "https://www.dalspizza.com/locations/downtown-charleston",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Nexton",
+          "address": {
+            "streetAddress": "414 Nexton Square Dr",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29486",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-900-3593",
+          "hours": "Mo-Su 11:00-22:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null
@@ -352,6 +370,72 @@
       "websiteURL": "https://secondstatecoffee.com/",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Navy Yard",
+          "address": {
+            "streetAddress": "2156 Noisette Blvd",
+            "addressLocality": "North Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29405",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
+          "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "West Ashley",
+          "address": {
+            "streetAddress": "1630 Ashley Hall Rd",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29407",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
+          "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Oyster Park",
+          "address": {
+            "streetAddress": "1410 Shucker Cir Ste 1107",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
+          "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Shelmore",
+          "address": {
+            "streetAddress": "766 S Shelmore Blvd",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
+          "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null
@@ -401,6 +485,24 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Daniel Island",
+          "address": {
+            "streetAddress": "891 Island Park Dr",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29492",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Tu-Su 11:00-21:00",
+          "hoursHumanReadable": "Mon: Closed\nTue–Sun: 11am–9pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
@@ -506,6 +608,56 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Downtown",
+          "address": {
+            "streetAddress": "126 Williman St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-225-7427",
+          "hours": "Mo-Su 11:00-24:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–midnight",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Sullivan's Island",
+          "address": {
+            "streetAddress": "2209 Middle St",
+            "addressLocality": "Sullivan's Island",
+            "addressRegion": "SC",
+            "postalCode": "29482",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-883-3131",
+          "hours": "Mo-Su 11:00-24:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–midnight",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Mt Pleasant",
+          "address": {
+            "streetAddress": "3563 Highway 17",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29466",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-225-7427",
+          "hours": null,
+          "hoursHumanReadable": null,
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
@@ -615,6 +767,40 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Mt Pleasant",
+          "address": {
+            "streetAddress": "1471 Ben Sawyer Blvd",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-547-5782",
+          "hours": "Mo-Su 11:00-22:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Savannah Hwy",
+          "address": {
+            "streetAddress": "1660 Savannah Hwy",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29407",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-310-6148",
+          "hours": "Mo-Su 11:00-22:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
@@ -650,6 +836,24 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Summerville",
+          "address": {
+            "streetAddress": "9730 Dorchester Rd Ste 110",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29485",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-261-7272",
+          "hours": "Mo-Su 11:00-22:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
@@ -685,6 +889,56 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Downtown",
+          "address": {
+            "streetAddress": "385 Meeting St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "phone": "+1-854-222-3189",
+          "hours": "Mo-Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Sun: 11am–9pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "James Island",
+          "address": {
+            "streetAddress": "1989 Maybank Hwy Ste 101",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29412",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-637-4656",
+          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:30",
+          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9:30pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Summerville",
+          "address": {
+            "streetAddress": "1200 N Main St Ste C",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29483",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:30",
+          "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9:30pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
@@ -720,6 +974,72 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "West Ashley",
+          "address": {
+            "streetAddress": "3871 W Ashley Cir Unit 320-330",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29414",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": null,
+          "hoursHumanReadable": null,
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Coleman Blvd",
+          "address": {
+            "streetAddress": "320 W Coleman Blvd Unit P",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-606-2032",
+          "hours": "Mo-Tu 11:00-21:30, We-Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
+          "hoursHumanReadable": "Mon–Tue: 11am–9:30pm\nWed–Thu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Highway 41",
+          "address": {
+            "streetAddress": "2118 SC-41 Ste 106",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29466",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": null,
+          "hoursHumanReadable": null,
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Summerville",
+          "address": {
+            "streetAddress": "205 S Cross Creek Dr",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29485",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": null,
+          "hoursHumanReadable": null,
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
@@ -790,6 +1110,40 @@
       "monthYear": "May 2026",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Ben Sawyer (Mt Pleasant)",
+          "address": {
+            "streetAddress": "1440 Ben Sawyer Blvd",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-388-7080",
+          "hours": "Mo-Sa 11:00-21:00, Su 11:00-17:00",
+          "hoursHumanReadable": "Mon–Sat: 11am–9pm\nSun: 11am–5pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Oakland Market (Mt Pleasant)",
+          "address": {
+            "streetAddress": "1100 Oakland Market Rd",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29466",
+            "addressCountry": "US"
+          },
+          "phone": "+1-843-352-2082",
+          "hours": "Mo-Sa 11:00-21:00, Su 11:00-17:00",
+          "hoursHumanReadable": "Mon–Sat: 11am–9pm\nSun: 11am–5pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null,
