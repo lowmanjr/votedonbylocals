@@ -30,6 +30,16 @@ Single-line edits, mostly to JSON-LD `servesCuisine` values or content fields. E
 
 - **Consider unique `og-toplevel-ambassadors.png` if multi-city outreach scales.** Currently `ambassadors.html` shares `og-default.png` with the other 4 top-level pages. The page is the most likely outbound-share target on the site (multi-city pitch in DMs, partner outreach), so a bespoke share-preview image — eyebrow "Multi-city" / hero "Ambassadors" / meta "Bring your city's food scene" or similar — could meaningfully lift click-through on shared links. Trigger: ambassador inquiry volume crosses a threshold worth bespoke imagery for the multi-city pitch. Implementation: extend `scripts/generate_og_images.py` with a `render_toplevel(slug, …)` family (template + data manifest), or hand-author a one-off PNG in the same brand vocabulary. Lower-priority until the trigger fires; current shared-default state is brand-consistent and shipped.
 
+### Locations workstream follow-ups (3 items)
+
+Each is a single data update to a multi-location restaurant's `locations[]` array, triggered by an external event. Design + schema is locked (DECISIONS #17, schemaVersion 1.1); these are content adds when their triggers fire.
+
+- **Out-of-scope re-inclusion when editorial scope expands.** Once editorial scope expands beyond greater Charleston (per DECISIONS #14.1), re-include the following multi-location secondaries currently excluded from `data/restaurants.json` `locations[]`: Home Team BBQ Aspen CO; Home Team BBQ Columbia SC; Home Team BBQ Greenville SC (Upstate); D'Allesandro's Pizza Greenville SC (Upstate). Add to the brand's `locations[]` and regenerate the affected detail pages.
+
+- **Heavy's Barburger Isle of Palms — third location opens Spring 2026.** A third Heavy's Barburger location opens Spring 2026 on Ocean Boulevard, Isle of Palms. Add as the third entry to Heavy's `locations[]` once open. Trigger: opening confirmation.
+
+- **Toni's Detroit Style Pizza — re-verification.** Toni's exited the Locations workstream 2026-05-05 because the Clements Ferry (Wando/Daniel Island) second location closed (Yelp marked closed June 2025; official site lists only Mt Pleasant). Trigger to re-add Toni's to the workstream and populate `locations[]`: reopening announcement, OR operator-confirmed verification that the closure signal was wrong.
+
 ---
 
 ## Tracked workstreams
@@ -40,11 +50,16 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Files affected:** `rankings/_detail-page-template.html`, `scripts/generate_detail_page.py`, `data/restaurants.json` (schema extension), affected detail pages.
 
-**Current state:** Per DECISIONS #14.4, multi-location restaurants ship with primary-location only in the pilot. Toni's Detroit Style Pizza has a second location (Wando/Daniel Island, 1171 Clements Ferry Rd, 29492) currently absent from its detail page. D'Allesandro's Pizza has two additional locations (Nexton Square Summerville, Greenville) currently absent. Pages are correct as-shipped — they just don't yet show the additional locations.
+**Status (2026-05-05):**
+- Design pass completed 2026-05-05 — data shape, JSON-LD pattern, UI pattern locked (see DECISIONS #17).
+- Schema v1.1 shipped in this PR; template + generator + Babas pilot follows in subsequent PR.
+- Toni's Detroit Style Pizza removed from workstream — Clements Ferry second location closed (Yelp marked closed June 2025; official site lists only Mt Pleasant). Restaurant now single-location, exits workstream. Re-verification trigger: reopening announcement or operator-confirmed status change.
+
+**Current state:** Per DECISIONS #14.4, multi-location restaurants ship with primary-location only in the pilot. D'Allesandro's Pizza has additional locations (Nexton Square Summerville is in-scope; Greenville SC Upstate is out-of-scope per DECISIONS #14.1) currently absent. Pages are correct as-shipped — they just don't yet show the additional locations.
 
 **Why it's tracked, not done now:** Designing the Locations module against a single multi-location restaurant in the pilot would over-fit. Better to design once a second multi-location restaurant lands in a different ranking page and we have two independent test cases. The design needs to handle: per-location `Place` microdata in JSON-LD, visual presentation of multiple locations in the sidebar, and how to handle locations across cities (when the editorial scope from #14.1 expands beyond greater Charleston).
 
-**Trigger to activate:** ACTIVATED 2026-05-03 by Babas on Cannon (3 locations: Cannon, Meeting, Wentworth) during best-coffee-shops port. Workstream H bulk port surfaced 7 additional multi-location restaurants. Full in-scope set as of 2026-05-04: **8 from workstream H** (babas-on-cannon, heavys-barburger, home-team-bbq, santis, senor-tequilas, azul-mexicano, agaves-cantina, bon-banh-mi-southeast-asian-kitchen) plus **3 from prior PRs** (tonis-detroit-style-pizza, dallesandros-pizza, second-state-coffee) — 11 total, all shipping primary-location-only. Design pass is the next gated workstream — not folded into bulk port.
+**Trigger to activate:** ACTIVATED 2026-05-03 by Babas on Cannon (3 locations: Cannon, Meeting, Wentworth) during best-coffee-shops port. Workstream H bulk port surfaced 7 additional multi-location restaurants. Full in-scope set as of 2026-05-05: **8 from workstream H** (babas-on-cannon, heavys-barburger, home-team-bbq, santis, senor-tequilas, azul-mexicano, agaves-cantina, bon-banh-mi-southeast-asian-kitchen) plus **2 from prior PRs** (dallesandros-pizza, second-state-coffee) — 10 total, all shipping primary-location-only. Design pass is the next gated workstream — not folded into bulk port.
 
 **Estimated scope:** 1–2 days. Half template + script work; half per-location data collection for the affected restaurants.
 
