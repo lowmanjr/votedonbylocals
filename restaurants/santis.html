@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/santis.html#brand",
       "name": "Santi's",
       "description": "Santi's is a NoMo Tex-Mex spot in Charleston, SC known for no-frills service and big portions. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "datePublished": "2026-05-03T19:03:39-04:00",
@@ -54,6 +55,44 @@
         "postalCode": "29405",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/santis.html#mt-pleasant",
+          "name": "Santi's — Mt Pleasant",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1471 Ben Sawyer Blvd",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/santis.html#brand"
+          },
+          "telephone": "+1-843-547-5782",
+          "openingHours": "Mo-Su 11:00-22:00"
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/santis.html#savannah-hwy",
+          "name": "Santi's — Savannah Hwy",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1660 Savannah Hwy",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29407",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/santis.html#brand"
+          },
+          "telephone": "+1-843-310-6148",
+          "openingHours": "Mo-Su 11:00-22:00"
+        }
+      ],
       "servesCuisine": "Tex-Mex",
       "telephone": "+1-843-351-1628",
       "openingHours": "Mo-Su 11:00-22:00",
@@ -277,6 +316,30 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Mt Pleasant</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">1471 Ben Sawyer Blvd</p>
+                            <p class="text-brand-gray text-sm">Mount Pleasant, SC 29464</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18435475782" class="hover:text-brand-orange">(843) 547-5782</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–10pm</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Savannah Hwy</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">1660 Savannah Hwy</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29407</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18433106148" class="hover:text-brand-orange">(843) 310-6148</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–10pm</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">

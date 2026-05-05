@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#brand",
       "name": "Azul Mexicano",
       "description": "Azul Mexicano is a Park Circle Mexican restaurant in North Charleston, SC, known for its modern aesthetic. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "datePublished": "2026-05-03T19:03:39-04:00",
@@ -54,6 +55,61 @@
         "postalCode": "29405",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#downtown",
+          "name": "Azul Mexicano — Downtown",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "385 Meeting St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#brand"
+          },
+          "telephone": "+1-854-222-3189",
+          "openingHours": "Mo-Su 11:00-21:00"
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#james-island",
+          "name": "Azul Mexicano — James Island",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1989 Maybank Hwy Ste 101",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29412",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#brand"
+          },
+          "telephone": "+1-843-637-4656",
+          "openingHours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:30"
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#summerville",
+          "name": "Azul Mexicano — Summerville",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1200 N Main St Ste C",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29483",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/azul-mexicano.html#brand"
+          },
+          "openingHours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:30"
+        }
+      ],
       "servesCuisine": "Mexican",
       "telephone": "+1-843-203-3754",
       "openingHours": "Mo-We 11:00-21:30,Th 11:00-22:00,Fr-Sa 11:00-22:30,Su 11:00-21:00",
@@ -280,6 +336,44 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Downtown</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">385 Meeting St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18542223189" class="hover:text-brand-orange">(854) 222-3189</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–9pm</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">James Island</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">1989 Maybank Hwy Ste 101</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29412</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18436374656" class="hover:text-brand-orange">(843) 637-4656</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Wed: 11am–9:30pm
+Thu: 11am–10pm
+Fri–Sat: 11am–10:30pm
+Sun: 11am–9:30pm</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Summerville</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">1200 N Main St Ste C</p>
+                            <p class="text-brand-gray text-sm">Summerville, SC 29483</p>
+                        </div>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Wed: 11am–9:30pm
+Thu: 11am–10pm
+Fri–Sat: 11am–10:30pm
+Sun: 11am–9:30pm</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">
