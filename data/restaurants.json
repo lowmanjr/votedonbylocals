@@ -385,7 +385,7 @@
           "phone": null,
           "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
           "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
-          "websiteURL": null,
+          "websiteURL": "https://secondstatecoffee.com/pages/navy-yard-second-state-coffee",
           "geoLat": null,
           "geoLng": null
         },
@@ -401,7 +401,7 @@
           "phone": "+1-843-633-0311",
           "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
           "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
-          "websiteURL": null,
+          "websiteURL": "https://secondstatecoffee.com/pages/west-ashley-second-state",
           "geoLat": null,
           "geoLng": null
         },
@@ -417,7 +417,7 @@
           "phone": null,
           "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
           "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
-          "websiteURL": null,
+          "websiteURL": "https://secondstatecoffee.com/pages/oyster-park-mount-pleasant",
           "geoLat": null,
           "geoLng": null
         },
@@ -433,7 +433,7 @@
           "phone": "+1-843-284-8703",
           "hours": "Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00",
           "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
-          "websiteURL": null,
+          "websiteURL": "https://secondstatecoffee.com/pages/shelmore-mount-pleasant",
           "geoLat": null,
           "geoLng": null
         }
@@ -500,7 +500,7 @@
           "phone": "+1-843-377-8058",
           "hours": "Mo-Th 11:00-21:00, Fr-Sa 11:00-22:00, Su 11:00-21:00",
           "hoursHumanReadable": "Mon–Thu: 11am–9pm\nFri–Sat: 11am–10pm\nSun: 11am–9pm",
-          "websiteURL": null,
+          "websiteURL": "https://heavysbarburger.com/daniel-island",
           "geoLat": null,
           "geoLng": null
         }
@@ -655,7 +655,7 @@
           "phone": "+1-843-225-7427",
           "hours": "Mo-Su 11:00-24:00",
           "hoursHumanReadable": "Mon–Sun: 11am–midnight",
-          "websiteURL": null,
+          "websiteURL": "https://hometeambbq.com/location/mount-pleasant-coming-soon/",
           "geoLat": null,
           "geoLng": null
         }
@@ -920,7 +920,7 @@
           "phone": "+1-843-637-4656",
           "hours": "Mo-We 11:00-21:30, Th-Sa 11:00-22:00, Su 11:00-21:00",
           "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu–Sat: 11am–10pm\nSun: 11am–9pm",
-          "websiteURL": null,
+          "websiteURL": "https://azuljamesisland.com/",
           "geoLat": null,
           "geoLng": null
         },
@@ -936,7 +936,7 @@
           "phone": "+1-843-275-5391",
           "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
           "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
-          "websiteURL": null,
+          "websiteURL": "https://azulsummerville.com/",
           "geoLat": null,
           "geoLng": null
         }
@@ -989,7 +989,7 @@
           "phone": "+1-843-718-3370",
           "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
           "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
-          "websiteURL": null,
+          "websiteURL": "https://agavescantinawestashley.com/",
           "geoLat": null,
           "geoLng": null
         },
@@ -1021,7 +1021,7 @@
           "phone": "+1-843-416-8696",
           "hours": "Mo-Fr 11:00-21:30, Sa-Su 11:00-21:00",
           "hoursHumanReadable": "Mon–Fri: 11am–9:30pm\nSat–Sun: 11am–9pm",
-          "websiteURL": null,
+          "websiteURL": "https://agavescantinamtpleasant.com/",
           "geoLat": null,
           "geoLng": null
         },
@@ -1037,7 +1037,7 @@
           "phone": "+1-843-419-6968",
           "hours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
           "hoursHumanReadable": "Mon–Wed: 11am–9:30pm\nThu: 11am–10pm\nFri–Sat: 11am–10:30pm\nSun: 11am–9pm",
-          "websiteURL": null,
+          "websiteURL": "https://agavescantinanexton.com/",
           "geoLat": null,
           "geoLng": null
         }
