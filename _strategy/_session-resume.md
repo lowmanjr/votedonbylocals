@@ -5,52 +5,111 @@ bootstrap context:
 
 > Resuming votedonbylocals work. Read `_strategy/HANDOFF.md` and
 > `_strategy/TRACKED.md` to get current state. Last session
-> (May 4 afternoon) closed with 3 PRs merged: #12 (best-new-coffee-shop
-> per-page meta + JSON-LD — closed master plan steps 2 + 3 to 100%),
-> #13 (PLAN.md / HANDOFF.md doc reconciliation — HANDOFF is now source
-> of truth for per-step status), and #14 (hero dot-pattern tokenization).
-> The unambiguous next major workstream is master plan step 5: OG
-> image generation. Lead with it.
+> (May 4 evening) closed with 3 PRs merged: #16 (master plan step 5 —
+> OG image generation; 42 PNGs + tooling + index.html chrome edits for
+> og:image, og:site_name, and twitter:card), #17 (OG backplate fix via
+> color-mix on brand.orange at 14%; 42 PNGs re-rendered), and #18
+> (BreadcrumbList JSON-LD across 8 rankings + 33 details, with
+> /#rankings as the schema-only intermediate URL on rankings and a
+> 2-level Home → {Restaurant} structure on details).
+> Master plan steps 1–6 are now done; step 7 (final polish) is the only
+> formal item remaining. Future workstreams source from TRACKED, not
+> PLAN. Lead: detail-page Locations module (11 multi-location
+> restaurants queued, design-first, 1–2 days).
 
-Why this works: HANDOFF gives you the end-of-last-session snapshot,
-TRACKED gives the open items. Together they're enough to propose
-next-workstream options without re-reading old chat transcripts.
+Why this works: HANDOFF gives the end-of-last-session snapshot, TRACKED
+gives the open items. Together they're enough to propose next-workstream
+options without re-reading old chat transcripts. The master plan is now
+effectively complete — TRACKED is the working backlog.
 
-## Lead workstream: master plan step 5 — OG image generation
+## Lead workstream: detail-page Locations module
 
 **Pre-work to expect:**
 
-- Visual design decision FIRST, before any code:
-  - What does an OG image for a ranking page ("Best Pizza in Charleston") look like?
-  - What does one for a detail page ("FIG") look like?
-  - Should ranking-page images and detail-page images share a template, or be visually distinct categories?
-  - Brand-orange / cream / dark colors carry over from chrome.
-  - Typography: Poppins for display, DM Sans for body — same as site chrome. Reinforces brand recognition in shared previews.
-- Build approach decision:
-  - Recommended: HTML/CSS template rendered via headless browser (Playwright). Python script that takes a slug, populates the template, screenshots at 1200×630, writes PNG to `assets/images/og-{slug}.png`.
-  - Alternatives: Figma batch export (one-off, harder to update when restaurants change), hand-designed-per-image (highest quality ceiling, doesn't scale).
-- Scope: ~42 images.
-  - 8 ranking pages: og-best-pizza.png, og-best-burger.png, og-best-coffee-shops.png, og-best-tex-mex.png, og-best-nice-restaurants.png, og-best-casual-spots.png, og-best-new-restaurants.png, og-best-new-coffee-shop.png
-  - 33 detail pages: og-{restaurant-slug}.png each
-  - 1 site default: og-default.png (for index, about, etc.)
-- Estimated scope: 1–2 days. Half visual design, half pipeline build, some time for export + verification.
+- Design decision FIRST, before any code. How does a multi-location
+  detail page render?
+  - Stacked locations within existing detail-page chrome (one H1, an
+    in-body Locations section listing each address)?
+  - Tab/toggle UI to switch between locations?
+  - Separate sub-pages per location at `/restaurants/{slug}/{loc-slug}`
+    sharing one canonical detail page?
+  - Inline list of addresses as a single section?
+- Data shape question. `restaurants.json` currently has single
+  address/neighborhood fields per restaurant. Multi-location needs
+  either an in-place `locations: [...]` array or a separate
+  `locations.json` keyed by slug. The choice affects every consumer
+  (detail-page generator, valuation pipeline if any, OG renderer).
+- Identify the 11 affected restaurants (noted in workstream H bulk
+  port) and inventory their actual address counts before designing.
+- URL decision: one canonical detail URL with multi-location body, or
+  separate sub-URLs per location? Affects URL-stability classification.
+  One-canonical-URL is URL-stable; sub-URLs are URL-additive with
+  redirect/canonical implications.
+- SEO consideration: schema.org allows multiple `Place` entities under
+  one `Organization`/`Restaurant`, OR separate `Restaurant` entities
+  with shared `branchOf` parent. Decide before writing JSON-LD.
+- Generator coupling: `_detail-page-template.html` +
+  `generate_detail_page.py` produce all 33 details today. Multi-
+  location support either needs template branches (single-loc vs
+  multi-loc) or a unified template that handles both via array
+  iteration where single-loc is just `len(locations) == 1`.
 
 **Why this is the lead:**
 
-- The og:image URL is ALREADY DECLARED in every page's chrome via `<meta property="og:image" content="...og-{slug}.png">`. Today every one of those URLs 404s. Shipping step 5 fulfills the existing promise. The longer this is deferred, the more time passes with broken share previews.
-- URL-stable (adds asset files only, no URL changes) — safe during the May 7–20 GSC quiet window.
+- Biggest unblocked piece on TRACKED. Has been queued since the
+  workstream H bulk port surfaced the second multi-location case.
+- Design-first matches investigation-first session norms.
+- Improves user-facing capability for restaurants with multiple
+  Charleston locations — the gap is real, not cosmetic.
+- URL-stability depends on the URL decision above. If the answer is
+  one-canonical-URL (most likely), the workstream is fully window-safe.
 
 ## Other workstreams ready in TRACKED (not the lead)
 
 Surface only if the operator explicitly redirects:
 
-- **BreadcrumbList schema** — eligible as of May 4 (bulk port done; step 2 + step 3 at 100%). ~2 hours.
-- **Detail-page Locations module** — 11 multi-location restaurants queued. 1–2 day design-first workstream.
-- **Netlify pretty-URL canonical asymmetry** — discrete config-only PR. DO NOT START during May 7–20 GSC window. Either pre-window with full preview-isolation, or post-May-20.
-- **Title verbosity for cuisine-name overlap** — ~30 min. Trigger when bulk port reveals more cases.
+- **Top-level pages OG coverage** — 5 pages still have no OG block
+  (about, vote, suggest-category, ambassadors, thank-you). ~2 hours,
+  design-first per-page (decide unique `og-{slug}.png` or share
+  `og-default.png`; author title/description per page). Adjacent to
+  step-5 work, pipeline still warm. Window-safe (additive metadata).
+- **OG meta-line dedup when restaurant name contains cuisine
+  descriptor** — sweep-and-fix. Low priority. Filed when Harbinger
+  showed "Cafe & Bakery" in name + "Café and Bakery" in cuisine.
+- **Title verbosity for cuisine-name overlap** — ~30 min, trigger-based.
+  Pairs naturally with the OG meta-line dedup work; could ship together.
+- **GSC re-audit** — eligible May 21+ (post-quiet-window). Two weeks
+  of indexing data from April SEO work plus the May schema additions.
 
 ## What NOT to start without thinking
 
-- Active-nav highlighting: would need per-page injection logic in the inliner — bigger than it looks.
-- Pre-commit hook for `--check`: setup-friction tax for solo dev.
-- `dateModified` maintenance discipline: process question, not code.
+- **Netlify pretty-URL canonical asymmetry** — discrete config-only PR.
+  DO NOT START during May 7–20 GSC quiet window. Earliest safe
+  restart: May 21. Pre-window window (May 5–6) was considered and
+  declined this session — wrong risk profile to ship canonical handling
+  3 days before a 16-day freeze.
+- **Post-May-20 chrome follow-ups** — TRACKED entry includes "Add
+  id='rankings' to index.html cards section" tied to PR #18's
+  `/#rankings` fragment URL. Trigger: post-May-20. Schema works
+  without the anchor today; the follow-up turns the fragment into a
+  real on-page scroll target.
+- **dateModified maintenance discipline** — trigger-based, no current
+  discrepancy known. Defer until one surfaces.
+- **Active-nav highlighting** — would need per-page injection logic in
+  the inliner. Bigger than it looks.
+
+## Quiet window posture
+
+- **Today**: May 4
+- **GSC quiet window**: May 7–20 (no URL changes, no canonical work,
+  no risky-to-indexing edits)
+- **If resuming May 5–6**: pre-window. Schema-additive + asset work
+  fine. Avoid canonical/URL changes — not worth the timing risk this
+  close to the freeze.
+- **If resuming May 7–20**: quiet window. Schema-only and asset-only.
+  Lead workstream (Locations module) is design-first which fits — the
+  design pass and data-shape work can land in-window; URL/canonical
+  decisions wait until after.
+- **If resuming May 21+**: full menu open. Netlify pretty-URL,
+  post-May-20 chrome follow-ups, GSC re-audit, Locations module
+  implementation all available.

@@ -14,13 +14,13 @@ You're picking up the Voted On By Locals project in a fresh session. This page g
 
 That's about 30 minutes of reading. Don't skip it.
 
-## Last session summary (May 4, 2026 — afternoon)
+## Last session summary (May 4, 2026 — evening)
 
-Three PRs merged in a focused doc/meta session. Earlier-May-4 session (6 PRs: #5–10) fully captured in `_strategy/TRACKED.md` Resolved.
+Three PRs merged in a focused step-5 + follow-ups session. Prior afternoon session (PRs #12, #13, #14) and earlier May 4 session (PRs #5–10) fully captured in `_strategy/TRACKED.md` Resolved.
 
-- **PR #12** — `best-new-coffee-shop.html` per-page meta + JSON-LD. Closed master plan steps 2 + 3 to 100%. Sitemap `<lastmod>` coverage 40 → 41 pages (URL count unchanged at 46). Subtle: PHASE 0 investigation caught two corrections before code touched the page — JSON-LD field order needed to mirror `babas-on-cannon.html`'s shape verbatim, and `servesCuisine` flipped from spec's "Coffee" to "European Café" for brand consistency. Same shape as PR #8's field-semantics catch — the precedent keeps earning. JSON-LD `url` points at the featured-winner page itself per new DECISIONS #16 (Wentworth has no detail-page slug; the ranking page is its detail context).
-- **PR #13** — PLAN.md / HANDOFF.md doc-hygiene reconciliation. PLAN.md is now structural/strategic (the *why* of each step); per-step status text fully retired. HANDOFF.md is the single source of truth for current per-step status. Subtle: PHASE 2 grep verification originally targeted the L7 stale-callout literal phrasing, missed L32's parallel "stale and pending reconciliation" phrasing — caught at spot-read. Workflow lesson: when retiring a callout, grep for the concept across phrasings, not the literal form.
-- **PR #14** — Hero dot-pattern brand-color tokenization. Moved `.bg-dot-pattern` from `index.html` inline `<style>` into `src/input.css` as `@layer components` using `theme('colors.brand.orange')`. Visual unchanged. Subtle: PHASE 2 hex-sweep returned 1 hit in `assets/css/built.css` (compiler output), not 0 as spec expected. Hand-written `@layer components` rules compile to the raw config hex; Tailwind-auto-generated utilities serialize as decimal-rgb for opacity-modifier support. The single-source-of-truth invariant still holds (edit `tailwind.config.js` + rebuild → `built.css` updates). Future hex sweeps exclude `built.css` alongside `tailwind.config.js` as compiler output.
+- **PR #16** — Master plan step 5: Open Graph image generation. All 42 OG PNGs shipped (8 rankings + 33 details + 1 default) via a Playwright + headless Chromium pipeline at 1200×630, deviceScaleFactor=2. Templates in `og-templates/` (ranking, detail, default); brand colors substituted at render time from `tailwind.config.js` so the single-source-of-truth invariant holds. Three-tier adaptive font sizing on detail names (132/108/84px) with worst-case validator (Bon Banh Mi at 35 chars). Intentional decisions docblocked per template: no emoji (Segoe UI Emoji is Windows-specific and would silently change glyph across rendering hosts), no URL stamp (brand-mark already reads as site identity), no date (avoid cache invalidation on monthly refresh). Same-PR `index.html` chrome edits added `og:image`, `og:site_name`, and `twitter:card`. Two follow-ups filed in TRACKED: top-level pages OG coverage (5 pages still bare) and OG meta-line dedup (Harbinger redundancy class). New dependency: `playwright>=1.40` in `requirements.txt`.
+- **PR #17** — OG backplate fix via `color-mix` on `brand.orange` at 14%. The brand-mark icon backplate in all three OG templates had been using Tailwind's `orange-50` (`#FFF7ED`) — fine on the live header's white nav bar but invisible on the OG cream canvas (`#FFF8F0`, one hex-digit difference). Replaced with `color-mix(in srgb, var(--brand-orange) 14%, transparent)` so the backplate derives from the brand-orange token. All 42 PNGs re-rendered; spot-checked across composition variants. Asset-only refresh; no chrome edits.
+- **PR #18** — BreadcrumbList JSON-LD across 8 rankings + 33 details. Ranking shape: `Home → Rankings (/#rankings) → Best {Category}`. Detail shape: `Home → {RestaurantName}` (no intermediate "Restaurants" node — site has no /restaurants index or nav category, and detail pages are cross-listed across rankings, so a parent ranking would be ambiguous). The `/#rankings` fragment resolves to the homepage today; small post-May-20 follow-up filed in TRACKED to add `id="rankings"` to the cards section so the fragment becomes a real on-page anchor (no schema change needed when shipped). Detail pages regenerated via `scripts/generate_detail_page.py --all`; date-preservation verified clean (zero `dateModified` drift across all 33 pages). Ranking pages hand-edited (no ranking-page generator exists). Schema-only PR; GSC quiet-window safe.
 
 ## Master plan position
 
@@ -30,9 +30,11 @@ Current truth (per-step status of record; PLAN.md intentionally omits this):
 - **Step 2** (detail pages) ✅ — closed by PR #12
 - **Step 3** (schema cross-linking) ✅ — closed by PR #12
 - **Step 4** (kill Tailwind CDN) ✅ — PR #6
-- **Step 5** (OG image generation) ⏳ — **NEXT major workstream**
+- **Step 5** (OG image generation) ✅ — closed by PR #16; backplate polish in PR #17
 - **Step 6** (sitemap.xml + robots.txt) ✅ — PR #5 (sitemap), PR #5 (robots), PR #8 (`<lastmod>`)
 - **Step 7** (final polish) ⏳ partial — header/footer inlining done (PR #7); inliner tooling shipped (PR #9 + #10); other final-polish items TBD when surfaced
+
+Steps 1–6 are now done; step 7 is the only formal master plan item remaining. Future workstreams source from `_strategy/TRACKED.md`, not PLAN.
 
 ## Calendar pin
 
@@ -63,24 +65,19 @@ The most recent `--refresh` PR (#10) is a worked example: tooling-only changes t
 
 ## What's next
 
-**Master plan step 5 — OG image generation** is the unambiguous next major workstream.
+Master plan steps 1–6 are done. Future workstreams source from `_strategy/TRACKED.md`. Step 7 (final polish) remains open as a catch-bucket but isn't a discrete next target.
 
-Design-first. Visual concept goes before code. Recommended build approach: HTML/CSS template rendered via headless browser (Playwright) — Python script populates a template per slug, screenshots at 1200×630, writes PNG to `assets/images/og-{slug}.png`. Alternatives are Figma batch export and hand-designed-per-image; both have higher quality ceilings but don't scale to ~42 images.
-
-Scope: ~42 images total (8 ranking pages, 33 detail pages, 1 site default at `og-default.png`).
-
-Why it matters: every page's chrome already declares `<meta property="og:image" content="...og-{slug}.png">`. Today every one of those URLs 404s. Step 5 fulfills the existing promise; longer deferral = more time with broken share previews.
-
-Estimated scope: 1–2 days. Half visual design, half pipeline build, time for export + verification. URL-stable (asset-only additions), so safe in the May 7–20 GSC window.
+**Lead: Detail-page Locations module.** 11 multi-location restaurants queued (8 from workstream H bulk port + 3 from prior PRs). 1–2 day design-first workstream — data shape, URL decision, and JSON-LD shape (Place children vs branchOf parent) all need design pass before code. URL decision determines GSC-window safety: one-canonical-URL is window-safe; sub-URLs per location are not.
 
 ### Other workstreams in TRACKED, in rough priority order
 
-Not the lead — surface when ready to make any of these the next focus:
+Not the lead — surface when the operator redirects:
 
-- **BreadcrumbList schema** — eligible as of May 4 (bulk port done; step 2 + step 3 at 100%). ~2 hours.
-- **Detail-page Locations module** — 11 multi-location restaurants queued. 1–2 day design-first workstream.
-- **Netlify pretty-URL canonical asymmetry** — discrete config-only PR. **DO NOT START during May 7–20 GSC window**; either ship pre-window (May 4–6 with full preview-isolation) or post-May-20.
+- **Top-level pages OG coverage** — 5 pages still bare (about, vote, suggest-category, ambassadors, thank-you). ~2 hours, design-first per-page. Adjacent to PR #16's OG pipeline; tooling still warm. Window-safe.
+- **OG meta-line dedup when restaurant name contains cuisine descriptor** — sweep-and-fix. Pairs naturally with title-verbosity workstream. Polish-tier; no urgency.
 - **Title verbosity for cuisine-name overlap** — ~30 min. Trigger when bulk port reveals more cases.
+- **Post-May-20 chrome follow-ups** — TRACKED entry for "Add `id='rankings'` to index.html cards section" tied to PR #18's `/#rankings` fragment. Trigger: post-May-20.
+- **Netlify pretty-URL canonical asymmetry** — discrete config-only PR. **DO NOT START during May 7–20 GSC window**; earliest safe restart is May 21.
 
 ## Workflow norm (operator preference, reinforced)
 
