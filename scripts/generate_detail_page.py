@@ -73,12 +73,22 @@ def read_existing_dates(filepath):
         return {}
 
 
+def _slugify(label):
+    """Produce a URL-fragment-safe slug from a location label.
+
+    Lowercase; collapse runs of non-alphanumerics into a single hyphen;
+    strip leading/trailing hyphens. Used for `subOrganization` `@id`
+    fragments per DECISIONS #17.
+    """
+    return re.sub(r'[^a-z0-9]+', '-', label.lower()).strip('-')
+
+
 # ---------------------------------------------------------------------------
 # Pipeline entry point
 # ---------------------------------------------------------------------------
 
 def generate(template, restaurant):
-    """Apply the 12-step transformation pipeline to produce final HTML."""
+    """Apply the 13-step transformation pipeline to produce final HTML."""
     text = template
     text = step_1_strip_top_docblock(text)
     text = step_2_replace_jsonld_docblock(text, restaurant)
@@ -88,10 +98,11 @@ def generate(template, restaurant):
     text = step_6_simplify_info_sidebar_comment(text)
     text = step_7_handle_address_section(text, restaurant)
     text = step_8_handle_optional_sidebar_blocks(text, restaurant)
-    text = step_9_strip_appears_on_repeating_comment(text)
-    text = step_10_transform_section_replace_comments(text)
-    text = step_11_transform_inline_replace_comments(text)
-    text = step_12_substitute_remaining_placeholders(text, restaurant)
+    text = step_9_handle_locations_section(text, restaurant)
+    text = step_10_strip_appears_on_repeating_comment(text)
+    text = step_11_transform_section_replace_comments(text)
+    text = step_12_transform_inline_replace_comments(text)
+    text = step_13_substitute_remaining_placeholders(text, restaurant)
     return text
 
 
@@ -201,14 +212,18 @@ def build_jsonld_dict(restaurant):
     date_published = existing.get('datePublished') or seed_date
     date_modified = existing.get('dateModified') or seed_date
 
+    canonical = f"https://votedonbylocals.com/restaurants/{slug}.html"
+    locations = restaurant.get('locations')
+
     obj = {
         "@context": "https://schema.org",
         "@type": restaurant['schemaType'],
+        **({"@id": f"{canonical}#brand"} if locations else {}),
         "name": restaurant['name'],
         "description": restaurant['description'],
         "datePublished": date_published,
         "dateModified": date_modified,
-        "url": f"https://votedonbylocals.com/restaurants/{slug}.html",
+        "url": canonical,
     }
 
     is_mobile_vendor = (
@@ -228,6 +243,32 @@ def build_jsonld_dict(restaurant):
             "postalCode": addr['postalCode'],
             "addressCountry": addr.get('addressCountry', 'US'),
         }
+
+    # Multi-location subOrganization block (per DECISIONS #17).
+    if locations:
+        sub_orgs = []
+        for loc in locations:
+            loc_addr = loc['address']
+            sub_org = {
+                "@type": restaurant['schemaType'],
+                "@id": f"{canonical}#{_slugify(loc['label'])}",
+                "name": f"{restaurant['name']} — {loc['label']}",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": loc_addr['streetAddress'],
+                    "addressLocality": loc_addr['addressLocality'],
+                    "addressRegion": loc_addr['addressRegion'],
+                    "postalCode": loc_addr['postalCode'],
+                    "addressCountry": loc_addr.get('addressCountry', 'US'),
+                },
+                "parentOrganization": {"@id": f"{canonical}#brand"},
+            }
+            if loc.get('phone'):
+                sub_org['telephone'] = loc['phone']
+            if loc.get('hours'):
+                sub_org['openingHours'] = loc['hours']
+            sub_orgs.append(sub_org)
+        obj['subOrganization'] = sub_orgs
 
     obj['servesCuisine'] = restaurant['cuisine']
 
@@ -526,12 +567,87 @@ def build_price_block(price_range):
 
 
 # ---------------------------------------------------------------------------
-# Step 9: APPEARS ON repeating-row comment
+# Step 9: OTHER LOCATIONS placeholder (multi-loc only)
 # ---------------------------------------------------------------------------
 
-def step_9_strip_appears_on_repeating_comment(text):
+def step_9_handle_locations_section(text, restaurant):
+    """Resolve the OTHER LOCATIONS placeholder block per DECISIONS #17.
+
+    Single-loc (no `locations` field, or empty array): strip the entire
+    commented placeholder block + leading blank line. Output is byte-equal
+    to the pre-template-edit state — single-loc rendering is unchanged.
+
+    Multi-loc: replace the placeholder with the active "Other locations"
+    section, with one card per entry in `locations[]`. Phone and hours
+    inside each card are conditional — dropped when the corresponding
+    field is null in the entry. Matches the "empty-or-omitted, NOT
+    placeholder" convention from template intentional decision #2.
+    """
+    locations = restaurant.get('locations')
+    if not locations:
+        return re.sub(
+            r'\n            <!--\n\s+OTHER LOCATIONS BLOCK.*?            -->\n',
+            '',
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+
+    cards = '\n'.join(_render_location_card(loc) for loc in locations)
+    section = (
+        '            <section class="border-t border-gray-100 pt-8">\n'
+        '                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>\n'
+        '                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">\n'
+        f'{cards}\n'
+        '                </div>\n'
+        '            </section>\n'
+    )
+    return re.sub(
+        r'            <!--\n\s+OTHER LOCATIONS BLOCK.*?            -->\n',
+        section,
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
+
+
+def _render_location_card(loc):
+    """Render one LOCATION_CARD <div> for a secondary location.
+
+    Phone and hours <p> blocks are conditional — dropped when the
+    corresponding field in the locations[] entry is null.
+    """
+    addr = loc['address']
+    lines = [
+        '                    <div class="border border-gray-100 rounded-lg p-5">',
+        f'                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">{loc["label"]}</h3>',
+        '                        <div class="mb-3">',
+        f'                            <p class="text-brand-dark font-medium">{addr["streetAddress"]}</p>',
+        f'                            <p class="text-brand-gray text-sm">{addr["addressLocality"]}, {addr["addressRegion"]} {addr["postalCode"]}</p>',
+        '                        </div>',
+    ]
+    if loc.get('phone'):
+        phone_e164 = loc['phone']
+        phone_tel = phone_e164.replace('-', '')
+        phone_display = format_phone_display(phone_e164)
+        lines.append(
+            f'                        <p class="text-brand-gray text-sm mb-2"><a href="tel:{phone_tel}" class="hover:text-brand-orange">{phone_display}</a></p>'
+        )
+    if loc.get('hoursHumanReadable'):
+        lines.append(
+            f'                        <p class="text-brand-gray text-sm whitespace-pre-line">{loc["hoursHumanReadable"]}</p>'
+        )
+    lines.append('                    </div>')
+    return '\n'.join(lines)
+
+
+# ---------------------------------------------------------------------------
+# Step 10: APPEARS ON repeating-row comment
+# ---------------------------------------------------------------------------
+
+def step_10_strip_appears_on_repeating_comment(text):
     """Strip the REPEATING ROW guidance comment from the APPEARS ON section.
-    The placeholder substitution for the actual entries happens in step 12.
+    The placeholder substitution for the actual entries happens in step 13.
     """
     return re.sub(
         r'                    <!--\n\s+REPEATING ROW.*?                    -->\n',
@@ -543,10 +659,10 @@ def step_9_strip_appears_on_repeating_comment(text):
 
 
 # ---------------------------------------------------------------------------
-# Step 10: section-level REPLACE comments (with separator dashes)
+# Step 11: section-level REPLACE comments (with separator dashes)
 # ---------------------------------------------------------------------------
 
-def step_10_transform_section_replace_comments(text):
+def step_11_transform_section_replace_comments(text):
     """For section-level REPLACE comments (`<!-- REPLACE: <text> ---- -->`),
     strip the "REPLACE: " prefix and add 9 dashes (the prefix length) so
     the comment line keeps the same total width as the surrounding KEEP
@@ -562,10 +678,10 @@ def step_10_transform_section_replace_comments(text):
 
 
 # ---------------------------------------------------------------------------
-# Step 11: inline REPLACE comments (no separator dashes)
+# Step 12: inline REPLACE comments (no separator dashes)
 # ---------------------------------------------------------------------------
 
-def step_11_transform_inline_replace_comments(text):
+def step_12_transform_inline_replace_comments(text):
     """For inline REPLACE comments (`<!-- REPLACE: <text> -->`, no dashes),
     strip the "REPLACE: " prefix and capitalize the first letter of the
     content. Other casing is preserved (e.g., "REPLACE: Updated [Month
@@ -580,10 +696,10 @@ def step_11_transform_inline_replace_comments(text):
 
 
 # ---------------------------------------------------------------------------
-# Step 12: substitute remaining placeholders
+# Step 13: substitute remaining placeholders
 # ---------------------------------------------------------------------------
 
-def step_12_substitute_remaining_placeholders(text, restaurant):
+def step_13_substitute_remaining_placeholders(text, restaurant):
     """Replace all simple `{{Placeholder}}` occurrences in the visible HTML
     with values from the restaurant data. Also handles the AppearsOn
     placeholders (one or more entries; the template's single-entry <li> is

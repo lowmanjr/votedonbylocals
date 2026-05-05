@@ -283,6 +283,40 @@
       "websiteURL": "https://babascharleston.com/",
       "geoLat": null,
       "geoLng": null,
+      "locations": [
+        {
+          "label": "Meeting Street",
+          "address": {
+            "streetAddress": "804 Meeting St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Th 07:00-18:00, Fr-Sa 07:00-20:00",
+          "hoursHumanReadable": "Mon–Thu: 7am–6pm\nFri–Sat: 7am–8pm\nSun: Closed",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Wentworth",
+          "address": {
+            "streetAddress": "115 Wentworth St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29401",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
+          "hoursHumanReadable": "Mon: Closed\nTue–Thu: 7am–8pm\nFri–Sat: 7am–10pm\nSun: 7am–6pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ],
       "imageURL": null,
       "editorialBody": null,
       "areaServed": null

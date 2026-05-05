@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "CafeOrCoffeeShop",
+      "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon.html#brand",
       "name": "Babas on Cannon",
       "description": "Babas on Cannon is an old-world European-style cafe and aperitivo bar in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
       "datePublished": "2026-05-03T17:18:25-04:00",
@@ -54,6 +55,42 @@
         "postalCode": "29403",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "CafeOrCoffeeShop",
+          "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon.html#meeting-street",
+          "name": "Babas on Cannon — Meeting Street",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "804 Meeting St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon.html#brand"
+          },
+          "openingHours": "Mo-Th 07:00-18:00, Fr-Sa 07:00-20:00"
+        },
+        {
+          "@type": "CafeOrCoffeeShop",
+          "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon.html#wentworth",
+          "name": "Babas on Cannon — Wentworth",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "115 Wentworth St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29401",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon.html#brand"
+          },
+          "openingHours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00"
+        }
+      ],
       "servesCuisine": "European Café",
       "telephone": "+1-843-284-6260",
       "openingHours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
@@ -280,6 +317,33 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Meeting Street</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">804 Meeting St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </div>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Thu: 7am–6pm
+Fri–Sat: 7am–8pm
+Sun: Closed</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Wentworth</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">115 Wentworth St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29401</p>
+                        </div>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon: Closed
+Tue–Thu: 7am–8pm
+Fri–Sat: 7am–10pm
+Sun: 7am–6pm</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">
