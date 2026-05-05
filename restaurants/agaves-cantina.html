@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#brand",
       "name": "Agaves Cantina",
       "description": "Agaves Cantina is a Daniel Island Tex-Mex restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "datePublished": "2026-05-03T19:03:39-04:00",
@@ -54,6 +55,74 @@
         "postalCode": "29492",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#west-ashley",
+          "name": "Agaves Cantina — West Ashley",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "3871 W Ashley Cir Unit 320-330",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29414",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#brand"
+          }
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#coleman-blvd",
+          "name": "Agaves Cantina — Coleman Blvd",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "320 W Coleman Blvd Unit P",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29464",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#brand"
+          },
+          "telephone": "+1-843-606-2032",
+          "openingHours": "Mo-Tu 11:00-21:30, We-Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00"
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#highway-41",
+          "name": "Agaves Cantina — Highway 41",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "2118 SC-41 Ste 106",
+            "addressLocality": "Mount Pleasant",
+            "addressRegion": "SC",
+            "postalCode": "29466",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#brand"
+          }
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#summerville",
+          "name": "Agaves Cantina — Summerville",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "205 S Cross Creek Dr",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29485",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina.html#brand"
+          }
+        }
+      ],
       "servesCuisine": "Tex-Mex",
       "telephone": "+1-843-971-6790",
       "openingHours": "Mo-Su 11:00-22:00",
@@ -277,6 +346,45 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">West Ashley</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">3871 W Ashley Cir Unit 320-330</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29414</p>
+                        </div>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Coleman Blvd</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">320 W Coleman Blvd Unit P</p>
+                            <p class="text-brand-gray text-sm">Mount Pleasant, SC 29464</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18436062032" class="hover:text-brand-orange">(843) 606-2032</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Tue: 11am–9:30pm
+Wed–Thu: 11am–10pm
+Fri–Sat: 11am–10:30pm
+Sun: 11am–9pm</p>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Highway 41</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">2118 SC-41 Ste 106</p>
+                            <p class="text-brand-gray text-sm">Mount Pleasant, SC 29466</p>
+                        </div>
+                    </div>
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Summerville</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">205 S Cross Creek Dr</p>
+                            <p class="text-brand-gray text-sm">Summerville, SC 29485</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">

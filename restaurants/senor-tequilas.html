@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/senor-tequilas.html#brand",
       "name": "Señor Tequila's",
       "description": "Señor Tequila's is a West Ashley Tex-Mex restaurant in Charleston, SC, a lively local favorite. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
       "datePublished": "2026-05-03T19:03:39-04:00",
@@ -54,6 +55,26 @@
         "postalCode": "29407",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/senor-tequilas.html#summerville",
+          "name": "Señor Tequila's — Summerville",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "9730 Dorchester Rd Ste 110",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29485",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/senor-tequilas.html#brand"
+          },
+          "telephone": "+1-843-261-7272",
+          "openingHours": "Mo-Su 11:00-22:00"
+        }
+      ],
       "servesCuisine": "Tex-Mex",
       "telephone": "+1-843-852-0561",
       "openingHours": "Mo-Th 11:00-22:00,Fr-Sa 11:00-23:00,Su 11:00-21:30",
@@ -279,6 +300,21 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Summerville</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">9730 Dorchester Rd Ste 110</p>
+                            <p class="text-brand-gray text-sm">Summerville, SC 29485</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432617272" class="hover:text-brand-orange">(843) 261-7272</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–10pm</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">

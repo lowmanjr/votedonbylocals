@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza.html#brand",
       "name": "D'Allesandro's Pizza",
       "description": "D'Allesandro's Pizza is a laid-back downtown Charleston, SC staple. Voted by Charleston locals as one of the city's best pizza spots.",
       "datePublished": "2026-05-03T07:28:49-04:00",
@@ -54,6 +55,26 @@
         "postalCode": "29403",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza.html#nexton",
+          "name": "D'Allesandro's Pizza — Nexton",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "414 Nexton Square Dr",
+            "addressLocality": "Summerville",
+            "addressRegion": "SC",
+            "postalCode": "29486",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza.html#brand"
+          },
+          "telephone": "+1-843-900-3593",
+          "openingHours": "Mo-Su 11:00-22:00"
+        }
+      ],
       "servesCuisine": "Pizza",
       "telephone": "+1-843-853-6337",
       "openingHours": "Mo 11:00-21:45, Tu-We 11:00-23:00, Th-Sa 11:00-24:00, Su 11:00-23:00",
@@ -280,6 +301,21 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Nexton</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">414 Nexton Square Dr</p>
+                            <p class="text-brand-gray text-sm">Summerville, SC 29486</p>
+                        </div>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18439003593" class="hover:text-brand-orange">(843) 900-3593</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–10pm</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">

@@ -41,6 +41,7 @@
     {
       "@context": "https://schema.org",
       "@type": "Restaurant",
+      "@id": "https://votedonbylocals.com/restaurants/heavys-barburger.html#brand",
       "name": "Heavy's Barburger",
       "description": "Heavy's Barburger is a NoMo griddle-smashed burger spot in Charleston, SC. Voted by Charleston locals as one of the city's best burgers.",
       "datePublished": "2026-05-03T19:03:39-04:00",
@@ -54,6 +55,25 @@
         "postalCode": "29403",
         "addressCountry": "US"
       },
+      "subOrganization": [
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/heavys-barburger.html#daniel-island",
+          "name": "Heavy's Barburger — Daniel Island",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "891 Island Park Dr",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29492",
+            "addressCountry": "US"
+          },
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/heavys-barburger.html#brand"
+          },
+          "openingHours": "Tu-Su 11:00-21:00"
+        }
+      ],
       "servesCuisine": "Burgers",
       "telephone": "+1-843-212-3302",
       "openingHours": "Mo-Su 11:00-22:00",
@@ -277,6 +297,21 @@
                     </div>
                 </div>
             </div>
+
+            <section class="border-t border-gray-100 pt-8">
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="border border-gray-100 rounded-lg p-5">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Daniel Island</h3>
+                        <div class="mb-3">
+                            <p class="text-brand-dark font-medium">891 Island Park Dr</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29492</p>
+                        </div>
+                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon: Closed
+Tue–Sun: 11am–9pm</p>
+                    </div>
+                </div>
+            </section>
 
             <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
             <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">
