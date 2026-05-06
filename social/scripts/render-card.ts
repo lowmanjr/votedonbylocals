@@ -7,6 +7,7 @@ import satori from 'satori';
 import { Composition } from '../src/composition.js';
 import { loadRankingData } from '../src/data.js';
 import { DESIGN } from '../src/design.js';
+import { loadAdditionalAsset } from '../src/emoji.js';
 import { loadFonts } from '../src/fonts.js';
 
 function parseSlug(): string {
@@ -42,6 +43,7 @@ async function main(): Promise<void> {
     width: DESIGN.card.width,
     height: DESIGN.card.height,
     fonts,
+    loadAdditionalAsset,
   });
 
   const png = new Resvg(svg, {

@@ -401,6 +401,7 @@ function Featured1Hero({
       <div
         style={{
           display: 'flex',
+          alignItems: 'center',
           fontFamily: fonts.display,
           fontWeight: 800,
           fontSize: 80,
@@ -409,7 +410,7 @@ function Featured1Hero({
       >
         <span style={{ color: colors.dark }}>Best&nbsp;</span>
         <span style={{ color: colors.orange }}>{data.coloredWord}</span>
-        <span style={{ color: colors.dark }}>&nbsp;{data.emoji}</span>
+        <span style={{ marginLeft: 18 }}>{data.emoji}</span>
       </div>
       <div
         style={{
