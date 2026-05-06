@@ -72,15 +72,9 @@ Each is a single data update to a multi-location restaurant's `locations[]` arra
 
 - **`tel:` URI format inconsistency between `build_phone_block` and `_render_location_card` in `scripts/generate_detail_page.py`.** `build_phone_block` (line 521) emits `tel:+1-843-XXX-XXXX` (dashed); `_render_location_card` (line 633-634) emits `tel:+1843XXXXXXX` (un-dashed). RFC 3966 allows both, but un-dashed is more universally dialer-friendly. Exposed by Second State regen — first time both paths fired together (primary phone block plus location-card phone blocks on the same page). Pre-existing — pick a convention and align.
 
-### NEW pill decay (2 items)
+### NEW pill decay (1 item)
 
-- **Remove NEW pill from `best-new-coffee-shop`.** Page shipped with the NEW pill in PR #12 (early Feb 2026); now ~3 months old, past the 60-day decay window established in DECISIONS #19. Edit `components/header.html`: (a) desktop dropdown — remove the trailing `<span ...>NEW</span>` and the `relative` class on the parent `<a>`; (b) mobile menu — replace the `text-brand-orange bg-orange-50 font-bold` classes + "(New!)" suffix with the standard `text-gray-700 hover:bg-orange-50 hover:text-brand-orange font-medium` + plain title. Also edit `index.html` homepage card: remove the `border-brand-orange/20` border highlight + corner NEW ribbon (switch to plain `border-transparent hover:border-brand-orange/20` matching other cards). Run `python scripts/inline_chrome.py --refresh`. Overdue.
-
-- **Remove NEW pill from `best-bakery` on 2026-07-05.** Per the 60-day decay rule established in DECISIONS #19 (launched 2026-05-06). Same procedure as the best-new-coffee-shop entry above.
-
-### Featured-winner subtitle alignment (1 item)
-
-- **Replace `best-new-coffee-shop` subtitle.** Current text "The freshest brew in town." (line 208 of `rankings/best-new-coffee-shop.html`) is off-brand vs. the canonical featured-winner voice established in DECISIONS #19. Replace with: "As voted by Charleston locals. One standout — with more to come." Aligns featured-1 voice across rankings (matches the just-shipped `best-bakery` and the count-framing pattern from `best-new-restaurants` per DECISIONS #4).
+- **Remove NEW pill from `best-bakery` on 2026-07-05.** Per the 60-day decay rule established in DECISIONS #19 (launched 2026-05-06). Edit `components/header.html`: (a) desktop dropdown — remove the trailing `<span ...>NEW</span>` and the `relative` class on the parent `<a>`; (b) mobile menu — replace the `text-brand-orange bg-orange-50 font-bold` classes + "(New!)" suffix with the standard `text-gray-700 hover:bg-orange-50 hover:text-brand-orange font-medium` + plain title. Also edit `index.html` homepage card: remove the `border-brand-orange/20` border highlight + corner NEW ribbon (switch to plain `border-transparent hover:border-brand-orange/20` matching other cards). Run `python scripts/inline_chrome.py --refresh`. (Procedure verified by best-new-coffee-shop's removal — see Resolved section.)
 
 ### Schema completeness follow-ups (1 item)
 
@@ -125,19 +119,6 @@ Multi-step efforts. Each has a description, prerequisite, and rough scope estima
 
 **Trigger to activate:** when a discrepancy surfaces (e.g., a sitemap audit shows stale `dateModified` vs actual editorial activity), or when a build pipeline / CI is introduced that could host the hook.
 
-### Social pipeline featured-1 support
-
-**Files affected:** `social/src/data.ts`, `social/src/composition.tsx`, `social/scripts/render-card.ts`, `social/scripts/render-reel.ts`.
-
-**Current state:** Pipeline shipped in PR #28 supports Top-N rankings only. Loader (`social/src/data.ts:32-95`) expects `ItemList` JSON-LD on the ranking page + body row anchors with the `<a href="/restaurants/{slug}.html">` pattern. Featured-1 ranking pages (per DECISIONS #19) have neither — JSON-LD is a single Restaurant entity (per DECISIONS #16) and the body has a single editorial card, not row repetition. As of 2026-05-06, two featured-1 ranking pages exist (`best-new-coffee-shop`, `best-bakery`); both ship without social-card / reel assets. Top-N rankings still get cards on demand.
-
-**Approach (likely):** (1) data loader branch detecting featured-1 shape — easy to discriminate via the JSON-LD `@type` (single Restaurant subclass vs. ItemList); (2) alternate Composition layout for the single-row centered card — could reuse the Top-N composition with a single row, or a dedicated featured-winner composition that renders the editorial blurb + pull quote into the card body; (3) simplified reel timing (1-row reveal at 0.5s, ~7s hold instead of the 5×0.9s stagger).
-
-**Estimated scope:** ~1 day. Loader branch is small; composition + timing decisions are the editorial calls that consume the time.
-
-**Trigger to activate:** when social-asset cadence picks up and missing featured-1 cards become visible gaps in the asset inventory, or when a third featured-1 ranking ships and the deferral becomes uncomfortable.
-
-
 ---
 
 ## Deferred for later master-plan steps
@@ -155,6 +136,10 @@ These are explicitly held until the master plan reaches the right step. They are
 ---
 
 ## Resolved
+
+- **2026-05-06 — `best-new-coffee-shop` chrome cleanup (NEW pill removal + subtitle replacement).** NEW pill removed from desktop dropdown + mobile menu in `components/header.html`; pill had been carried since the January 2026 launch (~4 months, well past the 60-day decay window established in DECISIONS #19). Mobile entry's active-state classes (`text-brand-orange bg-orange-50 font-bold`) — which doubled as the NEW marker per the prior investigation — also removed. Subtitle "The freshest brew in town." replaced with the canonical featured-winner voice "As voted by Charleston locals. One standout — with more to come." per DECISIONS #19 + #4 count-framing pattern. dateModified bumped on the page's JSON-LD. `best-bakery` entry preserved (still inside its 60-day window; calendar-dated removal remains as the sole open NEW pill decay item). Inline propagation refreshed 53 production + template pages.
+
+- **2026-05-06 — Social pipeline featured-1 support.** Workstream closed by PR #30. Shipped: data-loader branch on `og_rankings.spots` (top-n / featured-1 discriminated union); `Featured1Layout` in `composition.tsx` with safe-zone-aware reel mode (900×1400 centered in 1080×1920, 260px cream pad top/bottom — verified across IG Reels / TikTok / YouTube Shorts / Facebook Reels); `featured1OpacityAtFrame` + `featured1OffsetAtFrame` timing functions (single coordinated reveal of the featured-spot zone at 0.5–2.0s, holds for the rest of the reel); cache-first Twemoji rendering via satori's `loadAdditionalAsset` (`social/src/emoji.ts` + `.emoji-cache/` gitignored); `render-reel.ts` layout-branch (top-n keeps existing per-row stagger, featured-1 uses single-state). First best-bakery card.png (1080×1350, 69.7 KB) and reel.mp4 (1080×1920, 275.8 KB, 9.500 s, 285 frames @ 30 fps, h264 yuv420p faststart) rendered.
 
 - **2026-05-06 — Featured-1 sidebar Website icon swap (originally filed as "detail-page Website icon wonky"; investigation re-scoped).** Filed informally as TRACKED #9. Investigation showed detail-page sidebars have no icons at all (text-only labels per `rankings/_detail-page-template.html` lines 555–622; all 36 rendered detail pages confirmed iconless). The actual location of the wonky icon was `rankings/best-bakery.html` line 280, where heroicons-v1 `globe-alt` was rendering as ambiguous orb shapes at h-5 w-5 (busy continents-blob interior reading as pin-adjacent next to the actual address pin). Swapped to heroicons-v1 `external-link` — cleaner at 20px, and a stronger UX signal for a Website link. Convention locked in DECISIONS #21 (heroicons-v1 solid 20×20 as the sidebar icon vocabulary; don't reach for Lucide / Heroicons-v2 without widening the whole set). `best-new-coffee-shop` sidebar has no Website row to update — separate TRACKED entry filed for the row-inventory parity question (see Featured-1 sidebar parity above).
 
