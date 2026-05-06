@@ -71,6 +71,11 @@ async function main(): Promise<void> {
   const slug = parseSlug();
   console.log(`Loading ranking data: ${slug}`);
   const data = loadRankingData(slug);
+  if (data.layout !== 'top-n') {
+    throw new Error(
+      `Reel rendering not yet supported for layout '${data.layout}' — see TRACKED #social-pipeline-featured-1`,
+    );
+  }
   console.log(`Loading fonts...`);
   const fonts = await loadFonts();
 

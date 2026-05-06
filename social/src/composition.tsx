@@ -14,6 +14,15 @@ export interface CompositionProps {
 }
 
 export function Composition({ data, mode, rowStates }: CompositionProps): React.ReactElement {
+  // Featured-1 layout support arrives in the next commit (Featured1Layout).
+  // For now, narrow to top-n so the data.ts discriminated-union refactor
+  // typechecks without duplicating composition logic prematurely.
+  if (data.layout !== 'top-n') {
+    throw new Error(
+      `Composition layout '${data.layout}' not yet supported — Featured1Layout lands in the next commit`,
+    );
+  }
+
   const { colors, fonts, card, reel, zones, row } = DESIGN;
   const isReel = mode === 'reel';
 
