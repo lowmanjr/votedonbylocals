@@ -82,6 +82,10 @@ Each is a single data update to a multi-location restaurant's `locations[]` arra
 
 - **Replace `best-new-coffee-shop` subtitle.** Current text "The freshest brew in town." (line 208 of `rankings/best-new-coffee-shop.html`) is off-brand vs. the canonical featured-winner voice established in DECISIONS #19. Replace with: "As voted by Charleston locals. One standout — with more to come." Aligns featured-1 voice across rankings (matches the just-shipped `best-bakery` and the count-framing pattern from `best-new-restaurants` per DECISIONS #4).
 
+### Schema completeness follow-ups (1 item)
+
+- **`areaServed: null` on Welton's entry.** `data/restaurants.json` convention is to include all schema fields with explicit null for absent values (anti-fab applied to schema completeness — distinguishes intentionally null from forgotten). Welton's entry shipped without `areaServed`. Inert — generator handles missing fields, no rendered output affected. Sweep in with bakery entry #2's PR when `restaurants.json` is touched anyway. Confirm entry #2 also carries `areaServed`.
+
 ---
 
 ## Tracked workstreams
