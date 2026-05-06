@@ -106,6 +106,10 @@ async function main(): Promise<void> {
         mode: 'reel' as const,
         rowStates,
       });
+      // After data.layout narrowing above, `data` is TopNRankingData here;
+      // rowStates is the only state path in use. Featured-1 reel state
+      // (featured1State) is consumed when reel rendering for featured-1
+      // lands — see TRACKED #social-pipeline-featured-1.
 
       const svg = await satori(element, {
         width: DESIGN.reel.width,

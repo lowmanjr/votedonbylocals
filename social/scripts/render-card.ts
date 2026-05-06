@@ -37,7 +37,7 @@ async function main(): Promise<void> {
   const outDir = resolve(REPO_ROOT, 'social-assets', slug);
   const outPath = resolve(outDir, 'card.png');
 
-  const element = React.createElement(Composition, { data, mode: 'static' as const });
+  const element = React.createElement(Composition, { data, mode: 'card' as const });
   const svg = await satori(element, {
     width: DESIGN.card.width,
     height: DESIGN.card.height,
