@@ -55,6 +55,13 @@ export const DESIGN = {
     rowDurationS: envNum('DESIGN_ANIM_ROWDURATIONS', 0.9),
     yOffsetPx: envNum('DESIGN_ANIM_YOFFSETPX', 30),
   },
+  featured1Anim: {
+    // Single-block reveal — no stagger. The featured-spot zone fades in
+    // and rises into place as one unit, then holds for the rest of the reel.
+    revealStartS: envNum('DESIGN_FEATURED1ANIM_REVEALSTARTS', 0.5),
+    revealDurationS: envNum('DESIGN_FEATURED1ANIM_REVEALDURATIONS', 1.5),
+    yOffsetPx: envNum('DESIGN_FEATURED1ANIM_YOFFSETPX', 30),
+  },
 };
 
 export type Design = typeof DESIGN;
