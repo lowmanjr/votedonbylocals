@@ -1624,6 +1624,40 @@
       "hoursHumanReadable": "Mon: 5pm–11pm\nTue: Closed\nWed–Sun: 5pm–11pm",
       "priceRange": "$$",
       "websiteURL": "https://ok-donna.com"
+    },
+    {
+      "slug": "weltons-tiny-bakeshop",
+      "name": "Welton's Tiny Bakeshop",
+      "tagline": "Cardamom Kouign-Amann, Regional Grains",
+      "cuisine": "Bakery",
+      "neighborhood": "Upper King",
+      "schemaType": "Bakery",
+      "monthYear": "May 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "address": {
+        "streetAddress": "684 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Welton's Tiny Bakeshop is an Upper King micro-bakery in Charleston, SC, known for naturally leavened pastries, cardamom kouign-amann, and regional grains. Voted by Charleston locals as the city's best new bakery.",
+      "shareTagline": "Tiny King Street bakeshop with a kouign-amann following — voted best by locals.",
+      "keywords": "Welton's Tiny Bakeshop Charleston, best bakery Charleston SC, kouign-amann Charleston, Upper King bakery, naturally leavened pastries",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-bakery.html",
+          "title": "Best Bakery in Charleston"
+        }
+      ],
+      "phone": "+1-843-666-7277",
+      "hours": "Mo-Su 08:00-13:00",
+      "hoursHumanReadable": "Mon–Sun: 8am–1pm",
+      "priceRange": null,
+      "websiteURL": "https://www.weltonstinybakeshop.com/"
     }
   ]
 }
