@@ -449,3 +449,42 @@ DECISIONS #4 already established the principle (don't pad to fixed N with fabric
 ### Trade-off accepted
 
 Per-page ranking length means the site doesn't have a uniform "Top 5" brand promise. Acceptable because the editorial wedge (real local consensus) is the actual brand promise; ranking length is a consequence of consensus depth, not a target.
+
+---
+
+## #21 — Sidebar icon convention on featured-1 ranking pages
+
+**Date:** 2026-05-06
+**Status:** Decided
+**Anchor:** DECISIONS #19 (featured-winner ranking launch recipe).
+
+### What was decided
+
+The sidebar icon convention as currently used on the two featured-1 ranking pages (`rankings/best-bakery.html` and `rankings/best-new-coffee-shop.html`):
+
+- **Library:** Heroicons v1 solid (https://github.com/tailwindlabs/heroicons/tree/v1.0.6).
+- **viewBox:** `0 0 20 20` for every sidebar icon. NOT the 24×24 v2 / Lucide grid — keeping a single icon-grid convention across the sidebar set.
+- **Size class:** `h-5 w-5`.
+- **Color:** `text-brand-orange` on the SVG element + `fill="currentColor"` on the SVG root + no per-path fill (so the orange propagates via currentColor inheritance).
+
+Current sidebar icon set in use: `location-marker` (Address row), `clock` (Hours row), `phone` (Phone row), `external-link` (Website row). Pin / clock / phone are heroicons-v1 solid name-matched; the Website row uses `external-link` (NOT `globe` or `globe-alt`) — see "Website icon choice" below.
+
+### Scope: how icons render, not which rows exist
+
+The two featured-1 pages currently have different sidebar **field sets**: best-bakery shows Address + Hours + Phone + Website (4 rows), best-new-coffee-shop shows Address + Hours only (2 rows). This convention is about HOW icons render in a row, not WHICH rows are present.
+
+Whether to expand best-new-coffee-shop's sidebar to match best-bakery's is a separate editorial question — filed as a TRACKED follow-up ("Featured-1 sidebar parity").
+
+### Website icon choice
+
+Heroicons v1 has a `globe-alt` variant whose busy interior (continents-blob pattern) renders as ambiguous orb shapes at h-5 w-5 (20px) — easy to mis-read as pin-adjacent next to the actual address pin. Initial best-bakery shipped with globe-alt; user feedback flagged it as visually weak.
+
+Replaced with `external-link` (square + diagonal-arrow). Cleaner at 20px, and arguably a stronger UX signal for a Website link — communicates "this opens externally" more directly than a globe metaphor.
+
+### Don't reach for other libraries
+
+Don't introduce Lucide, Heroicons v2, or other icon libraries for the sidebar without widening the entire sidebar icon set in one pass. Mixing libraries within the same sidebar set creates visual inconsistency (different stroke weights, different grids, different filled-vs-outlined treatment). If a future redesign wants to migrate, do all four icons in one PR + update this entry.
+
+### Trade-off accepted
+
+The sidebar icon set is locked into Heroicons v1, which is no longer actively maintained (Heroicons moved to v2 in late 2022). Acceptable because the v1 icons in use are functional, the visual style is internally consistent, and migration to v2 (or Lucide) is a deliberate widening exercise rather than ad-hoc drift.
