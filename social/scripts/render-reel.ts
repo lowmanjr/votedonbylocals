@@ -7,11 +7,15 @@ import { Resvg } from '@resvg/resvg-js';
 import React from 'react';
 import satori from 'satori';
 import { Composition } from '../src/composition.js';
+import type { Featured1State, RowState } from '../src/composition.js';
 import { loadRankingData } from '../src/data.js';
 import { DESIGN } from '../src/design.js';
+import { loadAdditionalAsset } from '../src/emoji.js';
 import { loadFonts } from '../src/fonts.js';
 import {
   TOTAL_FRAMES,
+  featured1OffsetAtFrame,
+  featured1OpacityAtFrame,
   rowOffsetAtFrame,
   rowOpacityAtFrame,
 } from '../src/timing.js';
@@ -71,6 +75,8 @@ async function main(): Promise<void> {
   const slug = parseSlug();
   console.log(`Loading ranking data: ${slug}`);
   const data = loadRankingData(slug);
+  console.log(`Layout: ${data.layout}`);
+
   console.log(`Loading fonts...`);
   const fonts = await loadFonts();
 
@@ -91,21 +97,38 @@ async function main(): Promise<void> {
     const renderStart = Date.now();
 
     for (let frame = 0; frame < TOTAL_FRAMES; frame++) {
-      const rowStates = data.rows.map((_, i) => ({
-        opacity: rowOpacityAtFrame(frame, i),
-        yOffset: rowOffsetAtFrame(frame, i),
-      }));
-
-      const element = React.createElement(Composition, {
-        data,
-        mode: 'reel' as const,
-        rowStates,
-      });
+      // Per-layout state composition. Top-n uses one RowState per body
+      // row (existing per-row stagger animation); featured-1 uses one
+      // Featured1State for the whole featured-spot zone (single coordinated
+      // reveal — see DESIGN.featured1Anim).
+      let element: React.ReactElement;
+      if (data.layout === 'top-n') {
+        const rowStates: RowState[] = data.rows.map((_, i) => ({
+          opacity: rowOpacityAtFrame(frame, i),
+          yOffset: rowOffsetAtFrame(frame, i),
+        }));
+        element = React.createElement(Composition, {
+          data,
+          mode: 'reel' as const,
+          rowStates,
+        });
+      } else {
+        const featured1State: Featured1State = {
+          bodyOpacity: featured1OpacityAtFrame(frame),
+          bodyOffset: featured1OffsetAtFrame(frame),
+        };
+        element = React.createElement(Composition, {
+          data,
+          mode: 'reel' as const,
+          featured1State,
+        });
+      }
 
       const svg = await satori(element, {
         width: DESIGN.reel.width,
         height: DESIGN.reel.height,
         fonts,
+        loadAdditionalAsset,
       });
 
       const png = new Resvg(svg, {
@@ -131,7 +154,8 @@ async function main(): Promise<void> {
     }
 
     const renderS = (Date.now() - renderStart) / 1000;
-    console.log(`Frame render complete: ${renderS.toFixed(1)}s`);
+    const perFrameS = renderS / TOTAL_FRAMES;
+    console.log(`Frame render complete: ${renderS.toFixed(1)}s (${perFrameS.toFixed(2)}s/frame avg)`);
 
     console.log('ffmpeg stitching...');
     const ffmpegStart = Date.now();
@@ -151,9 +175,11 @@ async function main(): Promise<void> {
         `ffmpeg exited with code ${ffmpegResult.exitCode}\nstderr:\n${ffmpegResult.stderr}`,
       );
     }
-    console.log(`ffmpeg complete: ${((Date.now() - ffmpegStart) / 1000).toFixed(1)}s`);
+    const ffmpegS = (Date.now() - ffmpegStart) / 1000;
+    console.log(`ffmpeg complete: ${ffmpegS.toFixed(1)}s`);
 
     console.log('ffprobe verifying...');
+    const ffprobeStart = Date.now();
     const ffprobeArgs = [
       '-v', 'error',
       '-show_streams',
@@ -181,7 +207,7 @@ async function main(): Promise<void> {
       [`height === 1920 (got ${stream.height})`, stream.height === 1920],
       [`codec_name === 'h264' (got ${stream.codec_name})`, stream.codec_name === 'h264'],
       [`pix_fmt === 'yuv420p' (got ${stream.pix_fmt})`, stream.pix_fmt === 'yuv420p'],
-      [`nb_frames === 285 (got ${nbFrames})`, nbFrames === 285],
+      [`nb_frames === ${TOTAL_FRAMES} (got ${nbFrames})`, nbFrames === TOTAL_FRAMES],
       [`duration in [9.4, 9.6] (got ${duration.toFixed(3)})`, duration >= 9.4 && duration <= 9.6],
       [`size in [50KB, 50MB] (got ${fileSize} bytes)`, fileSize >= 50_000 && fileSize <= 50_000_000],
     ];
@@ -192,15 +218,20 @@ async function main(): Promise<void> {
         `ffprobe assertions failed:\n${failed.map(([msg]) => '  - ' + msg).join('\n')}`,
       );
     }
+    const ffprobeS = (Date.now() - ffprobeStart) / 1000;
 
     const overallS = (Date.now() - overallStart) / 1000;
     console.log('PASS: all ffprobe assertions');
-    console.log(`Output: ${outPath}`);
-    console.log(`Size:   ${(fileSize / 1024).toFixed(1)} KB`);
-    console.log(`Stream: ${stream.width}x${stream.height} ${stream.codec_name} ${stream.pix_fmt}`);
-    console.log(`Frames: ${nbFrames}`);
-    console.log(`Duration: ${duration.toFixed(3)} s`);
-    console.log(`Wall-clock: ${overallS.toFixed(1)} s`);
+    console.log(`Output:    ${outPath}`);
+    console.log(`Size:      ${(fileSize / 1024).toFixed(1)} KB`);
+    console.log(`Stream:    ${stream.width}x${stream.height} ${stream.codec_name} ${stream.pix_fmt}`);
+    console.log(`Frames:    ${nbFrames}`);
+    console.log(`Duration:  ${duration.toFixed(3)} s`);
+    console.log(`Wall-clock breakdown:`);
+    console.log(`  render:  ${renderS.toFixed(1)}s (${perFrameS.toFixed(2)}s/frame)`);
+    console.log(`  ffmpeg:  ${ffmpegS.toFixed(1)}s`);
+    console.log(`  ffprobe: ${ffprobeS.toFixed(1)}s`);
+    console.log(`  total:   ${overallS.toFixed(1)}s`);
   } finally {
     console.log(`Cleaning up temp dir: ${tmpDir}`);
     rmSync(tmpDir, { recursive: true, force: true });

@@ -1,3 +1,4 @@
 node_modules/
 *.log
 .font-cache/
+.emoji-cache/

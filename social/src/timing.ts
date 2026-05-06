@@ -27,3 +27,19 @@ export function rowOffsetAtFrame(frame: number, rowIndex: number): number {
   const eased = easeOutCubic(rowProgress(frame, rowIndex));
   return DESIGN.anim.yOffsetPx * (1 - eased);
 }
+
+function featured1Progress(frame: number): number {
+  const startS = DESIGN.featured1Anim.revealStartS;
+  const durS = DESIGN.featured1Anim.revealDurationS;
+  const t = (frame / DESIGN.anim.fps - startS) / durS;
+  return clamp01(t);
+}
+
+export function featured1OpacityAtFrame(frame: number): number {
+  return easeOutCubic(featured1Progress(frame));
+}
+
+export function featured1OffsetAtFrame(frame: number): number {
+  const eased = easeOutCubic(featured1Progress(frame));
+  return DESIGN.featured1Anim.yOffsetPx * (1 - eased);
+}

@@ -7,6 +7,7 @@ import satori from 'satori';
 import { Composition } from '../src/composition.js';
 import { loadRankingData } from '../src/data.js';
 import { DESIGN } from '../src/design.js';
+import { loadAdditionalAsset } from '../src/emoji.js';
 import { loadFonts } from '../src/fonts.js';
 
 function parseSlug(): string {
@@ -37,11 +38,12 @@ async function main(): Promise<void> {
   const outDir = resolve(REPO_ROOT, 'social-assets', slug);
   const outPath = resolve(outDir, 'card.png');
 
-  const element = React.createElement(Composition, { data, mode: 'static' as const });
+  const element = React.createElement(Composition, { data, mode: 'card' as const });
   const svg = await satori(element, {
     width: DESIGN.card.width,
     height: DESIGN.card.height,
     fonts,
+    loadAdditionalAsset,
   });
 
   const png = new Resvg(svg, {
