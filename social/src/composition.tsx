@@ -51,6 +51,12 @@ function TopNLayout({
   const { colors, fonts, card, reel, zones, row } = DESIGN;
   const isReel = mode === 'reel';
 
+  // Reel mode pulls horizontal margins in to the universal cross-platform
+  // safe zone (900-wide content band centered in the 1080-wide canvas, x∈
+  // [90, 990]). Card mode keeps the original 40px IG-feed margins. Same
+  // discriminator pattern Featured1Layout uses below.
+  const sidePad = isReel ? REEL_SAFE_SIDE_PAD : 40;
+
   const effectiveRowStates: RowState[] = data.rows.map((_, i) => {
     if (isReel && rowStates && rowStates[i]) return rowStates[i];
     return { opacity: 1, yOffset: 0 };
@@ -72,8 +78,8 @@ function TopNLayout({
           height: zones.headerH,
           alignItems: 'center',
           justifyContent: 'space-between',
-          paddingLeft: 40,
-          paddingRight: 40,
+          paddingLeft: sidePad,
+          paddingRight: sidePad,
         }}
       >
         <div
@@ -153,8 +159,8 @@ function TopNLayout({
                 opacity: state.opacity,
                 transform: `translateY(${state.yOffset}px)`,
                 borderTop: i === 0 ? '1px solid transparent' : `1px solid ${hexAlpha(colors.gray, 0.15)}`,
-                paddingLeft: 40,
-                paddingRight: 40,
+                paddingLeft: sidePad,
+                paddingRight: sidePad,
               }}
             >
               <div

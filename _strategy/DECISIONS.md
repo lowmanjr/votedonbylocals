@@ -488,3 +488,45 @@ Don't introduce Lucide, Heroicons v2, or other icon libraries for the sidebar wi
 ### Trade-off accepted
 
 The sidebar icon set is locked into Heroicons v1, which is no longer actively maintained (Heroicons moved to v2 in late 2022). Acceptable because the v1 icons in use are functional, the visual style is internally consistent, and migration to v2 (or Lucide) is a deliberate widening exercise rather than ad-hoc drift.
+
+---
+
+## #22 — TRACKED filing requires same-PR file edit, not just PR-description prose
+
+**Date:** 2026-05-06
+**Status:** Decided
+**Anchor:** Pattern observed across PRs #29, #30, and the TopNLayout safe-zone retrofit.
+
+### Pattern observed
+
+Three recent PRs included PR-description prose claiming a follow-up was "filed as TRACKED" without the corresponding `_strategy/TRACKED.md` edit landing in the same PR's diff. Each surfaced as a gap when the next PR tried to "close" the entry that didn't exist:
+
+- **PR #29** (best-bakery launch) — areaServed-omission follow-up was implicit in the PR description's "deviations" section, but the `_strategy/TRACKED.md` entry didn't land until a separate one-off commit (`f2f97ff`) after the user flagged the gap.
+- **PR #29** (same PR) — original "TRACKED #9" Website-icon issue was referenced informally in conversation but never filed in `TRACKED.md`. The closure commit (PR #31) had to add a Resolved entry without a matching Open entry to close.
+- **PR #30** (social pipeline featured-1 support) — description said "Filed as follow-up TRACKED entry to regenerate [the burger reel]." The TRACKED.md edit didn't land. The retrofit PR (this one) had to add a Resolved entry acknowledging the never-filed open entry.
+
+### Discipline
+
+When a PR description includes any of the following language about future work:
+- "Filed as TRACKED [entry/follow-up/workstream]"
+- "Added to TRACKED"
+- "Queued in TRACKED"
+- Equivalent phrasing implying a TRACKED edit
+
+…the same PR's diff MUST include a matching `_strategy/TRACKED.md` change. PR-description prose alone is insufficient — the file is the source of truth, the prose is documentation that points at the file.
+
+If the work doesn't warrant a TRACKED entry (small enough to defer informally, or genuinely already covered elsewhere), the PR description should not use "filed as TRACKED" language. Use "worth filing if it recurs" or "consider as a follow-up" — language that doesn't claim a file edit exists.
+
+### Verification at PR review time
+
+When reviewing a PR whose description uses any of the trigger language above:
+- `git diff main..HEAD --stat | grep TRACKED` should show a `_strategy/TRACKED.md` change.
+- If absent, the PR description language is wrong — either the TRACKED edit needs to land before merge, or the PR description needs softer phrasing.
+
+### Future enhancement (deferred)
+
+A pre-merge CI check could automate this: parse the PR body, regex for the trigger language, then assert `_strategy/TRACKED.md` appears in the diff. Not implemented today — current discipline + manual verification at review is sufficient for the cadence we ship at.
+
+### Trade-off accepted
+
+The discipline costs ~15 seconds per PR (run grep, edit TRACKED.md inline if needed). The trade-off vs. drift cost: every gap discovered later requires (a) investigation to confirm the entry doesn't exist, (b) a Resolved entry that has to acknowledge the gap, (c) some friction surfacing the gap to the user. Cumulatively much more expensive than the same-PR file edit.
