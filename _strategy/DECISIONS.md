@@ -355,3 +355,97 @@ Featured-winner JSON-LD doesn't cross-link to the brand's detail page in the str
 - Schema documented this PR (schemaVersion 1.2, template docblock decision #12, this entry).
 - Generator + OG-image pipeline updated this PR (`scripts/_cuisine_dedup.py` shared module + step_13 + `compose_detail_meta`).
 - 9 detail pages + 9 OG PNGs regenerated this PR.
+
+---
+
+## #19 — Featured-winner ranking launch recipe
+
+**Date:** 2026-05-06
+**Status:** Decided
+**Anchor:** DECISIONS #4 (anti-fab — don't pad to fixed Top-N), #5 (per-page schemaType subclass), #8 (best-new-coffee-shop kept on its own template), #16 (featured-winner JSON-LD `url` points at the page itself).
+
+### What was decided
+
+The recipe for launching a new top-level ranking as a featured-1 (single-winner format), now established across two launches: `best-new-coffee-shop` (Jan/Feb 2026) and `best-bakery` (May 2026). Captures both the file-set inventory and the conventions that should propagate forward.
+
+### Template
+
+Copy `rankings/best-new-coffee-shop.html` as the starting point — NOT `_template-canonical.html`, which is Top-N only per #8. Adapt: head meta block, JSON-LD (single Restaurant entity with the per-category subclass), BreadcrumbList, hero h1 + emoji, restaurant name + neighborhood, per-restaurant emoji icons (the featured-1 layout deliberately does carry per-restaurant emoji in the icon group, scoped to this layout — DECISIONS #1's "page-theme only" rule applies to Top-N rows, not the featured-1 icon group), 3-paragraph editorial blurb, italic pull quote, address+hours+phone+website sidebar, "Suggest a different winner" CTA (kept from precedent).
+
+### Subtitle voice
+
+Canonical voice + count framing: **"As voted by Charleston locals. One standout — with more to come."** Mirrors the Top-4 pattern from #4 (`best-new-restaurants` uses "Four standouts — with more to come.") — establishes a unified subtitle pattern for ranking pages with intentional sub-canonical entry counts.
+
+`best-new-coffee-shop` currently uses "The freshest brew in town." (its launch-time poetic register). TRACKED entry filed for retrofit to bring it in line.
+
+### schemaType
+
+Per-page subclass of `FoodEstablishment` per #5: `Bakery`, `CafeOrCoffeeShop`, `BarOrPub`, `NightClub`. Do NOT default to `Restaurant` for non-restaurant categories — the more-specific subclass strengthens the entity-resolution graph and matches what Google's structured-data validator prefers.
+
+### File set
+
+For each new featured-1 launch:
+
+- `data/og_rankings.json` — append `{slug, category, spots: 1}`; bump `_meta.lastUpdated`
+- `data/restaurants.json` — append the restaurant entry (full schema)
+- `rankings/{slug}.html` — NEW, adapted from best-new-coffee-shop precedent
+- `restaurants/{restaurant-slug}.html` — generated via `python scripts/generate_detail_page.py {restaurant-slug}`
+- `components/header.html` — add ranking row to dropdown (desktop + mobile) with NEW pill / mobile (New!) styling, positioned above the Top-N divider
+- `index.html` — add card to homepage rankings grid (resize grid as needed; 9 cards now use `md:grid-cols-3` after the best-bakery launch)
+- `assets/images/og-{slug}.png` — generated via `python scripts/generate_og_images.py --slug {slug}`
+- `assets/images/og-restaurant-{restaurant-slug}.png` — same script with the restaurant slug
+- `sitemap.xml` — regenerated via `python scripts/generate_sitemap.py` (filesystem scan auto-includes new pages)
+- 49+ inlined production pages — refreshed via `python scripts/inline_chrome.py --refresh` (header changes propagate automatically)
+
+Estimated commit shape: 4 commits (data + ranking + detail; nav + grid + inline; OG + sitemap; doc consolidation if needed).
+
+### NEW pill decay rule
+
+60 days from launch. Persistent pill is fine for the first 60 days; after that the pill comes off via manual edit to `components/header.html`:
+- desktop: remove the trailing `<span ...>NEW</span>` and the `relative` class on the parent `<a>`
+- mobile: replace the `text-brand-orange bg-orange-50 font-bold` classes + "(New!)" suffix with the standard `text-gray-700 hover:bg-orange-50 hover:text-brand-orange font-medium` + plain title
+- `index.html` homepage card: remove the `border-brand-orange/20` border highlight + corner NEW ribbon, switch to plain `border-transparent hover:border-brand-orange/20`
+
+Then `python scripts/inline_chrome.py --refresh` to propagate. TRACKED items file each removal at launch+60d.
+
+The 60-day window is editorial — a featured-1 launch is news for ~2 months in our cadence; after that the page is just another ranking and the NEW pill becomes visual noise. Discoverability via the dropdown ordering (featured-1 entries stay above the Top-N divider) is sufficient long-term.
+
+### Social-card pipeline (deferred)
+
+The `social/` pipeline (PR #28) supports Top-N rankings only. The data loader (`social/src/data.ts:32-95`) expects `ItemList` JSON-LD + body row anchors with `<a href="/restaurants/{slug}.html">` — featured-1 has neither (single Restaurant entity per #16, single editorial card body). Featured-1 launches skip social cards until the loader supports the featured-winner shape. TRACKED workstream filed.
+
+### Trade-off accepted
+
+The featured-1 layout duplicates content fields between `rankings/{slug}.html` (hero, blurb, sidebar) and `restaurants/{restaurant-slug}.html` (name, address, hours, etc.). When the restaurant's data changes (e.g., hours shift), both files need updating. Acceptable for the launch cadence (a handful of featured-1 pages over the year); if duplication becomes painful, a generator pass for the ranking page (analogous to `generate_detail_page.py`) becomes the obvious next move.
+
+---
+
+## #20 — Ranking length is per-page editorial
+
+**Date:** 2026-05-06
+**Status:** Decided
+**Anchor:** DECISIONS #4 (Top-4 framing for `best-new-restaurants`), #8 (best-new-coffee-shop kept on its own template), #19 (featured-winner ranking launch recipe).
+
+### What was decided
+
+The canonical Top-5 (per `_template-canonical.html`) is the default ranking length for pages launching with a full slate, but **ranking length is editorial per page**. Documented exceptions:
+
+- **Featured-1** (single-winner, separate template per #8): `best-new-coffee-shop`, `best-bakery`. Used when one strong local-consensus pick exists and the slate isn't full. Subtitle frames the count: "One standout — with more to come."
+- **Top-4**: `best-new-restaurants` (per #4). Used when 4 confident picks exist but a 5th would require fabrication. Subtitle: "Four standouts — with more to come."
+- **Top-5** (canonical default): `best-pizza`, `best-tex-mex`, `best-coffee-shops`, `best-casual-spots`, `best-nice-restaurants`. Subtitle: "As voted by Charleston locals."
+- **Top-7**: `best-burger` (PR #27). Used when real local consensus pushes past the canonical — Charleston has a deeper burger scene than 5 spots can hold honestly. No "more to come" framing — the slate is full as-is. Subtitle: "As voted by Charleston locals."
+
+### Why this matters
+
+DECISIONS #4 already established the principle (don't pad to fixed N with fabrication) but framed it as a single-page exception. The practice has now generalized: ranking length depends on the depth of real local consensus + editorial judgment about when "more to come" framing is appropriate vs. when the slate is naturally full. This entry promotes the practice from per-page exception to documented convention.
+
+### When promoting / demoting ranking length
+
+- **Top-N → featured-1**: only if the slate genuinely shrinks (rare; most natural growth is the other direction). Demoting an established Top-N to featured-1 should be documented per-page.
+- **featured-1 → Top-N**: natural growth path. Replace the featured-1 template body with the canonical Top-N body, populate the new slate, drop the "more to come" framing if the slate is now full. Keep the featured-1 winner at position 1 unless local consensus shifts.
+- **Top-5 → Top-7+**: editorial expansion when consensus depth justifies it. Cautious move — ranking-length inflation is a slippery slope. Trigger should be specific local-consensus signal, not "we want more content."
+- **Top-7 → Top-5**: rare. If consensus thins, demote. Don't pad.
+
+### Trade-off accepted
+
+Per-page ranking length means the site doesn't have a uniform "Top 5" brand promise. Acceptable because the editorial wedge (real local consensus) is the actual brand promise; ranking length is a consequence of consensus depth, not a target.
