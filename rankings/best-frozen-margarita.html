@@ -14,50 +14,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Best Bakery in Charleston, SC | Locals Guide (2026)</title>
-    <meta name="description" content="See Charleston's best bakery — Welton's Tiny Bakeshop, an Upper King micro-bakery known for naturally leavened pastries and cardamom kouign-amann, as voted by the local community.">
-    <meta name="keywords" content="best bakery Charleston SC, Charleston bakery, Welton's Tiny Bakeshop, Upper King bakery, kouign-amann Charleston, naturally leavened Charleston">
+    <!-- REPLACE: SEO meta ---------------------------------------------- -->
+    <title>Best Frozen Margarita in Charleston, SC | Locals Guide (2026)</title>
+    <meta name="description" content="See Charleston's best frozen margaritas — San Miguel Mexican Grill and Señor Tequila's, as voted by the local community.">
+    <meta name="keywords" content="best frozen margarita Charleston, Charleston frozen margaritas, Charleston Mexican restaurants, Mt Pleasant margaritas, West Ashley margaritas">
 
     <!-- REPLACE: Canonical URL ----------------------------------------- -->
-    <link rel="canonical" href="https://votedonbylocals.com/rankings/best-bakery.html">
+    <link rel="canonical" href="https://votedonbylocals.com/rankings/best-frozen-margarita.html">
 
     <!-- REPLACE: Open Graph -------------------------------------------- -->
-    <meta property="og:title" content="Best Bakery in Charleston | Voted On By Locals">
-    <meta property="og:description" content="Charleston's best bakery — Welton's Tiny Bakeshop, voted by the local community.">
+    <meta property="og:title" content="Best Frozen Margarita in Charleston | Voted On By Locals">
+    <meta property="og:description" content="Charleston's best frozen margaritas, voted by the local community.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://votedonbylocals.com/rankings/best-bakery.html">
-    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-best-bakery.png">
+    <meta property="og:url" content="https://votedonbylocals.com/rankings/best-frozen-margarita.html">
+    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-best-frozen-margarita.png">
     <meta property="og:site_name" content="Voted On By Locals">
 
     <!-- REPLACE: Twitter card ------------------------------------------ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Best Bakery in Charleston | Voted On By Locals">
-    <meta name="twitter:description" content="Charleston's best bakery — Welton's Tiny Bakeshop, voted by the local community.">
-    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-best-bakery.png">
+    <meta name="twitter:title" content="Best Frozen Margarita in Charleston | Voted On By Locals">
+    <meta name="twitter:description" content="Charleston's best frozen margaritas, voted by the local community.">
+    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-best-frozen-margarita.png">
 
+    <!--
+      REPLACE: JSON-LD structured data.
+
+      aggregateRating is INTENTIONALLY ABSENT from this schema.
+
+      We do not yet have real vote-aggregation data. Adding a fabricated
+      ratingValue + ratingCount (or one derived from the old hardcoded
+      "1,769 votes" copy) would be a structured-data lie that Google can
+      penalize as deceptive markup.
+
+      When real aggregate data exists, add an "aggregateRating" object
+      to each Restaurant item below using actual ratingValue (1–5 scale)
+      and ratingCount (integer). Optionally also add an aggregateRating
+      to the ItemList itself. Schema reference:
+      https://schema.org/aggregateRating
+
+      JSON does not support comments — do NOT add // or /* */ inside the
+      <script> body. Any guidance lives in this HTML comment, outside it.
+
+      The "@type" of each item below is per-page configurable. The default
+      is "Restaurant", which works for most pages. Override on a per-page
+      basis when a more specific subclass of FoodEstablishment applies:
+        - best-coffee-shops    → "CafeOrCoffeeShop"
+        - (future bar page)    → "BarOrPub"
+        - (future club page)   → "NightClub"
+        - (future bakery page) → "Bakery"
+      All these subclass "FoodEstablishment" and pass Google validation.
+    -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Bakery",
-      "name": "Welton's Tiny Bakeshop",
-      "url": "https://votedonbylocals.com/rankings/best-bakery.html",
-      "servesCuisine": "Bakery",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "684 King St",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29403",
-        "addressCountry": "US"
-      },
-      "telephone": "+1-843-666-7277",
-      "openingHours": "Mo-Su 08:00-13:00",
-      "datePublished": "2026-05-06T12:36:16-05:00",
-      "dateModified": "2026-05-06T12:36:16-05:00"
+      "@type": "ItemList",
+      "name": "Best Frozen Margarita in Charleston, SC",
+      "description": "See Charleston's best frozen margaritas — San Miguel Mexican Grill and Señor Tequila's, as voted by the local community.",
+      "datePublished": "2026-05-07T12:00:00-05:00",
+      "dateModified": "2026-05-07T12:00:00-05:00",
+      "url": "https://votedonbylocals.com/rankings/best-frozen-margarita.html",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Restaurant",
+            "name": "San Miguel Mexican Grill",
+            "url": "https://votedonbylocals.com/restaurants/san-miguel-mexican-grill.html",
+            "servesCuisine": "Mexican",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Mt Pleasant",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Señor Tequila's",
+            "url": "https://votedonbylocals.com/restaurants/senor-tequilas.html",
+            "servesCuisine": "Mexican",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        }
+      ]
     }
     </script>
 
-    <!-- BreadcrumbList — Home → Rankings (/#rankings) → Best Bakery.
+    <!-- BreadcrumbList — Home → Rankings (/#rankings) → Best Frozen Margarita.
          The /#rankings fragment resolves to the homepage, which IS the
          rankings index (hero "The Charleston Rankings" + 8-card grid).
          Schema works without an explicit id="rankings" anchor on the
@@ -84,8 +135,8 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Best Bakery",
-          "item": "https://votedonbylocals.com/rankings/best-bakery.html"
+          "name": "Best Frozen Margarita",
+          "item": "https://votedonbylocals.com/rankings/best-frozen-margarita.html"
         }
       ]
     }
@@ -197,101 +248,78 @@
     <!-- /AUTOGENERATED -->
 
     <main class="flex-grow">
-        <div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            
+        <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+            <!-- HERO ------------------------------------------------------ -->
             <div class="text-center mb-10">
-                <a href="/" class="inline-flex items-center text-brand-orange font-bold hover:underline mb-6 transition-transform hover:-translate-x-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                <a href="/" class="inline-flex items-center justify-center py-2 px-4 mb-6 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
                     Back to All Rankings
                 </a>
-                <h1 class="text-3xl sm:text-5xl font-extrabold font-poppins text-brand-dark leading-tight">
-                    Best <span class="text-brand-orange">Bakery</span> 🥐
+
+                <!-- REPLACE: hero h1 (Category + Emoji) -->
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight">
+                    Best <span class="text-brand-orange">Frozen Margarita</span> 🍹
                 </h1>
-                <p class="text-brand-gray mt-3 text-lg">As voted by Charleston locals. One standout — with more to come.</p>
-            </div>
 
-            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
-                <div class="h-3 w-full bg-brand-orange"></div>
+                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals. Two standouts — with more to come.</p>
 
-                <div class="p-6 sm:p-10">
-
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div>
-                            <div class="inline-block bg-orange-100 text-brand-orange px-3 py-1 rounded-full text-xs font-bold tracking-wide uppercase mb-2">
-                                #1 Voted by Locals
-                            </div>
-                            <h2 class="text-3xl sm:text-4xl font-bold font-poppins text-brand-dark">Welton's Tiny Bakeshop</h2>
-                            <p class="text-gray-500 font-medium text-lg mt-1">Upper King</p>
-                        </div>
-                        <div class="flex gap-2">
-                             <span class="bg-gray-100 p-2 rounded-lg text-2xl" role="img" aria-label="croissant">🥐</span>
-                            <span class="bg-gray-100 p-2 rounded-lg text-2xl" role="img" aria-label="coffee">☕</span>
-                        </div>
-                    </div>
-
-                    <hr class="border-gray-100 mb-6">
-
-                    <div class="prose prose-lg text-brand-gray mb-8">
-                        <p class="mb-4">
-                            Tucked into a 1,000-square-foot storefront on Upper King, <strong>Welton's Tiny Bakeshop</strong> has built a quiet but devoted following on the strength of one principle: do less, do it by hand, do it well. Hannah and Zachary Welton — who met in the Husk Charleston kitchen and spent a year and a half cooking at Hartwood in Tulum before opening their own shop — work with regional grains and naturally leavened doughs across a lineup that turns over with the season.
-                        </p>
-                        <p class="mb-4">
-                            The signature is the cardamom kouign-amann: lamination so precise the layers shatter into glass-like flakes, sweetened just enough that the cardamom and the butter both have room to be themselves. It's the kind of pastry that locals who've spent time in Paris talk about with a slight sigh of relief. The salted honey pie — Hannah's Hartwood-era invention — and a rotating cast of savory hand pies and morning buns round out the case.
-                        </p>
-                        <p class="mb-4">
-                            Tiny is in the name for a reason. The shop holds maybe a dozen people standing, the line forms early most weekends, and the pastries sell out before the 1pm close more often than not. It's a neighborhood bakery in the most literal sense — and Charleston locals have voted it the city's best.
-                        </p>
-                        <p class="italic text-brand-orange">
-                            "Tiny is in the name — less than 1,000 square feet — but there is a whole lot of love and attention to detail every step of the way." — Welton's
-                        </p>
-                    </div>
-
-                    <div class="bg-brand-cream rounded-xl p-6 border border-brand-orange/20">
-                        <h3 class="font-poppins font-bold text-xl mb-4 text-brand-dark">The Details</h3>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <h4 class="font-bold text-gray-700 mb-1 flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-orange" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" /></svg>
-                                    Location
-                                </h4>
-                                <p class="text-gray-600 ml-7">684 King Street,<br>Charleston, SC 29403</p>
-                            </div>
-
-                            <div>
-                                <h4 class="font-bold text-gray-700 mb-1 flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-orange" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" /></svg>
-                                    Hours
-                                </h4>
-                                <p class="text-gray-600 text-sm ml-7">Mon–Sun: 8am–1pm</p>
-                            </div>
-
-                            <div>
-                                <h4 class="font-bold text-gray-700 mb-1 flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-orange" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-                                    Phone
-                                </h4>
-                                <p class="text-gray-600 text-sm ml-7"><a href="tel:+1-843-666-7277" class="hover:text-brand-orange transition-colors">(843) 666-7277</a></p>
-                            </div>
-
-                            <div>
-                                <h4 class="font-bold text-gray-700 mb-1 flex items-center gap-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-orange" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3C10.4477 3 10 3.44772 10 4C10 4.55228 10.4477 5 11 5H13.5858L7.29289 11.2929C6.90237 11.6834 6.90237 12.3166 7.29289 12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L15 6.41421V9C15 9.55228 15.4477 10 16 10C16.5523 10 17 9.55228 17 9V4C17 3.44772 16.5523 3 16 3H11Z"/><path d="M5 5C3.89543 5 3 5.89543 3 7V15C3 16.1046 3.89543 17 5 17H13C14.1046 17 15 16.1046 15 15V12C15 11.4477 14.5523 11 14 11C13.4477 11 13 11.4477 13 12V15H5V7L8 7C8.55228 7 9 6.55228 9 6C9 5.44772 8.55228 5 8 5H5Z"/></svg>
-                                    Website
-                                </h4>
-                                <p class="text-gray-600 text-sm ml-7 break-all"><a href="https://www.weltonstinybakeshop.com/" rel="noopener" target="_blank" class="text-brand-orange hover:underline">weltonstinybakeshop.com</a></p>
-                            </div>
-                        </div>
-                    </div>
-
+                <!-- REPLACE: Updated [Month Year] pill -->
+                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-2 shadow-sm">
+                    Updated May 2026
                 </div>
             </div>
 
-            <div class="text-center mt-12">
-                <p class="text-gray-400 text-sm mb-4">Have another favorite spot?</p>
-                <a href="/suggest-category.html" class="inline-block text-brand-orange font-bold border-b-2 border-brand-orange/30 hover:border-brand-orange transition-colors">
-                    Suggest a different winner
-                </a>
+            <!-- LIST CARD ------------------------------------------------- -->
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
+                <div class="h-2 w-full bg-brand-orange"></div>
+
+                <div class="p-2 sm:p-4">
+                    <div class="divide-y divide-gray-100">
+
+                        <!--
+                          REPEATING ROW — duplicate ×2, replacing {{Restaurant#}}/{{Tagline#}}.
+                          The emoji at the start of each row is the page theme emoji ({{Emoji}}),
+                          re-used so it visually anchors the list.
+                        -->
+
+                        <!-- REPLACE: row 1 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="tropical drink">🍹</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/san-miguel-mexican-grill.html" class="hover:text-brand-orange transition-colors">San Miguel Mexican Grill</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Generous Pours, Reliable Slush</p>
+                            </div>
+                        </div>
+
+                        <!-- REPLACE: row 2 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="tropical drink">🍹</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/senor-tequilas.html" class="hover:text-brand-orange transition-colors">Señor Tequila's</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Jumbo Pours, West Ashley Mainstay</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- BOTTOM CTA --------------------------------------------- -->
+                <div class="bg-orange-50 p-6 sm:p-8 text-center border-t border-brand-orange/10">
+                    <p class="text-brand-dark font-medium mb-4 text-lg">Disagree with this list? Cast your vote!</p>
+                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-4 px-10 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95">
+                        Vote for Best Frozen Margarita
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
+                </div>
             </div>
 
         </div>

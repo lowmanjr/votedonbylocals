@@ -530,3 +530,47 @@ A pre-merge CI check could automate this: parse the PR body, regex for the trigg
 ### Trade-off accepted
 
 The discipline costs ~15 seconds per PR (run grep, edit TRACKED.md inline if needed). The trade-off vs. drift cost: every gap discovered later requires (a) investigation to confirm the entry doesn't exist, (b) a Resolved entry that has to acknowledge the gap, (c) some friction surfacing the gap to the user. Cumulatively much more expensive than the same-PR file edit.
+
+---
+
+## #23 — Top-2 ranking precedent + NEW pill is featured-1 only
+
+**Date:** 2026-05-07
+**Status:** Decided
+**Anchor:** DECISIONS #4 (Top-4 framing), #19 (featured-winner ranking launch recipe), #20 (ranking length is per-page editorial).
+
+### What was decided
+
+Two related conventions captured together because the second falls out of the first as soon as a Top-N launch happens.
+
+**1. Top-2 joins the documented ranking-length precedents.**
+
+DECISIONS #20 enumerates featured-1, Top-4, Top-5, Top-7. **Top-2** is now a fifth precedent. First Top-2 launch ships in this PR (`best-frozen-margarita`). Subtitle voice for sub-canonical Top-N follows the pattern from #4 + #19's "more to come" framing:
+
+> "As voted by Charleston locals. Two standouts — with more to come."
+
+The unified pattern across all sub-canonical entry counts:
+- featured-1: "One standout — with more to come." (#19)
+- Top-2: "Two standouts — with more to come." (this entry)
+- Top-4: "Four standouts — with more to come." (#4)
+- Top-5 and Top-7: no count-framing, slate is full as-is (#20)
+
+Promotion path is implicit: if real local consensus expands the slate, drop the "more to come" qualifier and bump the entry count. Don't pad with fabrication to reach a target N (#4 anti-fab principle).
+
+**2. NEW pill is featured-1 launch ceremony only.**
+
+DECISIONS #19's launch recipe specifies the NEW pill / mobile-(New!) styling for featured-1 launches (`best-new-coffee-shop`, `best-bakery`). The recipe doesn't address Top-N launches because at the time of #19 there had been no Top-N launch. This entry clarifies the implicit scope: **Top-N launches do NOT get the NEW pill**, regardless of being newly added.
+
+Reasoning: discoverability for Top-N launches is sufficient via dropdown ordering (the new entry sits at the end of the Top-N cluster, naturally drawing the eye on first visit). The NEW pill is doing a different job for featured-1 — signaling that a single-winner page exists at all (smaller cluster, easier to miss without ceremony). Top-N pages are dropdown-ordinary by design.
+
+The 60-day decay rule from #19 therefore does not apply to Top-N launches — there is nothing to decay.
+
+### Top-N launch recipe NOT yet documented
+
+DECISIONS #19 documents the featured-1 launch recipe (file set, schema choices, propagation steps). A parallel **Top-N launch recipe** would be useful, but one launch isn't enough to confirm a pattern — best-frozen-margarita's recipe could turn out to be specific to its shape (Top-2 with both restaurants pre-existing on another ranking) rather than generalizable to a fresh Top-N launch with new restaurants.
+
+Defer recipe documentation until a second Top-N launch shows what the recipe genuinely shares vs. what was specific to this PR. The current PR's commit log + this entry are enough record to reconstruct the steps if needed before then.
+
+### Trade-off accepted
+
+The "no NEW pill on Top-N" convention reads as inconsistent at first glance ("a launch is a launch"). Acceptable because the editorial role of the pill is announcement-of-existence (featured-1 has higher risk of being missed), not announcement-of-novelty (Top-N inherits dropdown discoverability for free). The visual asymmetry is functional, not arbitrary.
