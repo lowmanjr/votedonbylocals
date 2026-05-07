@@ -57,6 +57,21 @@ function TopNLayout({
   // discriminator pattern Featured1Layout uses below.
   const sidePad = isReel ? REEL_SAFE_SIDE_PAD : 40;
 
+  // Row height scales up for small N so rows fill more of the 980px
+  // rows zone instead of stacking at top with empty cream beneath.
+  // Clamped at MAX_ROW_HEIGHT to keep tall rows from looking
+  // comically oversized at very small N.
+  //   N=7 (burger):       980/7 = 140  → 140 (lower clamp = row.height)
+  //   N=5 (canonical):    980/5 = 196  → 196
+  //   N=4:                980/4 = 245  → 245 (<MAX)
+  //   N=3:                980/3 = 327  → 280 (upper clamp)
+  //   N=2 (frozen-marg):  980/2 = 490  → 280 (upper clamp)
+  const MAX_ROW_HEIGHT = 280;
+  const effectiveRowHeight = Math.min(
+    MAX_ROW_HEIGHT,
+    Math.max(row.height, zones.rowsH / data.rows.length),
+  );
+
   const effectiveRowStates: RowState[] = data.rows.map((_, i) => {
     if (isReel && rowStates && rowStates[i]) return rowStates[i];
     return { opacity: 1, yOffset: 0 };
@@ -156,7 +171,7 @@ function TopNLayout({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                height: row.height,
+                height: effectiveRowHeight,
                 opacity: state.opacity,
                 transform: `translateY(${state.yOffset}px)`,
                 borderTop: i === 0 ? '1px solid transparent' : `1px solid ${hexAlpha(colors.gray, 0.15)}`,
