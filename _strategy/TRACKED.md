@@ -84,6 +84,10 @@ Each is a single data update to a multi-location restaurant's `locations[]` arra
 
 - **Backfill Phone + Website rows on `best-new-coffee-shop` sidebar to match `best-bakery` treatment.** `best-new-coffee-shop` sidebar currently shows only Address + Hours (lines 253–271 as of 2026-05-06). `best-bakery` sidebar shows Address + Hours + Phone + Website. Babas Cafe's `restaurants.json` entry has phone (`+1-843-284-6260`) and `websiteURL` (`https://babascharleston.com/`) populated — the rows could be added without fabrication. Editorial choice rather than a bug; both featured-1 pages should probably present the same fields, but the question of whether to expand `best-new-coffee-shop`'s sidebar is separate from any bug fix and warrants its own conversation. File location for fix: `rankings/best-new-coffee-shop.html`. Icon convention to follow: heroicons-v1 solid (20×20) per DECISIONS #21. Sidebar layout would change from `md:grid-cols-2` 2-cell to 4-cell to match `best-bakery`.
 
+### Vote form follow-ups (1 item)
+
+- **Adaptive form fields per selected category on `/vote` page.** Currently the form shows 5 rank fields (rank1 + email + zip required; rank2-5 optional). Voters on sub-Top-5 rankings (Top-2 best-frozen-margarita, Top-4 best-new-restaurants) see unused fields with no per-category guidance; voters on Top-7 best-burger can only contribute 5 of 7 ranks. Form supports partial submission cleanly today (rank2-5 optional per PR #38 investigation), so this is UX polish, not a functional gap. Implementation: net-new client-side JS event listener on the category `<select>`, dynamic show/hide of rank inputs + required-state toggling + legend update ("Rank Your Top {N}") based on each ranking's `spots` count from `data/og_rankings.json`. Investigation estimated 30-60 LOC of greenfield JS. Data-source decision needed at implementation time: runtime fetch of `og_rankings.json` vs inline JS map vs `data-spots="N"` attribute on each `<option>` vs build-time generation. References: PR #38 (P0 fix that investigated this scope); PR #34 (best-frozen-margarita launch that surfaced the gap).
+
 ---
 
 ## Tracked workstreams
