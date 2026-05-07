@@ -144,6 +144,7 @@ function TopNLayout({
         style={{
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'center',
           height: zones.rowsH,
         }}
       >
