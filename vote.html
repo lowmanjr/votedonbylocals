@@ -157,6 +157,12 @@
                         <legend class="text-xl font-bold font-poppins mb-2">Step 2: Choose a Category</legend>
                         <div>
                             <label for="category" class="block text-sm font-medium text-gray-700">What are you ranking?</label>
+                            <!-- Top-N rankings only. Featured-1 launches (e.g.,
+                                 best-bakery, best-new-coffee-shop) route discovery
+                                 via /suggest-category instead of the vote form.
+                                 Append new entries at end on launch (chronological
+                                 by launch date — see Best Burger's PR #27 position
+                                 as the precedent). -->
                             <select id="category" name="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange">
                                 <option>Best Nice Restaurants</option>
                                 <option>Best New Restaurants</option>
@@ -165,6 +171,7 @@
                                 <option>Best Coffee Shops</option>
                                 <option>Best Casual Spots</option>
                                 <option>Best Burger</option>
+                                <option>Best Frozen Margarita</option>
                             </select>
                         </div>
                     </fieldset>
