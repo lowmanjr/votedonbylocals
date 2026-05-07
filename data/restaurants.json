@@ -820,11 +820,15 @@
         {
           "url": "/rankings/best-tex-mex.html",
           "title": "Best Tex-Mex in Charleston"
+        },
+        {
+          "url": "/rankings/best-frozen-margarita.html",
+          "title": "Best Frozen Margarita in Charleston"
         }
       ],
       "phone": "+1-843-352-2997",
-      "hours": "Mo-Su 11:00-22:00",
-      "hoursHumanReadable": "Mon–Sun: 11am–10pm",
+      "hours": "Mo-Sa 11:00-22:00,Su 11:00-21:00",
+      "hoursHumanReadable": "Mon–Sat: 11am–10pm\nSun: 11am–9pm",
       "priceRange": "$$",
       "websiteURL": "https://sanmiguelchs.com"
     },
@@ -942,12 +946,16 @@
         {
           "url": "/rankings/best-tex-mex.html",
           "title": "Best Tex-Mex in Charleston"
+        },
+        {
+          "url": "/rankings/best-frozen-margarita.html",
+          "title": "Best Frozen Margarita in Charleston"
         }
       ],
       "phone": "+1-843-852-0561",
       "hours": "Mo-Th 11:00-22:00,Fr-Sa 11:00-23:00,Su 11:00-21:30",
       "hoursHumanReadable": "Mon–Thu: 11am–10pm\nFri–Sat: 11am–11pm\nSun: 11am–9:30pm",
-      "priceRange": "$",
+      "priceRange": "$$",
       "websiteURL": "https://srtequilacharleston.com"
     },
     {
