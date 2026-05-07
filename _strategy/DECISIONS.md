@@ -571,6 +571,24 @@ DECISIONS #19 documents the featured-1 launch recipe (file set, schema choices, 
 
 Defer recipe documentation until a second Top-N launch shows what the recipe genuinely shares vs. what was specific to this PR. The current PR's commit log + this entry are enough record to reconstruct the steps if needed before then.
 
+### Discovered launch steps (provisional)
+
+Steps confirmed organically across the best-frozen-margarita launch (PR #34) and the post-launch chrome-gap closure (the PR carrying this amendment):
+
+1. **New ranking page** authored from `rankings/_template-canonical.html`, adopting the production JSON-LD pattern (per-item `url` cross-links + `datePublished`/`dateModified` per #15 Q3 + the `dateModified maintenance discipline` workstream), NOT the canonical's bare ItemList shape. Trim row count + ItemList positions to N.
+2. **`data/og_rankings.json`** append the new ranking entry; bump `_meta.lastUpdated`.
+3. **`data/restaurants.json`** edits — `appearsOn` append for any cross-listed restaurants. Sweep stale `priceRange` / `hours` opportunistically while the entry is open (PR #34 caught two: `senor-tequilas` $→$$ and `san-miguel-mexican-grill` flat→split-day hours).
+4. **Detail-page regen** for any cross-listed restaurants via `python scripts/generate_detail_page.py {slug}`. Manually bump `dateModified` on the regenerated detail-page HTML if the `appearsOn` change represents real editorial freshness (the generator preserves prior dates by design — see TRACKED's `dateModified maintenance discipline` workstream; the source-of-truth is the rendered HTML, not `restaurants.json`).
+5. **`components/header.html` nav entry** — Top-N cluster (below the divider), **NO NEW pill** (per this entry's rule). Then `python scripts/inline_chrome.py --refresh` to propagate to ~50 inlined production pages.
+6. **`index.html` homepage grid card** add. Adjust `grid-cols` if the new card count crosses a layout breakpoint (PR #34 went `md:grid-cols-3` → `md:grid-cols-2 lg:grid-cols-4` to absorb the 10th card cleanly).
+7. **OG image** generation: `python scripts/generate_og_images.py --slug {slug}`.
+8. **Sitemap regen**: `python scripts/generate_sitemap.py` to register the new ranking URL.
+9. **`vote.html` dropdown `<option>` append** — Top-N rankings only; featured-1 launches skip this step (those route discovery through `/suggest-category`). **This is the step PR #34 missed and the carrier PR closes.**
+
+10. **Social assets** (separate follow-up PR cadence per the existing pattern, not strictly part of the launch PR): `npm run render:card` and `npm run render:reel` for the ranking. Top-N at small N may need layout adjustment — see the social pipeline's `justifyContent: 'center'` change shipped in PR #37 for the small-N centering convention.
+
+This list is provisional — "things we know are needed," not "the official recipe." Full formalization (with order, verify gates, commit shape) remains deferred per the section above until a second Top-N launch confirms the pattern. For now, the list serves as a checklist for the next Top-N launch to avoid recreating gaps like step 9.
+
 ### Trade-off accepted
 
 The "no NEW pill on Top-N" convention reads as inconsistent at first glance ("a launch is a launch"). Acceptable because the editorial role of the pill is announcement-of-existence (featured-1 has higher risk of being missed), not announcement-of-novelty (Top-N inherits dropdown discoverability for free). The visual asymmetry is functional, not arbitrary.
