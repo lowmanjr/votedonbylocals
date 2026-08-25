@@ -1709,6 +1709,111 @@
       "hoursHumanReadable": "Mon–Sat: 11am–8pm\nSun: Closed",
       "priceRange": "$",
       "websiteURL": "https://hannibalkitchen.com/"
+    },
+    {
+      "slug": "off-track-ice-cream",
+      "name": "Off Track Ice Cream",
+      "tagline": "Scratch-Made Scoops, Vegan Too",
+      "cuisine": "Ice Cream",
+      "neighborhood": "Harleston Village",
+      "schemaType": "IceCreamShop",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "6 Beaufain St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Off Track Ice Cream is a Harleston Village scoop shop in Charleston, SC making traditional and vegan ice cream from scratch since 2019. Voted by Charleston locals as one of the city's best ice cream spots.",
+      "shareTagline": "Scratch-made scoops and vegan pints, voted best by Charleston locals.",
+      "keywords": "Off Track Ice Cream Charleston, best ice cream Charleston SC, vegan ice cream Charleston, Harleston Village ice cream, scratch-made ice cream",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-ice-cream.html",
+          "title": "Best Ice Cream in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "Su-Th 12:00-22:00, Fr-Sa 12:00-23:00",
+      "hoursHumanReadable": "Sun–Thu: 12pm–10pm\nFri–Sat: 12pm–11pm",
+      "priceRange": null,
+      "websiteURL": "https://offtrackicecream.com/"
+    },
+    {
+      "slug": "turbo-cone",
+      "name": "Turbo Cone",
+      "tagline": "Retro Soft Serve, West Ashley",
+      "cuisine": "Soft Serve",
+      "neighborhood": "West Ashley",
+      "schemaType": "IceCreamShop",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "828 St Andrews Blvd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29407",
+        "addressCountry": "US"
+      },
+      "description": "Turbo Cone is a West Ashley soft serve shop in Charleston, SC serving cones, shakes and floats. Voted by Charleston locals as one of the city's best ice cream spots.",
+      "shareTagline": "West Ashley soft serve, voted best by Charleston locals.",
+      "keywords": "Turbo Cone Charleston, best ice cream Charleston SC, soft serve Charleston, West Ashley ice cream, Charleston soft serve shop",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-ice-cream.html",
+          "title": "Best Ice Cream in Charleston"
+        }
+      ],
+      "phone": "+1-843-900-4242",
+      "hours": null,
+      "hoursHumanReadable": "Hours vary — see turbocone.com or call (843) 900-4242 for current hours.",
+      "priceRange": null,
+      "websiteURL": "https://www.turbocone.com/"
+    },
+    {
+      "slug": "gustards-custard",
+      "name": "Gustard's Custard",
+      "tagline": "Frozen Custard, Dogs Welcome",
+      "cuisine": "Frozen Custard",
+      "neighborhood": null,
+      "schemaType": "IceCreamShop",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "2200 Heriot St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Gustard's Custard is a Charleston, SC frozen custard shop serving vanilla, chocolate and seasonal flavors, with pooch scoops for dogs. Voted by Charleston locals as one of the city's best ice cream spots.",
+      "shareTagline": "Frozen custard with a scoop for the dog too, voted best by locals.",
+      "keywords": "Gustard's Custard Charleston, best ice cream Charleston SC, frozen custard Charleston, dog friendly Charleston, Charleston frozen treats",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-ice-cream.html",
+          "title": "Best Ice Cream in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": null,
+      "hoursHumanReadable": "Hours vary — see gustards.com for current hours.",
+      "priceRange": null,
+      "websiteURL": "https://gustards.com/"
     }
   ]
 }

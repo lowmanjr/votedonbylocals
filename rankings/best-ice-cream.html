@@ -1,48 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- KEEP: Google Analytics ----------------------------------------- -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HYJ35LGKCS"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-HYJ35LGKCS');
     </script>
 
+    <!-- KEEP: Standard meta -------------------------------------------- -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>About | Voted On By Locals</title>
-    <meta name="description" content="Learn the story behind Voted On By Locals, a project to create an authentic, community-driven restaurant guide for Charleston, SC.">
+    <!-- REPLACE: SEO meta ---------------------------------------------- -->
+    <title>Best Ice Cream in Charleston, SC | Locals Guide (2026)</title>
+    <meta name="description" content="Discover the best ice cream in Charleston, SC. From scratch-made scoops to soft serve and frozen custard, explore the top spots voted on by the local community.">
+    <meta name="keywords" content="best ice cream Charleston SC, Charleston ice cream rankings, soft serve Charleston, frozen custard Charleston, local favorites Charleston">
 
-    <link rel="canonical" href="https://votedonbylocals.com/about.html">
+    <!-- REPLACE: Canonical URL ----------------------------------------- -->
+    <link rel="canonical" href="https://votedonbylocals.com/rankings/best-ice-cream.html">
 
-    <meta property="og:title" content="About Voted On By Locals — Charleston's Local Food Guide">
-    <meta property="og:description" content="How a Charleston resident built a community-driven restaurant guide with one rule: voters must be locals.">
+    <!-- REPLACE: Open Graph -------------------------------------------- -->
+    <meta property="og:title" content="Best Ice Cream in Charleston | Voted On By Locals">
+    <meta property="og:description" content="Charleston's best ice cream, voted by the local community.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://votedonbylocals.com/about.html">
-    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-default.png">
+    <meta property="og:url" content="https://votedonbylocals.com/rankings/best-ice-cream.html">
+    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-best-ice-cream.png">
     <meta property="og:site_name" content="Voted On By Locals">
 
+    <!-- REPLACE: Twitter card ------------------------------------------ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About Voted On By Locals — Charleston's Local Food Guide">
-    <meta name="twitter:description" content="How a Charleston resident built a community-driven restaurant guide with one rule: voters must be locals.">
-    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-default.png">
+    <meta name="twitter:title" content="Best Ice Cream in Charleston | Voted On By Locals">
+    <meta name="twitter:description" content="Charleston's best ice cream, voted by the local community.">
+    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-best-ice-cream.png">
 
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    
+    <!--
+      REPLACE: JSON-LD structured data.
+
+      aggregateRating is INTENTIONALLY ABSENT from this schema.
+
+      We do not yet have real vote-aggregation data. Adding a fabricated
+      ratingValue + ratingCount (or one derived from the old hardcoded
+      "1,769 votes" copy) would be a structured-data lie that Google can
+      penalize as deceptive markup.
+
+      When real aggregate data exists, add an "aggregateRating" object
+      to each Restaurant item below using actual ratingValue (1–5 scale)
+      and ratingCount (integer). Optionally also add an aggregateRating
+      to the ItemList itself. Schema reference:
+      https://schema.org/aggregateRating
+
+      JSON does not support comments — do NOT add // or /* */ inside the
+      <script> body. Any guidance lives in this HTML comment, outside it.
+
+      The "@type" of each item below is per-page configurable. The default
+      is "Restaurant", which works for most pages. Override on a per-page
+      basis when a more specific subclass of FoodEstablishment applies:
+        - best-coffee-shops    → "CafeOrCoffeeShop"
+        - (future bar page)    → "BarOrPub"
+        - (future club page)   → "NightClub"
+        - (future bakery page) → "Bakery"
+      All these subclass "FoodEstablishment" and pass Google validation.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Best Ice Cream in Charleston, SC",
+      "description": "Discover the best ice cream in Charleston, SC. From scratch-made scoops to soft serve and frozen custard, explore the top spots voted on by the local community.",
+      "datePublished": "2026-08-25T12:00:00-04:00",
+      "dateModified": "2026-08-25T12:00:00-04:00",
+      "url": "https://votedonbylocals.com/rankings/best-ice-cream.html",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "IceCreamShop",
+            "name": "Off Track Ice Cream",
+            "url": "https://votedonbylocals.com/restaurants/off-track-ice-cream.html",
+            "servesCuisine": "Ice Cream",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "IceCreamShop",
+            "name": "Turbo Cone",
+            "url": "https://votedonbylocals.com/restaurants/turbo-cone.html",
+            "servesCuisine": "Soft Serve",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "IceCreamShop",
+            "name": "Gustard's Custard",
+            "url": "https://votedonbylocals.com/restaurants/gustards-custard.html",
+            "servesCuisine": "Frozen Custard",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- BreadcrumbList — Home → Rankings (/#rankings) → Best {Category}.
+         The /#rankings fragment resolves to the homepage, which IS the
+         rankings index (hero "The Charleston Rankings" + 8-card grid).
+         Schema works without an explicit id="rankings" anchor on the
+         page (fragment falls back to top of document). A small UX
+         follow-up is tracked to add the id post-May-20 so the fragment
+         scrolls to the cards section instead of the page top. -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://votedonbylocals.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Rankings",
+          "item": "https://votedonbylocals.com/#rankings"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Best Ice Cream",
+          "item": "https://votedonbylocals.com/rankings/best-ice-cream.html"
+        }
+      ]
+    }
+    </script>
+
+    <!-- KEEP: Favicon -------------------------------------------------- -->
+    <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+
     <!-- KEEP: Fonts ---------------------------------------------------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 
     <!-- KEEP: Tailwind + brand config ---------------------------------- -->
-    
-    <link rel="stylesheet" href="assets/css/built.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    
-    <script src="assets/js/main.js" defer></script>
+
+    <!-- KEEP: Site styles + JS ----------------------------------------- -->
+    <link rel="stylesheet" href="../assets/css/built.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="../assets/js/main.js" defer></script>
 </head>
 <body class="antialiased bg-brand-cream text-brand-dark min-h-screen flex flex-col">
 
@@ -138,22 +266,89 @@
     </nav>
     <!-- /AUTOGENERATED -->
 
-    <main>
-        <div class="container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            
-            <div class="space-y-8 text-center">
-                <div class="bg-white/50 p-6 sm:p-10 rounded-xl shadow-sm">
-                    <h1 class="text-3xl sm:text-4xl font-bold mb-4 font-poppins">Charleston resident here & amateur foodie.</h1>
-                    <div class="space-y-4 text-base sm:text-lg leading-relaxed text-gray-700 max-w-2xl mx-auto">
-                        <p>This started as a fun social experiment and is now, hopefully, catching on!</p>
-                        <p>I wanted to create a community of local food and beverage rankings voted on... by locals! This is a simple, transparent list for us, free from ads and algorithms.</p>
+    <main class="flex-grow">
+        <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+            <!-- HERO ------------------------------------------------------ -->
+            <div class="text-center mb-10">
+                <a href="/" class="inline-flex items-center justify-center py-2 px-4 mb-6 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back to All Rankings
+                </a>
+
+                <!-- REPLACE: hero h1 (Category + Emoji) -->
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight">
+                    Best <span class="text-brand-orange">Ice Cream</span> 🍦
+                </h1>
+
+                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals. Three standouts — with more to come.</p>
+
+                <!-- REPLACE: Updated [Month Year] pill -->
+                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-2 shadow-sm">
+                    Updated August 2026
+                </div>
+            </div>
+
+            <!-- LIST CARD ------------------------------------------------- -->
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
+                <div class="h-2 w-full bg-brand-orange"></div>
+
+                <div class="p-2 sm:p-4">
+                    <div class="divide-y divide-gray-100">
+
+                        <!--
+                          REPEATING ROW — duplicate ×3, replacing {{Restaurant#}}/{{Tagline#}}.
+                          The emoji at the start of each row is the page theme emoji ({{Emoji}}),
+                          re-used so it visually anchors the list.
+                        -->
+
+                        <!-- REPLACE: row 1 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="soft ice cream">🍦</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/off-track-ice-cream.html" class="hover:text-brand-orange transition-colors">Off Track Ice Cream</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Scratch-Made Scoops, Vegan Too</p>
+                            </div>
+                        </div>
+
+                        <!-- REPLACE: row 2 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="soft ice cream">🍦</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/turbo-cone.html" class="hover:text-brand-orange transition-colors">Turbo Cone</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Retro Soft Serve, West Ashley</p>
+                            </div>
+                        </div>
+
+                        <!-- REPLACE: row 3 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="soft ice cream">🍦</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/gustards-custard.html" class="hover:text-brand-orange transition-colors">Gustard's Custard</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Frozen Custard, Dogs Welcome</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                
-                <div class="border-2 border-brand-orange border-dashed p-6 sm:p-8 rounded-xl">
-                     <h2 class="text-2xl font-bold mb-2 font-poppins">The Golden Rule</h2>
-                     <p class="text-lg text-gray-700">To keep this project authentic as it grows, there is just one rule.</p>
-                     <p class="text-xl font-semibold mt-2">To vote, you must be a local.</p>
+
+                <!-- BOTTOM CTA --------------------------------------------- -->
+                <div class="bg-orange-50 p-6 sm:p-8 text-center border-t border-brand-orange/10">
+                    <p class="text-brand-dark font-medium mb-4 text-lg">Disagree with this list? Cast your vote!</p>
+                    <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-4 px-10 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95">
+                        Vote for Best Ice Cream
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                    </a>
                 </div>
             </div>
 
@@ -197,6 +392,5 @@
         </div>
     </div>
     <!-- /AUTOGENERATED -->
-
 </body>
 </html>
