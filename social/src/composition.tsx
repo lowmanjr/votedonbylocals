@@ -264,7 +264,27 @@ function TopNLayout({
 // Featured-1 layout
 // ---------------------------------------------------------------------------
 
-const FEATURED1_CARD_ZONES = { header: 100, hero: 200, body: 960, footer: 90 };
+// Featured-1 carries its own zone model, independent of DESIGN.zones, and its
+// root height is the SUM of these four rather than DESIGN.card.height. `body` is
+// now DERIVED so that sum always equals card.height for any card.height.
+//
+// It was a literal 960, which happened to equal 1350 - 100 - 200 - 90. That
+// coincidence hid the coupling: raising card.height left featured-1 content at
+// 1350 inside a taller canvas, showing a band of un-painted background below the
+// footer. header / hero / footer are content-sized and do not scale.
+const FEATURED1_CARD_HEADER = 100;
+const FEATURED1_CARD_HERO = 200;
+const FEATURED1_CARD_FOOTER = 90;
+const FEATURED1_CARD_ZONES = {
+  header: FEATURED1_CARD_HEADER,
+  hero: FEATURED1_CARD_HERO,
+  body:
+    DESIGN.card.height -
+    FEATURED1_CARD_HEADER -
+    FEATURED1_CARD_HERO -
+    FEATURED1_CARD_FOOTER,
+  footer: FEATURED1_CARD_FOOTER,
+};
 const FEATURED1_REEL_ZONES = { header: 90, hero: 180, body: 1050, footer: 80 };
 // Universal cross-platform safe zone for 1080×1920 reels: 900×1400 centered.
 // Top pad 260 + content 1400 + bottom pad 260 = 1920.
