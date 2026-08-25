@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.2",
-    "lastUpdated": "2026-08-24",
+    "lastUpdated": "2026-08-25",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -1678,7 +1678,7 @@
     {
       "slug": "hannibals-kitchen",
       "name": "Hannibal's Kitchen",
-      "tagline": "Soul Food Landmark, Fried Drumettes",
+      "tagline": "Gullah Soul Food, Fried Drumettes",
       "cuisine": "Soul Food",
       "neighborhood": "Eastside",
       "schemaType": "Restaurant",

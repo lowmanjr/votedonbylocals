@@ -653,10 +653,29 @@ matched cleanly (5, 7, and 2 rows respectively; pill matched on all three).
 - [ ] **`og:image` absolute, favicon relative** (DECISIONS #10).
 - [ ] **Chrome not hand-edited** in any of the 58 pages - only
       `components/header.html` plus `--refresh`.
-- [ ] **First render of the U+1F357 emoji needs network.** `social/src/emoji.ts`
+- [ ] ~~**First render of the U+1F357 emoji needs network.** `social/src/emoji.ts`
       fetches Twemoji `1f357.svg` from `cdn.jsdelivr.net` on cache miss and writes
       to `social/.emoji-cache/`, which is gitignored and currently holds only
-      `1f950` and `2615`. Applies to the social PR, not the launch PR.
+      `1f950` and `2615`. Applies to the social PR, not the launch PR.~~
+
+      **CORRECTION (2026-08-25): this checklist item was wrong and is void.** A
+      Top-N card never requests an emoji at all, so no fetch happens and the empty
+      cache is irrelevant. `TopNLayout` renders the rank as a number inside an
+      orange circular badge (`{r.rank}`, `composition.tsx` row-badge block), and
+      `RankingRow` in `social/src/data.ts` carries only `{rank, name, tagline}` —
+      there is no emoji field on the Top-N path. The only two emoji references in
+      `composition.tsx` (lines 420 and 496) are both inside `Featured1Layout`.
+
+      The cache contents corroborate this exactly: `.emoji-cache/` holds `1f950`
+      (croissant) and `2615` (hot beverage), which are precisely best-bakery's
+      featured-1 icon group. Neither best-burger nor best-frozen-margarita — both
+      Top-N, both rendered — contributed a single file.
+
+      The original claim is kept struck through rather than deleted because the
+      underlying mechanism it describes is real and still applies: `emoji.ts` does
+      fetch from jsdelivr on cache miss, and that *would* bite a **featured-1**
+      launch introducing a new icon. The error was scoping it to a Top-N launch,
+      where the emoji path is never exercised.
 - [ ] **`_strategy/` docs updated in the same PR as the file edits** they describe
       - DECISIONS #22 requires the file edit, not just PR-description prose.
 
@@ -1102,7 +1121,7 @@ Top-5 assumptions earlier in this file:
   | Rank | Restaurant | Tagline |
   |---|---|---|
   | 1 | Home Team BBQ | `BBQ Institution, Wings to Match` |
-  | 2 | Hannibal's Kitchen | `Soul Food Landmark, Fried Drumettes` |
+  | 2 | Hannibal's Kitchen | `Gullah Soul Food, Fried Drumettes` (superseded `Soul Food Landmark, Fried Drumettes` post-launch - see note below) |
   | 3 | Moe's Crosstown Tavern | `Dive Bar Wings, Open Till 2am` |
 
   All three differ from the same restaurant's taglines on any other list, which is
@@ -1213,7 +1232,11 @@ different thing, and the sourced description supports the distinction.
 Editorial fields drafted to the site's register, asserting only sourced facts
 (operating since 1985, Huger family, soul food, Eastside, fried drumettes):
 
-- `tagline`: `Soul Food Landmark, Fried Drumettes`
+- `tagline`: ~~`Soul Food Landmark, Fried Drumettes`~~ -> **`Gullah Soul Food, Fried Drumettes`**
+  (superseded post-launch. "Landmark" duplicated the claim already made by row 1's
+  "BBQ Institution"; the replacement is grounded in their own About page, which leads
+  on Gullah culture and the Eastside. Single-listed, so `restaurants.json.tagline` and
+  the ranking-page row string move together.)
 - `description`: `Hannibal's Kitchen is an Eastside soul food landmark in Charleston, SC, serving Gullah classics and fried wing drumettes since 1985. Voted by Charleston locals as one of the city's best wings.`
 - `shareTagline`: `Eastside soul food since 1985, voted best wings by Charleston locals.`
 - `keywords`: `Hannibal's Kitchen Charleston, best wings Charleston SC, soul food Charleston, Eastside Charleston restaurants, Gullah food Charleston`
