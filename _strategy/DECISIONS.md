@@ -565,29 +565,117 @@ Reasoning: discoverability for Top-N launches is sufficient via dropdown orderin
 
 The 60-day decay rule from #19 therefore does not apply to Top-N launches — there is nothing to decay.
 
-### Top-N launch recipe NOT yet documented
+### Top-N launch recipe — deferral closed
 
-DECISIONS #19 documents the featured-1 launch recipe (file set, schema choices, propagation steps). A parallel **Top-N launch recipe** would be useful, but one launch isn't enough to confirm a pattern — best-frozen-margarita's recipe could turn out to be specific to its shape (Top-2 with both restaurants pre-existing on another ranking) rather than generalizable to a fresh Top-N launch with new restaurants.
+This section previously said: *"one launch isn't enough to confirm a pattern ... defer recipe documentation until a second Top-N launch shows what the recipe genuinely shares vs. what was specific to this PR."*
 
-Defer recipe documentation until a second Top-N launch shows what the recipe genuinely shares vs. what was specific to this PR. The current PR's commit log + this entry are enough record to reconstruct the steps if needed before then.
+**That second launch happened: `best-wings` (Top-3, PR #39, 2026-08-24).** It was the confirming case the deferral was waiting for, and a good one — unlike best-frozen-margarita, where both restaurants already existed on another ranking, best-wings required net-new restaurant entries and therefore exercised the sourcing, schema-creation and OG-generation paths that PR #34 never touched.
 
-### Discovered launch steps (provisional)
+The recipe below is now formalized. The provisional list it replaces was correct as far as it went; what follows adds the parts only a from-scratch launch could reveal.
 
-Steps confirmed organically across the best-frozen-margarita launch (PR #34) and the post-launch chrome-gap closure (the PR carrying this amendment):
+### Top-N launch recipe (formalized)
 
-1. **New ranking page** authored from `rankings/_template-canonical.html`, adopting the production JSON-LD pattern (per-item `url` cross-links + `datePublished`/`dateModified` per #15 Q3 + the `dateModified maintenance discipline` workstream), NOT the canonical's bare ItemList shape. Trim row count + ItemList positions to N.
-2. **`data/og_rankings.json`** append the new ranking entry; bump `_meta.lastUpdated`.
-3. **`data/restaurants.json`** edits — `appearsOn` append for any cross-listed restaurants. Sweep stale `priceRange` / `hours` opportunistically while the entry is open (PR #34 caught two: `senor-tequilas` $→$$ and `san-miguel-mexican-grill` flat→split-day hours).
-4. **Detail-page regen** for any cross-listed restaurants via `python scripts/generate_detail_page.py {slug}`. Manually bump `dateModified` on the regenerated detail-page HTML if the `appearsOn` change represents real editorial freshness (the generator preserves prior dates by design — see TRACKED's `dateModified maintenance discipline` workstream; the source-of-truth is the rendered HTML, not `restaurants.json`).
-5. **`components/header.html` nav entry** — Top-N cluster (below the divider), **NO NEW pill** (per this entry's rule). Then `python scripts/inline_chrome.py --refresh` to propagate to ~50 inlined production pages.
-6. **`index.html` homepage grid card** add. Adjust `grid-cols` if the new card count crosses a layout breakpoint (PR #34 went `md:grid-cols-3` → `md:grid-cols-2 lg:grid-cols-4` to absorb the 10th card cleanly).
-7. **OG image** generation: `python scripts/generate_og_images.py --slug {slug}`.
-8. **Sitemap regen**: `python scripts/generate_sitemap.py` to register the new ranking URL.
-9. **`vote.html` dropdown `<option>` append** — Top-N rankings only; featured-1 launches skip this step (those route discovery through `/suggest-category`). **This is the step PR #34 missed and the carrier PR closes.**
+#### 0. Candidate sourcing — do this before anything else
 
-10. **Social assets** (separate follow-up PR cadence per the existing pattern, not strictly part of the launch PR): `npm run render:card` and `npm run render:reel` for the ranking. Top-N at small N may need layout adjustment — see the social pipeline's `justifyContent: 'center'` change shipped in PR #37 for the small-N centering convention.
+**Start with roughly twice your target N.** Expect heavy attrition on status checks. On best-wings, of the five restaurants originally proposed, **three were excluded** — and, more starkly, **all three net-new candidates failed**:
 
-This list is provisional — "things we know are needed," not "the official recipe." Full formalization (with order, verify gates, commit shape) remains deferred per the section above until a second Top-N launch confirms the pattern. For now, the list serves as a checklist for the next Top-N launch to avoid recreating gaps like step 9.
+| Candidate | Status | Outcome |
+|---|---|---|
+| Home Team BBQ | pre-existing entry | passed liveness |
+| Moe's Crosstown Tavern | pre-existing entry | passed liveness |
+| Tru Blues House of Wings | net-new | **excluded** — contested status |
+| Nigel's Good Food | net-new | **excluded** — location set contested |
+| Dashi | net-new | **excluded** — permanently closed 2026-06-14 |
+| Hannibal's Kitchen | net-new, substituted in | passed |
+
+A fourth net-new candidate had to be found to land a Top-3. Scale that: a fresh Top-5 with no pre-existing entries should start from ~10 candidates. Budget the sourcing pass as real work, not a formality — it is where the launch actually gets decided.
+
+#### The two-gate sourcing rule
+
+Every candidate must clear **two independent gates**, and the admissible evidence differs:
+
+| Question | Own website | Dated third-party signals |
+|---|---|---|
+| **Identity** — brand name and spelling, address, phone, menu, what it serves | **AUTHORITATIVE** | corroborating only |
+| **Liveness** — is it currently operating, current hours | **INADMISSIBLE** | **REQUIRED** |
+
+Restaurant websites are near-universally maintained for identity and near-universally stale on status. All three failures on best-wings turned on exactly that split:
+
+- **Tru Blues** — its own site is the *best* source for the brand spelling (own header reads "Tru Blues House of Wings", no apostrophe, contra Instagram/Facebook "Tru Blue's" and Tripadvisor "True Blue's") and simultaneously *worthless* as evidence the doors are open.
+- **Nigel's** — the own site advertised a Hanahan location with full hours that Yelp had marked closed that same month, while silently dropping the 2011 original that Yelp had marked closed two months earlier.
+- **Hannibal's** (which passed) — its own About page still carries a COVID-era line about being closed for in-house dining with patio service only, years stale. Identity came from the own site; hours from three independent listings.
+
+Rules that fall out of this:
+
+1. An own-site page is **never** sufficient evidence of liveness, however current it looks.
+2. A **conflict** between sources is disqualifying, exactly like a confirmed closure. Only converging evidence of "open" clears the gate.
+3. Distinguish the two failure modes when filing TRACKED: a **conflict** gets a re-verification trigger (Tru Blues, Nigel's); a **confirmed permanent closure** gets a no-trigger record whose purpose is to stop a future session re-proposing it (Dashi).
+4. The gate applies to **pre-existing entries too**, not just new ones. Any restaurant about to receive a new listing and a `dateModified` bump must clear it first — the bump is an assertion of freshness, and asserting freshness about a closed restaurant is worse than saying nothing.
+5. Verify the **category claim**, not just existence. Hannibal's went on a wings list, so its wings were confirmed on the menu (drumettes in the house batter, per a Post and Courier review) before it shipped. Note that restaurantji's listing surfaces no wings at all — a single-source check would have produced a false negative.
+
+#### `servesCuisine` is list-scoped
+
+**Ranking-page ItemList `servesCuisine` is hand-authored per list. It is NOT a copy of `restaurants.json.cuisine`.** This was undocumented anywhere until now, and it governs **12 of the 40 pre-best-wings ItemList entries**.
+
+The rule: **override the generic, preserve the specific.**
+
+- Where `restaurants.json.cuisine` is a *specific* genre, keep it. Home Team BBQ carries `Barbecue` on best-burger, best-casual-spots *and* best-wings — consistent across the graph even though two of those are not barbecue lists.
+- Where it is *generic* (`American` is the usual offender), use the list's category. Moe's Crosstown Tavern is `American` in the data, `Burgers` on best-burger, `Wings` on best-wings.
+- Refinements are also legitimate: `Mexican` → `Tex-Mex` on best-tex-mex; `American` → `Contemporary American` on best-nice-restaurants.
+
+This is separate from DECISIONS #18, whose "`servesCuisine` always uses the raw `cuisine` field" rule governs the **detail-page generator** only. Two different documents, two different rules. Do not unify them.
+
+Because these are hand-picked editorial calls, **flag them in the PR body rather than deciding silently.**
+
+#### Ranking length
+
+**Top-3** joins the documented precedents. The full set is now featured-1 / **Top-2** / **Top-3** / Top-4 / Top-5 / Top-7. Sub-canonical counts take count framing per #4 and #19:
+
+> "As voted by Charleston locals. Three standouts — with more to come."
+
+Top-2 and Top-3 both arrived the same way: not as a target, but as what survived honest sourcing. That is the #4 anti-fabrication principle working as designed — **N is an output of consensus depth and verification, never an input.** If sourcing leaves you with three, ship three.
+
+#### The step sequence
+
+1. **Sourcing pass** (section 0 above). Nothing else starts until the roster is settled.
+2. **New ranking page** authored from `rankings/_template-canonical.html`, adopting the production JSON-LD pattern (per-item `url` cross-links + `datePublished`/`dateModified` per #15 Q3), NOT the canonical's bare ItemList shape. Trim rows and ItemList positions to N. Note the canonical's row `<h2>` has no anchor — production rows wrap the name in `<a href="/restaurants/{slug}.html" class="hover:text-brand-orange transition-colors">`, which the social pipeline's regex requires.
+3. **`data/og_rankings.json`** append `{slug, category, spots: N}`; bump `_meta.lastUpdated`. `spots` is not cosmetic — `spots === 1` routes the social pipeline into the featured-1 renderer.
+4. **`data/restaurants.json`** — new entries for net-new restaurants, `appearsOn` append for cross-listed ones. Sweep stale `priceRange`/`hours` opportunistically while the entry is open.
+5. **Detail-page regen** via `python scripts/generate_detail_page.py {slug}` — never `--all`, which rewrites every page and destroys the diff. Then **hand-bump `dateModified`** on any page whose `appearsOn` changed; the generator preserves prior dates by design, so regeneration alone leaves them stale.
+6. **`components/header.html`** nav entry, Top-N cluster below the divider, **no NEW pill**. Then `python scripts/inline_chrome.py --refresh`.
+7. **`index.html`** homepage grid card. Adjust `grid-cols` only if the count genuinely breaks the layout.
+8. **`vote.html`** `<option>` appended at end. Top-N only — featured-1 routes discovery through `/suggest-category`.
+9. **OG images**: `python scripts/generate_og_images.py --slug {slug}` for the ranking and for each net-new restaurant.
+10. **Sitemap**: `python scripts/generate_sitemap.py`.
+11. **TRACKED filing** for every exclusion, as a same-PR file edit per #22.
+12. **Social assets** — separate follow-up PR cadence, not part of the launch PR.
+
+#### Ordering constraints that will bite
+
+- **`generate_sitemap.py` must run AFTER the `dateModified` bumps.** It reads `dateModified` to build `<lastmod>`. Run it before the bumps and the sitemap ships stale dates, silently. On best-wings this meant deviating from the written step order.
+- **The ItemList JSON-LD block must precede BreadcrumbList.** `generate_sitemap.py` parses only the *first* `ld+json` block. Put BreadcrumbList first and `<lastmod>` vanishes with no error and no warning.
+- **New ranking and detail pages must exist before `inline_chrome.py --refresh`**, or they ship with stale chrome and `--check` exits 2.
+- **`npm run build:css` only if new utility classes appear.** Copying an existing page introduces none; verify with a class-set diff rather than running it reflexively.
+
+#### Environment
+
+**Playwright's Chromium must be installed before `generate_og_images.py` will run**: `python -m playwright install chromium` (~87 MB). `requirements.txt` declares `playwright>=1.40`, but that is the Python package only — the browser binary is a separate download and a fresh machine will not have it. The failure mode is a wall of box-drawing characters telling you to run `playwright install`.
+
+#### Merge
+
+**Set the squash subject explicitly.** This repo squash-merges (linear history, single-parent commits, `(#N)` appended). GitHub defaults the squash subject to the **PR title**, which is prose and will land on `main` without a conventional type prefix. Pass it:
+
+```
+gh pr merge {N} --squash --subject "feat: ... (#{N})" --body-file {commit-body} --delete-branch
+```
+
+Type must have precedent in this repo: `feat` / `docs` / `fix` / `chore`. Ranking launches are `feat`. Do not invent a type.
+
+#### Traps that look like bugs but are not
+
+- **`{{Emoji}}` in `og-templates/ranking.html`** is declared in the docblock but never substituted by `render_ranking`. It looks like an unfilled-placeholder bug. It is not — the occurrence is inside an HTML comment, and per that template's intentional decision #6 emoji were deliberately removed in schemaVersion 1.1. **Leave it alone.**
+- **`{{Emoji}}`, `{{Restaurant#}}` and `{{Tagline#}}` surviving in a shipped ranking page** are likewise inside the REPEATING ROW documentation comment. Every production Top-N page carries them. A placeholder sweep must exclude HTML comments or it will produce false positives.
+- **`inline_chrome.py` writing LF while the working copy is CRLF.** `core.autocrlf=true` plus the generator's deliberate `_write_lf` means git stores LF and converts on checkout. The "LF will be replaced by CRLF" warnings are cosmetic; diffs stay minimal.
 
 ### Trade-off accepted
 

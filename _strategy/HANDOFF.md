@@ -14,13 +14,18 @@ You're picking up the Voted On By Locals project in a fresh session. This page g
 
 That's about 30 minutes of reading. Don't skip it.
 
-## Last session summary (May 4, 2026 — evening)
+## Last session summary (August 24–25, 2026)
 
-Three PRs merged in a focused step-5 + follow-ups session. Prior afternoon session (PRs #12, #13, #14) and earlier May 4 session (PRs #5–10) fully captured in `_strategy/TRACKED.md` Resolved.
+`best-wings` launched as a **Top-3** — the second Top-N launch, and the one that closed the recipe deferral in DECISIONS #23.
 
-- **PR #16** — Master plan step 5: Open Graph image generation. All 42 OG PNGs shipped (8 rankings + 33 details + 1 default) via a Playwright + headless Chromium pipeline at 1200×630, deviceScaleFactor=2. Templates in `og-templates/` (ranking, detail, default); brand colors substituted at render time from `tailwind.config.js` so the single-source-of-truth invariant holds. Three-tier adaptive font sizing on detail names (132/108/84px) with worst-case validator (Bon Banh Mi at 35 chars). Intentional decisions docblocked per template: no emoji (Segoe UI Emoji is Windows-specific and would silently change glyph across rendering hosts), no URL stamp (brand-mark already reads as site identity), no date (avoid cache invalidation on monthly refresh). Same-PR `index.html` chrome edits added `og:image`, `og:site_name`, and `twitter:card`. Two follow-ups filed in TRACKED: top-level pages OG coverage (5 pages still bare) and OG meta-line dedup (Harbinger redundancy class). New dependency: `playwright>=1.40` in `requirements.txt`.
-- **PR #17** — OG backplate fix via `color-mix` on `brand.orange` at 14%. The brand-mark icon backplate in all three OG templates had been using Tailwind's `orange-50` (`#FFF7ED`) — fine on the live header's white nav bar but invisible on the OG cream canvas (`#FFF8F0`, one hex-digit difference). Replaced with `color-mix(in srgb, var(--brand-orange) 14%, transparent)` so the backplate derives from the brand-orange token. All 42 PNGs re-rendered; spot-checked across composition variants. Asset-only refresh; no chrome edits.
-- **PR #18** — BreadcrumbList JSON-LD across 8 rankings + 33 details. Ranking shape: `Home → Rankings (/#rankings) → Best {Category}`. Detail shape: `Home → {RestaurantName}` (no intermediate "Restaurants" node — site has no /restaurants index or nav category, and detail pages are cross-listed across rankings, so a parent ranking would be ambiguous). The `/#rankings` fragment resolves to the homepage today; small post-May-20 follow-up filed in TRACKED to add `id="rankings"` to the cards section so the fragment becomes a real on-page anchor (no schema change needed when shipped). Detail pages regenerated via `scripts/generate_detail_page.py --all`; date-preservation verified clean (zero `dateModified` drift across all 33 pages). Ranking pages hand-edited (no ranking-page generator exists). Schema-only PR; GSC quiet-window safe.
+- **PR #39** — `best-wings` Top-3: Home Team BBQ, Hannibal's Kitchen, Moe's Crosstown Tavern. 64 files. One net-new restaurant entry (`hannibals-kitchen`), two `appearsOn` appends, full registry pass (nav, homepage grid, vote form, `og_rankings.json`), 2 new OG PNGs, sitemap regen. Merged as `cb61c37`.
+- **The roster shrank from 5 to 3 during sourcing.** Three of the five proposed restaurants were excluded and all three net-new candidates failed: Dashi (confirmed permanently closed 2026-06-14), Tru Blues House of Wings (contested status), Nigel's Good Food (location set contested). Hannibal's Kitchen was sourced as a replacement and passed. All filed in TRACKED with the conflict-vs-closure distinction: the first two carry re-verification triggers, Dashi carries a no-trigger record so a future session does not re-propose it.
+- **Two rules were discovered and are now documented in DECISIONS #23.** (a) The identity-vs-liveness gate: an own website is authoritative for name, address and menu, and *inadmissible* as evidence the doors are open — liveness needs dated third-party signals, and a conflict between sources disqualifies exactly like a closure. (b) `servesCuisine` on ranking ItemLists is list-scoped and hand-authored, not copied from `restaurants.json`; it governs 12 of 40 pre-launch entries and had never been written down.
+- **Top-3 is a new ranking-length precedent**, alongside Top-2 from PR #34. Both arrived as what survived honest sourcing rather than as a target — N is an output, never an input.
+- **PR #40** (open) — reword Hannibal's tagline; the shipped "Soul Food Landmark" duplicated row 1's "BBQ Institution".
+- **PR #41** (open) — this documentation pass: formalize the Top-N recipe, correct the merge norm, refresh this summary, fix the stale page count in `inline_chrome.py`.
+
+Ordering gotcha worth remembering: `generate_sitemap.py` reads `dateModified` to build `<lastmod>`, so it must run **after** any `dateModified` bumps or the sitemap ships stale dates silently.
 
 ## Master plan position
 
@@ -38,9 +43,9 @@ Steps 1–6 are now done; step 7 is the only formal master plan item remaining. 
 
 ## Calendar pin
 
-GSC re-audit window **May 7–20**. Avoid URL-structure changes during that window — Google's recrawl should land cleanly on the URL set as-of merge.
+~~GSC re-audit window **May 7–20**~~ — **this window closed 2026-05-20 and is no longer binding** (noted 2026-08-25). URL-structure work is unblocked, including the Netlify pretty-URL canonical asymmetry in TRACKED. The reasoning below is retained because it applies to the *next* sitemap resubmission, not because a window is currently open.
 
-Why it matters: Google takes ~2 weeks to crawl a freshly submitted sitemap. URL changes mid-crawl confuse re-indexing — pages can lose ranking signal that took weeks to establish. Wait until post-window for any redirect/routing work (e.g., the Netlify pretty-URL canonical asymmetry in TRACKED).
+Why it matters: Google takes ~2 weeks to crawl a freshly submitted sitemap. URL changes mid-crawl confuse re-indexing — pages can lose ranking signal that took weeks to establish.
 
 URL-stable workstreams that are safe in-window:
 - OG image generation (adds asset files, no URL changes)
@@ -51,7 +56,7 @@ The most recent `--refresh` PR (#10) is a worked example: tooling-only changes t
 
 ## Workflow norms — confirmed and reinforced this session
 
-- **Claude Code drives PR lifecycle end-to-end:** branch, commits, push, PR, deploy poll, mechanical preview verify, rebase-merge, branch delete, local main reset. User intervenes only for visual judgment, substantive design questions, or halts.
+- **Claude Code drives PR lifecycle end-to-end:** branch, commits, push, PR, deploy poll, mechanical preview verify, squash-merge, branch delete, local main reset. **Squash, not rebase** — corrected 2026-08-25 against the evidence: `main` is linear, merge commits have a single parent, and each carries a `(#N)` suffix, which is squash behaviour. Pass `--subject` explicitly at merge time, because GitHub defaults the squash subject to the PR title and that will land without a conventional type prefix (see DECISIONS #23, "Merge"). User intervenes only for visual judgment, substantive design questions, or halts.
 - **Netlify-tolerant anchor regex memoized:** preview-verification regex must allow single OR double quotes, alphabetized attr order, and optional `.html` (Netlify pretty-URLs). Silent default in verification scripts; not surfaced as a finding.
 - **Investigation-first:** before any branch/commit, dump current state (data counts, generator handling, TRACKED.md content, JSON-LD, marker presence, etc.) so edits are surgical and halts surface early. Six PRs landed today using this cadence with zero rollbacks.
 - **Tight scope per PR:** opportunistic SEO/infra adds get pulled if they cost more than nothing. PR #4's `_redirects` revert (May 3) remains the worked example.

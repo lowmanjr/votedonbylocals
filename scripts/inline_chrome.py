@@ -33,7 +33,7 @@ Run from project root:
     python scripts/inline_chrome.py --check --verbose  # plus per-file diff
 
 --check exit codes:
-    0 — all 49 files in sync
+    0 — all files in sync (56 as of 2026-08-25; the count grows with each launch)
     1 — divergence detected
     2 — markers missing on at least one region (post-retrofit error)
 """
@@ -429,7 +429,7 @@ def run_refresh():
 def main():
     parser = argparse.ArgumentParser(
         description=(
-            "Inline header/footer chrome from components/ into 49 production "
+            "Inline header/footer chrome from components/ into all production "
             "HTML pages, with marker-wrapped output, a --check mode for "
             "detecting divergence, and a --refresh mode for re-inlining "
             "after components/ edits."
