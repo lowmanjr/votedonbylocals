@@ -729,7 +729,7 @@ reel.height 1920 - padTop 285 - padBottom 285 = 1350 = card.height
 
 That arithmetic was load-bearing while reels shipped — the reel literally wrapped the same 1350-tall composition in symmetric padding. **It no longer constrains anything.** `card.height` is now free to change without reference to the reel numbers.
 
-**After any future card resize that identity will stop reconciling** — e.g. a 3:4 card at 1080x1440 gives `1920 - 570 = 1350 != 1440`. **This is expected, not a bug.** Do not "fix" `DESIGN.reel` to restore the arithmetic, and do not treat the mismatch as evidence of a broken resize. The reel constants are frozen at their retirement values and describe a renderer that no longer runs.
+**REALIZED 2026-08-25 (#25).** This was written as a prediction; the resize has since happened. `card.height` is now **1440**, so the identity no longer reconciles: `1920 - 570 = 1350 != 1440`. **This is expected, not a bug** — it is the outcome this entry anticipated, and it confirms the reel constants are now fully decoupled from the card. Do not "fix" `DESIGN.reel` to restore the arithmetic, and do not treat the mismatch as evidence of a broken resize. The reel constants are frozen at their retirement values and describe a renderer that no longer runs.
 
 ### Card geometry note, recorded while it was verified
 
@@ -739,7 +739,7 @@ The card is a fixed-height flex column with **no `flexGrow` and no absolute posi
 headerH 100 + heroH 180 + rowsH 980 + footerH 90 = 1350 = card.height
 ```
 
-So changing `card.height` alone does **not** reflow — it leaves unallocated space at the bottom of the column (1440 would leave 90px of dead cream). A resize has to redistribute the zone heights too; `rowsH` is the natural sink, and it already carries `justifyContent: 'center'` from the PR #37 small-N change, so rows would stay optically centred.
+So changing `card.height` alone did **not** reflow — it left unallocated space at the bottom of the column (1440 would have left 90px of dead cream). **Fixed in #25**, which makes `rowsH` derived so the zones always sum to `card.height`. `rowsH` is the natural sink, and it already carries `justifyContent: 'center'` from the PR #37 small-N change, so rows would stay optically centred.
 
 ### Verification
 
@@ -752,3 +752,65 @@ Leaving unreachable reel branches in `composition.tsx` means the file reads as i
 ### Existing reel artifacts
 
 The three rendered `reel.mp4` files under `social-assets/` are left in place. That directory is gitignored, so they are local-only and nothing in the repo references them.
+
+---
+
+## #25 — Card height is layout-agnostic; default moved to 1440 (3:4)
+
+**Date:** 2026-08-25
+**Status:** Decided
+**Anchor:** #24 (reel retirement; recorded the zone-sum coupling this entry resolves).
+
+### The coupling that was removed
+
+`DESIGN.zones.rowsH` was the literal `980`. That happened to equal `1350 - 100 - 180 - 90`, so the four zones summed to exactly `card.height` — by coincidence, not by construction. Nothing enforced it, and nothing flagged it: the card tree has **no `flexGrow` and no absolute positioning**, so a taller canvas would simply have stranded unpainted space at the bottom of the column.
+
+`rowsH` is now **derived**:
+
+```
+rowsH = card.height - headerH - heroH - footerH
+```
+
+`headerH` / `heroH` / `footerH` stay literal because they are **content-sized** — a fixed lockup, a fixed hero block, a fixed footer line. They do not scale with canvas height. `rowsH` is the **sink** that absorbs the remainder. `DESIGN_ZONES_ROWSH` still overrides if a caller wants to break the identity deliberately.
+
+### Featured-1 had the same bug, independently
+
+`FEATURED1_CARD_ZONES` in `composition.tsx` is a **second, separate height model**: featured-1's root height is the *sum of its own four zones*, not `DESIGN.card.height`. Its `body` was the literal `960`, which happened to equal `1350 - 100 - 200 - 90`. Same coincidence, same latent bug, in a different file.
+
+This was missed by an earlier investigation that only traced `TopNLayout`. It surfaced here by probing rather than reasoning — rendering `best-bakery` with `DESIGN_CARD_HEIGHT=1440` forced, with no code change, produced a 1080x1440 PNG whose cream stopped at 1350 with a **white band across the bottom 90px**. The dimension assertion in `render-card.ts` did *not* catch it, because satori sizes the canvas from `DESIGN.card` regardless of what the React tree asks for. So the failure mode was visual, not a crash.
+
+`FEATURED1_CARD_ZONES.body` is now derived the same way. `FEATURED1_REEL_ZONES` is untouched — that path is dead per #24.
+
+### Why 1440
+
+1080x1440 is **3:4**, which is what Instagram's 2026 grid previews at. A 4:5 card (1080x1350) is trimmed roughly **7 percent top and bottom** on the profile grid, which crops into the hero and the footer wordmark. 1350 remains available at any time via `DESIGN_CARD_HEIGHT=1350`, and the derivation keeps the zone sum correct at that height too.
+
+### What the extra 90px does to the layout
+
+`rowsH` goes 980 -> 1070. At `row.height` 140 that is 7.64 rows of capacity, up from exactly 7.00.
+
+| Ranking | Rows | Used | Slack in rowsH | Reads as |
+|---|---|---|---|---|
+| best-burger | 7 | 980 | 90 (45 above / 45 below) | comfortable — a clear improvement on 1350, where 7 rows filled `rowsH` with **zero** slack |
+| best-wings | 3 | 420 | 650 (325 above / 325 below) | **sparse** — the row block is centred but adrift in the middle of the card |
+
+The sparseness at low N is **not** caused by this change — 3 rows in the old 980 already left 560px of slack. 1440 widens it by 90px. Rows stay optically centred either way because the rows zone carries `justifyContent: 'center'` from PR #37.
+
+If low-N cards should read tighter, the lever is **not** card height. Options, none taken here: scale `row.height` with row count, cap `rowsH` at `rows * row.height` plus a margin and let the hero absorb the rest, or give low-N cards a distinct layout. Left open deliberately — it is an editorial call about how a Top-3 should look, not a geometry bug.
+
+### Verification
+
+Each derivation was proven **behavior-preserving before** the default moved, by rendering at the old height and byte-comparing:
+
+| Check | Result |
+|---|---|
+| best-burger at `DESIGN_CARD_HEIGHT=1350`, before vs after deriving `rowsH` | **byte-identical**, 96,531 b, sha256 `ea6f5e09...3604d87` |
+| best-bakery at `DESIGN_CARD_HEIGHT=1350`, before vs after deriving featured-1 `body` | **byte-identical**, 71,340 b, sha256 `cf41980e...cb87c577` |
+| `npm run typecheck` | exits 0 |
+| best-wings / best-burger at the new default | both 1080x1440, verified from the PNG headers |
+
+Byte-identity at the old height is the whole point: it proves the derivation computes exactly what the literal did, so the only behavioural change is the one the default flip makes deliberately.
+
+### Trade-off accepted
+
+Two zone models still exist — `DESIGN.zones` for Top-N, `FEATURED1_CARD_ZONES` for featured-1 — and both must now be kept in sync with `card.height` by hand if a fifth zone is ever added. Unifying them was out of scope here; the byte-identical guarantees above only hold because the change to each was minimal. If a third layout appears, unify first.

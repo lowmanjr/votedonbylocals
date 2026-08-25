@@ -13,6 +13,19 @@ function envStr(key: string, fallback: string): string {
   return raw === undefined || raw === '' ? fallback : raw;
 }
 
+// Hoisted above DESIGN so `zones.rowsH` can derive from them. An object literal
+// cannot reference its own properties during construction, so the inputs to the
+// derivation have to live out here.
+//
+// headerH / heroH / footerH are CONTENT-SIZED: they hold a fixed lockup, a fixed
+// hero block and a fixed footer line, so they do not scale with canvas height.
+// rowsH is the SINK — it absorbs whatever the card height leaves over, which is
+// what makes card.height changeable without stranding dead space at the bottom.
+const CARD_HEIGHT = envNum('DESIGN_CARD_HEIGHT', 1440);
+const HEADER_H = envNum('DESIGN_ZONES_HEADERH', 100);
+const HERO_H = envNum('DESIGN_ZONES_HEROH', 180);
+const FOOTER_H = envNum('DESIGN_ZONES_FOOTERH', 90);
+
 export const DESIGN = {
   colors: {
     cream: envStr('DESIGN_COLORS_CREAM', '#FFF8F0'),
@@ -27,7 +40,7 @@ export const DESIGN = {
   },
   card: {
     width: envNum('DESIGN_CARD_WIDTH', 1080),
-    height: envNum('DESIGN_CARD_HEIGHT', 1350),
+    height: CARD_HEIGHT,
   },
   // Reels were retired 2026-08-25 (DECISIONS #24). This block is RETAINED and
   // INERT: composition.tsx destructures `reel` from DESIGN and its isReel
@@ -41,10 +54,14 @@ export const DESIGN = {
     padBottom: envNum('DESIGN_REEL_PADBOTTOM', 285),
   },
   zones: {
-    headerH: envNum('DESIGN_ZONES_HEADERH', 100),
-    heroH: envNum('DESIGN_ZONES_HEROH', 180),
-    rowsH: envNum('DESIGN_ZONES_ROWSH', 980),
-    footerH: envNum('DESIGN_ZONES_FOOTERH', 90),
+    headerH: HEADER_H,
+    heroH: HERO_H,
+    // DERIVED, not hardcoded. Was a literal 980, which happened to equal
+    // 1350 - 100 - 180 - 90 and so silently coupled the zone model to one
+    // specific card height. Deriving it means the four zones always sum to
+    // card.height exactly, for any card.height.
+    rowsH: envNum('DESIGN_ZONES_ROWSH', CARD_HEIGHT - HEADER_H - HERO_H - FOOTER_H),
+    footerH: FOOTER_H,
   },
   row: {
     height: envNum('DESIGN_ROW_HEIGHT', 140),
