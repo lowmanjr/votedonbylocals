@@ -680,3 +680,75 @@ Type must have precedent in this repo: `feat` / `docs` / `fix` / `chore`. Rankin
 ### Trade-off accepted
 
 The "no NEW pill on Top-N" convention reads as inconsistent at first glance ("a launch is a launch"). Acceptable because the editorial role of the pill is announcement-of-existence (featured-1 has higher risk of being missed), not announcement-of-novelty (Top-N inherits dropdown discoverability for free). The visual asymmetry is functional, not arbitrary.
+
+---
+
+## #24 — Reel rendering retired; card-only social pipeline
+
+**Date:** 2026-08-25
+**Status:** Decided
+**Anchor:** #19 (featured-winner launch recipe, social-card deferral), #23 (Top-N launch recipe, step 12 "Social assets").
+
+### What was decided
+
+**Reel (`.mp4`) rendering is retired.** The social pipeline is card-only from 2026-08-25. Three reels were ever produced — best-bakery, best-burger, best-frozen-margarita, all in May 2026 — and none since. `best-wings` never got one.
+
+### Removed
+
+| Path | Why it was reel-only |
+|---|---|
+| `social/scripts/render-reel.ts` | reel entry point; frame loop plus `ffmpeg` stitching |
+| `social/src/timing.ts` | imported by `render-reel.ts` and nothing else; every export is frame-based |
+| `DESIGN.anim` in `social/src/design.ts` | consumed only by `timing.ts` and `render-reel.ts` |
+| `DESIGN.featured1Anim` in `social/src/design.ts` | same |
+| `render:reel` npm script | reel entry point |
+
+This also drops the external **`ffmpeg`** binary dependency, which was never declared anywhere — `render-reel.ts` shelled out to it and failed at runtime if absent.
+
+### Deliberately NOT removed
+
+**`social/src/composition.tsx` is untouched.** Its `isReel` branches are now unreachable, but cutting them is surgery inside the file the card renders from, and the risk is not worth the tidiness. What is now dead but retained:
+
+- `const isReel = mode === 'reel'` in both `TopNLayout` and `Featured1Layout` — permanently `false`, because `render-card.ts` is the only remaining entry point and it hardcodes `mode: 'card' as const`.
+- Everything after `if (!isReel) return cardEl;` (`TopNLayout`) and `if (!isReel) return composedBody;` (`Featured1Layout`) — the reel canvas wrappers.
+- `REEL_SAFE_TOP_PAD` (260) and `REEL_SAFE_SIDE_PAD` (90), and the `sidePad` ternaries that select them. `sidePad` now constant-folds to 40.
+- `RowState` / `Featured1State` types and the `rowStates` / `featured1State` props. `effectiveRowStates` still computes, but its `isReel && rowStates` branch is never taken, so every row resolves to `{opacity: 1, yOffset: 0}`.
+- `FEATURED1_REEL_ZONES`.
+
+**`DESIGN.reel` is retained on purpose.** `composition.tsx` destructures `reel` from `DESIGN` and its unreachable branches still reference `reel.width` / `.height` / `.padTop` / `.padBottom`. Removing the block while leaving `composition.tsx` alone breaks `npm run typecheck`. The block is annotated in place so it is not later deleted as apparent dead code. It is inert: nothing reads it at runtime.
+
+### Looks broken, is not
+
+Same class as the `{{Emoji}}` trap in #23.
+
+The reel canvas was sized so that its padding wrapped the card body exactly:
+
+```
+reel.height 1920 - padTop 285 - padBottom 285 = 1350 = card.height
+```
+
+That arithmetic was load-bearing while reels shipped — the reel literally wrapped the same 1350-tall composition in symmetric padding. **It no longer constrains anything.** `card.height` is now free to change without reference to the reel numbers.
+
+**After any future card resize that identity will stop reconciling** — e.g. a 3:4 card at 1080x1440 gives `1920 - 570 = 1350 != 1440`. **This is expected, not a bug.** Do not "fix" `DESIGN.reel` to restore the arithmetic, and do not treat the mismatch as evidence of a broken resize. The reel constants are frozen at their retirement values and describe a renderer that no longer runs.
+
+### Card geometry note, recorded while it was verified
+
+The card is a fixed-height flex column with **no `flexGrow` and no absolute positioning anywhere**. Its four zones sum exactly to the card height:
+
+```
+headerH 100 + heroH 180 + rowsH 980 + footerH 90 = 1350 = card.height
+```
+
+So changing `card.height` alone does **not** reflow — it leaves unallocated space at the bottom of the column (1440 would leave 90px of dead cream). A resize has to redistribute the zone heights too; `rowsH` is the natural sink, and it already carries `justifyContent: 'center'` from the PR #37 small-N change, so rows would stay optically centred.
+
+### Verification
+
+The best-burger card was rendered immediately before the removal and again immediately after. **Byte-identical**, 96,531 bytes, sha256 `ea6f5e090524d895aa3b17e012116174ca52b176ee00b17da49a3d53a3604d87`. That is the proof the card path was untouched. `npm run typecheck` exits 0.
+
+### Trade-off accepted
+
+Leaving unreachable reel branches in `composition.tsx` means the file reads as if it still supports two modes. Accepted because the alternative — editing the only file the card renders from, purely for tidiness — risks the one output that still matters, and the byte-identical regression check above only holds because that file was not touched. If reels are ever revived, the branches are still there; if the file is refactored for another reason, strip them then, under a test that re-runs the same byte comparison.
+
+### Existing reel artifacts
+
+The three rendered `reel.mp4` files under `social-assets/` are left in place. That directory is gitignored, so they are local-only and nothing in the repo references them.

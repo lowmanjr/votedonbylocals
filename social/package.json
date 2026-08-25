@@ -6,7 +6,6 @@
   "description": "Social asset pipeline (cards + reels) for votedonbylocals rankings",
   "scripts": {
     "render:card": "tsx scripts/render-card.ts",
-    "render:reel": "tsx scripts/render-reel.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

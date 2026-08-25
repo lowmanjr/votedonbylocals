@@ -29,6 +29,11 @@ export const DESIGN = {
     width: envNum('DESIGN_CARD_WIDTH', 1080),
     height: envNum('DESIGN_CARD_HEIGHT', 1350),
   },
+  // Reels were retired 2026-08-25 (DECISIONS #24). This block is RETAINED and
+  // INERT: composition.tsx destructures `reel` from DESIGN and its isReel
+  // branches still reference these values, so removing it breaks typecheck.
+  // Nothing reads it at runtime any more — render-card.ts never passes
+  // mode: 'reel'. Do not 'clean this up' without also editing composition.tsx.
   reel: {
     width: envNum('DESIGN_REEL_WIDTH', 1080),
     height: envNum('DESIGN_REEL_HEIGHT', 1920),
@@ -46,21 +51,6 @@ export const DESIGN = {
     badgeSize: envNum('DESIGN_ROW_BADGESIZE', 80),
     namePx: envNum('DESIGN_ROW_NAMEPX', 36),
     taglinePx: envNum('DESIGN_ROW_TAGLINEPX', 20),
-  },
-  anim: {
-    fps: envNum('DESIGN_ANIM_FPS', 30),
-    totalDurationS: envNum('DESIGN_ANIM_TOTALDURATIONS', 9.5),
-    firstRevealS: envNum('DESIGN_ANIM_FIRSTREVEALS', 0.5),
-    staggerS: envNum('DESIGN_ANIM_STAGGERS', 0.9),
-    rowDurationS: envNum('DESIGN_ANIM_ROWDURATIONS', 0.9),
-    yOffsetPx: envNum('DESIGN_ANIM_YOFFSETPX', 30),
-  },
-  featured1Anim: {
-    // Single-block reveal — no stagger. The featured-spot zone fades in
-    // and rises into place as one unit, then holds for the rest of the reel.
-    revealStartS: envNum('DESIGN_FEATURED1ANIM_REVEALSTARTS', 0.5),
-    revealDurationS: envNum('DESIGN_FEATURED1ANIM_REVEALDURATIONS', 1.5),
-    yOffsetPx: envNum('DESIGN_FEATURED1ANIM_YOFFSETPX', 30),
   },
 };
 
