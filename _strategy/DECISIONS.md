@@ -814,3 +814,99 @@ Byte-identity at the old height is the whole point: it proves the derivation com
 ### Trade-off accepted
 
 Two zone models still exist — `DESIGN.zones` for Top-N, `FEATURED1_CARD_ZONES` for featured-1 — and both must now be kept in sync with `card.height` by hand if a fifth zone is ever added. Unifying them was out of scope here; the byte-identical guarantees above only hold because the change to each was minimal. If a third layout appears, unify first.
+
+---
+
+## #26 — Hero and rows compose as one centred content group
+
+**Date:** 2026-08-25
+**Status:** Decided
+**Anchor:** #25 (derived `rowsH`, 1440 default), PR #37 (small-N row centring — **superseded by this entry**).
+
+### The defect
+
+Hero and rows were **siblings** in the root flex column, each with a fixed zone height:
+
+```
+root (column, height = card.height)
+  header  height 100                          pinned top
+  hero    height 180, justifyContent center
+  rows    height 1070, justifyContent center
+  footer  height  90                          pinned bottom
+```
+
+At low row counts the rows centred *inside their own tall zone* while the hero stayed pinned directly under the header. The slack landed **between the two halves of the content**, stranding the hero at the top and leaving the row block floating in the middle. On a 3-row card that was a **325px gap** between hero and row 1.
+
+### The fix
+
+Hero and rows are now wrapped in a single **content group** of height `heroH + rowsH`, centred as a unit between the pinned header and footer. The rows box becomes content-sized rather than zone-sized, and an explicit `HERO_ROWS_GAP = 40` separates hero from row 1 at every row count.
+
+```
+root (column, height = card.height)
+  header       height 100                     pinned top, unchanged
+  contentGroup height heroH + rowsH, justifyContent center
+    hero       height 180                     unchanged internally
+    rows       content-sized, marginTop 40
+  footer       height  90                     pinned bottom, unchanged
+```
+
+Slack now collects **outside** the content — above the hero and below the last row, symmetrically — instead of inside it.
+
+### Measured effect
+
+Zone-level, at the 1440 default:
+
+| | 3 rows (best-wings) | 7 rows (best-burger) |
+|---|---|---|
+| hero bottom -> row 1, **before** | 325 | 45 |
+| hero bottom -> row 1, **after** | **40** | **40** |
+| last row -> footer, before | 325 | 45 |
+| last row -> footer, after | 305 | 25 |
+| hero top shift | +305 | +25 |
+| row 1 top shift | +20 | +20 |
+
+The hero-to-row-1 gap is now **constant at 40 regardless of row count**, which is the whole point. Previously it was whatever the rows zone happened to leave over: 0 at 7 rows / 1350, 45 at 7 rows / 1440, 325 at 3 rows / 1440.
+
+7 rows shifts down 20-25px and is otherwise unaffected — nothing clips, nothing collides.
+
+### PR #37 is superseded, not contradicted
+
+PR #37 (`bdb7da2`) added exactly one line — `justifyContent: 'center'` on the rows zone — under the subject *"TopNLayout small-N row centring"*. It was solving **this same problem** at 1350, for the Top-2 case: without it, a short row list top-aligned inside a tall zone and looked dropped.
+
+That was the right fix for the tools available then, but it could only centre the rows *within their own zone*, which is precisely what stranded the hero. Grouping hero and rows addresses the same complaint one level up, so the rows-zone centring is now redundant: with the rows box content-sized, there is no leftover space inside it to centre against. It has been removed as part of this change.
+
+**This supersedes #37, it does not conflict with it.** Anyone reading #37's commit and wondering where its line went should find the answer here.
+
+### Featured-1 deliberately untouched
+
+`Featured1Layout` was inspected and **left alone**, and the reason matters for anyone tempted to "finish the job".
+
+It does **not** have the hero/body separation this entry fixes. Its body carries `paddingTop: 100` and **no `justifyContent`**, so it defaults to `flex-start`: content begins immediately below the hero and flows downward as one continuous run — badge, icons, name, neighbourhood, tagline, address. There is no interior gap to collapse, because there are not two separately-positioned halves.
+
+What featured-1 *does* have is **trailing slack** below the last line, which #25 widened by 90px. That is a different question with a different answer — bottom-weighted whitespace under a top-anchored block, not a stranded element — and it was out of scope here. Recorded so the distinction is not lost.
+
+Verified: `best-bakery` renders **byte-identical** before and after this change.
+
+### Layout is now row-count agnostic
+
+This pairs with #25. Together the two entries make the Top-N card independent of both variables that were previously baked in:
+
+- **#25** made it **height**-agnostic — `rowsH` derives from `card.height`, so the zones always sum correctly at any canvas height.
+- **#26** makes it **row-count**-agnostic — the hero-to-rows relationship is fixed, so 2 rows and 7 rows produce the same internal composition with different outer margins.
+
+Neither entry attempts to make the card *look* equally full at every row count. A 3-row card still carries ~305px of margin above and below. That is honest — the list is short — and it is now expressed as symmetric outer whitespace rather than as a hole in the middle of the layout.
+
+### Verification
+
+Byte-identity deliberately does **not** hold for Top-N here — this is an intentional visual change, so it was proven by eye and by measurement instead.
+
+| Check | Result |
+|---|---|
+| `best-wings` (3 rows) | changed as intended; hero now sits directly above row 1 |
+| `best-burger` (7 rows) | shifted 20-25px, no clipping or collision |
+| `best-bakery` (featured-1) | **byte-identical**, confirming featured-1 untouched |
+| `npm run typecheck` | exits 0 |
+
+### Trade-off accepted
+
+`HERO_ROWS_GAP` is a hand-picked constant (40) rather than a derived value. It sits inside the range the old accidental gap spanned (0 to 45 at 7 rows) so 7-row cards barely move, but it is a design choice, not arithmetic. If the hero block is ever resized, revisit it.

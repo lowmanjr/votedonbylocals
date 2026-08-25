@@ -106,117 +106,144 @@ function TopNLayout({
         </div>
       </div>
 
+      {/*
+        CONTENT GROUP: hero + rows composed as one unit and centred together
+        between the pinned header and footer. Previously hero and rows were
+        siblings with fixed heights, so at low row counts the rows centred
+        inside a tall rows zone while the hero stayed pinned directly under
+        the header — stranding it above a floating row block. Grouping them
+        moves the slack OUTSIDE the content instead of between its two halves.
+
+        Height is heroH + rowsH so the group still spans exactly the space the
+        two zones used to occupy; header and footer pinning is unchanged.
+      */}
       <div
         style={{
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
           justifyContent: 'center',
-          height: zones.heroH,
+          height: zones.heroH + zones.rowsH,
         }}
       >
         <div
           style={{
             display: 'flex',
-            fontFamily: fonts.display,
-            fontWeight: 800,
-            fontSize: 80,
-            lineHeight: 1.0,
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: zones.heroH,
           }}
         >
-          <span style={{ color: colors.dark }}>Best&nbsp;</span>
-          <span style={{ color: colors.orange }}>{data.category}</span>
+          <div
+            style={{
+              display: 'flex',
+              fontFamily: fonts.display,
+              fontWeight: 800,
+              fontSize: 80,
+              lineHeight: 1.0,
+            }}
+          >
+            <span style={{ color: colors.dark }}>Best&nbsp;</span>
+            <span style={{ color: colors.orange }}>{data.category}</span>
+          </div>
+          <div
+            style={{
+              fontFamily: fonts.body,
+              fontWeight: 500,
+              fontSize: 22,
+              color: colors.gray,
+              marginTop: 12,
+            }}
+          >
+            {data.subtitle}
+          </div>
         </div>
+
+        {/*
+          Rows are now CONTENT-SIZED, not zone-sized. The former
+          `height: zones.rowsH` plus `justifyContent: 'center'` (added by PR #37
+          for small-N centring) is superseded: with the group centring the hero
+          and rows together, centring rows inside their own box would have
+          nothing left to centre. HERO_ROWS_GAP replaces the slack that used to
+          separate them by accident.
+        */}
         <div
           style={{
-            fontFamily: fonts.body,
-            fontWeight: 500,
-            fontSize: 22,
-            color: colors.gray,
-            marginTop: 12,
+            display: 'flex',
+            flexDirection: 'column',
+            marginTop: HERO_ROWS_GAP,
           }}
         >
-          {data.subtitle}
-        </div>
-      </div>
-
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          height: zones.rowsH,
-        }}
-      >
-        {data.rows.map((r, i) => {
-          const state = effectiveRowStates[i];
-          return (
-            <div
-              key={i}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                height: row.height,
-                opacity: state.opacity,
-                transform: `translateY(${state.yOffset}px)`,
-                borderTop: i === 0 ? '1px solid transparent' : `1px solid ${hexAlpha(colors.gray, 0.15)}`,
-                paddingLeft: sidePad,
-                paddingRight: sidePad,
-              }}
-            >
+          {data.rows.map((r, i) => {
+            const state = effectiveRowStates[i];
+            return (
               <div
+                key={i}
                 style={{
                   display: 'flex',
-                  width: row.badgeSize,
-                  height: row.badgeSize,
-                  borderRadius: row.badgeSize / 2,
-                  backgroundColor: colors.orange,
-                  color: colors.white,
-                  fontFamily: fonts.display,
-                  fontWeight: 700,
-                  fontSize: 36,
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
-                }}
-              >
-                {r.rank}
-              </div>
-              <div style={{ width: 30, flexShrink: 0 }} />
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flex: 1,
+                  height: row.height,
+                  opacity: state.opacity,
+                  transform: `translateY(${state.yOffset}px)`,
+                  borderTop: i === 0 ? '1px solid transparent' : `1px solid ${hexAlpha(colors.gray, 0.15)}`,
+                  paddingLeft: sidePad,
+                  paddingRight: sidePad,
                 }}
               >
                 <div
                   style={{
+                    display: 'flex',
+                    width: row.badgeSize,
+                    height: row.badgeSize,
+                    borderRadius: row.badgeSize / 2,
+                    backgroundColor: colors.orange,
+                    color: colors.white,
                     fontFamily: fonts.display,
                     fontWeight: 700,
-                    fontSize: row.namePx,
-                    color: colors.dark,
-                    lineHeight: 1.1,
+                    fontSize: 36,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
                   }}
                 >
-                  {r.name}
+                  {r.rank}
                 </div>
+                <div style={{ width: 30, flexShrink: 0 }} />
                 <div
                   style={{
-                    fontFamily: fonts.body,
-                    fontWeight: 400,
-                    fontSize: row.taglinePx,
-                    color: colors.gray,
-                    marginTop: 4,
-                    lineHeight: 1.2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1,
                   }}
                 >
-                  {r.tagline}
+                  <div
+                    style={{
+                      fontFamily: fonts.display,
+                      fontWeight: 700,
+                      fontSize: row.namePx,
+                      color: colors.dark,
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {r.name}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: fonts.body,
+                      fontWeight: 400,
+                      fontSize: row.taglinePx,
+                      color: colors.gray,
+                      marginTop: 4,
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {r.tagline}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       <div
@@ -288,6 +315,12 @@ const FEATURED1_CARD_ZONES = {
 const FEATURED1_REEL_ZONES = { header: 90, hero: 180, body: 1050, footer: 80 };
 // Universal cross-platform safe zone for 1080×1920 reels: 900×1400 centered.
 // Top pad 260 + content 1400 + bottom pad 260 = 1920.
+// Gap between the hero block and the first row inside the content group.
+// Before grouping, this space was whatever slack the rows zone happened to
+// leave: 0 at 7 rows / 1350, 45 at 7 rows / 1440, 325 at 3 rows / 1440. It is
+// now an explicit margin, constant at every row count.
+const HERO_ROWS_GAP = 40;
+
 const REEL_SAFE_TOP_PAD = 260;
 const REEL_SAFE_BOTTOM_PAD = 260;
 const REEL_SAFE_SIDE_PAD = 90; // 1080 - 900 = 180, /2 = 90
