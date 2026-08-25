@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.2",
-    "lastUpdated": "2026-05-05",
+    "lastUpdated": "2026-08-24",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -606,7 +606,7 @@
       "cuisine": "American",
       "neighborhood": "Hampton Park",
       "schemaType": "Restaurant",
-      "monthYear": "May 2026",
+      "monthYear": "August 2026",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
@@ -626,6 +626,10 @@
         {
           "url": "/rankings/best-burger.html",
           "title": "Best Burger in Charleston"
+        },
+        {
+          "url": "/rankings/best-wings.html",
+          "title": "Best Wings in Charleston"
         }
       ],
       "phone": "+1-843-641-0469",
@@ -676,7 +680,7 @@
       "cuisine": "Barbecue",
       "neighborhood": "West Ashley",
       "schemaType": "Restaurant",
-      "monthYear": "May 2026",
+      "monthYear": "August 2026",
       "geoLat": null,
       "geoLng": null,
       "locations": [
@@ -750,6 +754,10 @@
         {
           "url": "/rankings/best-casual-spots.html",
           "title": "Best Casual Spots in Charleston"
+        },
+        {
+          "url": "/rankings/best-wings.html",
+          "title": "Best Wings in Charleston"
         }
       ],
       "phone": "+1-843-225-7427",
@@ -1666,6 +1674,41 @@
       "hoursHumanReadable": "Mon–Sun: 8am–1pm",
       "priceRange": null,
       "websiteURL": "https://www.weltonstinybakeshop.com/"
+    },
+    {
+      "slug": "hannibals-kitchen",
+      "name": "Hannibal's Kitchen",
+      "tagline": "Soul Food Landmark, Fried Drumettes",
+      "cuisine": "Soul Food",
+      "neighborhood": "Eastside",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "16 Blake St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Hannibal's Kitchen is an Eastside soul food landmark in Charleston, SC, serving Gullah classics and fried wing drumettes since 1985. Voted by Charleston locals as one of the city's best wings.",
+      "shareTagline": "Eastside soul food since 1985, voted best wings by Charleston locals.",
+      "keywords": "Hannibal's Kitchen Charleston, best wings Charleston SC, soul food Charleston, Eastside Charleston restaurants, Gullah food Charleston",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-wings.html",
+          "title": "Best Wings in Charleston"
+        }
+      ],
+      "phone": "+1-843-722-2256",
+      "hours": "Mo-Sa 11:00-20:00",
+      "hoursHumanReadable": "Mon–Sat: 11am–8pm\nSun: Closed",
+      "priceRange": "$",
+      "websiteURL": "https://hannibalkitchen.com/"
     }
   ]
 }
