@@ -1540,10 +1540,10 @@
       "slug": "bar-weems",
       "name": "Bar Weems",
       "tagline": "Handmade Ramen & Cocktails",
-      "cuisine": "Japanese",
-      "neighborhood": "Park Circle",
+      "cuisine": "Ramen",
+      "neighborhood": "Chicora-Cherokee",
       "schemaType": "Restaurant",
-      "monthYear": "May 2026",
+      "monthYear": "August 2026",
       "geoLat": null,
       "geoLng": null,
       "imageURL": null,
@@ -1556,9 +1556,9 @@
         "postalCode": "29405",
         "addressCountry": "US"
       },
-      "description": "Bar Weems is a Park Circle Japanese restaurant in North Charleston, SC, serving handmade ramen and cocktails. Voted by Charleston locals as one of the city's best new restaurants.",
-      "shareTagline": "Handmade ramen and cocktails in Park Circle, voted best new by Charleston locals.",
-      "keywords": "Bar Weems Charleston, Park Circle ramen, North Charleston Japanese, best new restaurants Charleston SC",
+      "description": "Bar Weems is a Chicora-Cherokee ramen bar in North Charleston, SC, serving handmade noodles and cocktails. Voted by Charleston locals as one of the city's best new restaurants.",
+      "shareTagline": "Handmade ramen and cocktails in Chicora-Cherokee, voted best new by Charleston locals.",
+      "keywords": "Bar Weems Charleston, North Charleston ramen, Reynolds Avenue ramen bar, best new restaurants Charleston SC",
       "appearsOn": [
         {
           "url": "/rankings/best-new-restaurants.html",
@@ -1566,8 +1566,8 @@
         }
       ],
       "phone": "+1-854-202-1175",
-      "hours": "We-Sa 17:00-01:00",
-      "hoursHumanReadable": "Wed–Sat: 5pm–1am\nSun–Tue: Closed",
+      "hours": "Tu-Sa 17:00-01:00",
+      "hoursHumanReadable": "Tue–Sat: 5pm–1am\nSun–Mon: Closed",
       "priceRange": "$$",
       "websiteURL": "https://barweems.com"
     },
