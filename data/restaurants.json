@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.2",
-    "lastUpdated": "2026-08-25",
+    "lastUpdated": "2026-08-26",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -1563,6 +1563,10 @@
         {
           "url": "/rankings/best-new-restaurants.html",
           "title": "Best New Restaurants in Charleston"
+        },
+        {
+          "url": "/rankings/best-ramen.html",
+          "title": "Best Ramen in Charleston"
         }
       ],
       "phone": "+1-854-202-1175",
@@ -1814,6 +1818,41 @@
       "hoursHumanReadable": "Hours vary — see gustards.com for current hours.",
       "priceRange": null,
       "websiteURL": "https://gustards.com/"
+    },
+    {
+      "slug": "hachiya-ramen",
+      "name": "Hachiya Ramen",
+      "tagline": "Slow-Cooked Broth, Kiosk Fast",
+      "cuisine": "Ramen",
+      "neighborhood": null,
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "996 Johnnie Dodds Blvd, Ste 101",
+        "addressLocality": "Mount Pleasant",
+        "addressRegion": "SC",
+        "postalCode": "29464",
+        "addressCountry": "US"
+      },
+      "description": "Hachiya Ramen is a Mount Pleasant, SC ramen shop serving slow-cooked broths, fresh noodles and gyoza, ordered from self-service kiosks. Voted by Charleston locals as one of the city's best ramen.",
+      "shareTagline": "Slow-cooked broth and fresh noodles in Mount Pleasant, voted best by Charleston locals.",
+      "keywords": "Hachiya Ramen Charleston, best ramen Charleston SC, Mount Pleasant ramen, tonkotsu Charleston, Japanese Mount Pleasant",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-ramen.html",
+          "title": "Best Ramen in Charleston"
+        }
+      ],
+      "phone": "+1-843-708-0774",
+      "hours": "Tu-Su 11:30-20:30",
+      "hoursHumanReadable": "Tue–Sun: 11:30am–8:30pm\nMon: Closed",
+      "priceRange": null,
+      "websiteURL": "https://hachiya-ramen.com/"
     }
   ]
 }
