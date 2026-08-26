@@ -71,6 +71,11 @@
       "slug": "best-ramen",
       "category": "Ramen",
       "spots": 2
+    },
+    {
+      "slug": "best-italian",
+      "category": "Italian",
+      "spots": 5
     }
   ]
 }
