@@ -25,8 +25,17 @@
     {{AddressRegion}}     "SC" (default)
     {{PostalCode}}        "29403"
     {{SchemaType}}        "Restaurant" (default), or CafeOrCoffeeShop /
-                          BarOrPub / Bakery / NightClub per most-specific
-                          applicable subclass of FoodEstablishment
+                          IceCreamShop / BarOrPub / Bakery / NightClub per
+                          most-specific applicable subclass of
+                          FoodEstablishment. LIST IS ILLUSTRATIVE, NOT AN
+                          ALLOWLIST — any real schema.org subclass qualifies
+                          (FastFoodRestaurant, Brewery, Winery, Distillery
+                          are all valid, just unused so far). The operative
+                          rule is intentional decision #4 below. Note that
+                          "most-specific" orders a chain and cannot break a
+                          tie between siblings: Restaurant and BarOrPub are
+                          both direct subclasses, so pick on accuracy, not
+                          depth. See DECISIONS #19 (amended 2026-08-26).
     {{MonthYear}}         "May 2026" — used by "Updated [Month Year]" pill
     {{Description}}       ~150 chars, used by <meta description> + JSON-LD
     {{ShareTagline}}      ~60–110 chars, used by og:description +

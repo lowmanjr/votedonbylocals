@@ -110,10 +110,27 @@
       is "Restaurant", which works for most pages. Override on a per-page
       basis when a more specific subclass of FoodEstablishment applies:
         - best-coffee-shops    → "CafeOrCoffeeShop"
+        - best-ice-cream       → "IceCreamShop"
         - (future bar page)    → "BarOrPub"
         - (future club page)   → "NightClub"
         - (future bakery page) → "Bakery"
       All these subclass "FoodEstablishment" and pass Google validation.
+
+      THIS LIST IS ILLUSTRATIVE, NOT AN ALLOWLIST. Any real schema.org
+      subclass of FoodEstablishment qualifies — FastFoodRestaurant,
+      Brewery, Winery and Distillery are all valid and simply have not
+      come up yet. The operative rule is the detail template's intentional
+      decision #4: override to the most-specific applicable subclass when
+      accurate. IceCreamShop shipped with best-ice-cream on that basis,
+      before it appeared in any list.
+
+      Two cautions (DECISIONS #19, amended 2026-08-26):
+        - "Most-specific" orders a CHAIN; it cannot break a tie between
+          SIBLINGS. Restaurant and BarOrPub are both direct subclasses, so
+          neither is deeper than the other — pick on accuracy, not depth.
+          A name is branding, not a classification (see Bar Weems).
+        - Service model is not category. Kiosk ordering does not make a
+          sit-down restaurant a FastFoodRestaurant (see Hachiya Ramen).
     -->
     <script type="application/ld+json">
     {

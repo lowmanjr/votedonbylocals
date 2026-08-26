@@ -380,7 +380,12 @@ Canonical voice + count framing: **"As voted by Charleston locals. One standout 
 
 ### schemaType
 
-Per-page subclass of `FoodEstablishment` per #5: `Bakery`, `CafeOrCoffeeShop`, `BarOrPub`, `NightClub`. Do NOT default to `Restaurant` for non-restaurant categories — the more-specific subclass strengthens the entity-resolution graph and matches what Google's structured-data validator prefers.
+Per-page subclass of `FoodEstablishment` per #5: `Bakery`, `CafeOrCoffeeShop`, `BarOrPub`, `NightClub`, `IceCreamShop`, `FastFoodRestaurant`, `Brewery`, `Winery`, `Distillery`. Do NOT default to `Restaurant` for non-restaurant categories — the more-specific subclass strengthens the entity-resolution graph and matches what Google's structured-data validator prefers.
+
+**This list is illustrative, not an allowlist.** *(Amended 2026-08-26.)* The operative rule is the detail template's intentional decision #4 — *"override to the most-specific applicable subclass of FoodEstablishment when accurate"* — so any real schema.org subclass qualifies whether or not it is named here. `IceCreamShop` shipped with best-ice-cream on exactly that basis, before appearing in any list. Two cautions from best-ramen:
+
+- **"Most-specific" only orders a chain; it cannot break a tie between siblings.** `Restaurant` and `BarOrPub` are both *direct* subclasses of `FoodEstablishment`, so neither is more specific than the other. Bar Weems has a named cocktail programme, 5pm-1am hours and "Bar" in its name, yet ships `Restaurant`: Yelp's sole category is "Ramen", its own site's descriptor line is "house made noodles", and trade coverage explicitly declines to frame it as bar-focused. When the candidates are siblings, the test is **accuracy**, not depth — and a name is branding, not a classification.
+- **Service model is not category.** Hachiya Ramen orders via self-service kiosks, which invites `FastFoodRestaurant`. Kiosk-ordered, table-delivered ramen is fast-*casual*; no source calls it fast food. It ships `Restaurant`.
 
 ### File set
 
@@ -390,25 +395,56 @@ For each new featured-1 launch:
 - `data/restaurants.json` — append the restaurant entry (full schema)
 - `rankings/{slug}.html` — NEW, adapted from best-new-coffee-shop precedent
 - `restaurants/{restaurant-slug}.html` — generated via `python scripts/generate_detail_page.py {restaurant-slug}`
-- `components/header.html` — add ranking row to dropdown (desktop + mobile) with NEW pill / mobile (New!) styling, positioned above the Top-N divider
-- `index.html` — add card to homepage rankings grid (resize grid as needed; 9 cards now use `md:grid-cols-3` after the best-bakery launch)
+- `components/header.html` — add ranking row to dropdown (desktop + mobile), positioned above the Top-N divider. **No NEW pill** — retired 2026-08-26, see below. Use the same plain classes as every other entry.
+- `index.html` — add card to homepage rankings grid, plain `border-transparent hover:border-brand-orange/20` like every other card. **Grid sizing, corrected 2026-08-26:** this bullet used to say "9 cards now use `md:grid-cols-3` after the best-bakery launch", which has been stale since the 10-card change. The grid is `grid-cols-1 md:grid-cols-2 lg:grid-cols-4` and stands at **13 cards**. Adjust only if a count genuinely breaks the layout — and note that no column count divides a prime, so 13 orphans at every breakpoint and changing the class buys nothing (see #23's grid discussion)
 - `assets/images/og-{slug}.png` — generated via `python scripts/generate_og_images.py --slug {slug}`
 - `assets/images/og-restaurant-{restaurant-slug}.png` — same script with the restaurant slug
 - `sitemap.xml` — regenerated via `python scripts/generate_sitemap.py` (filesystem scan auto-includes new pages)
-- 49+ inlined production pages — refreshed via `python scripts/inline_chrome.py --refresh` (header changes propagate automatically)
+- inlined production pages — refreshed via `python scripts/inline_chrome.py --refresh` (header changes propagate automatically). **Count corrected 2026-08-26:** this said "49+", which has been stale for months; it is **62** as of the best-ramen launch. Do not hardcode the number in a plan — run `inline_chrome.py --check` first and use *that* as the baseline the refresh must match
 
 Estimated commit shape: 4 commits (data + ranking + detail; nav + grid + inline; OG + sitemap; doc consolidation if needed).
 
-### NEW pill decay rule
+### NEW pill convention — RETIRED 2026-08-26
 
-60 days from launch. Persistent pill is fine for the first 60 days; after that the pill comes off via manual edit to `components/header.html`:
-- desktop: remove the trailing `<span ...>NEW</span>` and the `relative` class on the parent `<a>`
-- mobile: replace the `text-brand-orange bg-orange-50 font-bold` classes + "(New!)" suffix with the standard `text-gray-700 hover:bg-orange-50 hover:text-brand-orange font-medium` + plain title
-- `index.html` homepage card: remove the `border-brand-orange/20` border highlight + corner NEW ribbon, switch to plain `border-transparent hover:border-brand-orange/20`
+**Future featured-1 launches do not get a NEW pill.** Operator decision. The convention is withdrawn entirely rather than repaired; what follows is the rule as it stood, the evidence that retired it, and why repair was the wrong call.
 
-Then `python scripts/inline_chrome.py --refresh` to propagate. TRACKED items file each removal at launch+60d.
+#### The rule, as it was
 
-The 60-day window is editorial — a featured-1 launch is news for ~2 months in our cadence; after that the page is just another ranking and the NEW pill becomes visual noise. Discoverability via the dropdown ordering (featured-1 entries stay above the Top-N divider) is sufficient long-term.
+60 days from launch, then removed by hand from `components/header.html` (desktop `<span ...>NEW</span>` plus the parent's `relative`; mobile `text-brand-orange bg-orange-50 font-bold` + "(New!)"), and from the `index.html` card (`border-brand-orange/20` highlight + corner ribbon), followed by `inline_chrome.py --refresh`. A TRACKED item filed each removal at launch+60d.
+
+#### What actually happened: 0 for 3
+
+Preserved as the evidence. Every NEW pill this project ever shipped, and what it did:
+
+| Surface | Launched | Due (+60d) | Removed | Late by |
+|---|---|---|---|---|
+| `best-new-coffee-shop` header | 2026-02-04 | 2026-04-05 | 2026-05-06 | **31 days** |
+| `best-new-coffee-shop` homepage ribbon | 2026-02-04 | 2026-04-05 | 2026-08-26 | **143 days** |
+| `best-bakery` (all surfaces) | 2026-05-06 | 2026-07-05 | 2026-08-26 | **52 days** |
+
+**Three deadlines, three misses, mean overrun 75 days on a 60-day window** — the pills ran longer past their expiry than the expiry itself. The best-new-coffee-shop removal also shipped *incomplete*, covering the header and silently leaving the homepage ribbon for another 112 days; the entry recording it never mentioned `index.html` at all, so the gap was invisible in the record.
+
+Both eventual catches were **incidental**. best-bakery's came from a direct instruction to go and do it. The ribbon's came from grepping for leftovers of that same job. Neither was triggered by the mechanism that was supposed to trigger it.
+
+#### Why retire rather than repair
+
+The rule is sound; the **delivery** is a calendar date written in prose, inside a file nobody is obliged to re-read, so it only fires when someone happens to be working nearby. Repair options existed — derive expiry from a launch date in `og_rankings.json`, or add a `--check`-style assertion that fails when a pill outlives its window.
+
+Both were rejected on cost-benefit: **that is real machinery to maintain a sixty-day decoration.** The pill's own justification was already thin — this section previously conceded that *"discoverability via the dropdown ordering (featured-1 entries stay above the Top-N divider) is sufficient long-term."* #23 makes the same call for Top-N, which has never had a pill and has never wanted one. If dropdown ordering is sufficient discoverability there, and sufficient *after* 60 days here, it is hard to argue it is insufficient for the 60 days in between.
+
+**Cost of retiring today is zero.** All three pills are already removed; there are no live instances anywhere in the tree.
+
+**Launch signal is not lost.** The newsletter and the social card both carry launch announcement, and neither needs un-shipping — they are dated artifacts rather than persistent page decoration, so they expire on their own. That is the actual difference: an announcement that decays by nature needs no decay rule.
+
+#### What this changes
+
+- New featured-1 launches: plain nav entry, plain homepage card, same classes as every other entry. Position above the Top-N divider is unaffected — that is category placement, not ceremony, and it stays.
+- No TRACKED decay item at launch, because there is nothing to decay.
+- #23's "NEW pill is featured-1 only" clarification is now moot in practice: no page shape gets one.
+
+#### Trade-off accepted
+
+A featured-1 launch loses its visual announcement in the nav. Accepted because the evidence says the pill was never removed on time anyway — in practice it was not a 60-day signal but a permanent one that someone eventually noticed, which is worse than no signal at all. A convention that is never executed as written is not a convention.
 
 ### Social-card pipeline (deferred)
 
@@ -557,7 +593,7 @@ The unified pattern across all sub-canonical entry counts:
 
 Promotion path is implicit: if real local consensus expands the slate, drop the "more to come" qualifier and bump the entry count. Don't pad with fabrication to reach a target N (#4 anti-fab principle).
 
-**2. NEW pill is featured-1 launch ceremony only.**
+**2. NEW pill is featured-1 launch ceremony only.** *(Superseded 2026-08-26 — the pill convention was retired entirely; see #19. This clause is now moot in practice, since no page shape gets one. Retained because the reasoning below is the reasoning that eventually retired it: if dropdown ordering is sufficient discoverability for Top-N, the case for a pill anywhere was always thin.)*
 
 DECISIONS #19's launch recipe specifies the NEW pill / mobile-(New!) styling for featured-1 launches (`best-new-coffee-shop`, `best-bakery`). The recipe doesn't address Top-N launches because at the time of #19 there had been no Top-N launch. This entry clarifies the implicit scope: **Top-N launches do NOT get the NEW pill**, regardless of being newly added.
 
@@ -577,7 +613,39 @@ The recipe below is now formalized. The provisional list it replaces was correct
 
 #### 0. Candidate sourcing — do this before anything else
 
-**Start with roughly twice your target N.** Expect heavy attrition on status checks. On best-wings, of the five restaurants originally proposed, **three were excluded** — and, more starkly, **all three net-new candidates failed**:
+> **Amended 2026-08-26**, after best-ice-cream and best-ramen. This section previously said, flatly: *"Start with roughly twice your target N."* Two launches since then showed that 2x is the right number for one kind of roster and roughly double what another needs — see "How much bench" below. The best-wings evidence that produced the original rule is unchanged and still sits below it.
+
+#### 0a. Check the tree before you source anything
+
+**Look up every candidate in `data/restaurants.json` and `restaurants/` first.** A name that arrives as "a new restaurant to research" may already be an entry, and the two cases are different work:
+
+| If the candidate is | The work is |
+|---|---|
+| absent | a net-new entry: full schema record, generated detail page, new OG image |
+| already present | an `appearsOn` append, a regen, and a **hand-bumped `dateModified`** — plus a re-run of both gates per rule 4 below |
+
+**best-ramen is the cautionary case.** Bar Weems arrived described as a fresh sourcing find. It had been in `restaurants.json` since the 2026-05-03 workstream H bulk port, had a live detail page, and was already row 2 on `best-new-restaurants`. Three fields presented as open questions — `neighborhood`, `addressLocality`, `hours` — were in fact shipped values, and **two of the three were wrong**: the neighborhood said Park Circle for a Chicora-Cherokee address, and the hours were a day stale. Discovering that mid-launch forced the work into two PRs so the corrections could land before the launch regen stamped a fresh `dateModified` over them.
+
+Cost of the check: one grep. Cost of skipping it: a split launch and a near-miss on asserting freshness over known-wrong data.
+
+#### How much bench — keyed to where the roster came from
+
+Attrition tracks **provenance**, not category. Two very different rates so far:
+
+| Roster provenance | Launches | Candidates | Excluded | Attrition |
+|---|---|---|---|---|
+| Editorially derived / researched from scratch | best-wings | 5 | 3 | **60%** |
+| Operator-supplied | best-ice-cream, best-ramen | 5 | 0 | **0%** |
+
+Guidance:
+
+- **Researched roster: start at ~2x target N.** The original rule, and best-wings earned it — all three net-new candidates failed and a fourth had to be found to land a Top-3.
+- **Operator-supplied roster: 2x is over-provisioning.** Ten of ten cleared across two launches. Budget the *verification* as real work; do not budget a full second roster.
+- **Never zero bench, whatever the provenance.** best-ice-cream supplied exactly 3 for a Top-3 and best-ramen exactly 2 for a Top-2. Both happened to survive. Had one failed, the launch would have silently become a shorter list — and at N=1 that is not a shorter list but a **different page shape**: a different template per #19, a different renderer path (`spots: 1`), and a NEW pill. One spare candidate is enough to keep the failure mode editorial rather than structural.
+
+The 0% figure is a genuine finding, not a reason to relax. Both operator rosters were verified as rigorously as best-wings; they simply held. **Attrition is a property of how the roster was assembled, and provenance is knowable before the sourcing pass starts** — so decide the bench size then, rather than discovering it at the end.
+
+The best-wings evidence, unchanged:
 
 | Candidate | Status | Outcome |
 |---|---|---|
@@ -596,8 +664,24 @@ Every candidate must clear **two independent gates**, and the admissible evidenc
 
 | Question | Own website | Dated third-party signals |
 |---|---|---|
-| **Identity** — brand name and spelling, address, phone, menu, what it serves | **AUTHORITATIVE** | corroborating only |
-| **Liveness** — is it currently operating, current hours | **INADMISSIBLE** | **REQUIRED** |
+| **Identity** — brand name and spelling, menu, what it serves | **AUTHORITATIVE** | corroborating only |
+| **Liveness** — is it currently operating | **INADMISSIBLE** | **REQUIRED** |
+| **Hours** — *(split out 2026-08-26)* | corroborates, never establishes | **decides** |
+| **Verifiable facts** — ZIP, coordinates, anything checkable against an independent record | authoritative for *what it calls itself*, **not infallible** | wins on contradiction |
+
+> **Amended 2026-08-26**, after best-ice-cream and best-ramen. The original table had two rows; "current hours" sat inside Liveness marked **INADMISSIBLE**, and Identity read authoritative without qualification. Both were slightly too absolute in ways that cost real time. The rows above are the refinement; the reasoning is directly below.
+
+**Hours: the own site corroborates but never establishes.** Marking it flatly inadmissible is too strong — it is often right, and it is usually the only source that distinguishes a holiday closure from a permanent one. But it never *decides*. When a dated third-party majority disagrees, the majority wins.
+
+- **best-ramen / Bar Weems** — the launch prompt described a four-way hours conflict and pre-authorised falling back to `null` + the #13.10 fallback. There were **two** distinct claims, and they resolved **4-to-1**: own site, Yelp (updated that month), Apple Maps and an aggregated day-grid all had Tuesday open; only a monthly print title, with the longest editorial lead time of the five, had it closed. The stored value matched the outlier and was a day stale. **#13.10 did not fire** — its trigger is *unresolvable* conflict, and nulling here would have deleted live data in deference to the single weakest source.
+
+The practical rule: **count the sources and weight them by recency, rather than discarding a field the moment two disagree.** #13.10 is for genuine deadlock, not for a resolved question with one stale dissenter.
+
+**Identity: authoritative for what a business calls itself, not infallible on every field.** The distinction is between *choices* and *facts*.
+
+- **best-ice-cream / Gustard's Custard** — the own site printed ZIP **29412**. Over The Horizon Brewing occupies the **same street address**, 2200 Heriot St, and independent listings give it **29403**. Two businesses at one address cannot have different ZIPs; 29412 is James Island and Heriot St is upper-peninsula. Shipped 29403, overriding the own site.
+
+A business is the last word on its name, spelling and branding. It is not the last word on arithmetic or geography. When an own-site field is contradicted by an independent record about the *same physical place*, the independent record wins — and the deviation gets recorded rather than left silent.
 
 Restaurant websites are near-universally maintained for identity and near-universally stale on status. All three failures on best-wings turned on exactly that split:
 
@@ -612,6 +696,66 @@ Rules that fall out of this:
 3. Distinguish the two failure modes when filing TRACKED: a **conflict** gets a re-verification trigger (Tru Blues, Nigel's); a **confirmed permanent closure** gets a no-trigger record whose purpose is to stop a future session re-proposing it (Dashi).
 4. The gate applies to **pre-existing entries too**, not just new ones. Any restaurant about to receive a new listing and a `dateModified` bump must clear it first — the bump is an assertion of freshness, and asserting freshness about a closed restaurant is worse than saying nothing.
 5. Verify the **category claim**, not just existence. Hannibal's went on a wings list, so its wings were confirmed on the menu (drumettes in the house batter, per a Post and Courier review) before it shipped. Note that restaurantji's listing surfaces no wings at all — a single-source check would have produced a false negative.
+
+6. **Check for a pending second location on every candidate.** *(Added 2026-08-26.)* See below — this is a standing check, not an occasional surprise.
+
+#### Pending second locations are a standing roster check
+
+**Three consecutive launches hit one.** This is not a rare edge case; in a growing restaurant market it is the norm for any candidate worth ranking.
+
+| Launch | Candidate | Second location | Outcome |
+|---|---|---|---|
+| best-wings | Nigel's Good Food | contested location set — own site advertised a Hanahan location Yelp had marked closed, while silently dropping the 2011 original | **candidate excluded entirely** |
+| best-ice-cream | Off Track Ice Cream | Park Circle, announced Nov 2025 for summer 2026 | secondary excluded, entry ships single-location |
+| best-ramen | Hachiya Ramen | Clements Ferry / Point Hope, permitting as of Feb 2026 | secondary excluded, entry ships single-location |
+
+Add it to the per-candidate checklist. What to look for, in order of weight:
+
+1. **The own site is the strongest negative signal.** Both Off Track and Hachiya had press coverage of a second location while their own sites did not mention it at all. A restaurant that has opened a second location says so; silence there outweighs an announcement elsewhere.
+2. **Read the tense.** "Is coming to", "expected to open", "navigating permitting" are all future. Hachiya's own Facebook was still future-tense five months after the announcement.
+3. **An empty directory listing is not an open restaurant.** No ratings, no hours, no phone is what an unopened venue looks like.
+4. **Check whether the stated window has even arrived** before treating silence as suspicious. Hachiya's target was September/October and the check ran in August — future-tense evidence was expected, not alarming.
+
+Resolution is always the same: **undetermined status is excluded, not guessed** (the conflict rule), the entry ships single-location, and a re-verification trigger is filed with the date to recheck. Note the distinction from a *contested* set — Nigel's disqualified the whole candidate, because the uncertainty was about which locations existed at all rather than whether one more was coming.
+
+#### Two ways a claim fails, and only one of them is about sourcing
+
+**Sourcing is necessary, not sufficient. A claim must also mean what its source meant.** These are distinct failure modes and they need separate checks:
+
+| Failure | Test that catches it | Example |
+|---|---|---|
+| **Unsourced** — no source says this | Can you cite it? | best-ice-cream's "Piled High" (no source describes portion size); best-ramen's "Tonkotsu First" (no source ranks the bowls) |
+| **Inverted** — a source says it, but not the way you are using it | Does your framing match the source's? | best-ramen's "Four-Minute Bowl" |
+
+**The inverted case is the dangerous one**, because every word survives a spot-check. Post and Courier on Hachiya Ramen: *"The bowl arrives about four minutes later. The chef apologizes for the wait."* The number is real and quotable. But the article presents four minutes as **a wait warranting an apology**, measured against the owners' stated three-minute target. Publishing it as a selling point inverts what the source says. It shipped, was caught on review, and was replaced with `Kiosk Fast` — which is multiply sourced *and* directionally faithful ("Speed and quality take center stage"; "their focus is speed and quality - hence the self-service kiosks").
+
+A citation proves provenance. It does not prove the claim means what you are using it to mean. **Check both.**
+
+#### Negative answers are scoped to the question you asked
+
+*(Added 2026-08-26, from best-ramen.)* When a source does not answer your question, that is a fact about **your question**, not about the document. Do not carry "not stated" forward as settled.
+
+The "Four-Minute Bowl" fragment above was first flagged as unsourced. The article had been fetched successfully — the fetch that failed with HTTP 429 was a *different* piece, about a different restaurant. The miss was in the question: the prompt asked about **broth cooking time**, and "does not specify cooking time" was entirely true of the broth and silent on serve time. A differently-framed question against the identical document produced the line verbatim.
+
+Practical guard: before recording a field as unavailable, ask whether the question was framed narrowly enough to miss a differently-worded answer. Re-query the same source with the target restated, and record **which question** returned nothing rather than just "not found".
+
+#### `neighborhood` and `keywords` optimize for different things
+
+*(Added 2026-08-26, from best-ramen.)* They are both geography strings and it is tempting to keep them in sync. **They should not be.**
+
+| Field | Optimizes for | Test |
+|---|---|---|
+| `neighborhood` | **factual accuracy** — where the building actually is | would a local surveyor agree? |
+| `keywords` | **search intent** — what someone would actually type | would anyone search this? |
+
+These legitimately diverge, and Bar Weems is the clean case. Post and Courier places Reynolds Avenue in the **Chicora-Cherokee** neighborhood and explicitly separates it from Park Circle. So:
+
+- `neighborhood: "Chicora-Cherokee"` — correct, and it is what the detail page and OG meta-line should say.
+- `keywords` — "Chicora-Cherokee ramen" is a residential district name with near-zero search volume. The entry previously carried "Park Circle ramen", which was **factually wrong but doing real work**, because Park Circle is a known dining destination.
+
+Resolution: fix the fact, keep the search value, and do not simply propagate the corrected string. Bar Weems' keywords became **"North Charleston ramen, Reynolds Avenue ramen bar"** — the municipality plus the street corridor that press coverage actually names, both sourced, neither false.
+
+The general rule: when a factual correction lands in `neighborhood`, do **not** find-and-replace it into `keywords`. Re-ask what someone would type. A correct answer nobody searches for is not an improvement over a wrong answer that was, and the honest move is a third string that is both true and searched.
 
 #### `servesCuisine` is list-scoped
 
@@ -656,6 +800,38 @@ Top-2 and Top-3 both arrived the same way: not as a target, but as what survived
 - **The ItemList JSON-LD block must precede BreadcrumbList.** `generate_sitemap.py` parses only the *first* `ld+json` block. Put BreadcrumbList first and `<lastmod>` vanishes with no error and no warning.
 - **New ranking and detail pages must exist before `inline_chrome.py --refresh`**, or they ship with stale chrome and `--check` exits 2.
 - **`npm run build:css` only if new utility classes appear.** Copying an existing page introduces none; verify with a class-set diff rather than running it reflexively.
+
+- **`generate_detail_page.py` seeds new pages in UTC, so every launch hand-normalizes.** *(Added 2026-08-26.)* A new detail page is written with `datePublished` / `dateModified` like `2026-08-26T12:55:30+00:00`, while every launch page in the tree carries Eastern `T12:00:00-04:00`. best-ramen caught and corrected it by hand before shipping; three older pages did not and still carry `+00:00` (`little-jacks-tavern`, `pubfare-burger`, `weltons-tiny-bakeshop`). Harmless to crawlers — both forms are valid ISO 8601 and resolve to the same instant — so this is consistency, not correctness. **The real remedy is seeding Eastern in the generator**, which retires the manual step; hand-normalizing is a workaround every future launch has to remember, and the evidence says launches forget. Tracked, not implemented.
+
+#### Verification must be Netlify-tolerant
+
+*(Added 2026-08-26.)* **Netlify does not serve markup byte-identical to the repo.** A live check written against the repo's HTML will report a failure that is not there. Two verification passes in one week failed on the check rather than the site:
+
+| Repo | Live | Rewrite |
+|---|---|---|
+| `class="..."` | `class='...'` | double quotes become single |
+| `href=... class=...` | `class=... href=...` | attributes alphabetized |
+| `/rankings/best-ramen.html` | `/rankings/best-ramen` | `.html` dropped (pretty URLs) |
+
+Every live-verification pattern must therefore allow **single or double quotes**, **any attribute order**, and an **optional `.html`**:
+
+```python
+Q = r'["\']'
+re.compile(r'<a[^>]*href=' + Q + r'/rankings/([^"\']+?)(?:\.html)?' + Q + r'[^>]*>')
+```
+
+**The technique that fixes the hard cases: walk back from the target, not forward from the tag.** Matching an opening tag by attribute order is fragile even with the tolerances above, because a longer element can also blow past a bounded body match. Instead, find the thing you are actually asserting about, then walk backwards to its enclosing element:
+
+```python
+i = html.find('>NEW</div>')                 # locate the target
+open_i = html.rfind('<a ', 0, i)            # walk back to its container
+tag = html[open_i:html.find('>', open_i) + 1]
+owner = re.search(r'href=' + Q + r'([^"\']+)' + Q, tag).group(1)
+```
+
+This is order-agnostic, quote-agnostic and length-agnostic, and it answers the question you actually care about — *which element owns this?* — rather than *does this tag match my template?*
+
+**Corollary worth stating, because it bit twice:** when a live check fails, confirm whether the page or the pattern is wrong **before** reporting a defect. Both failures this week were scoping errors in the check — a residue guard and a NEW-pill assertion, each firing on the shared nav chrome, which legitimately links to every ranking on every page. Scope assertions to page-owned content by stripping the `<!-- AUTOGENERATED FROM ... /AUTOGENERATED -->` blocks first.
 
 #### Environment
 
