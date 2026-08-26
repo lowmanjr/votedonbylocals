@@ -1853,6 +1853,181 @@
       "hoursHumanReadable": "Tue–Sun: 11:30am–8:30pm\nMon: Closed",
       "priceRange": null,
       "websiteURL": "https://hachiya-ramen.com/"
+    },
+    {
+      "slug": "wild-olive",
+      "name": "Wild Olive",
+      "tagline": "Island Cucina, House Made Pasta",
+      "cuisine": "Italian",
+      "neighborhood": "Johns Island",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "2867 Maybank Hwy",
+        "addressLocality": "Johns Island",
+        "addressRegion": "SC",
+        "postalCode": "29455",
+        "addressCountry": "US"
+      },
+      "description": "Wild Olive is a Johns Island, SC Italian restaurant serving house made pasta and antipasti in Charleston's farming community. Voted by Charleston locals as one of the city's best Italian restaurants.",
+      "shareTagline": "House made pasta and antipasti on Johns Island, voted best by Charleston locals.",
+      "keywords": "Wild Olive Charleston, Johns Island Italian, best Italian Charleston SC, house made pasta Charleston, Maybank Highway restaurants",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-italian.html",
+          "title": "Best Italian in Charleston"
+        }
+      ],
+      "phone": "+1-843-737-4177",
+      "hours": "Mo-Th 17:00-22:00,Fr-Sa 16:00-23:00,Su 16:00-22:00",
+      "hoursHumanReadable": "Mon–Thu: 5pm–10pm\nFri–Sat: 4pm–11pm\nSun: 4pm–10pm",
+      "priceRange": null,
+      "websiteURL": "https://www.wildolive.com"
+    },
+    {
+      "slug": "coda-del-pesce",
+      "name": "Coda del Pesce",
+      "tagline": "Oceanfront Italian, Seafood Led",
+      "cuisine": "Italian Seafood",
+      "neighborhood": "Isle of Palms",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1130 Ocean Blvd",
+        "addressLocality": "Isle of Palms",
+        "addressRegion": "SC",
+        "postalCode": "29451",
+        "addressCountry": "US"
+      },
+      "description": "Coda del Pesce is an Isle of Palms, SC Italian seafood restaurant serving local catch and house made pasta above the front beach. Voted by Charleston locals as one of the city's best Italian restaurants.",
+      "shareTagline": "Oceanfront Italian seafood on Isle of Palms, voted best by Charleston locals.",
+      "keywords": "Coda del Pesce Charleston, Isle of Palms Italian, Italian seafood Charleston, oceanfront dining Charleston SC, best Italian Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-italian.html",
+          "title": "Best Italian in Charleston"
+        }
+      ],
+      "phone": "+1-843-242-8570",
+      "hours": "Tu-Sa 17:30-21:00",
+      "hoursHumanReadable": "Tue–Sat: 5:30pm–9pm\nSun–Mon: Closed",
+      "priceRange": null,
+      "websiteURL": "https://codadelpesce.com"
+    },
+    {
+      "slug": "le-farfalle",
+      "name": "Le Farfalle",
+      "tagline": "Downtown Osteria, Rosemary Focaccia",
+      "cuisine": "Italian",
+      "neighborhood": "Harleston Village",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "15 Beaufain St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Le Farfalle is a Harleston Village Italian restaurant in Charleston, SC, serving regional Italian pasta and warm rosemary focaccia. Voted by Charleston locals as one of the city's best Italian restaurants.",
+      "shareTagline": "Regional Italian pasta and rosemary focaccia downtown, voted best by Charleston locals.",
+      "keywords": "Le Farfalle Charleston, downtown Charleston Italian, handmade pasta Charleston, Beaufain Street restaurants, best Italian Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-italian.html",
+          "title": "Best Italian in Charleston"
+        }
+      ],
+      "phone": "+1-843-212-0920",
+      "hours": "Su-We 17:00-21:30,Th-Sa 17:00-22:00",
+      "hoursHumanReadable": "Sun–Wed: 5pm–9:30pm\nThu–Sat: 5pm–10pm",
+      "priceRange": null,
+      "websiteURL": "https://www.lefarfallecharleston.com"
+    },
+    {
+      "slug": "sorelle",
+      "name": "Sorelle",
+      "tagline": "Three Floors, Southern Italian",
+      "cuisine": "Southern Italian",
+      "neighborhood": "Downtown",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "88 Broad St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Sorelle is a downtown Charleston, SC Southern Italian restaurant set across three floors of historic Broad Street townhomes. Voted by Charleston locals as one of the city's best Italian restaurants.",
+      "shareTagline": "Southern Italian across three floors on Broad Street, voted best by Charleston locals.",
+      "keywords": "Sorelle Charleston, downtown Charleston Italian, Broad Street restaurants, Southern Italian Charleston, best Italian Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-italian.html",
+          "title": "Best Italian in Charleston"
+        }
+      ],
+      "phone": "+1-843-974-1575",
+      "hours": "Tu-Su 17:00-22:00",
+      "hoursHumanReadable": "Tue–Sun: 5pm–10pm\nMon: Closed",
+      "priceRange": null,
+      "websiteURL": "https://www.sorellecharleston.com"
+    },
+    {
+      "slug": "mondos-italian-restaurant",
+      "name": "Mondo's Italian Restaurant",
+      "tagline": "James Island Mainstay, Gorgonzola Pasta",
+      "cuisine": "Italian",
+      "neighborhood": "James Island",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "915 Folly Rd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29412",
+        "addressCountry": "US"
+      },
+      "description": "Mondo's Italian Restaurant is a James Island Italian restaurant in Charleston, SC, serving red-sauce classics and house made pasta since 1998. Voted by Charleston locals as one of the city's best Italian restaurants.",
+      "shareTagline": "Red-sauce classics and gorgonzola pasta on James Island, voted best by Charleston locals.",
+      "keywords": "Mondo's Charleston, James Island Italian, Folly Road restaurants, red sauce Italian Charleston, best Italian Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-italian.html",
+          "title": "Best Italian in Charleston"
+        }
+      ],
+      "phone": "+1-843-795-8400",
+      "hours": "Mo-Sa 16:00-21:00",
+      "hoursHumanReadable": "Mon–Sat: 4pm–9pm\nSun: Closed",
+      "priceRange": null,
+      "websiteURL": "https://eatatmondos.com"
     }
   ]
 }
