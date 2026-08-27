@@ -1388,6 +1388,10 @@
         {
           "url": "/rankings/best-nice-restaurants.html",
           "title": "Best Nice Restaurants in Charleston"
+        },
+        {
+          "url": "/rankings/best-seafood.html",
+          "title": "Best Seafood in Charleston"
         }
       ],
       "phone": "+1-854-222-3949",
@@ -1916,11 +1920,15 @@
         {
           "url": "/rankings/best-italian.html",
           "title": "Best Italian in Charleston"
+        },
+        {
+          "url": "/rankings/best-seafood.html",
+          "title": "Best Seafood in Charleston"
         }
       ],
       "phone": "+1-843-242-8570",
-      "hours": "Tu-Sa 17:30-21:00",
-      "hoursHumanReadable": "Tue–Sat: 5:30pm–9pm\nSun–Mon: Closed",
+      "hours": "Tu-Th 17:30-21:00,Fr-Sa 17:30-21:30",
+      "hoursHumanReadable": "Tue–Thu: 5:30pm–9pm\nFri–Sat: 5:30pm–9:30pm\nSun–Mon: Closed",
       "priceRange": null,
       "websiteURL": "https://codadelpesce.com"
     },
@@ -2063,6 +2071,76 @@
       "hoursHumanReadable": "Mon–Sat: 5pm–10pm\nSun: Closed",
       "priceRange": null,
       "websiteURL": "https://canepazzorestaurant.com"
+    },
+    {
+      "slug": "167-raw-oyster-bar",
+      "name": "167 Raw Oyster Bar",
+      "tagline": "Raw Bar, New England Roots",
+      "cuisine": "Seafood",
+      "neighborhood": "Lower King",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "193 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "167 Raw Oyster Bar is a Lower King seafood restaurant in Charleston, SC serving New England style raw bar, lobster rolls and daily catch. Voted by Charleston locals as one of the city's best seafood restaurants.",
+      "shareTagline": "New England style raw bar on King Street, voted best by Charleston locals.",
+      "keywords": "167 Raw Charleston, Charleston oyster bar, King Street seafood, raw bar Charleston SC, best seafood Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-seafood.html",
+          "title": "Best Seafood in Charleston"
+        }
+      ],
+      "phone": "+1-843-579-4997",
+      "hours": "Mo-Sa 11:00-23:00",
+      "hoursHumanReadable": "Mon–Sat: 11am–11pm\nSun: Closed",
+      "priceRange": "$$$",
+      "websiteURL": "https://www.167rawoysterbar.com"
+    },
+    {
+      "slug": "the-ordinary",
+      "name": "The Ordinary",
+      "tagline": "Oyster Hall, Old Bank Building",
+      "cuisine": "Seafood",
+      "neighborhood": "Upper King",
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "544 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "The Ordinary is an Upper King seafood restaurant in Charleston, SC serving an oyster hall menu in a restored 1920s bank building. Voted by Charleston locals as one of the city's best seafood restaurants.",
+      "shareTagline": "An oyster hall in a restored bank building on Upper King, voted best by Charleston locals.",
+      "keywords": "The Ordinary Charleston, Charleston oyster hall, Upper King seafood, King Street oyster bar, best seafood Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-seafood.html",
+          "title": "Best Seafood in Charleston"
+        }
+      ],
+      "phone": "+1-843-414-7060",
+      "hours": "Mo 17:00-22:00,We-Th 17:00-22:00,Fr-Sa 17:00-22:30,Su 17:00-22:00",
+      "hoursHumanReadable": "Mon: 5pm–10pm\nTue: Closed\nWed–Thu: 5pm–10pm\nFri–Sat: 5pm–10:30pm\nSun: 5pm–10pm",
+      "priceRange": null,
+      "websiteURL": "https://eattheordinary.com"
     }
   ]
 }

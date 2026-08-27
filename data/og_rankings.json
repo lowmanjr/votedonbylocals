@@ -76,6 +76,11 @@
       "slug": "best-italian",
       "category": "Italian",
       "spots": 6
+    },
+    {
+      "slug": "best-seafood",
+      "category": "Seafood",
+      "spots": 4
     }
   ]
 }

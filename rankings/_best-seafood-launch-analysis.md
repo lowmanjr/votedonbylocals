@@ -1702,6 +1702,11 @@ are fast, and both are the exact commands CI runs.
 
 ## 14. The Ordinary's hours - call script for 843.414.7060
 
+> **SUPERSEDED by section 16.** The conflict was resolved from sources without
+> needing the call. The script is retained as the record of what was going to be
+> asked, and because the fallback paragraph at the end still documents the
+> option that was considered and rejected.
+
 Held per the prep instruction. **No hours value is proposed or shipped.** The
 conflict is restated from section 5d:
 
@@ -1942,5 +1947,234 @@ social cards render rank badges (section 7d).
 
 ### 15f. Still open
 
+> **Closed by section 16.** Nothing in section 12 remains open.
+
 **Only The Ordinary's `hours`** - held pending the call scripted in section 14.
 Everything else in section 12 is now resolved.
+
+---
+
+## 16. The Ordinary's hours - RESOLVED from sources, not the fallback
+
+**Decision: The Ordinary ships resolved hours. The DECISIONS #13.10 fallback is
+NOT used.** Section 5d called this "the only genuine blocker in the launch" and
+section 14 scripted a phone call for it. Neither was needed - the conflict
+resolved on closer reading of the surfaces.
+
+### 16a. Days - Wed through Mon, Tuesday dark. Unanimous.
+
+No dissent once the sources were read carefully. Section 5d recorded OpenTable
+as claiming a Monday dark day against the own site and Yelp; on re-reading, the
+three-way disagreement is only on times, not days. **Tuesday is the dark day and
+every source agrees.**
+
+### 16b. Open 17:00 - and the own site contradicts itself
+
+This is the interesting half. The own site is **not** a single voice:
+
+| Surface | Reads |
+|---|---|
+| Chrome line on three pages | opens **4:00pm** |
+| Reservations page, same chrome line | opens **5:00pm** |
+| Reservations page, **body prose** | dinner service starts at **5:00pm** |
+| Homepage promo copy | *"Join us from 4-5pm for half-priced oyster sliders for the month of August"* |
+
+So the own site carries both times, and the tiebreak is internal to it rather
+than between it and third parties.
+
+**Body prose outranks repeated chrome.** A chrome line is boilerplate that gets
+copied across pages and updated in one place if at all - which is exactly why
+three pages agree with each other and are still wrong. Body prose on the
+reservations page is written for that page and is the more deliberate surface.
+It says 5:00pm, and the reservations page's own chrome agrees with it.
+
+**The 4:00pm is fully explained**, which is what makes this a resolution rather
+than a coin-toss: it is the **August-only half-price oyster slider window**,
+stated as such on the homepage. So 5:00pm is not merely the better-sourced
+answer - it is the **durable** one. A 4:00pm value would go stale on
+**1 September 2026** with nothing in the tree to catch it.
+
+**Ships `17:00`.**
+
+### 16c. Close 22:00, 22:30 Fri-Sat - dated third-party majority
+
+The own site **states no closing time on any surface**, so under #23 it cannot
+decide this field and does not even contradict the answer.
+
+| Source | Close |
+|---|---|
+| Tripadvisor | 22:00, **22:30 Fri-Sat** |
+| En Primeur Club (verified 2026-03-09) | 22:00, **22:30 Fri-Sat** |
+| Yelp | dissents - 21:00 / 22:00 |
+
+Two dated third parties agree against one dissenter. Per #23's *"count the
+sources and weight them by recency, rather than discarding a field the moment
+two disagree"*, the majority rules. This is the same shape as the best-ramen
+Bar Weems resolution - and, as there, **#13.10 does not fire**: its trigger is
+*unresolvable* conflict, and nulling here would delete good data in deference to
+the single weakest reading.
+
+### 16d. Values shipped, format verified against the tree
+
+Format was checked before applying, per instruction. `fig` was named as the
+structural match, and it is the right family - but **`ok-donna` is the exact
+one**, because it is the only other entry with a **single mid-week dark day**:
+
+| Entry | `hours` | Shape |
+|---|---|---|
+| **`ok-donna`** | `Mo 17:00-23:00,We-Su 17:00-23:00` | **Mon open, Tue dark, Wed-Sun open - identical to The Ordinary** |
+| `verns` | `Mo 17:00-22:00,Th-Su 17:00-22:00` | Mon open, Tue-Wed dark |
+| `fig` | `Tu-Th 17:30-22:30,Fr-Sa 17:30-23:00` | Fri-Sat late split |
+
+The Ordinary needs both shapes at once - `ok-donna`'s mid-week gap **and**
+`fig`'s Fri-Sat late split - so the Wed-Sun block cannot be collapsed the way
+`ok-donna` collapses it:
+
+```
+"hours": "Mo 17:00-22:00,We-Th 17:00-22:00,Fr-Sa 17:00-22:30,Su 17:00-22:00"
+```
+
+Four ranges, not three: `Su` is listed separately because schema.org day ranges
+do not wrap around the week end, and the tree follows that - `verns` lists `Mo`
+separately rather than writing `Su-Mo`.
+
+`hoursHumanReadable` follows `ok-donna` exactly - one line per block, newline
+separated, **U+2013 EN DASH** for both the time separator and the day-range
+separator, single days taking no day-range dash:
+
+```
+Mon: 5pm-10pm
+Tue: Closed
+Wed-Thu: 5pm-10pm
+Fri-Sat: 5pm-10:30pm
+Sun: 5pm-10pm
+```
+
+(Rendered above with ASCII hyphens to keep this file readable; the applied value
+uses en dashes in all seven positions, matching `ok-donna`, `verns` and `fig`.
+The `hours` field above correctly uses ASCII hyphens - the two fields genuinely
+differ, as noted in 15a.)
+
+### 16e. The finding worth keeping - the surface hierarchy is not name-specific
+
+The surface hierarchy in section 3a was derived for **names**: logo/masthead >
+headings > body prose > title and footer, used to settle "167 Raw" vs "167 Raw
+Oyster Bar". Here **the same hierarchy resolved an hours conflict**, and it did
+so on a case the name-shaped version does not literally cover - chrome versus
+body prose, where the higher-ranked surface (repeated chrome) was the wrong one.
+
+The generalisation: **the hierarchy ranks surfaces by how deliberately each was
+authored for the thing being asserted, not by field type.** A masthead is the
+most deliberate statement of a *name*; for an *operating detail*, page-specific
+body prose is more deliberate than a boilerplate line duplicated across the
+site. Repetition across pages looked like corroboration and was actually a
+single source counted three times.
+
+Two rules fall out, both worth carrying into future launches:
+
+1. **Count distinct surfaces, not distinct pages.** Three pages carrying one
+   chrome line is one source, not three.
+2. **An own site can conflict with itself**, and #23's own-site guidance does
+   not currently say what to do when it does. It splits own-site from
+   third-party and treats "the own site" as one voice. Here it was two, and the
+   split was the whole answer.
+
+Filed for the next #23 amendment - section 17, item 3.
+
+---
+
+## 17. Build pass - what shipped, and two corrections to this file
+
+Build ran 2026-08-27 on `best-seafood-launch`, rebased onto `main` @ `5293c71`
+(`fix: add --minify to watch:css so it matches build:css (#57)` had landed since
+the prep pass; `main` moved again between passes for the third time).
+
+### 17a. Subtitle - the build instruction and the recipe disagree, and the recipe won
+
+**Flagged rather than resolved silently.** The build instruction said *"Standard
+Top-N subtitle, no count framing."* The recipe says the opposite for Top-4, in
+three places:
+
+- **DECISIONS #4**, which exists specifically to establish it: *"Subtitle reads
+  'As voted by Charleston locals. Four standouts - with more to come.'"*
+- **DECISIONS #23**, which lists Top-4 among the counts that take count framing.
+- **DECISIONS #20**, whose rule is that counts *below* canonical five take the
+  framing and Top-5/Top-6/Top-7 do not. Four is below five.
+- The **only shipped Top-4 page**, `best-new-restaurants.html`, carries it
+  verbatim.
+
+The standing instruction on this launch was "follow the DECISIONS #23 recipe
+from the tree", so the recipe was followed and the count framing shipped:
+
+> `As voted by Charleston locals. Four standouts ` + em dash + ` with more to come.`
+
+The likely origin of the instruction is that the previous two launches
+(`best-italian` Top-5 then Top-6) both correctly took the bare subtitle, so
+"standard" was carried forward from them. **If the operator does want the bare
+form, it is a one-line change** at `rankings/best-seafood.html` - but it would
+put `best-seafood` out of step with `best-new-restaurants` and would want #4
+amending rather than just overriding.
+
+### 17b. Correction to section 9 - the OG image paths in this file were wrong
+
+Section 9 listed `assets/images/og/best-seafood.png` and flagged it as
+convention-not-verified. **Verified at build time and it was wrong.** The
+generator writes flat, with a prefix rather than a subdirectory
+(`generate_og_images.py:159,181`):
+
+| Artifact | Actual path |
+|---|---|
+| ranking | `assets/images/og-best-seafood.png` |
+| detail | `assets/images/og-restaurant-167-raw-oyster-bar.png` |
+| detail | `assets/images/og-restaurant-the-ordinary.png` |
+
+### 17c. Verification results
+
+| Check | Result |
+|---|---|
+| `check_built_css.py` (CI gate 1) | **`[OK]` in sync, 20444 bytes, exit 0** - byte-identical, so the three new pages introduced **no** new utility classes and `npm run build:css` was correctly not run |
+| `inline_chrome.py --check` (CI gate 2) | **`[OK] 72 files in sync`, exit 0** - 69 + 3, exactly as section 13c predicted |
+| Real social loader (`loadRankingData('best-seafood')`) | layout `top-n`, title `Best Seafood`, category `Seafood`, 4 rows, **all four slugs resolved and all four row taglines matched** |
+| ItemList before BreadcrumbList | ItemList at offset 3691, BreadcrumbList at 6557 - **ItemList first**; first `ld+json` block `@type` is `ItemList`; all blocks parse as valid JSON |
+| Placeholders outside HTML comments | **NONE** |
+| Page-owned cross-category residue | one hit, and it is correct: Coda del Pesce's `servesCuisine: "Italian Seafood"`, the #23 preserve-the-specific rule. The other five `Italian` hits are in the two `AUTOGENERATED` chrome blocks, which link every ranking on every page - the exact false positive #23's corollary warns about |
+| Hero emoji | 5 occurrences of U+1F9AA, one per row plus hero; 4 `aria-label="oyster"` (hero carries none, per `best-wings`) |
+| Sitemap `<lastmod>` | all five new/bumped URLs carry `2026-08-27T12:00:00-04:00`; 69 URLs total |
+
+The social loader is a genuinely strong end-to-end check, not a formality: it
+throws if any ItemList slug is missing from `restaurants.json`, and separately
+if a body-row tagline does not match its ItemList entry. Passing means the
+JSON-LD and the rendered rows agree.
+
+### 17d. Dates - the UTC seed fired exactly as #23 predicts
+
+| Page | `datePublished` | `dateModified` |
+|---|---|---|
+| `167-raw-oyster-bar` | `2026-08-27T16:20:09+00:00` -> `2026-08-27T12:00:00-04:00` | same, normalized |
+| `the-ordinary` | `2026-08-27T16:20:12+00:00` -> `2026-08-27T12:00:00-04:00` | same, normalized |
+| `chubby-fish` | `2026-05-03T19:03:39-04:00` **unchanged** | `2026-05-03T19:03:39-04:00` -> `2026-08-27T12:00:00-04:00` |
+| `coda-del-pesce` | `2026-08-26T12:00:00-04:00` **unchanged** | `2026-08-26T12:00:00-04:00` -> `2026-08-27T12:00:00-04:00` |
+
+`datePublished` was deliberately **not** touched on the two pre-existing pages -
+only `dateModified` is an assertion about this edit. The three pre-existing
+`+00:00` pages `#23` documents (`little-jacks-tavern`, `pubfare-burger`,
+`weltons-tiny-bakeshop`) were left alone; fixing them is not this PR's job.
+
+### 17e. Coda del Pesce hours - applied
+
+| | Value |
+|---|---|
+| `hours` before | `Tu-Sa 17:30-21:00` |
+| `hours` after | `Tu-Th 17:30-21:00,Fr-Sa 17:30-21:30` |
+| `hoursHumanReadable` before | `Tue`+EN+`Sat: 5:30pm`+EN+`9pm` / `Sun`+EN+`Mon: Closed` |
+| `hoursHumanReadable` after | `Tue`+EN+`Thu: 5:30pm`+EN+`9pm` / `Fri`+EN+`Sat: 5:30pm`+EN+`9:30pm` / `Sun`+EN+`Mon: Closed` |
+
+(`/` above denotes the newline separator; EN denotes U+2013.)
+
+### 17f. Registry edits - five, as scoped
+
+`data/og_rankings.json` (`spots: 4`, `lastUpdated` bumped) - `components/header.html`
+(desktop + mobile, below the divider, no NEW pill) - `index.html` (15th grid
+card, **`grid-cols` unchanged** per the section 7b re-derivation) - `vote.html`
+(`<option>` appended after Best Italian) - `sitemap.xml` (regenerated **after**
+both bumps).
