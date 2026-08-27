@@ -1,0 +1,51 @@
+# Fails a PR when a committed generated artifact has drifted from its source.
+#
+# Two artifacts in this repo are generated but committed, and nothing rebuilds
+# them automatically:
+#
+#   assets/css/built.css  <- npm run build:css, from src/input.css
+#   header/footer chrome  <- scripts/inline_chrome.py --refresh, inlined from
+#                            components/*.html into all 69 production pages
+#
+# Both have shipped stale before. This gate makes that a red check instead of a
+# four-month-old layout bug.
+
+name: Generated artifacts
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  check:
+    name: Check generated artifacts match source
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the PR
+        uses: actions/checkout@v4
+
+      # Pinned to 22 to match the developer environment that produced the
+      # committed built.css. The repo pins no node version anywhere.
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Both check scripts are stdlib-only; requirements.txt is not needed.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: built.css matches src/input.css
+        run: npm run check:css
+
+      # always() so a PR that drifts both ways reports both in one run,
+      # rather than making you fix, push and wait to discover the second.
+      - name: Inlined chrome matches components/
+        if: always()
+        run: python scripts/inline_chrome.py --check
