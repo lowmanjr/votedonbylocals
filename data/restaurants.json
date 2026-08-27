@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.2",
-    "lastUpdated": "2026-08-26",
+    "lastUpdated": "2026-08-27",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -2028,6 +2028,41 @@
       "hoursHumanReadable": "Mon–Sat: 4pm–9pm\nSun: Closed",
       "priceRange": null,
       "websiteURL": "https://eatatmondos.com"
+    },
+    {
+      "slug": "cane-pazzo",
+      "name": "Cane Pazzo",
+      "tagline": "Changing Menu, Daily Bread",
+      "cuisine": "Italian",
+      "neighborhood": null,
+      "schemaType": "Restaurant",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1276 Yeamans Hall Rd",
+        "addressLocality": "Hanahan",
+        "addressRegion": "SC",
+        "postalCode": "29410",
+        "addressCountry": "US"
+      },
+      "description": "Cane Pazzo is a Hanahan, SC neighborhood osteria serving handmade pasta and wood-fired small plates built on Lowcountry ingredients. Voted by Charleston locals as one of the city's best Italian restaurants.",
+      "shareTagline": "Handmade pasta and wood-fired small plates in Hanahan, voted best by Charleston locals.",
+      "keywords": "Cane Pazzo Charleston, Hanahan Italian, handmade pasta Charleston, Yeamans Hall Road restaurants, best Italian Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-italian.html",
+          "title": "Best Italian in Charleston"
+        }
+      ],
+      "phone": "+1-843-974-3647",
+      "hours": "Mo-Sa 17:00-22:00",
+      "hoursHumanReadable": "Mon–Sat: 5pm–10pm\nSun: Closed",
+      "priceRange": null,
+      "websiteURL": "https://canepazzorestaurant.com"
     }
   ]
 }
