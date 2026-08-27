@@ -5,7 +5,8 @@
   "description": "Voted On By Locals — Charleston restaurant rankings",
   "scripts": {
     "build:css": "tailwindcss -i ./src/input.css -o ./assets/css/built.css --minify",
-    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/built.css --watch"
+    "watch:css": "tailwindcss -i ./src/input.css -o ./assets/css/built.css --watch",
+    "check:css": "python scripts/check_built_css.py"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.19"
