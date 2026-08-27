@@ -2110,10 +2110,21 @@ from the tree", so the recipe was followed and the count framing shipped:
 
 The likely origin of the instruction is that the previous two launches
 (`best-italian` Top-5 then Top-6) both correctly took the bare subtitle, so
-"standard" was carried forward from them. **If the operator does want the bare
-form, it is a one-line change** at `rankings/best-seafood.html` - but it would
-put `best-seafood` out of step with `best-new-restaurants` and would want #4
-amending rather than just overriding.
+"standard" was carried forward from them.
+
+**RESOLVED 2026-08-27, operator accepted this reading.** DECISIONS #4 and #20
+govern, Top-4 takes count framing, and **the shipped string stands** - no change
+was made. The build instruction's "no count framing" was an **error carried over
+from `best-italian`**, where Top-5 and then Top-6 both correctly take the bare
+form because they sit at or above canonical five. The rule is a function of the
+count, not of what the previous launch did.
+
+Worth stating as a general point, since it is the second time a
+carried-forward assumption from the immediately preceding launch has had to be
+corrected in this file (the first being the prompt's `1a6a429` branch point in
+section 1a): **the previous launch is a good source of conventions and a bad
+source of parameters.** Template, JSON-LD shape, chrome handling and step order
+all transfer; entry count, subtitle framing, emoji and commit base do not.
 
 ### 17b. Correction to section 9 - the OG image paths in this file were wrong
 
