@@ -14,62 +14,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- SEO meta ------------------------------------------------------- -->
-    <title>Malagón — Spanish in Charleston | Voted On By Locals</title>
-    <meta name="description" content="Malagón is a Spanish market and tapería in Cannonborough, Charleston, SC. Voted by Charleston locals as one of the city's best nice restaurants.">
-    <meta name="keywords" content="Malagón Charleston, Spanish Charleston, Cannonborough tapas, best nice restaurants Charleston SC">
+    <!-- REPLACE: SEO meta ---------------------------------------------- -->
+    <title>Best Seafood in Charleston, SC | Locals Guide (2026)</title>
+    <meta name="description" content="See the best seafood restaurants in Charleston, SC, as voted on by the local community.">
+    <meta name="keywords" content="best seafood Charleston SC, Charleston seafood rankings, oyster bar Charleston, raw bar Charleston, seafood restaurants Charleston, local favorites Charleston">
 
-    <!-- Canonical URL -------------------------------------------------- -->
-    <link rel="canonical" href="https://votedonbylocals.com/restaurants/malagon.html">
+    <!-- REPLACE: Canonical URL ----------------------------------------- -->
+    <link rel="canonical" href="https://votedonbylocals.com/rankings/best-seafood.html">
 
-    <!-- Open Graph ----------------------------------------------------- -->
-    <meta property="og:title" content="Malagón — Spanish in Charleston">
-    <meta property="og:description" content="Spanish market and tapería in Cannonborough, voted best by Charleston locals.">
+    <!-- REPLACE: Open Graph -------------------------------------------- -->
+    <meta property="og:title" content="Best Seafood in Charleston | Voted On By Locals">
+    <meta property="og:description" content="Charleston's best seafood — oyster bars, raw bars, and the locals' picks.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://votedonbylocals.com/restaurants/malagon.html">
-    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-restaurant-malagon.png">
+    <meta property="og:url" content="https://votedonbylocals.com/rankings/best-seafood.html">
+    <meta property="og:image" content="https://votedonbylocals.com/assets/images/og-best-seafood.png">
     <meta property="og:site_name" content="Voted On By Locals">
 
-    <!-- Twitter card --------------------------------------------------- -->
+    <!-- REPLACE: Twitter card ------------------------------------------ -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Malagón — Spanish in Charleston">
-    <meta name="twitter:description" content="Spanish market and tapería in Cannonborough, voted best by Charleston locals.">
-    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-restaurant-malagon.png">
+    <meta name="twitter:title" content="Best Seafood in Charleston | Voted On By Locals">
+    <meta name="twitter:description" content="Charleston's best seafood — oyster bars, raw bars, and the locals' picks.">
+    <meta name="twitter:image" content="https://votedonbylocals.com/assets/images/og-best-seafood.png">
 
-    <!-- JSON-LD: Restaurant -------------------------------------------- -->
+    <!--
+      REPLACE: JSON-LD structured data.
+
+      aggregateRating is INTENTIONALLY ABSENT from this schema.
+
+      We do not yet have real vote-aggregation data. Adding a fabricated
+      ratingValue + ratingCount (or one derived from the old hardcoded
+      "1,769 votes" copy) would be a structured-data lie that Google can
+      penalize as deceptive markup.
+
+      When real aggregate data exists, add an "aggregateRating" object
+      to each Restaurant item below using actual ratingValue (1–5 scale)
+      and ratingCount (integer). Optionally also add an aggregateRating
+      to the ItemList itself. Schema reference:
+      https://schema.org/aggregateRating
+
+      JSON does not support comments — do NOT add // or /* */ inside the
+      <script> body. Any guidance lives in this HTML comment, outside it.
+
+      The "@type" of each item below is per-page configurable. The default
+      is "Restaurant", which works for most pages. Override on a per-page
+      basis when a more specific subclass of FoodEstablishment applies:
+        - best-coffee-shops    → "CafeOrCoffeeShop"
+        - (future bar page)    → "BarOrPub"
+        - (future club page)   → "NightClub"
+        - (future bakery page) → "Bakery"
+      All these subclass "FoodEstablishment" and pass Google validation.
+    -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "name": "Malagón",
-      "description": "Malagón is a Spanish market and tapería in Cannonborough, Charleston, SC. Voted by Charleston locals as one of the city's best nice restaurants.",
-      "datePublished": "2026-05-03T19:03:39-04:00",
-      "dateModified": "2026-05-03T19:03:39-04:00",
-      "url": "https://votedonbylocals.com/restaurants/malagon.html",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "33 Spring St",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29403",
-        "addressCountry": "US"
-      },
-      "servesCuisine": "Spanish",
-      "telephone": "+1-843-926-0475",
-      "openingHours": "Tu-Su 11:00-22:00",
-      "priceRange": "$$$",
-      "sameAs": "https://malagonchs.com"
+      "@type": "ItemList",
+      "name": "Best Seafood in Charleston, SC",
+      "description": "See the best seafood restaurants in Charleston, SC, as voted on by the local community.",
+      "datePublished": "2026-08-27T12:00:00-04:00",
+      "dateModified": "2026-08-27T12:00:00-04:00",
+      "url": "https://votedonbylocals.com/rankings/best-seafood.html",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Chubby Fish",
+            "url": "https://votedonbylocals.com/restaurants/chubby-fish.html",
+            "servesCuisine": "Seafood",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "Restaurant",
+            "name": "167 Raw Oyster Bar",
+            "url": "https://votedonbylocals.com/restaurants/167-raw-oyster-bar.html",
+            "servesCuisine": "Seafood",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "Restaurant",
+            "name": "The Ordinary",
+            "url": "https://votedonbylocals.com/restaurants/the-ordinary.html",
+            "servesCuisine": "Seafood",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Charleston",
+              "addressRegion": "SC"
+            }
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "Restaurant",
+            "name": "Coda del Pesce",
+            "url": "https://votedonbylocals.com/restaurants/coda-del-pesce.html",
+            "servesCuisine": "Italian Seafood",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Isle of Palms",
+              "addressRegion": "SC"
+            }
+          }
+        }
+      ]
     }
     </script>
 
-    <!-- BreadcrumbList — Home → {RestaurantName}. No intermediate
-         "Restaurants" node because the site has no /restaurants index
-         page or nav category; inventing one would create a phantom
-         category. Detail pages are reached through ranking cards;
-         picking one parent ranking would be ambiguous for cross-listed
-         restaurants (e.g., a coffee shop appearing on both
-         best-coffee-shops and best-new-coffee-shop). Honest 2-level
-         crumb chosen over arbitrary parent. -->
+    <!-- BreadcrumbList — Home → Rankings (/#rankings) → Best Italian.
+         The /#rankings fragment resolves to the homepage, which IS the
+         rankings index (hero "The Charleston Rankings" + 8-card grid).
+         Schema works without an explicit id="rankings" anchor on the
+         page (fragment falls back to top of document). A small UX
+         follow-up is tracked to add the id post-May-20 so the fragment
+         scrolls to the cards section instead of the page top. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -84,8 +159,14 @@
         {
           "@type": "ListItem",
           "position": 2,
-          "name": "Malagón",
-          "item": "https://votedonbylocals.com/restaurants/malagon.html"
+          "name": "Rankings",
+          "item": "https://votedonbylocals.com/#rankings"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Best Seafood",
+          "item": "https://votedonbylocals.com/rankings/best-seafood.html"
         }
       ]
     }
@@ -206,112 +287,90 @@
     <main class="flex-grow">
         <div class="container mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
 
-            <!-- BACK LINK ------------------------------------------------- -->
-            <div class="mb-6">
-                <a href="/" class="inline-flex items-center justify-center py-2 px-4 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
+            <!-- HERO ------------------------------------------------------ -->
+            <div class="text-center mb-10">
+                <a href="/" class="inline-flex items-center justify-center py-2 px-4 mb-6 text-brand-orange font-bold hover:bg-orange-50 rounded-lg transition-colors">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                     Back to All Rankings
                 </a>
-            </div>
 
-            <!-- HERO ------------------------------------------------------ -->
-            <div class="text-center mb-10">
-
-                <!-- Hero h1 -->
-                <h1 class="text-4xl sm:text-5xl font-extrabold font-poppins text-brand-dark leading-tight">
-                    Malagón
+                <!-- REPLACE: hero h1 (Category + Emoji) -->
+                <h1 class="text-4xl sm:text-6xl font-extrabold font-poppins text-brand-dark leading-tight">
+                    Best <span class="text-brand-orange">Seafood</span> 🦪
                 </h1>
 
-                <!-- Cuisine + neighborhood subtitle -->
-                <p class="text-brand-gray mt-4 text-lg font-medium">
-                    Spanish · Cannonborough
-                </p>
+                <p class="text-brand-gray mt-4 text-lg font-medium">As voted by Charleston locals. Four standouts — with more to come.</p>
 
-                <!-- Tagline (carried verbatim from ranking page) -->
-                <p class="text-brand-dark mt-3 text-base sm:text-lg italic">
-                    "Spanish Market & Tapería"
-                </p>
-
-                <!-- Updated [Month Year] pill -->
-                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-4 shadow-sm">
-                    Updated May 2026
+                <!-- REPLACE: Updated [Month Year] pill -->
+                <div class="inline-block bg-white px-3 py-1 rounded-full text-xs text-gray-400 border border-gray-100 mt-2 shadow-sm">
+                    Updated August 2026
                 </div>
             </div>
 
-            <!-- MAIN CONTENT CARD ----------------------------------------- -->
-            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative mb-8">
+            <!-- LIST CARD ------------------------------------------------- -->
+            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden relative">
                 <div class="h-2 w-full bg-brand-orange"></div>
 
-                <div class="p-6 sm:p-8">
+                <div class="p-2 sm:p-4">
+                    <div class="divide-y divide-gray-100">
 
-                    <!-- INFO SIDEBAR -->
-                    <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
+                        <!--
+                          REPEATING ROW — duplicate ×4, replacing {{Restaurant#}}/{{Tagline#}}.
+                          The emoji at the start of each row is the page theme emoji ({{Emoji}}),
+                          re-used so it visually anchors the list.
+                        -->
 
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">33 Spring St</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        <!-- REPLACE: row 1 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="oyster">🦪</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/chubby-fish.html" class="hover:text-brand-orange transition-colors">Chubby Fish</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">No Reservations, Daily Catch</p>
+                            </div>
+                        </div>
+                        <!-- REPLACE: row 2 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="oyster">🦪</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/167-raw-oyster-bar.html" class="hover:text-brand-orange transition-colors">167 Raw Oyster Bar</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Raw Bar, New England Roots</p>
+                            </div>
+                        </div>
+                        <!-- REPLACE: row 3 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="oyster">🦪</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/the-ordinary.html" class="hover:text-brand-orange transition-colors">The Ordinary</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Oyster Hall, Old Bank Building</p>
+                            </div>
+                        </div>
+                        <!-- REPLACE: row 4 -->
+                        <div class="group p-5 sm:p-6 hover:bg-orange-50/40 transition-colors rounded-xl flex items-start gap-4 sm:items-center">
+                            <div class="flex-shrink-0 mt-1 sm:mt-0 opacity-80 group-hover:opacity-100 transition-opacity transform group-hover:scale-110 duration-200">
+                                <span class="text-2xl" role="img" aria-label="oyster">🦪</span>
+                            </div>
+                            <div class="flex-1">
+                                <h2 class="font-poppins font-bold text-xl sm:text-2xl text-brand-dark mb-1 leading-snug"><a href="/restaurants/coda-del-pesce.html" class="hover:text-brand-orange transition-colors">Coda del Pesce</a></h2>
+                                <p class="text-brand-gray font-medium text-sm sm:text-base">Daily Crudo, Sustainably Caught</p>
+                            </div>
                         </div>
 
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Tue–Sun: 11am–10pm<br>
-                                Mon: Closed
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-926-0475" class="hover:text-brand-orange transition-colors">(843) 926-0475</a>
-                            </p>
-                        </div>
-
-                        <!-- Website -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Website</p>
-                            <p class="text-brand-dark text-sm break-all">
-                                <a href="https://malagonchs.com" rel="noopener" target="_blank" class="text-brand-orange hover:underline">malagonchs.com</a>
-                            </p>
-                        </div>
-
-                        <!-- Price range -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Price</p>
-                            <p class="text-brand-dark text-sm">$$$</p>
-                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- APPEARS ON CROSS-LINK SECTION ----------------------------- -->
-            <div class="bg-orange-50/60 rounded-2xl p-6 sm:p-8 mb-8 border border-brand-orange/10">
-                <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Appears on</h2>
-                <ul class="space-y-2">
-                    <li>
-                        <a href="/rankings/best-nice-restaurants.html" class="inline-flex items-center text-brand-orange hover:underline font-medium">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                            </svg>
-                            Best Nice Restaurants in Charleston
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- BOTTOM CTA ------------------------------------------------ -->
-            <div class="bg-white rounded-[2rem] shadow-xl border border-brand-orange/10 overflow-hidden">
-                <div class="h-2 w-full bg-brand-orange"></div>
-                <div class="p-6 sm:p-8 text-center">
-                    <p class="text-brand-dark font-medium mb-4 text-lg">Got a Charleston favorite worth shouting about?</p>
+                <!-- BOTTOM CTA --------------------------------------------- -->
+                <div class="bg-orange-50 p-6 sm:p-8 text-center border-t border-brand-orange/10">
+                    <p class="text-brand-dark font-medium mb-4 text-lg">Disagree with this list? Cast your vote!</p>
                     <a href="/vote.html" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-brand-orange text-white font-poppins font-bold text-lg py-4 px-10 rounded-full hover:bg-orange-600 transition-all shadow-lg hover:shadow-xl active:scale-95">
-                        Cast Your Vote
+                        Vote for Best Seafood
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                         </svg>
