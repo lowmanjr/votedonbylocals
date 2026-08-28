@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.2",
-    "lastUpdated": "2026-08-27",
+    "lastUpdated": "2026-08-28",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -602,7 +602,7 @@
     {
       "slug": "moes-crosstown-tavern",
       "name": "Moe's Crosstown Tavern",
-      "tagline": "Legendary Dive Bar Burger",
+      "tagline": "Sports Bar, Burgers, Wings",
       "cuisine": "American",
       "neighborhood": "Hampton Park",
       "schemaType": "Restaurant",
@@ -619,9 +619,9 @@
         "postalCode": "29403",
         "addressCountry": "US"
       },
-      "description": "Moe's Crosstown Tavern is a Hampton Park dive bar in Charleston, SC, known for its legendary burger. Voted by Charleston locals as one of the city's best burgers.",
-      "shareTagline": "The legendary dive-bar burger, voted best by Charleston locals.",
-      "keywords": "Moe's Crosstown Tavern Charleston, dive bar burger Charleston, Hampton Park bar, best burger Charleston SC",
+      "description": "Moe's Crosstown Tavern is a Hampton Park sports bar and grill in Charleston, SC known for its burgers, wings, and pub food. Voted by Charleston locals as one of the city's best burgers and best wings.",
+      "shareTagline": "Burgers, wings, and pub food at a Hampton Park bar — voted best by Charleston locals.",
+      "keywords": "Moe's Crosstown Tavern Charleston, Hampton Park bar, Charleston sports bar, Charleston wings, best burger Charleston SC",
       "appearsOn": [
         {
           "url": "/rankings/best-burger.html",
