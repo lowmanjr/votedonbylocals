@@ -630,6 +630,10 @@
         {
           "url": "/rankings/best-wings.html",
           "title": "Best Wings in Charleston"
+        },
+        {
+          "url": "/rankings/best-bar.html",
+          "title": "Best Bar in Charleston"
         }
       ],
       "phone": "+1-843-641-0469",
@@ -2141,6 +2145,146 @@
       "hoursHumanReadable": "Mon: 5pm–10pm\nTue: Closed\nWed–Thu: 5pm–10pm\nFri–Sat: 5pm–10:30pm\nSun: 5pm–10pm",
       "priceRange": null,
       "websiteURL": "https://eattheordinary.com"
+    },
+    {
+      "slug": "last-saint",
+      "name": "Last Saint",
+      "tagline": "Cocktails Till 2am, Speakeasy Behind",
+      "cuisine": "Cocktail Bar",
+      "neighborhood": "Eastside",
+      "schemaType": "BarOrPub",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "472 Meeting St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Last Saint is an Eastside cocktail bar in Charleston, SC, pouring inventive drinks in a converted single-row home with a speakeasy hidden at the back. Voted by Charleston locals as one of the city's best bars.",
+      "shareTagline": "Cocktails and a hidden speakeasy on the Eastside, voted best by Charleston locals.",
+      "keywords": "Last Saint Charleston, Charleston cocktail bar, Eastside Charleston bar, Charleston speakeasy, best bar Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-bar.html",
+          "title": "Best Bar in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "Mo-Su 17:00-02:00",
+      "hoursHumanReadable": "Mon-Sun: 5pm-2am",
+      "priceRange": null,
+      "websiteURL": "https://www.lastsaintchs.com"
+    },
+    {
+      "slug": "graft-wine-shop",
+      "name": "Graft Wine Shop",
+      "tagline": "Wine Shop and Bar, Same Room",
+      "cuisine": "Wine Bar",
+      "neighborhood": "Upper King",
+      "schemaType": "BarOrPub",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "700 King St Suite B",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Graft Wine Shop is an Upper King wine bar and retail shop in Charleston, SC, where the shelves and the bar share one room. Voted by Charleston locals as one of the city's best bars.",
+      "shareTagline": "A wine bar inside a wine shop on Upper King, voted best by Charleston locals.",
+      "keywords": "Graft Wine Shop Charleston, Charleston wine bar, Upper King wine shop, King Street wine bar, best bar Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-bar.html",
+          "title": "Best Bar in Charleston"
+        }
+      ],
+      "phone": "+1-843-718-3359",
+      "hours": "Mo-Su 12:00-22:00",
+      "hoursHumanReadable": "Mon-Sun: 12pm-10pm\nBar service from 4pm Mon-Thu, 2pm Fri",
+      "priceRange": null,
+      "websiteURL": "https://www.graftchs.com"
+    },
+    {
+      "slug": "the-royal-american",
+      "name": "The Royal American",
+      "tagline": "Neighborhood Bar, Live Music Since 2011",
+      "cuisine": "Bar Food",
+      "neighborhood": "NoMo",
+      "schemaType": "BarOrPub",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "970 Morrison Dr",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "The Royal American is a NoMo neighborhood bar in Charleston, SC, booking original live music in the Ole Charleston Forge building since 2011. Voted by Charleston locals as one of the city's best bars.",
+      "shareTagline": "Original live music and a late kitchen in NoMo, voted best by Charleston locals.",
+      "keywords": "The Royal American Charleston, Charleston live music bar, NoMo bar, Morrison Drive bar, best bar Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-bar.html",
+          "title": "Best Bar in Charleston"
+        }
+      ],
+      "phone": "+1-843-817-6925",
+      "hours": "Mo-Su 11:00-02:00",
+      "hoursHumanReadable": "Mon-Sun: 11am-2am",
+      "priceRange": null,
+      "websiteURL": "https://www.theroyalamerican.com"
+    },
+    {
+      "slug": "burns-alley-tavern",
+      "name": "Burns Alley Tavern",
+      "tagline": "Down an Alley, Off Lower King",
+      "cuisine": "Dive Bar",
+      "neighborhood": "Lower King",
+      "schemaType": "BarOrPub",
+      "monthYear": "August 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "354B King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29401",
+        "addressCountry": "US"
+      },
+      "description": "Burns Alley Tavern is a Lower King dive bar in Charleston, SC, hidden down an alley off King Street with live music most nights. Voted by Charleston locals as one of the city's best bars.",
+      "shareTagline": "A dive bar hidden down an alley off King Street, voted best by Charleston locals.",
+      "keywords": "Burns Alley Tavern Charleston, Charleston dive bar, King Street dive bar, College of Charleston bar, best bar Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-bar.html",
+          "title": "Best Bar in Charleston"
+        }
+      ],
+      "phone": "+1-843-723-6735",
+      "hours": "Mo-Su 12:00-02:00",
+      "hoursHumanReadable": "Mon-Sun: 12pm-2am",
+      "priceRange": null,
+      "websiteURL": "https://burnsalley.com"
     }
   ]
 }
