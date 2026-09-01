@@ -1,7 +1,7 @@
 {
   "_meta": {
-    "schemaVersion": "1.2",
-    "lastUpdated": "2026-08-28",
+    "schemaVersion": "1.3",
+    "lastUpdated": "2026-09-01",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -356,7 +356,7 @@
         "postalCode": "29401",
         "addressCountry": "US"
       },
-      "description": "Second State Coffee is a Charleston, SC specialty coffee roaster and cafe with multiple locations including downtown Beaufain Street. Voted by Charleston locals as one of the city's best coffee shops.",
+      "description": "Charleston's own specialty roaster with five Lowcountry cafes: Downtown, Navy Yard, West Ashley and two in Mount Pleasant. Addresses and hours for each.",
       "shareTagline": "Charleston-roasted specialty coffee, voted best by locals.",
       "keywords": "Second State Coffee Charleston, Charleston coffee roaster, Beaufain Street cafe, best coffee Charleston SC",
       "appearsOn": [
@@ -370,11 +370,25 @@
       "hoursHumanReadable": "Mon–Fri: 7am–5pm\nSat–Sun: 8am–5pm",
       "priceRange": "$$",
       "websiteURL": "https://secondstatecoffee.com/",
+      "sameAs": [
+        "https://www.instagram.com/secondstatecoffee/",
+        "https://www.facebook.com/secondstatecoffee/"
+      ],
       "geoLat": null,
       "geoLng": null,
+      "primaryLocation": {
+        "label": "Downtown",
+        "name": "Second State Coffee — Downtown",
+        "slug": "downtown",
+        "neighborhood": "Harleston Village",
+        "url": "https://secondstatecoffee.com/pages/downtown-charleston"
+      },
       "locations": [
         {
           "label": "Navy Yard",
+          "name": "Second State Coffee — Navy Yard",
+          "slug": "navy-yard",
+          "neighborhood": "Navy Yard",
           "address": {
             "streetAddress": "2156 Noisette Blvd",
             "addressLocality": "North Charleston",
@@ -391,6 +405,9 @@
         },
         {
           "label": "West Ashley",
+          "name": "Second State Coffee — West Ashley",
+          "slug": "west-ashley",
+          "neighborhood": "West Ashley",
           "address": {
             "streetAddress": "1630 Ashley Hall Rd",
             "addressLocality": "Charleston",
@@ -407,6 +424,9 @@
         },
         {
           "label": "Oyster Park",
+          "name": "Second State Coffee — Oyster Park",
+          "slug": "oyster-park",
+          "neighborhood": "Mount Pleasant",
           "address": {
             "streetAddress": "1410 Shucker Cir Ste 1107",
             "addressLocality": "Mount Pleasant",
@@ -423,6 +443,9 @@
         },
         {
           "label": "Shelmore",
+          "name": "Second State Coffee — Shelmore",
+          "slug": "shelmore",
+          "neighborhood": "Mount Pleasant",
           "address": {
             "streetAddress": "766 S Shelmore Blvd",
             "addressLocality": "Mount Pleasant",

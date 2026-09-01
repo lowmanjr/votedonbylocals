@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO meta ------------------------------------------------------- -->
-    <title>Heavy's Barburger — Burgers in Charleston | Voted On By Locals</title>
+    <title>Heavy's Barburger Locations & Hours | Voted On By Locals</title>
     <meta name="description" content="Heavy's Barburger is a NoMo griddle-smashed burger spot in Charleston, SC. Voted by Charleston locals as one of the city's best burgers.">
     <meta name="keywords" content="Heavy's Barburger Charleston, smash burger Charleston, NoMo burger spot, best burger Charleston SC">
 
@@ -40,26 +40,73 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#brand",
-      "name": "Heavy's Barburger",
-      "description": "Heavy's Barburger is a NoMo griddle-smashed burger spot in Charleston, SC. Voted by Charleston locals as one of the city's best burgers.",
-      "datePublished": "2026-05-03T19:03:39-04:00",
-      "dateModified": "2026-05-03T19:03:39-04:00",
-      "url": "https://votedonbylocals.com/restaurants/heavys-barburger",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "1137 Morrison Dr",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29403",
-        "addressCountry": "US"
-      },
-      "subOrganization": [
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#brand",
+          "name": "Heavy's Barburger",
+          "description": "Heavy's Barburger is a NoMo griddle-smashed burger spot in Charleston, SC. Voted by Charleston locals as one of the city's best burgers.",
+          "datePublished": "2026-05-03T19:03:39-04:00",
+          "dateModified": "2026-09-01T00:00:00-04:00",
+          "mainEntityOfPage": "https://votedonbylocals.com/restaurants/heavys-barburger",
+          "url": "https://heavysbarburger.com",
+          "sameAs": [
+            "https://heavysbarburger.com"
+          ],
+          "subOrganization": [
+            {
+              "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#nomo"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#daniel-island"
+            }
+          ]
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#nomo",
+          "name": "Heavy's Barburger — NoMo",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#brand"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1137 Morrison Dr",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "servesCuisine": "Burgers",
+          "telephone": "+1-843-212-3302",
+          "openingHours": "Mo-Su 11:00-22:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=1137+Morrison+Dr%2C+Charleston%2C+SC+29403",
+          "url": "https://heavysbarburger.com",
+          "priceRange": "$$"
+        },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#daniel-island",
           "name": "Heavy's Barburger — Daniel Island",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "891 Island Park Dr",
@@ -68,19 +115,44 @@
             "postalCode": "29492",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/heavys-barburger#brand"
-          },
+          "servesCuisine": "Burgers",
           "telephone": "+1-843-377-8058",
           "openingHours": "Mo-Th 11:00-21:00, Fr-Sa 11:00-22:00, Su 11:00-21:00",
-          "sameAs": "https://heavysbarburger.com/daniel-island"
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=891+Island+Park+Dr%2C+Charleston%2C+SC+29492",
+          "url": "https://heavysbarburger.com/daniel-island",
+          "priceRange": "$$"
         }
-      ],
-      "servesCuisine": "Burgers",
-      "telephone": "+1-843-212-3302",
-      "openingHours": "Mo-Su 11:00-22:00",
-      "priceRange": "$$",
-      "sameAs": "https://heavysbarburger.com"
+      ]
     }
     </script>
 
@@ -272,29 +344,7 @@
 
                     <!-- INFO SIDEBAR -->
                     <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">1137 Morrison Dr</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
-                        </div>
-
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Mon–Sun: 11am–10pm
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-212-3302" class="hover:text-brand-orange transition-colors">(843) 212-3302</a>
-                            </p>
-                        </div>
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>
 
                         <!-- Website -->
                         <div class="mb-4">
@@ -314,19 +364,32 @@
             </div>
 
             <section class="border-t border-gray-100 pt-8">
-                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Daniel Island</h3>
-                        <div class="mb-3">
+                    <div id="nomo" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Heavy's Barburger — NoMo</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">NoMo</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">1137 Morrison Dr</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </address>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432123302" class="hover:text-brand-orange">(843) 212-3302</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–10pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=1137+Morrison+Dr%2C+Charleston%2C+SC+29403" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="daniel-island" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Heavy's Barburger — Daniel Island</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Charleston</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">891 Island Park Dr</p>
                             <p class="text-brand-gray text-sm">Charleston, SC 29492</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18433778058" class="hover:text-brand-orange">(843) 377-8058</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Thu: 11am–9pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Thu: 11am–9pm
 Fri–Sat: 11am–10pm
 Sun: 11am–9pm</p>
-                        <p class="text-brand-gray text-sm break-all mt-2"><a href="https://heavysbarburger.com/daniel-island" rel="noopener" target="_blank" class="hover:text-brand-orange">heavysbarburger.com/daniel-island</a></p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=891+Island+Park+Dr%2C+Charleston%2C+SC+29492" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                        <p class="text-brand-gray text-sm break-all"><a href="https://heavysbarburger.com/daniel-island" rel="noopener" target="_blank" class="hover:text-brand-orange">heavysbarburger.com/daniel-island</a></p>
                     </div>
                 </div>
             </section>

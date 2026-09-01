@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO meta ------------------------------------------------------- -->
-    <title>Home Team BBQ — Barbecue in Charleston | Voted On By Locals</title>
+    <title>Home Team BBQ Locations & Hours | Voted On By Locals</title>
     <meta name="description" content="Home Team BBQ is a West Ashley barbecue joint in Charleston, SC famous for its smoked meats, wings, and burgers. Voted by Charleston locals as one of the city's best casual spots and best burgers.">
     <meta name="keywords" content="Home Team BBQ Charleston, Charleston barbecue, West Ashley BBQ, Charleston wings, best burger Charleston SC">
 
@@ -40,26 +40,79 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand",
-      "name": "Home Team BBQ",
-      "description": "Home Team BBQ is a West Ashley barbecue joint in Charleston, SC famous for its smoked meats, wings, and burgers. Voted by Charleston locals as one of the city's best casual spots and best burgers.",
-      "datePublished": "2026-05-03T19:03:39-04:00",
-      "dateModified": "2026-08-24T12:00:00-04:00",
-      "url": "https://votedonbylocals.com/restaurants/home-team-bbq",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "1205 Ashley River Rd",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29407",
-        "addressCountry": "US"
-      },
-      "subOrganization": [
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand",
+          "name": "Home Team BBQ",
+          "description": "Home Team BBQ is a West Ashley barbecue joint in Charleston, SC famous for its smoked meats, wings, and burgers. Voted by Charleston locals as one of the city's best casual spots and best burgers.",
+          "datePublished": "2026-05-03T19:03:39-04:00",
+          "dateModified": "2026-09-01T00:00:00-04:00",
+          "mainEntityOfPage": "https://votedonbylocals.com/restaurants/home-team-bbq",
+          "url": "https://hometeambbq.com",
+          "sameAs": [
+            "https://hometeambbq.com"
+          ],
+          "subOrganization": [
+            {
+              "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#west-ashley"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#downtown"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#sullivan-s-island"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#mt-pleasant"
+            }
+          ]
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#west-ashley",
+          "name": "Home Team BBQ — West Ashley",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "1205 Ashley River Rd",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29407",
+            "addressCountry": "US"
+          },
+          "servesCuisine": "Barbecue",
+          "telephone": "+1-843-225-7427",
+          "openingHours": "Mo-Su 11:00-22:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=1205+Ashley+River+Rd%2C+Charleston%2C+SC+29407",
+          "url": "https://hometeambbq.com",
+          "priceRange": "$$"
+        },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#downtown",
           "name": "Home Team BBQ — Downtown",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "126 Williman St",
@@ -68,16 +121,36 @@
             "postalCode": "29403",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
-          },
+          "servesCuisine": "Barbecue",
           "telephone": "+1-843-225-7427",
-          "openingHours": "Mo-Su 11:00-24:00"
+          "openingHours": "Mo-Su 11:00-24:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "24:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=126+Williman+St%2C+Charleston%2C+SC+29403",
+          "url": "https://hometeambbq.com",
+          "priceRange": "$$"
         },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#sullivan-s-island",
           "name": "Home Team BBQ — Sullivan's Island",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "2209 Middle St",
@@ -86,16 +159,36 @@
             "postalCode": "29482",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
-          },
+          "servesCuisine": "Barbecue",
           "telephone": "+1-843-883-3131",
-          "openingHours": "Mo-Su 11:00-24:00"
+          "openingHours": "Mo-Su 11:00-24:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "24:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=2209+Middle+St%2C+Sullivan%27s+Island%2C+SC+29482",
+          "url": "https://hometeambbq.com",
+          "priceRange": "$$"
         },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#mt-pleasant",
           "name": "Home Team BBQ — Mt Pleasant",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "3563 Highway 17",
@@ -104,19 +197,30 @@
             "postalCode": "29466",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/home-team-bbq#brand"
-          },
+          "servesCuisine": "Barbecue",
           "telephone": "+1-843-225-7427",
           "openingHours": "Mo-Su 11:00-24:00",
-          "sameAs": "https://hometeambbq.com/location/mount-pleasant-coming-soon/"
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "24:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=3563+Highway+17%2C+Mount+Pleasant%2C+SC+29466",
+          "url": "https://hometeambbq.com/location/mount-pleasant-coming-soon/",
+          "priceRange": "$$"
         }
-      ],
-      "servesCuisine": "Barbecue",
-      "telephone": "+1-843-225-7427",
-      "openingHours": "Mo-Su 11:00-22:00",
-      "priceRange": "$$",
-      "sameAs": "https://hometeambbq.com"
+      ]
     }
     </script>
 
@@ -308,29 +412,7 @@
 
                     <!-- INFO SIDEBAR -->
                     <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">1205 Ashley River Rd</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29407</p>
-                        </div>
-
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Mon–Sun: 11am–10pm
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-225-7427" class="hover:text-brand-orange transition-colors">(843) 225-7427</a>
-                            </p>
-                        </div>
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>
 
                         <!-- Website -->
                         <div class="mb-4">
@@ -350,35 +432,52 @@
             </div>
 
             <section class="border-t border-gray-100 pt-8">
-                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Downtown</h3>
-                        <div class="mb-3">
+                    <div id="west-ashley" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Home Team BBQ — West Ashley</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">West Ashley</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">1205 Ashley River Rd</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29407</p>
+                        </address>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432257427" class="hover:text-brand-orange">(843) 225-7427</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–10pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=1205+Ashley+River+Rd%2C+Charleston%2C+SC+29407" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="downtown" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Home Team BBQ — Downtown</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Charleston</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">126 Williman St</p>
                             <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432257427" class="hover:text-brand-orange">(843) 225-7427</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–midnight</p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–midnight</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=126+Williman+St%2C+Charleston%2C+SC+29403" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Sullivan's Island</h3>
-                        <div class="mb-3">
+                    <div id="sullivan-s-island" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Home Team BBQ — Sullivan's Island</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Sullivan's Island</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">2209 Middle St</p>
                             <p class="text-brand-gray text-sm">Sullivan's Island, SC 29482</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18438833131" class="hover:text-brand-orange">(843) 883-3131</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–midnight</p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–midnight</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=2209+Middle+St%2C+Sullivan%27s+Island%2C+SC+29482" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Mt Pleasant</h3>
-                        <div class="mb-3">
+                    <div id="mt-pleasant" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Home Team BBQ — Mt Pleasant</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Mount Pleasant</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">3563 Highway 17</p>
                             <p class="text-brand-gray text-sm">Mount Pleasant, SC 29466</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432257427" class="hover:text-brand-orange">(843) 225-7427</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–midnight</p>
-                        <p class="text-brand-gray text-sm break-all mt-2"><a href="https://hometeambbq.com/location/mount-pleasant-coming-soon/" rel="noopener" target="_blank" class="hover:text-brand-orange">hometeambbq.com/location/mount-pleasant-coming-soon</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–midnight</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=3563+Highway+17%2C+Mount+Pleasant%2C+SC+29466" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                        <p class="text-brand-gray text-sm break-all"><a href="https://hometeambbq.com/location/mount-pleasant-coming-soon/" rel="noopener" target="_blank" class="hover:text-brand-orange">hometeambbq.com/location/mount-pleasant-coming-soon</a></p>
                     </div>
                 </div>
             </section>

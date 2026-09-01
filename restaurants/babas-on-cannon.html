@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO meta ------------------------------------------------------- -->
-    <title>Babas on Cannon — European Café in Charleston | Voted On By Locals</title>
+    <title>Babas on Cannon Locations & Hours | Voted On By Locals</title>
     <meta name="description" content="Babas on Cannon is an old-world European-style cafe and aperitivo bar in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.">
     <meta name="keywords" content="Babas on Cannon Charleston, European cafe Charleston, Cannonborough cafe, best coffee Charleston SC">
 
@@ -40,26 +40,89 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "CafeOrCoffeeShop",
-      "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand",
-      "name": "Babas on Cannon",
-      "description": "Babas on Cannon is an old-world European-style cafe and aperitivo bar in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
-      "datePublished": "2026-05-03T17:18:25-04:00",
-      "dateModified": "2026-05-03T17:18:25-04:00",
-      "url": "https://votedonbylocals.com/restaurants/babas-on-cannon",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "11 Cannon St",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29403",
-        "addressCountry": "US"
-      },
-      "subOrganization": [
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand",
+          "name": "Babas on Cannon",
+          "description": "Babas on Cannon is an old-world European-style cafe and aperitivo bar in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
+          "datePublished": "2026-05-03T17:18:25-04:00",
+          "dateModified": "2026-09-01T00:00:00-04:00",
+          "mainEntityOfPage": "https://votedonbylocals.com/restaurants/babas-on-cannon",
+          "url": "https://babascharleston.com/",
+          "sameAs": [
+            "https://babascharleston.com/"
+          ],
+          "subOrganization": [
+            {
+              "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#cannonborough-elliotborough"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#meeting-street"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#wentworth"
+            }
+          ]
+        },
+        {
+          "@type": "CafeOrCoffeeShop",
+          "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#cannonborough-elliotborough",
+          "name": "Babas on Cannon — Cannonborough-Elliotborough",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "11 Cannon St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "servesCuisine": "European Café",
+          "telephone": "+1-843-284-6260",
+          "openingHours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ],
+              "opens": "07:00",
+              "closes": "20:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "07:00",
+              "closes": "22:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "07:00",
+              "closes": "18:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=11+Cannon+St%2C+Charleston%2C+SC+29403",
+          "url": "https://babascharleston.com/",
+          "priceRange": "$$"
+        },
         {
           "@type": "CafeOrCoffeeShop",
           "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#meeting-street",
           "name": "Babas on Cannon — Meeting Street",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "804 Meeting St",
@@ -68,15 +131,41 @@
             "postalCode": "29403",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand"
-          },
-          "openingHours": "Mo-Th 07:00-18:00, Fr-Sa 07:00-20:00"
+          "servesCuisine": "European Café",
+          "openingHours": "Mo-Th 07:00-18:00, Fr-Sa 07:00-20:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ],
+              "opens": "07:00",
+              "closes": "18:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "07:00",
+              "closes": "20:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=804+Meeting+St%2C+Charleston%2C+SC+29403",
+          "url": "https://babascharleston.com/",
+          "priceRange": "$$"
         },
         {
           "@type": "CafeOrCoffeeShop",
           "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#wentworth",
           "name": "Babas on Cannon — Wentworth",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "115 Wentworth St",
@@ -85,17 +174,42 @@
             "postalCode": "29401",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/babas-on-cannon#brand"
-          },
-          "openingHours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00"
+          "servesCuisine": "European Café",
+          "openingHours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ],
+              "opens": "07:00",
+              "closes": "20:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "07:00",
+              "closes": "22:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "07:00",
+              "closes": "18:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=115+Wentworth+St%2C+Charleston%2C+SC+29401",
+          "url": "https://babascharleston.com/",
+          "priceRange": "$$"
         }
-      ],
-      "servesCuisine": "European Café",
-      "telephone": "+1-843-284-6260",
-      "openingHours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
-      "priceRange": "$$",
-      "sameAs": "https://babascharleston.com/"
+      ]
     }
     </script>
 
@@ -287,32 +401,7 @@
 
                     <!-- INFO SIDEBAR -->
                     <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">11 Cannon St</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
-                        </div>
-
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Mon: Closed<br>
-                                Tue–Thu: 7am–8pm<br>
-                                Fri–Sat: 7am–10pm<br>
-                                Sun: 7am–6pm
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-284-6260" class="hover:text-brand-orange transition-colors">(843) 284-6260</a>
-                            </p>
-                        </div>
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>
 
                         <!-- Website -->
                         <div class="mb-4">
@@ -332,28 +421,46 @@
             </div>
 
             <section class="border-t border-gray-100 pt-8">
-                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Meeting Street</h3>
-                        <div class="mb-3">
-                            <p class="text-brand-dark font-medium">804 Meeting St</p>
+                    <div id="cannonborough-elliotborough" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Babas on Cannon — Cannonborough-Elliotborough</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Cannonborough-Elliotborough</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">11 Cannon St</p>
                             <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
-                        </div>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Thu: 7am–6pm
-Fri–Sat: 7am–8pm
-Sun: Closed</p>
-                    </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Wentworth</h3>
-                        <div class="mb-3">
-                            <p class="text-brand-dark font-medium">115 Wentworth St</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29401</p>
-                        </div>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon: Closed
+                        </address>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18432846260" class="hover:text-brand-orange">(843) 284-6260</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon: Closed
 Tue–Thu: 7am–8pm
 Fri–Sat: 7am–10pm
 Sun: 7am–6pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=11+Cannon+St%2C+Charleston%2C+SC+29403" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="meeting-street" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Babas on Cannon — Meeting Street</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Charleston</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">804 Meeting St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </address>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Thu: 7am–6pm
+Fri–Sat: 7am–8pm
+Sun: Closed</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=804+Meeting+St%2C+Charleston%2C+SC+29403" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="wentworth" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Babas on Cannon — Wentworth</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Charleston</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">115 Wentworth St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29401</p>
+                        </address>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon: Closed
+Tue–Thu: 7am–8pm
+Fri–Sat: 7am–10pm
+Sun: 7am–6pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=115+Wentworth+St%2C+Charleston%2C+SC+29401" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
                 </div>
             </section>

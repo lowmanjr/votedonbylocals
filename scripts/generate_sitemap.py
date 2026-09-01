@@ -37,7 +37,13 @@ EXCLUDE_FILES = {"thank-you.html"}
 
 
 def extract_dateModified_from_html(filepath):
-    """Parse the JSON-LD <script> block; return dateModified value or None."""
+    """Parse the JSON-LD <script> block; return dateModified value or None.
+
+    Handles both page shapes: a single-location page's flat node, and a
+    multi-location page's `@graph`, where the dates live on the brand
+    Organization node. Without the @graph branch every multi-location page
+    would silently lose its <lastmod>.
+    """
     try:
         text = filepath.read_text(encoding="utf-8")
     except OSError:
@@ -52,7 +58,14 @@ def extract_dateModified_from_html(filepath):
         data = json.loads(m.group(1))
     except json.JSONDecodeError:
         return None
-    return data.get("dateModified")
+    if not isinstance(data, dict):
+        return None
+    if "dateModified" in data:
+        return data["dateModified"]
+    for node in data.get("@graph") or []:
+        if isinstance(node, dict) and "dateModified" in node:
+            return node["dateModified"]
+    return None
 
 
 def discover_pages():

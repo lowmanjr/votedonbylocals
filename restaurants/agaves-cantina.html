@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO meta ------------------------------------------------------- -->
-    <title>Agaves Cantina — Mexican in Charleston | Voted On By Locals</title>
+    <title>Agaves Cantina Locations & Hours | Voted On By Locals</title>
     <meta name="description" content="Agaves Cantina is a Daniel Island Mexican restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.">
     <meta name="keywords" content="Agaves Cantina Charleston, Daniel Island Mexican, Daniel Island Tex-Mex, Charleston Mexican restaurant, best Tex-Mex Charleston SC">
 
@@ -40,26 +40,82 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand",
-      "name": "Agaves Cantina",
-      "description": "Agaves Cantina is a Daniel Island Mexican restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
-      "datePublished": "2026-05-03T19:03:39-04:00",
-      "dateModified": "2026-05-03T19:03:39-04:00",
-      "url": "https://votedonbylocals.com/restaurants/agaves-cantina",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "885 Island Park Dr",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29492",
-        "addressCountry": "US"
-      },
-      "subOrganization": [
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand",
+          "name": "Agaves Cantina",
+          "description": "Agaves Cantina is a Daniel Island Mexican restaurant in Charleston, SC with a lively atmosphere. Voted by Charleston locals as one of the city's best Tex-Mex restaurants.",
+          "datePublished": "2026-05-03T19:03:39-04:00",
+          "dateModified": "2026-09-01T00:00:00-04:00",
+          "mainEntityOfPage": "https://votedonbylocals.com/restaurants/agaves-cantina",
+          "url": "https://agavescantina.com",
+          "sameAs": [
+            "https://agavescantina.com"
+          ],
+          "subOrganization": [
+            {
+              "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#daniel-island"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#west-ashley"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#coleman-blvd"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#highway-41"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#summerville"
+            }
+          ]
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#daniel-island",
+          "name": "Agaves Cantina — Daniel Island",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "885 Island Park Dr",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29492",
+            "addressCountry": "US"
+          },
+          "servesCuisine": "Mexican",
+          "telephone": "+1-843-971-6790",
+          "openingHours": "Mo-Su 11:00-22:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=885+Island+Park+Dr%2C+Charleston%2C+SC+29492",
+          "url": "https://agavescantina.com",
+          "priceRange": "$$"
+        },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#west-ashley",
           "name": "Agaves Cantina — West Ashley",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "3871 W Ashley Cir Unit 320 & 330",
@@ -68,17 +124,57 @@
             "postalCode": "29414",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
-          },
+          "servesCuisine": "Mexican",
           "telephone": "+1-843-718-3370",
           "openingHours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
-          "sameAs": "https://agavescantinawestashley.com/"
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "opens": "11:00",
+              "closes": "21:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Thursday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "22:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=3871+W+Ashley+Cir+Unit+320+%26+330%2C+Charleston%2C+SC+29414",
+          "url": "https://agavescantinawestashley.com/",
+          "priceRange": "$$"
         },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#coleman-blvd",
           "name": "Agaves Cantina — Coleman Blvd",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "320 W Coleman Blvd Unit P",
@@ -87,16 +183,57 @@
             "postalCode": "29464",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
-          },
+          "servesCuisine": "Mexican",
           "telephone": "+1-843-606-2032",
-          "openingHours": "Mo-Tu 11:00-21:30, We-Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00"
+          "openingHours": "Mo-Tu 11:00-21:30, We-Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday"
+              ],
+              "opens": "11:00",
+              "closes": "21:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Wednesday",
+                "Thursday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "22:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=320+W+Coleman+Blvd+Unit+P%2C+Mount+Pleasant%2C+SC+29464",
+          "url": "https://agavescantina.com",
+          "priceRange": "$$"
         },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#highway-41",
           "name": "Agaves Cantina — Highway 41",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "2118 SC-41 Ste 106",
@@ -105,17 +242,43 @@
             "postalCode": "29466",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
-          },
+          "servesCuisine": "Mexican",
           "telephone": "+1-843-416-8696",
           "openingHours": "Mo-Fr 11:00-21:30, Sa-Su 11:00-21:00",
-          "sameAs": "https://agavescantinamtpleasant.com/"
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ],
+              "opens": "11:00",
+              "closes": "21:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=2118+SC-41+Ste+106%2C+Mount+Pleasant%2C+SC+29466",
+          "url": "https://agavescantinamtpleasant.com/",
+          "priceRange": "$$"
         },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#summerville",
           "name": "Agaves Cantina — Summerville",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "205 S Cross Creek Dr Unit B",
@@ -124,19 +287,51 @@
             "postalCode": "29486",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/agaves-cantina#brand"
-          },
+          "servesCuisine": "Mexican",
           "telephone": "+1-843-419-6968",
           "openingHours": "Mo-We 11:00-21:30, Th 11:00-22:00, Fr-Sa 11:00-22:30, Su 11:00-21:00",
-          "sameAs": "https://agavescantinanexton.com/"
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday"
+              ],
+              "opens": "11:00",
+              "closes": "21:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Thursday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "22:30"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=205+S+Cross+Creek+Dr+Unit+B%2C+Summerville%2C+SC+29486",
+          "url": "https://agavescantinanexton.com/",
+          "priceRange": "$$"
         }
-      ],
-      "servesCuisine": "Mexican",
-      "telephone": "+1-843-971-6790",
-      "openingHours": "Mo-Su 11:00-22:00",
-      "priceRange": "$$",
-      "sameAs": "https://agavescantina.com"
+      ]
     }
     </script>
 
@@ -328,29 +523,7 @@
 
                     <!-- INFO SIDEBAR -->
                     <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">885 Island Park Dr</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29492</p>
-                        </div>
-
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Mon–Sun: 11am–10pm
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-971-6790" class="hover:text-brand-orange transition-colors">(843) 971-6790</a>
-                            </p>
-                        </div>
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>
 
                         <!-- Website -->
                         <div class="mb-4">
@@ -370,56 +543,75 @@
             </div>
 
             <section class="border-t border-gray-100 pt-8">
-                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">West Ashley</h3>
-                        <div class="mb-3">
+                    <div id="daniel-island" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Agaves Cantina — Daniel Island</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Daniel Island</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">885 Island Park Dr</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29492</p>
+                        </address>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18439716790" class="hover:text-brand-orange">(843) 971-6790</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–10pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=885+Island+Park+Dr%2C+Charleston%2C+SC+29492" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="west-ashley" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Agaves Cantina — West Ashley</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Charleston</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">3871 W Ashley Cir Unit 320 & 330</p>
                             <p class="text-brand-gray text-sm">Charleston, SC 29414</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18437183370" class="hover:text-brand-orange">(843) 718-3370</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Wed: 11am–9:30pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Wed: 11am–9:30pm
 Thu: 11am–10pm
 Fri–Sat: 11am–10:30pm
 Sun: 11am–9pm</p>
-                        <p class="text-brand-gray text-sm break-all mt-2"><a href="https://agavescantinawestashley.com/" rel="noopener" target="_blank" class="hover:text-brand-orange">agavescantinawestashley.com</a></p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=3871+W+Ashley+Cir+Unit+320+%26+330%2C+Charleston%2C+SC+29414" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                        <p class="text-brand-gray text-sm break-all"><a href="https://agavescantinawestashley.com/" rel="noopener" target="_blank" class="hover:text-brand-orange">agavescantinawestashley.com</a></p>
                     </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Coleman Blvd</h3>
-                        <div class="mb-3">
+                    <div id="coleman-blvd" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Agaves Cantina — Coleman Blvd</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Mount Pleasant</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">320 W Coleman Blvd Unit P</p>
                             <p class="text-brand-gray text-sm">Mount Pleasant, SC 29464</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18436062032" class="hover:text-brand-orange">(843) 606-2032</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Tue: 11am–9:30pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Tue: 11am–9:30pm
 Wed–Thu: 11am–10pm
 Fri–Sat: 11am–10:30pm
 Sun: 11am–9pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=320+W+Coleman+Blvd+Unit+P%2C+Mount+Pleasant%2C+SC+29464" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Highway 41</h3>
-                        <div class="mb-3">
+                    <div id="highway-41" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Agaves Cantina — Highway 41</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Mount Pleasant</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">2118 SC-41 Ste 106</p>
                             <p class="text-brand-gray text-sm">Mount Pleasant, SC 29466</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18434168696" class="hover:text-brand-orange">(843) 416-8696</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Fri: 11am–9:30pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Fri: 11am–9:30pm
 Sat–Sun: 11am–9pm</p>
-                        <p class="text-brand-gray text-sm break-all mt-2"><a href="https://agavescantinamtpleasant.com/" rel="noopener" target="_blank" class="hover:text-brand-orange">agavescantinamtpleasant.com</a></p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=2118+SC-41+Ste+106%2C+Mount+Pleasant%2C+SC+29466" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                        <p class="text-brand-gray text-sm break-all"><a href="https://agavescantinamtpleasant.com/" rel="noopener" target="_blank" class="hover:text-brand-orange">agavescantinamtpleasant.com</a></p>
                     </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Summerville</h3>
-                        <div class="mb-3">
+                    <div id="summerville" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Agaves Cantina — Summerville</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Summerville</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">205 S Cross Creek Dr Unit B</p>
                             <p class="text-brand-gray text-sm">Summerville, SC 29486</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18434196968" class="hover:text-brand-orange">(843) 419-6968</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Wed: 11am–9:30pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Wed: 11am–9:30pm
 Thu: 11am–10pm
 Fri–Sat: 11am–10:30pm
 Sun: 11am–9pm</p>
-                        <p class="text-brand-gray text-sm break-all mt-2"><a href="https://agavescantinanexton.com/" rel="noopener" target="_blank" class="hover:text-brand-orange">agavescantinanexton.com</a></p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=205+S+Cross+Creek+Dr+Unit+B%2C+Summerville%2C+SC+29486" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                        <p class="text-brand-gray text-sm break-all"><a href="https://agavescantinanexton.com/" rel="noopener" target="_blank" class="hover:text-brand-orange">agavescantinanexton.com</a></p>
                     </div>
                 </div>
             </section>
