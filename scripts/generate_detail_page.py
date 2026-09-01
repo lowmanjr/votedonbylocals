@@ -214,7 +214,7 @@ def build_jsonld_dict(restaurant):
     date_published = existing.get('datePublished') or seed_date
     date_modified = existing.get('dateModified') or seed_date
 
-    canonical = f"https://votedonbylocals.com/restaurants/{slug}.html"
+    canonical = f"https://votedonbylocals.com/restaurants/{slug}"
     locations = restaurant.get('locations')
 
     obj = {
