@@ -1086,3 +1086,39 @@ Byte-identity deliberately does **not** hold for Top-N here — this is an inten
 ### Trade-off accepted
 
 `HERO_ROWS_GAP` is a hand-picked constant (40) rather than a derived value. It sits inside the range the old accidental gap spanned (0 to 45 at 7 rows) so 7-row cards barely move, but it is a design choice, not arithmetic. If the hero block is ever resized, revisit it.
+
+---
+
+## #27 — Multi-location businesses list brand-level; `babas-on-cannon` retired to `babas`
+
+**Date:** 2026-09-01
+**Status:** Decided
+**Anchor:** #13 (detail-page design), #14.4 (multi-location restaurants shipped primary-location-only in the pilot), #16 (featured-winner JSON-LD `url` points at the page itself), #17 (Locations module), PR #67 (multi-location entity pages with per-location schema).
+
+### What was decided
+
+1. **A multi-location business is one brand-level entity.** The record's `slug` and `name` are the brand's, the detail page is the brand page, and every location is a first-class node under it: `primaryLocation` overlays the location whose data lives at the top level, `locations[]` carries the rest, each with an explicit `name`, `slug` and `neighborhood`. The ranking row and ItemList item name the brand, not a location. PR #67 built the page shape; this entry makes the listing level the rule.
+
+2. **`babas-on-cannon` is retired to `babas`** as of 2026-09-01. Record, page (`git mv` before regeneration so `datePublished` survives — a fresh path re-seeds both dates from `datetime.now`), `best-coffee-shops` row and ItemList item, sitemap entry and OG image all move to the brand slug. The three locations are `#cannon`, `#meeting` and `#wentworth`, named Babas on Cannon / Babas on Meeting / Babas on Wentworth.
+
+3. **Retired URLs 301 via `data/manual_redirects.txt`.** `scripts/generate_sitemap.py` validates the file and appends its rules to `_redirects` under a `# manual` header, so `_redirects` stays fully generated. The rules are unforced: no file exists at a retired path, so there is nothing to shadow, and if one ever reappears the loader's live-path check fails the run instead of letting the file win silently. The loader also refuses a target that is not a discovered clean URL, so a retired URL cannot land on a typo.
+
+4. **Retired slugs are never reused.** A retired slug's only future is its redirect rule; `data/manual_redirects.txt` is the register.
+
+5. **#16's objection no longer holds, but the relink is a separate PR.** #16 rejected pointing `best-new-coffee-shop.html` at the Babas detail page because that page described Cannon only. The brand page now carries a `#wentworth` node with Wentworth's own address and hours. Relinking (JSON-LD `url` or `sameAs`, or a body link) is its own decision and its own PR; until then #16's page-points-at-itself convention stands.
+
+### Alternatives considered
+
+- **Keep `babas-on-cannon` as the slug and only retitle.** Rejected: the slug is a location claim on a brand page, and every downstream surface (breadcrumb, ItemList, social card, OG image) would keep saying "Cannon" for a three-cafe brand.
+- **Hand-edit `_redirects`.** Rejected: the file is generated and its header says so; a hand edit is lost on the next run.
+- **Forced (`301!`) manual rules.** Rejected: force only matters when a file exists at the from-path. Unforced fails safe, and the loader's collision check turns a reappearing file into a build error instead of a silent shadow.
+- **Keep the old page as a stub that links to the brand page.** Rejected: two URLs for one entity split the crawler graph the brand page exists to consolidate; a 301 consolidates it.
+
+### Convention going forward
+
+- New multi-location records are created brand-level from the start. Existing location-slugged records migrate one PR each: data slug and names, `git mv`, regenerate, ranking surfaces, two manual rules (the clean and `.html` forms of the retired URL), OG image regenerated under the new slug.
+- Verification for a migration: a repo-wide grep for the retired slug and name hits only dated history (this file, TRACKED), the `rankings/_*.md` working docs and `data/manual_redirects.txt`; every other detail page is byte-identical before and after regeneration.
+
+### Trade-off accepted
+
+Brand-level listing leaves the hero subtitle, sidebar and OG meta-line showing the primary location's neighborhood for a brand that spans three. That is the existing multi-location convention (Second State shows Harleston Village) and it is honest about where the data lives; a brand-wide subtitle is a template decision for another day.

@@ -272,9 +272,9 @@
       "areaServed": null
     },
     {
-      "slug": "babas-on-cannon",
-      "name": "Babas on Cannon",
-      "tagline": "European-style Cafe",
+      "slug": "babas",
+      "name": "Babas",
+      "tagline": "European Cafes on Cannon, Meeting & Wentworth",
       "cuisine": "European Café",
       "neighborhood": "Cannonborough-Elliotborough",
       "schemaType": "CafeOrCoffeeShop",
@@ -286,9 +286,9 @@
         "postalCode": "29403",
         "addressCountry": "US"
       },
-      "description": "Babas on Cannon is an old-world European-style cafe and aperitivo bar in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best coffee shops.",
+      "description": "Old-world neighborhood cafes with three downtown locations - Cannon, Meeting and Wentworth streets - for espresso and pastries by day and aperitivo by night.",
       "shareTagline": "Old-world European cafe and apéro bar, voted best by Charleston locals.",
-      "keywords": "Babas on Cannon Charleston, European cafe Charleston, Cannonborough cafe, best coffee Charleston SC",
+      "keywords": "Babas on Cannon Charleston, European cafe Charleston, Cannonborough cafe, best coffee Charleston SC, Babas Charleston, Babas on Meeting, Babas on Wentworth",
       "appearsOn": [
         {
           "url": "/rankings/best-coffee-shops.html",
@@ -300,11 +300,25 @@
       "hoursHumanReadable": "Mon: Closed\nTue–Thu: 7am–8pm\nFri–Sat: 7am–10pm\nSun: 7am–6pm",
       "priceRange": "$$",
       "websiteURL": "https://babascharleston.com/",
+      "sameAs": [
+        "https://www.instagram.com/babascharleston/"
+      ],
+      "titleOverride": "Babas on Cannon, Meeting & Wentworth | Voted On By Locals",
       "geoLat": null,
       "geoLng": null,
+      "primaryLocation": {
+        "label": "Cannon",
+        "name": "Babas on Cannon",
+        "slug": "cannon",
+        "neighborhood": "Cannonborough-Elliotborough",
+        "url": "https://babascharleston.com/"
+      },
       "locations": [
         {
           "label": "Meeting Street",
+          "name": "Babas on Meeting",
+          "slug": "meeting",
+          "neighborhood": "East Central",
           "address": {
             "streetAddress": "804 Meeting St",
             "addressLocality": "Charleston",
@@ -315,12 +329,15 @@
           "phone": null,
           "hours": "Mo-Th 07:00-18:00, Fr-Sa 07:00-20:00",
           "hoursHumanReadable": "Mon–Thu: 7am–6pm\nFri–Sat: 7am–8pm\nSun: Closed",
-          "websiteURL": null,
+          "websiteURL": "https://babascharleston.com/",
           "geoLat": null,
           "geoLng": null
         },
         {
           "label": "Wentworth",
+          "name": "Babas on Wentworth",
+          "slug": "wentworth",
+          "neighborhood": "Harleston Village",
           "address": {
             "streetAddress": "115 Wentworth St",
             "addressLocality": "Charleston",
@@ -331,7 +348,7 @@
           "phone": null,
           "hours": "Tu-Th 07:00-20:00, Fr-Sa 07:00-22:00, Su 07:00-18:00",
           "hoursHumanReadable": "Mon: Closed\nTue–Thu: 7am–8pm\nFri–Sat: 7am–10pm\nSun: 7am–6pm",
-          "websiteURL": null,
+          "websiteURL": "https://babascharleston.com/",
           "geoLat": null,
           "geoLng": null
         }

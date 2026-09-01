@@ -28,7 +28,7 @@
 /restaurants/167-raw-oyster-bar.html /restaurants/167-raw-oyster-bar 301!
 /restaurants/agaves-cantina.html /restaurants/agaves-cantina 301!
 /restaurants/azul-mexicano.html /restaurants/azul-mexicano 301!
-/restaurants/babas-on-cannon.html /restaurants/babas-on-cannon 301!
+/restaurants/babas.html /restaurants/babas 301!
 /restaurants/bar-weems.html /restaurants/bar-weems 301!
 /restaurants/bon-banh-mi-southeast-asian-kitchen.html /restaurants/bon-banh-mi-southeast-asian-kitchen 301!
 /restaurants/burns-alley-tavern.html /restaurants/burns-alley-tavern 301!
@@ -78,3 +78,7 @@
 /restaurants/weltons-tiny-bakeshop.html /restaurants/weltons-tiny-bakeshop 301!
 /restaurants/wild-olive.html /restaurants/wild-olive 301!
 /restaurants/zero-george.html /restaurants/zero-george 301!
+
+# manual -- hand-maintained rules from data/manual_redirects.txt (retired URLs; unforced because no file exists at those paths).
+/restaurants/babas-on-cannon /restaurants/babas 301
+/restaurants/babas-on-cannon.html /restaurants/babas 301

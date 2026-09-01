@@ -1,0 +1,11 @@
+# Hand-maintained redirect rules, merged into _redirects by
+# scripts/generate_sitemap.py under a "# manual" header. Netlify syntax:
+# from to status. Use for retired URLs whose page no longer exists in the
+# deploy. Plain 301, no force: with no file at the from-path there is
+# nothing to shadow. The generator refuses a from-path that is a live page
+# and a target that is not a page it discovered. Retired slugs are never
+# reused (DECISIONS #27).
+#
+# 2026-09-01: Babas became a brand-level entity; babas-on-cannon retired.
+/restaurants/babas-on-cannon       /restaurants/babas  301
+/restaurants/babas-on-cannon.html  /restaurants/babas  301
