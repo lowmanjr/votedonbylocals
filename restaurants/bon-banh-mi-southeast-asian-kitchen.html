@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO meta ------------------------------------------------------- -->
-    <title>Bon Banh Mi Southeast Asian Kitchen — Vietnamese in Charleston | Voted On By Locals</title>
+    <title>Bon Banh Mi Southeast Asian Kitchen Locations & Hours | Voted On By Locals</title>
     <meta name="description" content="Bon Banh Mi Southeast Asian Kitchen serves Vietnamese sandwiches and quick bites in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best casual spots.">
     <meta name="keywords" content="Bon Banh Mi Charleston, Vietnamese Charleston, Cannonborough Vietnamese, best casual spots Charleston SC">
 
@@ -40,26 +40,90 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand",
-      "name": "Bon Banh Mi Southeast Asian Kitchen",
-      "description": "Bon Banh Mi Southeast Asian Kitchen serves Vietnamese sandwiches and quick bites in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best casual spots.",
-      "datePublished": "2026-05-03T19:03:39-04:00",
-      "dateModified": "2026-05-03T19:03:39-04:00",
-      "url": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "162 Spring St",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29403",
-        "addressCountry": "US"
-      },
-      "subOrganization": [
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand",
+          "name": "Bon Banh Mi Southeast Asian Kitchen",
+          "description": "Bon Banh Mi Southeast Asian Kitchen serves Vietnamese sandwiches and quick bites in Cannonborough-Elliotborough, Charleston, SC. Voted by Charleston locals as one of the city's best casual spots.",
+          "datePublished": "2026-05-03T19:03:39-04:00",
+          "dateModified": "2026-09-01T00:00:00-04:00",
+          "mainEntityOfPage": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen",
+          "url": "https://bonbanhmi.com",
+          "sameAs": [
+            "https://bonbanhmi.com"
+          ],
+          "subOrganization": [
+            {
+              "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#cannonborough-elliotborough"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#ben-sawyer-mt-pleasant"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#oakland-market-mt-pleasant"
+            }
+          ]
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#cannonborough-elliotborough",
+          "name": "Bon Banh Mi Southeast Asian Kitchen — Cannonborough-Elliotborough",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "162 Spring St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "servesCuisine": "Vietnamese",
+          "telephone": "+1-843-414-7320",
+          "openingHours": "Mo-Th 11:00-20:00,Fr-Sa 11:00-21:00,Su 11:00-17:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday"
+              ],
+              "opens": "11:00",
+              "closes": "20:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "17:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=162+Spring+St%2C+Charleston%2C+SC+29403",
+          "url": "https://bonbanhmi.com",
+          "priceRange": "$$"
+        },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#ben-sawyer-mt-pleasant",
           "name": "Bon Banh Mi Southeast Asian Kitchen — Ben Sawyer (Mt Pleasant)",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "1440 Ben Sawyer Blvd",
@@ -68,16 +132,43 @@
             "postalCode": "29464",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand"
-          },
+          "servesCuisine": "Vietnamese",
           "telephone": "+1-843-388-7080",
-          "openingHours": "Mo-Sa 11:00-21:00, Su 11:00-17:00"
+          "openingHours": "Mo-Sa 11:00-21:00, Su 11:00-17:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "17:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=1440+Ben+Sawyer+Blvd%2C+Mount+Pleasant%2C+SC+29464",
+          "url": "https://bonbanhmi.com",
+          "priceRange": "$$"
         },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#oakland-market-mt-pleasant",
           "name": "Bon Banh Mi Southeast Asian Kitchen — Oakland Market (Mt Pleasant)",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "1100 Oakland Market Rd",
@@ -86,18 +177,37 @@
             "postalCode": "29466",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/bon-banh-mi-southeast-asian-kitchen#brand"
-          },
+          "servesCuisine": "Vietnamese",
           "telephone": "+1-843-352-2082",
-          "openingHours": "Mo-Sa 11:00-21:00, Su 11:00-17:00"
+          "openingHours": "Mo-Sa 11:00-21:00, Su 11:00-17:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "21:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "17:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=1100+Oakland+Market+Rd%2C+Mount+Pleasant%2C+SC+29466",
+          "url": "https://bonbanhmi.com",
+          "priceRange": "$$"
         }
-      ],
-      "servesCuisine": "Vietnamese",
-      "telephone": "+1-843-414-7320",
-      "openingHours": "Mo-Th 11:00-20:00,Fr-Sa 11:00-21:00,Su 11:00-17:00",
-      "priceRange": "$$",
-      "sameAs": "https://bonbanhmi.com"
+      ]
     }
     </script>
 
@@ -289,31 +399,7 @@
 
                     <!-- INFO SIDEBAR -->
                     <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">162 Spring St</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
-                        </div>
-
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Mon–Thu: 11am–8pm<br>
-                                Fri–Sat: 11am–9pm<br>
-                                Sun: 11am–5pm
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-414-7320" class="hover:text-brand-orange transition-colors">(843) 414-7320</a>
-                            </p>
-                        </div>
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>
 
                         <!-- Website -->
                         <div class="mb-4">
@@ -333,27 +419,44 @@
             </div>
 
             <section class="border-t border-gray-100 pt-8">
-                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Ben Sawyer (Mt Pleasant)</h3>
-                        <div class="mb-3">
+                    <div id="cannonborough-elliotborough" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Bon Banh Mi Southeast Asian Kitchen — Cannonborough-Elliotborough</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Cannonborough-Elliotborough</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">162 Spring St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </address>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18434147320" class="hover:text-brand-orange">(843) 414-7320</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Thu: 11am–8pm
+Fri–Sat: 11am–9pm
+Sun: 11am–5pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=162+Spring+St%2C+Charleston%2C+SC+29403" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="ben-sawyer-mt-pleasant" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Bon Banh Mi Southeast Asian Kitchen — Ben Sawyer (Mt Pleasant)</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Mount Pleasant</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">1440 Ben Sawyer Blvd</p>
                             <p class="text-brand-gray text-sm">Mount Pleasant, SC 29464</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18433887080" class="hover:text-brand-orange">(843) 388-7080</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sat: 11am–9pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sat: 11am–9pm
 Sun: 11am–5pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=1440+Ben+Sawyer+Blvd%2C+Mount+Pleasant%2C+SC+29464" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Oakland Market (Mt Pleasant)</h3>
-                        <div class="mb-3">
+                    <div id="oakland-market-mt-pleasant" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">Bon Banh Mi Southeast Asian Kitchen — Oakland Market (Mt Pleasant)</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Mount Pleasant</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">1100 Oakland Market Rd</p>
                             <p class="text-brand-gray text-sm">Mount Pleasant, SC 29466</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18433522082" class="hover:text-brand-orange">(843) 352-2082</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sat: 11am–9pm
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sat: 11am–9pm
 Sun: 11am–5pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=1100+Oakland+Market+Rd%2C+Mount+Pleasant%2C+SC+29466" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
                 </div>
             </section>

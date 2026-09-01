@@ -63,6 +63,8 @@
                           "Greater Charleston (mobile/pop-up)"). When
                           present, address fields should all be null
                           and SchemaType should be FoodEstablishment.
+    {{TitleOverride}}     multi-location pages only — replaces the whole
+                          <title>. See intentional decision #11.
 
   ──────────────────────────────────────────────────────────────────
   Intentional design decisions — DO NOT "fix" without explicit discussion.
@@ -147,47 +149,81 @@
        hours) without claiming knowledge we don't have. Per the
        anti-fabrication wedge in _strategy/CONTEXT.md.
 
-    11. Multi-location restaurants (per DECISIONS #14.4 + the 2026-05-05
-       design pass).
+    11. Multi-location restaurants — entity pages (per DECISIONS #14.4,
+       the 2026-05-05 design pass, and the 2026-09-01 entity-page pass).
        Schema field: `locations` (optional array on the restaurant entry).
        When absent or null, the restaurant is single-location and renders
        byte-equal to a single-loc page. When non-empty, the restaurant is
-       multi-location and renders an "Other locations" section below the
-       editorial body with one card per entry.
+       multi-location and the page becomes a brand entity page.
 
-       Per-location entry fields:
+       A brand with five cafes is not one establishment with an address.
+       It is an organization and five places. Every location — the one in
+       the record's top-level fields included — is a first-class location
+       with its own card, slug, and structured-data node. This replaced an
+       earlier shape where the primary was the page and the others hung
+       off it as addressless satellites.
+
+       Per-location entry fields (`locations[]`):
          - label (string, required) — operator-authored name for the
-           location ("Daniel Island", "Coleman Blvd", "Wentworth"). Used
-           as card heading and as the suffix in the JSON-LD
-           subOrganization name.
+           location ("Daniel Island", "Coleman Blvd", "Wentworth").
+           Seeds both `slug` and `name` when those are not given.
          - address (PostalAddress object, required) — same shape as the
            top-level address field.
+         - name (string|null) — the location's full public display name
+           ("Second State Coffee — Navy Yard"). Defaults to
+           "<Brand> — <Label>".
+         - slug (string|null) — the card's id and the @id fragment.
+           Defaults to a slugified `label`. Must be unique within the
+           record; duplicates are a generation error.
+         - neighborhood (string|null) — falls back to the location's city.
          - phone (string|null) — "+1-843-..." format. Null when uncollected.
          - hours (string|null) — schema.org openingHours format. Null when
-           uncollected.
+           uncollected. Parsed into openingHoursSpecification; a string the
+           parser cannot fully express is a generation error, never a
+           silent omission.
          - hoursHumanReadable (string|null) — newline-separated human
            format matching the top-level field's convention.
          - websiteURL (string|null) — per-location URL when meaningful;
            otherwise null and the brand-level top-level websiteURL covers
            it.
+         - maps_url (string|null) — overrides the derived Google Maps
+           search link. Normally null: the link is a function of the
+           address, so storing one is a second copy to keep in sync.
          - geoLat, geoLng (number|null) — per-location coordinates.
+
+       Brand-level fields for multi-location records:
+         - primaryLocation (object|null) — the overlay that gives the
+           top-level address/phone/hours the same identity the entries in
+           `locations[]` have: {label, slug, name, neighborhood, url,
+           maps_url}. `slug` is REQUIRED when primaryLocation is present.
+           When the whole object is absent, the primary card's slug is a
+           slugified `neighborhood`, else "main".
+         - sameAs (array|null) — brand social/profile URLs. Defaults to
+           [websiteURL].
+         - titleOverride (string|null) — replaces the whole <title>.
 
        Editorial scope: only locations within DECISIONS #14.1's editorial
        scope (currently greater Charleston) appear in the array.
        Out-of-scope locations are tracked in TRACKED for re-inclusion when
        scope expands.
 
-       JSON-LD: top-level Restaurant block carries primary unchanged. For
-       multi-loc, top-level gains @id of form <canonical>#brand and a
-       subOrganization array with one entry per secondary. Each
-       subOrganization entry has @type matching parent, @id of form
-       <canonical>#<location-slug>, name formatted "<Brand> — <Label>",
-       full PostalAddress, telephone, openingHours, and parentOrganization
-       back-reference to the top-level @id.
+       JSON-LD: a single @graph. One Organization node (@id
+       <canonical>#brand) carrying name, description, dates, url =
+       websiteURL, sameAs, mainEntityOfPage = canonical, and a
+       subOrganization array of @id references. Then one node per
+       location, @type matching the record's schemaType, @id
+       <canonical>#<slug> — the same slug as its card's id — with name,
+       parentOrganization back-reference, full PostalAddress,
+       servesCuisine, telephone, openingHours, openingHoursSpecification,
+       hasMap, url and priceRange. No aggregateRating anywhere (#7).
 
-       UI: sidebar unchanged for all restaurants. Multi-loc pages add a
-       full-width "Other locations" section below the editorial body and
-       above appearsOn, with one card per secondary.
+       UI: the "Where to find it" sidebar becomes "Good to know" and keeps
+       only website and price — the brand-level facts. Address, hours and
+       phone appear once each, in their own location's card, in a
+       full-width "Locations" section below the editorial body and above
+       appearsOn. <title> switches to "<Name> Locations & Hours | Voted On
+       By Locals" unless titleOverride says otherwise; meta description,
+       og:*, twitter:* and the "Appears on" section are unchanged.
 
     12. Cuisine-name dedup (per DECISIONS #18 + the 2026-05-05 design pass).
 
@@ -641,29 +677,39 @@
             </div>
 
             <!--
-              OTHER LOCATIONS BLOCK (multi-location restaurants only — the
+              LOCATIONS BLOCK (multi-location restaurants only — the
               generator strips this entire block + leading blank line for
               single-loc pages, byte-equal to current single-loc rendering.
               For multi-loc, the generator activates the section and clones
-              LOCATION_CARD once per entry in restaurants.json `locations[]`.
+              LOCATION_CARD once per location resolved from `primaryLocation`
+              + `locations[]` — the primary first, then data order.
               See top-docblock decision #11 and DECISIONS #17.
 
+              Each card's id is that location's slug, and the same slug is
+              the @id fragment of the location's JSON-LD node. The two must
+              not drift: a structured-data reference to a location has to
+              land on that location's card. Duplicate slugs within one
+              record are a generation error, not a last-one-wins.
+
               <section class="border-t border-gray-100 pt-8">
-                  <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                  <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <!-- LOCATION_CARD: cloned once per locations[] entry -->
-                      <div class="border border-gray-100 rounded-lg p-5">
-                          <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">{{LocationLabel}}</h3>
-                          <div class="mb-3">
+                      <!-- LOCATION_CARD: cloned once per resolved location -->
+                      <div id="{{LocationSlug}}" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                          <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">{{LocationName}}</h3>
+                          <!-- LOCATION_NEIGHBORHOOD: conditional; falls back to the location's city -->
+                          <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">{{LocationNeighborhood}}</p>
+                          <address class="not-italic mb-3">
                               <p class="text-brand-dark font-medium">{{LocationStreetAddress}}</p>
                               <p class="text-brand-gray text-sm">{{LocationLocality}}, {{LocationRegion}} {{LocationPostalCode}}</p>
-                          </div>
+                          </address>
                           <!-- LOCATION_PHONE: conditional, generator drops this <p> when phone is null -->
-                          <p class="text-brand-gray text-sm mb-2">
-                              <a href="tel:{{LocationPhone}}" class="hover:text-brand-orange">{{LocationPhoneDisplay}}</a>
-                          </p>
+                          <p class="text-brand-gray text-sm mb-2"><a href="tel:{{LocationPhone}}" class="hover:text-brand-orange">{{LocationPhoneDisplay}}</a></p>
                           <!-- LOCATION_HOURS: conditional, generator drops this <p> when hoursHumanReadable is null -->
-                          <p class="text-brand-gray text-sm whitespace-pre-line">{{LocationHoursHumanReadable}}</p>
+                          <p class="text-brand-gray text-sm whitespace-pre-line mb-2">{{LocationHoursHumanReadable}}</p>
+                          <p class="text-brand-gray text-sm mb-2"><a href="{{LocationMapsURL}}" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                          <!-- LOCATION_URL: conditional, generator drops this <p> when the location has no URL of its own -->
+                          <p class="text-brand-gray text-sm break-all"><a href="{{LocationURL}}" rel="noopener" target="_blank" class="hover:text-brand-orange">{{LocationURLDisplay}}</a></p>
                       </div>
                       <!-- /LOCATION_CARD -->
                   </div>

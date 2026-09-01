@@ -10,7 +10,7 @@ Reference target: restaurants/park-pizza-co.html. The script must
 produce a byte-identical file when run for slug 'park-pizza-co'.
 
 Architecture: template-as-source-of-truth. The template carries all
-structural HTML; this script applies a 12-step transformation
+structural HTML; this script applies a 14-step transformation
 pipeline to fill in per-restaurant data and resolve the
 optional-block conventions documented in the template's intentional
 decisions block.
@@ -23,6 +23,7 @@ import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import quote_plus
 
 from _cuisine_dedup import _resolve_display_cuisine
 
@@ -56,6 +57,11 @@ def read_existing_dates(filepath):
 
     Used so that regeneration preserves operator-maintained dateModified
     rather than re-seeding from git on every run.
+
+    Handles both page shapes: a single-location page's flat node, and a
+    multi-location page's `@graph` (where the dates live on the brand
+    Organization node). Without the @graph branch, regenerating a
+    multi-location page would silently re-seed its dates from git.
     """
     if not filepath.exists():
         return {}
@@ -68,11 +74,30 @@ def read_existing_dates(filepath):
         if not m:
             return {}
         data = json.loads(m.group(1))
-        return {
-            k: data[k] for k in ('datePublished', 'dateModified') if k in data
-        }
+        for node in jsonld_nodes(data):
+            found = {
+                k: node[k] for k in ('datePublished', 'dateModified') if k in node
+            }
+            if found:
+                return found
+        return {}
     except (json.JSONDecodeError, OSError):
         return {}
+
+
+def jsonld_nodes(data):
+    """Yield the parsed JSON-LD object itself, then any `@graph` members.
+
+    One helper for both page shapes so date lookups do not have to know
+    which shape they are reading. Mirrored in scripts/generate_sitemap.py
+    (which reads the same two shapes for <lastmod>).
+    """
+    if not isinstance(data, dict):
+        return
+    yield data
+    for node in data.get('@graph') or []:
+        if isinstance(node, dict):
+            yield node
 
 
 def _slugify(label):
@@ -86,11 +111,166 @@ def _slugify(label):
 
 
 # ---------------------------------------------------------------------------
+# Multi-location resolution (per DECISIONS #13.11, 2026-09-01 revision)
+# ---------------------------------------------------------------------------
+
+DAY_CODES = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+DAY_NAMES = {
+    'Mo': 'Monday', 'Tu': 'Tuesday', 'We': 'Wednesday', 'Th': 'Thursday',
+    'Fr': 'Friday', 'Sa': 'Saturday', 'Su': 'Sunday',
+}
+_HOURS_CHUNK = re.compile(
+    r'(Mo|Tu|We|Th|Fr|Sa|Su)(?:-(Mo|Tu|We|Th|Fr|Sa|Su))?'
+    r'\s+([0-2]\d:[0-5]\d)-([0-2]\d:[0-5]\d)$'
+)
+
+
+def parse_opening_hours(hours, context):
+    """Parse a schema.org openingHours string into openingHoursSpecification.
+
+    The `hours` field stays the single source of truth for machine-readable
+    hours; this expands it rather than duplicating it in the data. Accepts
+    the comma-separated form the data already uses, with or without a space
+    after the comma ("Mo-Fr 07:00-17:00, Sa-Su 08:00-17:00").
+
+    A string this cannot fully express raises — never a silent omission,
+    which would publish a location as having no hours at all.
+    """
+    specs = []
+    for chunk in hours.split(','):
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+        m = _HOURS_CHUNK.fullmatch(chunk)
+        if not m:
+            raise ValueError(
+                f"{context}: cannot parse openingHours segment {chunk!r} "
+                f"from {hours!r}"
+            )
+        start, end, opens, closes = m.groups()
+        for stamp in (opens, closes):
+            hh, mm = (int(p) for p in stamp.split(':'))
+            if hh > 24 or (hh == 24 and mm):
+                raise ValueError(f"{context}: invalid time {stamp!r} in {hours!r}")
+        first = DAY_CODES.index(start)
+        last = DAY_CODES.index(end) if end else first
+        if last < first:
+            raise ValueError(
+                f"{context}: day range {chunk!r} runs backwards through the week"
+            )
+        specs.append({
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [DAY_NAMES[d] for d in DAY_CODES[first:last + 1]],
+            "opens": opens,
+            "closes": closes,
+        })
+    if not specs:
+        raise ValueError(f"{context}: openingHours {hours!r} yielded no segments")
+    return specs
+
+
+def maps_url_for(address):
+    """Derive a Google Maps search URL from a PostalAddress-shaped dict.
+
+    Derived rather than stored: a maps link is a deterministic function of
+    an address we already have, so storing one per location would be data
+    to keep in sync for no added information. A per-location `maps_url`
+    field overrides this when a canonical place link is worth pinning.
+    """
+    parts = [
+        address.get('streetAddress'),
+        address.get('addressLocality'),
+        f"{address.get('addressRegion', '')} {address.get('postalCode', '')}".strip(),
+    ]
+    query = ', '.join(p for p in parts if p)
+    return f"https://www.google.com/maps/search/?api=1&query={quote_plus(query)}"
+
+
+def resolve_locations(restaurant):
+    """Return every location of a multi-location restaurant, primary first,
+    normalized to one shape. Empty list for single-location restaurants.
+
+    The primary location lives in the record's top-level address / phone /
+    hours fields; `primaryLocation` is the optional overlay that gives it
+    the display name, slug, neighborhood and own URL that entries in
+    `locations[]` carry natively.
+    """
+    secondaries = restaurant.get('locations') or []
+    if not secondaries:
+        return []
+
+    resolved = [_resolve_primary(restaurant)]
+    resolved.extend(_resolve_secondary(restaurant, loc) for loc in secondaries)
+
+    seen = {}
+    for loc in resolved:
+        if loc['slug'] in seen:
+            raise ValueError(
+                f"{restaurant['slug']}: duplicate location slug {loc['slug']!r} "
+                f"({seen[loc['slug']]} and {loc['name']}) — section ids and "
+                f"JSON-LD @ids must be unique within a page"
+            )
+        seen[loc['slug']] = loc['name']
+    return resolved
+
+
+def _resolve_primary(restaurant):
+    overlay = restaurant.get('primaryLocation') or {}
+    if restaurant.get('primaryLocation') is not None and not overlay.get('slug'):
+        raise ValueError(
+            f"{restaurant['slug']}: primaryLocation requires an explicit slug"
+        )
+    label = overlay.get('label') or restaurant.get('neighborhood')
+    slug = overlay.get('slug') or (_slugify(label) if label else 'main')
+    address = restaurant.get('address') or {}
+    return {
+        'slug': slug,
+        'name': overlay.get('name') or _location_name(restaurant, label),
+        'address': address,
+        'neighborhood': (
+            overlay.get('neighborhood')
+            or restaurant.get('neighborhood')
+            or address.get('addressLocality')
+        ),
+        'phone': restaurant.get('phone'),
+        'hours': restaurant.get('hours'),
+        'hoursHumanReadable': restaurant.get('hoursHumanReadable'),
+        'url': overlay.get('url'),
+        'mapsURL': overlay.get('maps_url') or maps_url_for(address),
+    }
+
+
+def _resolve_secondary(restaurant, loc):
+    address = loc.get('address') or {}
+    label = loc.get('label')
+    return {
+        'slug': loc.get('slug') or _slugify(label),
+        'name': loc.get('name') or _location_name(restaurant, label),
+        'address': address,
+        'neighborhood': loc.get('neighborhood') or address.get('addressLocality'),
+        'phone': loc.get('phone'),
+        'hours': loc.get('hours'),
+        'hoursHumanReadable': loc.get('hoursHumanReadable'),
+        'url': loc.get('websiteURL'),
+        'mapsURL': loc.get('maps_url') or maps_url_for(address),
+    }
+
+
+def _location_name(restaurant, label):
+    """Compose "<Brand> — <Label>", the name convention already in the
+    shipped subOrganization nodes. An explicit per-location `name` wins.
+    """
+    if not label:
+        return restaurant['name']
+    return f"{restaurant['name']} — {label}"
+
+
+# ---------------------------------------------------------------------------
 # Pipeline entry point
 # ---------------------------------------------------------------------------
 
 def generate(template, restaurant):
-    """Apply the 13-step transformation pipeline to produce final HTML."""
+    """Apply the 14-step transformation pipeline to produce final HTML."""
     text = template
     text = step_1_strip_top_docblock(text)
     text = step_2_replace_jsonld_docblock(text, restaurant)
@@ -105,6 +285,7 @@ def generate(template, restaurant):
     text = step_11_transform_section_replace_comments(text)
     text = step_12_transform_inline_replace_comments(text)
     text = step_13_substitute_remaining_placeholders(text, restaurant)
+    text = step_14_apply_multilocation_title(text, restaurant)
     return text
 
 
@@ -215,12 +396,15 @@ def build_jsonld_dict(restaurant):
     date_modified = existing.get('dateModified') or seed_date
 
     canonical = f"https://votedonbylocals.com/restaurants/{slug}"
-    locations = restaurant.get('locations')
+
+    if restaurant.get('locations'):
+        return build_multilocation_graph(
+            restaurant, canonical, date_published, date_modified
+        )
 
     obj = {
         "@context": "https://schema.org",
         "@type": restaurant['schemaType'],
-        **({"@id": f"{canonical}#brand"} if locations else {}),
         "name": restaurant['name'],
         "description": restaurant['description'],
         "datePublished": date_published,
@@ -246,34 +430,6 @@ def build_jsonld_dict(restaurant):
             "addressCountry": addr.get('addressCountry', 'US'),
         }
 
-    # Multi-location subOrganization block (per DECISIONS #17).
-    if locations:
-        sub_orgs = []
-        for loc in locations:
-            loc_addr = loc['address']
-            sub_org = {
-                "@type": restaurant['schemaType'],
-                "@id": f"{canonical}#{_slugify(loc['label'])}",
-                "name": f"{restaurant['name']} — {loc['label']}",
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": loc_addr['streetAddress'],
-                    "addressLocality": loc_addr['addressLocality'],
-                    "addressRegion": loc_addr['addressRegion'],
-                    "postalCode": loc_addr['postalCode'],
-                    "addressCountry": loc_addr.get('addressCountry', 'US'),
-                },
-                "parentOrganization": {"@id": f"{canonical}#brand"},
-            }
-            if loc.get('phone'):
-                sub_org['telephone'] = loc['phone']
-            if loc.get('hours'):
-                sub_org['openingHours'] = loc['hours']
-            if loc.get('websiteURL'):
-                sub_org['sameAs'] = loc['websiteURL']
-            sub_orgs.append(sub_org)
-        obj['subOrganization'] = sub_orgs
-
     obj['servesCuisine'] = restaurant['cuisine']
 
     # Optional fields, in template-snippet order
@@ -295,6 +451,77 @@ def build_jsonld_dict(restaurant):
         }
 
     return obj
+
+
+def build_multilocation_graph(restaurant, canonical, date_published, date_modified):
+    """Build the @graph JSON-LD for a multi-location restaurant.
+
+    A brand with five cafes is not one FoodEstablishment with an address;
+    it is an Organization and five places. The flat shape had to pick one
+    location's address for the top-level node, which made the other four
+    addressless satellites hanging off `subOrganization`. Here every
+    location — the primary included — is a first-class node with its own
+    @id, address and hours, and the Organization holds only what is true
+    of the brand.
+
+    Each node's @id fragment is also the id of its section in the rendered
+    HTML, so the structured data and the page point at the same anchors.
+    """
+    brand_url = restaurant.get('websiteURL')
+    locations = resolve_locations(restaurant)
+
+    brand = {
+        "@type": "Organization",
+        "@id": f"{canonical}#brand",
+        "name": restaurant['name'],
+        "description": restaurant['description'],
+        "datePublished": date_published,
+        "dateModified": date_modified,
+        "mainEntityOfPage": canonical,
+    }
+    if brand_url:
+        brand['url'] = brand_url
+    same_as = restaurant.get('sameAs') or ([brand_url] if brand_url else None)
+    if same_as:
+        brand['sameAs'] = same_as
+    brand['subOrganization'] = [
+        {"@id": f"{canonical}#{loc['slug']}"} for loc in locations
+    ]
+
+    graph = [brand]
+    for loc in locations:
+        addr = loc['address']
+        node = {
+            "@type": restaurant['schemaType'],
+            "@id": f"{canonical}#{loc['slug']}",
+            "name": loc['name'],
+            "parentOrganization": {"@id": f"{canonical}#brand"},
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": addr['streetAddress'],
+                "addressLocality": addr['addressLocality'],
+                "addressRegion": addr['addressRegion'],
+                "postalCode": addr['postalCode'],
+                "addressCountry": addr.get('addressCountry', 'US'),
+            },
+            "servesCuisine": restaurant['cuisine'],
+        }
+        if loc['phone']:
+            node['telephone'] = loc['phone']
+        if loc['hours']:
+            node['openingHours'] = loc['hours']
+            node['openingHoursSpecification'] = parse_opening_hours(
+                loc['hours'], f"{restaurant['slug']}#{loc['slug']}"
+            )
+        node['hasMap'] = loc['mapsURL']
+        url = loc['url'] or brand_url
+        if url:
+            node['url'] = url
+        if restaurant.get('priceRange'):
+            node['priceRange'] = restaurant['priceRange']
+        graph.append(node)
+
+    return {"@context": "https://schema.org", "@graph": graph}
 
 
 # ---------------------------------------------------------------------------
@@ -376,6 +603,12 @@ def step_7_handle_address_section(text, restaurant):
         instruction into a simple `<!-- Address -->`.
       - Strip the MOBILE VENDOR ALTERNATIVE comment block + leading blank.
 
+    Multi-location (`locations` non-empty):
+      - Drop the address block entirely; the Locations section carries
+        every address, this one included.
+      - Retitle the sidebar h2 "Good to know" so the heading still
+        describes what remains under it (website, price).
+
     Mobile vendor (schemaType == FoodEstablishment AND areaServed populated):
       - Strip the address div + REPLACE/instruction comments.
       - Replace the MOBILE VENDOR ALTERNATIVE comment block with the
@@ -418,6 +651,31 @@ def step_7_handle_address_section(text, restaurant):
             count=1,
             flags=re.DOTALL,
         )
+    elif restaurant.get('locations'):
+        # Multi-location: every address, including this one, is rendered in
+        # the Locations section below. Showing one of them here under
+        # "Where to find it" would state a fact twice and imply the brand
+        # has a single home. The heading becomes "Good to know" for what
+        # is left: website and price, both brand-level facts.
+        text = re.sub(
+            r'                        <!-- REPLACE: address \(always required for fixed-location restaurants\) -->\n'
+            r'                        <!-- For MOBILE VENDORS:.*?intentional decision #9\. -->\n'
+            r'                        <div class="mb-4">\n'
+            r'                            <p class="text-brand-dark font-medium">\{\{StreetAddress\}\}</p>\n'
+            r'                            <p class="text-brand-gray text-sm">\{\{AddressLocality\}\}, \{\{AddressRegion\}\} \{\{PostalCode\}\}</p>\n'
+            r'                        </div>\n\n',
+            '',
+            text,
+            count=1,
+            flags=re.DOTALL,
+        )
+        text = text.replace(
+            '<h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>',
+            '<h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>',
+            1,
+        )
+        text = _strip_mobile_vendor_block(text)
+
     else:
         # Fixed-location: simplify the address comment header
         text = re.sub(
@@ -428,16 +686,22 @@ def step_7_handle_address_section(text, restaurant):
             count=1,
             flags=re.DOTALL,
         )
-        # Strip MOBILE VENDOR ALTERNATIVE block + leading blank line
-        text = re.sub(
-            r'\n                        <!--\n\s+MOBILE VENDOR ALTERNATIVE.*?                        -->\n',
-            '',
-            text,
-            count=1,
-            flags=re.DOTALL,
-        )
+        text = _strip_mobile_vendor_block(text)
 
     return text
+
+
+def _strip_mobile_vendor_block(text):
+    """Remove the MOBILE VENDOR ALTERNATIVE comment block + its leading
+    blank line, so siblings stay single-blank-spaced.
+    """
+    return re.sub(
+        r'\n                        <!--\n\s+MOBILE VENDOR ALTERNATIVE.*?                        -->\n',
+        '',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -451,16 +715,29 @@ def step_8_handle_optional_sidebar_blocks(text, restaurant):
         line so we don't end up with double blanks between siblings.
 
     Order: hours, phone, website, price range (matches template order).
+
+    Multi-location pages suppress the hours and phone blocks for the same
+    reason they suppress the address: those are facts about one location,
+    and each location states its own in the Locations section. Website and
+    price describe the brand, so they stay here — visible exactly once.
     """
+    is_multi = bool(restaurant.get('locations'))
+
     text = _handle_one_block(
         text,
         comment_marker='OPTIONAL: hours block',
-        rendered=build_hours_block(restaurant['hoursHumanReadable']) if restaurant.get('hoursHumanReadable') else None,
+        rendered=(
+            build_hours_block(restaurant['hoursHumanReadable'])
+            if restaurant.get('hoursHumanReadable') and not is_multi else None
+        ),
     )
     text = _handle_one_block(
         text,
         comment_marker='OPTIONAL: phone block',
-        rendered=build_phone_block(restaurant['phone']) if restaurant.get('phone') else None,
+        rendered=(
+            build_phone_block(restaurant['phone'])
+            if restaurant.get('phone') and not is_multi else None
+        ),
     )
     text = _handle_one_block(
         text,
@@ -472,7 +749,25 @@ def step_8_handle_optional_sidebar_blocks(text, restaurant):
         comment_marker='OPTIONAL: price range block',
         rendered=build_price_block(restaurant['priceRange']) if restaurant.get('priceRange') else None,
     )
+
+    if is_multi and not restaurant.get('websiteURL') and not restaurant.get('priceRange'):
+        # Nothing brand-level left to show: drop the card rather than ship a
+        # heading over an empty box.
+        text = _strip_empty_info_card(text)
+
     return text
+
+
+def _strip_empty_info_card(text):
+    """Remove the whole MAIN CONTENT CARD when its sidebar rendered empty."""
+    return re.sub(
+        r'            <!-- MAIN CONTENT CARD -+ -->\n'
+        r'            <div class="bg-white.*?\n            </div>\n\n',
+        '',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
 
 
 def _handle_one_block(text, *, comment_marker, rendered):
@@ -584,22 +879,25 @@ def build_price_block(price_range):
 # ---------------------------------------------------------------------------
 
 def step_9_handle_locations_section(text, restaurant):
-    """Resolve the OTHER LOCATIONS placeholder block per DECISIONS #17.
+    """Resolve the LOCATIONS placeholder block per DECISIONS #17.
 
     Single-loc (no `locations` field, or empty array): strip the entire
     commented placeholder block + leading blank line. Output is byte-equal
     to the pre-template-edit state — single-loc rendering is unchanged.
 
-    Multi-loc: replace the placeholder with the active "Other locations"
-    section, with one card per entry in `locations[]`. Phone and hours
-    inside each card are conditional — dropped when the corresponding
-    field is null in the entry. Matches the "empty-or-omitted, NOT
-    placeholder" convention from template intentional decision #2.
+    Multi-loc: replace the placeholder with the active "Locations"
+    section, one card per location in data order, the primary first. Each
+    card carries id="{slug}", which is the fragment its JSON-LD node uses
+    as @id, so a link to a location's structured-data identity lands on
+    that location's card. Neighborhood, phone, hours and own-URL rows are
+    conditional — dropped when the field is absent, per the
+    "empty-or-omitted, NOT placeholder" convention from template
+    intentional decision #2.
     """
-    locations = restaurant.get('locations')
+    locations = resolve_locations(restaurant)
     if not locations:
         return re.sub(
-            r'\n            <!--\n\s+OTHER LOCATIONS BLOCK.*?            -->\n',
+            r'\n            <!--\n\s+LOCATIONS BLOCK.*?            -->\n',
             '',
             text,
             count=1,
@@ -609,14 +907,14 @@ def step_9_handle_locations_section(text, restaurant):
     cards = '\n'.join(_render_location_card(loc) for loc in locations)
     section = (
         '            <section class="border-t border-gray-100 pt-8">\n'
-        '                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>\n'
+        '                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>\n'
         '                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">\n'
         f'{cards}\n'
         '                </div>\n'
         '            </section>\n'
     )
     return re.sub(
-        r'            <!--\n\s+OTHER LOCATIONS BLOCK.*?            -->\n',
+        r'            <!--\n\s+LOCATIONS BLOCK.*?            -->\n',
         section,
         text,
         count=1,
@@ -625,36 +923,44 @@ def step_9_handle_locations_section(text, restaurant):
 
 
 def _render_location_card(loc):
-    """Render one LOCATION_CARD <div> for a secondary location.
+    """Render one LOCATION_CARD <div> for a location resolved by
+    resolve_locations(). Optional rows are dropped when absent.
 
-    Phone and hours <p> blocks are conditional — dropped when the
-    corresponding field in the locations[] entry is null.
+    scroll-mt-24 keeps a card clear of the sticky header when reached by
+    its #fragment.
     """
     addr = loc['address']
+    heading_margin = 'mb-1' if loc['neighborhood'] else 'mb-3'
     lines = [
-        '                    <div class="border border-gray-100 rounded-lg p-5">',
-        f'                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">{loc["label"]}</h3>',
-        '                        <div class="mb-3">',
+        f'                    <div id="{loc["slug"]}" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">',
+        f'                        <h3 class="font-poppins font-semibold text-lg text-brand-dark {heading_margin}">{loc["name"]}</h3>',
+    ]
+    if loc['neighborhood']:
+        lines.append(
+            f'                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">{loc["neighborhood"]}</p>'
+        )
+    lines.extend([
+        '                        <address class="not-italic mb-3">',
         f'                            <p class="text-brand-dark font-medium">{addr["streetAddress"]}</p>',
         f'                            <p class="text-brand-gray text-sm">{addr["addressLocality"]}, {addr["addressRegion"]} {addr["postalCode"]}</p>',
-        '                        </div>',
-    ]
-    if loc.get('phone'):
-        phone_e164 = loc['phone']
-        phone_tel = phone_e164.replace('-', '')
-        phone_display = format_phone_display(phone_e164)
+        '                        </address>',
+    ])
+    if loc['phone']:
+        phone_tel = loc['phone'].replace('-', '')
+        phone_display = format_phone_display(loc['phone'])
         lines.append(
             f'                        <p class="text-brand-gray text-sm mb-2"><a href="tel:{phone_tel}" class="hover:text-brand-orange">{phone_display}</a></p>'
         )
-    if loc.get('hoursHumanReadable'):
+    if loc['hoursHumanReadable']:
         lines.append(
-            f'                        <p class="text-brand-gray text-sm whitespace-pre-line">{loc["hoursHumanReadable"]}</p>'
+            f'                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">{loc["hoursHumanReadable"]}</p>'
         )
-    if loc.get('websiteURL'):
-        website_url = loc['websiteURL']
-        website_display = _format_website_display(website_url)
+    lines.append(
+        f'                        <p class="text-brand-gray text-sm mb-2"><a href="{loc["mapsURL"]}" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>'
+    )
+    if loc['url']:
         lines.append(
-            f'                        <p class="text-brand-gray text-sm break-all mt-2"><a href="{website_url}" rel="noopener" target="_blank" class="hover:text-brand-orange">{website_display}</a></p>'
+            f'                        <p class="text-brand-gray text-sm break-all"><a href="{loc["url"]}" rel="noopener" target="_blank" class="hover:text-brand-orange">{_format_website_display(loc["url"])}</a></p>'
         )
     lines.append('                    </div>')
     return '\n'.join(lines)
@@ -825,6 +1131,39 @@ def _render_appears_on_entries(text, appears_on):
     )
     rendered = '\n'.join(li_template.format(url=e['url'], title=e['title']) for e in appears_on)
     return li_pattern.sub(rendered, text, count=1)
+
+
+# ---------------------------------------------------------------------------
+# Step 14: multi-location <title>
+# ---------------------------------------------------------------------------
+
+def step_14_apply_multilocation_title(text, restaurant):
+    """Retitle multi-location pages.
+
+    Nobody searches a five-cafe brand as "<Name> — <Cuisine> in
+    Charleston"; they search it for where the cafes are and when they are
+    open. Multi-location pages default to "<Name> Locations & Hours |
+    Voted On By Locals"; `titleOverride` replaces that outright when a
+    record needs different wording.
+
+    Only <title> changes. og:title, twitter:title and the meta
+    description keep the conventions they already have.
+
+    Runs last, after step 13 has resolved the placeholders inside the
+    original <title>, so this replaces a fully rendered line.
+    """
+    if not restaurant.get('locations'):
+        return text
+    title = restaurant.get('titleOverride') or (
+        f"{restaurant['name']} Locations & Hours | Voted On By Locals"
+    )
+    return re.sub(
+        r'<title>.*?</title>',
+        lambda _m: f'<title>{title}</title>',
+        text,
+        count=1,
+        flags=re.DOTALL,
+    )
 
 
 # ---------------------------------------------------------------------------

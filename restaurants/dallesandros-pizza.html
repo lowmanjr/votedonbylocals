@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO meta ------------------------------------------------------- -->
-    <title>D'Allesandro's Pizza in Charleston | Voted On By Locals</title>
+    <title>D'Allesandro's Pizza Locations & Hours | Voted On By Locals</title>
     <meta name="description" content="D'Allesandro's Pizza is a laid-back downtown Charleston, SC staple. Voted by Charleston locals as one of the city's best pizza spots.">
     <meta name="keywords" content="D'Allesandro's Pizza Charleston, downtown Charleston pizza, best pizza Charleston SC, Charleston pizza by the slice">
 
@@ -40,26 +40,94 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Restaurant",
-      "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#brand",
-      "name": "D'Allesandro's Pizza",
-      "description": "D'Allesandro's Pizza is a laid-back downtown Charleston, SC staple. Voted by Charleston locals as one of the city's best pizza spots.",
-      "datePublished": "2026-05-03T07:28:49-04:00",
-      "dateModified": "2026-05-03T07:28:49-04:00",
-      "url": "https://votedonbylocals.com/restaurants/dallesandros-pizza",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "229 St Philip St",
-        "addressLocality": "Charleston",
-        "addressRegion": "SC",
-        "postalCode": "29403",
-        "addressCountry": "US"
-      },
-      "subOrganization": [
+      "@graph": [
+        {
+          "@type": "Organization",
+          "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#brand",
+          "name": "D'Allesandro's Pizza",
+          "description": "D'Allesandro's Pizza is a laid-back downtown Charleston, SC staple. Voted by Charleston locals as one of the city's best pizza spots.",
+          "datePublished": "2026-05-03T07:28:49-04:00",
+          "dateModified": "2026-09-01T00:00:00-04:00",
+          "mainEntityOfPage": "https://votedonbylocals.com/restaurants/dallesandros-pizza",
+          "url": "https://www.dalspizza.com/locations/downtown-charleston",
+          "sameAs": [
+            "https://www.dalspizza.com/locations/downtown-charleston"
+          ],
+          "subOrganization": [
+            {
+              "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#cannonborough-elliotborough"
+            },
+            {
+              "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#nexton"
+            }
+          ]
+        },
+        {
+          "@type": "Restaurant",
+          "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#cannonborough-elliotborough",
+          "name": "D'Allesandro's Pizza — Cannonborough-Elliotborough",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#brand"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "229 St Philip St",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29403",
+            "addressCountry": "US"
+          },
+          "servesCuisine": "Pizza",
+          "telephone": "+1-843-853-6337",
+          "openingHours": "Mo 11:00-21:45, Tu-We 11:00-23:00, Th-Sa 11:00-24:00, Su 11:00-23:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday"
+              ],
+              "opens": "11:00",
+              "closes": "21:45"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Tuesday",
+                "Wednesday"
+              ],
+              "opens": "11:00",
+              "closes": "23:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Thursday",
+                "Friday",
+                "Saturday"
+              ],
+              "opens": "11:00",
+              "closes": "24:00"
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "23:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=229+St+Philip+St%2C+Charleston%2C+SC+29403",
+          "url": "https://www.dalspizza.com/locations/downtown-charleston",
+          "priceRange": "$$"
+        },
         {
           "@type": "Restaurant",
           "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#nexton",
           "name": "D'Allesandro's Pizza — Nexton",
+          "parentOrganization": {
+            "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#brand"
+          },
           "address": {
             "@type": "PostalAddress",
             "streetAddress": "414 Nexton Square Dr",
@@ -68,18 +136,30 @@
             "postalCode": "29486",
             "addressCountry": "US"
           },
-          "parentOrganization": {
-            "@id": "https://votedonbylocals.com/restaurants/dallesandros-pizza#brand"
-          },
+          "servesCuisine": "Pizza",
           "telephone": "+1-843-900-3593",
-          "openingHours": "Mo-Su 11:00-22:00"
+          "openingHours": "Mo-Su 11:00-22:00",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday",
+                "Sunday"
+              ],
+              "opens": "11:00",
+              "closes": "22:00"
+            }
+          ],
+          "hasMap": "https://www.google.com/maps/search/?api=1&query=414+Nexton+Square+Dr%2C+Summerville%2C+SC+29486",
+          "url": "https://www.dalspizza.com/locations/downtown-charleston",
+          "priceRange": "$$"
         }
-      ],
-      "servesCuisine": "Pizza",
-      "telephone": "+1-843-853-6337",
-      "openingHours": "Mo 11:00-21:45, Tu-We 11:00-23:00, Th-Sa 11:00-24:00, Su 11:00-23:00",
-      "priceRange": "$$",
-      "sameAs": "https://www.dalspizza.com/locations/downtown-charleston"
+      ]
     }
     </script>
 
@@ -271,32 +351,7 @@
 
                     <!-- INFO SIDEBAR -->
                     <div>
-                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Where to find it</h2>
-
-                        <!-- Address -->
-                        <div class="mb-4">
-                            <p class="text-brand-dark font-medium">229 St Philip St</p>
-                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
-                        </div>
-
-                        <!-- Hours -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Hours</p>
-                            <p class="text-brand-dark text-sm">
-                                Mon: 11am–9:45pm<br>
-                                Tue–Wed: 11am–11pm<br>
-                                Thu–Sat: 11am–12am<br>
-                                Sun: 11am–11pm
-                            </p>
-                        </div>
-
-                        <!-- Phone -->
-                        <div class="mb-4">
-                            <p class="text-brand-gray text-xs uppercase tracking-wide mb-1">Phone</p>
-                            <p class="text-brand-dark text-sm">
-                                <a href="tel:+1-843-853-6337" class="hover:text-brand-orange transition-colors">(843) 853-6337</a>
-                            </p>
-                        </div>
+                        <h2 class="font-poppins font-bold text-lg text-brand-dark mb-4">Good to know</h2>
 
                         <!-- Website -->
                         <div class="mb-4">
@@ -316,16 +371,32 @@
             </div>
 
             <section class="border-t border-gray-100 pt-8">
-                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Other locations</h2>
+                <h2 class="font-poppins font-bold text-2xl text-brand-dark mb-6">Locations</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="border border-gray-100 rounded-lg p-5">
-                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-3">Nexton</h3>
-                        <div class="mb-3">
+                    <div id="cannonborough-elliotborough" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">D'Allesandro's Pizza — Cannonborough-Elliotborough</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Cannonborough-Elliotborough</p>
+                        <address class="not-italic mb-3">
+                            <p class="text-brand-dark font-medium">229 St Philip St</p>
+                            <p class="text-brand-gray text-sm">Charleston, SC 29403</p>
+                        </address>
+                        <p class="text-brand-gray text-sm mb-2"><a href="tel:+18438536337" class="hover:text-brand-orange">(843) 853-6337</a></p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon: 11am–9:45pm
+Tue–Wed: 11am–11pm
+Thu–Sat: 11am–12am
+Sun: 11am–11pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=229+St+Philip+St%2C+Charleston%2C+SC+29403" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
+                    </div>
+                    <div id="nexton" class="border border-gray-100 rounded-lg p-5 scroll-mt-24">
+                        <h3 class="font-poppins font-semibold text-lg text-brand-dark mb-1">D'Allesandro's Pizza — Nexton</h3>
+                        <p class="text-brand-gray text-xs uppercase tracking-wide mb-3">Summerville</p>
+                        <address class="not-italic mb-3">
                             <p class="text-brand-dark font-medium">414 Nexton Square Dr</p>
                             <p class="text-brand-gray text-sm">Summerville, SC 29486</p>
-                        </div>
+                        </address>
                         <p class="text-brand-gray text-sm mb-2"><a href="tel:+18439003593" class="hover:text-brand-orange">(843) 900-3593</a></p>
-                        <p class="text-brand-gray text-sm whitespace-pre-line">Mon–Sun: 11am–10pm</p>
+                        <p class="text-brand-gray text-sm whitespace-pre-line mb-2">Mon–Sun: 11am–10pm</p>
+                        <p class="text-brand-gray text-sm mb-2"><a href="https://www.google.com/maps/search/?api=1&query=414+Nexton+Square+Dr%2C+Summerville%2C+SC+29486" rel="noopener" target="_blank" class="text-brand-orange hover:underline">Directions</a></p>
                     </div>
                 </div>
             </section>
