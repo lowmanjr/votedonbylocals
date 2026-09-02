@@ -121,7 +121,10 @@ function loadTopN(slug: string, _ogEntry: OgRankingEntry): TopNRankingData {
   const taglinesBySlug = extractRowTaglines(html);
 
   const rows: RankingRow[] = urls.map((url, idx) => {
-    const m = url.match(/\/restaurants\/([^/]+)\.html$/);
+    // Accept both the clean URL and the legacy .html form. ItemList urls went
+    // clean in PR #66; body-row hrefs have not. Tolerating both here means a
+    // future flip on either surface cannot break this parser again.
+    const m = url.match(/\/restaurants\/([^/]+?)(?:\.html)?$/);
     if (!m) throw new Error(`Could not parse restaurant slug from URL: ${url}`);
     const restaurantSlug = m[1];
     const r = bySlug.get(restaurantSlug);
@@ -185,13 +188,15 @@ function loadFeatured1(slug: string, _ogEntry: OgRankingEntry): Featured1Ranking
   // the ranking page; matching on it is robust to brand renames and
   // location-specific naming.
   const restaurants = loadRestaurants();
-  const rankingRefUrl = `/rankings/${slug}.html`;
+  // Compared with the .html suffix stripped from both sides, so this keeps
+  // matching whichever form appearsOn carries.
+  const rankingRefUrl = `/rankings/${slug}`;
   const featuredRestaurant = restaurants.find((r) =>
-    (r.appearsOn ?? []).some((a) => a.url === rankingRefUrl),
+    (r.appearsOn ?? []).some((a) => a.url.replace(/\.html$/, '') === rankingRefUrl),
   );
   if (!featuredRestaurant) {
     throw new Error(
-      `Featured-1 ranking ${slug} has no matching restaurant in data/restaurants.json (no entry with appearsOn url '${rankingRefUrl}')`,
+      `Featured-1 ranking ${slug} has no matching restaurant in data/restaurants.json (no entry with appearsOn url '${rankingRefUrl}' or '${rankingRefUrl}.html')`,
     );
   }
 
@@ -250,11 +255,12 @@ function loadFeatured1(slug: string, _ogEntry: OgRankingEntry): Featured1Ranking
 
 function extractRowTaglines(html: string): Map<string, string> {
   // Each row in the ranking page body has the shape:
-  //   <a href="/restaurants/{slug}.html" class="hover:text-brand-orange ...">{Name}</a></h2>
+  //   <a href="/restaurants/{slug}" class="hover:text-brand-orange ...">{Name}</a></h2>
+  //   (or the legacy "/restaurants/{slug}.html" form; both are accepted)
   //       <p class="text-brand-gray font-medium ...">{tagline}</p>
   // Non-greedy `[\s\S]*?` between the anchor and the first text-brand-gray <p>
   // catches the row's tagline without crossing into the next row.
-  const re = /<a href="\/restaurants\/([^"]+)\.html"[^>]*>[^<]+<\/a>[\s\S]*?<p class="text-brand-gray[^"]*">([^<]+)<\/p>/g;
+  const re = /<a href="\/restaurants\/([^"]+?)(?:\.html)?"[^>]*>[^<]+<\/a>[\s\S]*?<p class="text-brand-gray[^"]*">([^<]+)<\/p>/g;
   const map = new Map<string, string>();
   for (const m of html.matchAll(re)) {
     map.set(m[1], m[2].trim());
