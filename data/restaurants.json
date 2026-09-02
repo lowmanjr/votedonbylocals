@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.3",
-    "lastUpdated": "2026-09-01",
+    "lastUpdated": "2026-09-02",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -2325,6 +2325,145 @@
       "hoursHumanReadable": "Mon-Sun: 12pm-2am",
       "priceRange": null,
       "websiteURL": "https://burnsalley.com"
+    },
+    {
+      "slug": "prophet-coffee",
+      "name": "Prophet Coffee",
+      "tagline": "Dairy-Free Roastery in Park Circle",
+      "cuisine": "Specialty Coffee Roaster",
+      "neighborhood": "Park Circle",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "4427 Spruill Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Prophet Coffee roasts its own beans in North Charleston's Park Circle and serves an all dairy-free menu: espresso, coconut cold brew, and house-made pastries.",
+      "shareTagline": "A dairy-free roastery and bakery in Park Circle.",
+      "keywords": "Prophet Coffee Charleston, Park Circle coffee shop, dairy free coffee Charleston, North Charleston coffee roaster",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": null,
+      "hours": "Mo-Fr 07:00-14:00, Sa-Su 08:00-14:00",
+      "hoursHumanReadable": "Mon–Fri: 7am–2pm\nSat–Sun: 8am–2pm",
+      "priceRange": "$$",
+      "websiteURL": "https://prophet-coffee.com/",
+      "sameAs": [
+        "https://www.instagram.com/prophet_coffee/"
+      ]
+    },
+    {
+      "slug": "highfalutin-coffee-roasters",
+      "name": "Highfalutin Coffee Roasters",
+      "tagline": "Roaster in West Ashley & James Island",
+      "cuisine": "Specialty Coffee Roaster",
+      "neighborhood": "West Ashley",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "27 Magnolia Rd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29407",
+        "addressCountry": "US"
+      },
+      "description": "Highfalutin roasts specialty-grade coffee in Charleston and pours it at two cafes: West Ashley on Magnolia Road and James Island on Harbor View Road.",
+      "shareTagline": "A Charleston roaster with cafes in West Ashley and on James Island.",
+      "keywords": "Highfalutin Coffee Roasters, West Ashley coffee shop, James Island coffee, Charleston coffee roaster",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": "+1-843-501-7859",
+      "hours": "Mo-Su 06:30-17:00",
+      "hoursHumanReadable": "Mon–Sun: 6:30am–5pm",
+      "priceRange": "$$",
+      "websiteURL": "https://highfalutin.com/",
+      "sameAs": [
+        "https://www.instagram.com/highfalutincoffee/"
+      ],
+      "primaryLocation": {
+        "label": "West Ashley",
+        "name": "Highfalutin Coffee Roasters — West Ashley",
+        "slug": "west-ashley",
+        "neighborhood": "West Ashley",
+        "url": "https://highfalutin.com/"
+      },
+      "locations": [
+        {
+          "label": "James Island",
+          "name": "Highfalutin Coffee Roasters — James Island",
+          "slug": "james-island",
+          "neighborhood": "James Island",
+          "address": {
+            "streetAddress": "989 Harbor View Rd",
+            "addressLocality": "Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29412",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Su 06:30-17:00",
+          "hoursHumanReadable": "Mon–Sun: 6:30am–5pm",
+          "websiteURL": "https://highfalutin.com/",
+          "geoLat": null,
+          "geoLng": null
+        }
+      ]
+    },
+    {
+      "slug": "city-lights-eastside",
+      "name": "City Lights Eastside",
+      "tagline": "Neighborhood Cafe on Line Street",
+      "cuisine": "Neighborhood Cafe",
+      "neighborhood": "Eastside",
+      "schemaType": "CafeOrCoffeeShop",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "12 Line St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "City Lights Eastside is a corner cafe at Line and Hanover serving coffee, breakfast and lunch, with a rotating local art wall and live music on the patio.",
+      "shareTagline": "A corner cafe on the Eastside with coffee, breakfast and local art.",
+      "keywords": "City Lights Eastside, Eastside Charleston coffee, Line Street cafe, best coffee Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-coffee-shops.html",
+          "title": "Best Coffee Shops in Charleston"
+        }
+      ],
+      "phone": "+1-854-253-9805",
+      "hours": "Mo-Sa 07:00-16:00, Su 08:00-16:00",
+      "hoursHumanReadable": "Mon–Sat: 7am–4pm\nSun: 8am–4pm",
+      "priceRange": "$$",
+      "websiteURL": null
     }
   ]
 }
