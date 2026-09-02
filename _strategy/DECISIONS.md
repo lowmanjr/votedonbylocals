@@ -468,8 +468,9 @@ The canonical Top-5 (per `_template-canonical.html`) is the default ranking leng
 
 - **Featured-1** (single-winner, separate template per #8): `best-new-coffee-shop`, `best-bakery`. Used when one strong local-consensus pick exists and the slate isn't full. Subtitle frames the count: "One standout — with more to come."
 - **Top-4**: `best-new-restaurants` (per #4). Used when 4 confident picks exist but a 5th would require fabrication. Subtitle: "Four standouts — with more to come."
-- **Top-5** (canonical default): `best-pizza`, `best-tex-mex`, `best-coffee-shops`, `best-casual-spots`, `best-nice-restaurants`. Subtitle: "As voted by Charleston locals."
+- **Top-5** (canonical default): `best-pizza`, `best-tex-mex`, `best-casual-spots`, `best-nice-restaurants`. Subtitle: "As voted by Charleston locals."
 - **Top-7**: `best-burger` (PR #27). Used when real local consensus pushes past the canonical — Charleston has a deeper burger scene than 5 spots can hold honestly. No "more to come" framing — the slate is full as-is. Subtitle: "As voted by Charleston locals."
+- **Top-8**: `best-coffee-shops`. Moved from Top-5 to Top-8 on 2026-09-02. Subtitle: "As voted by Charleston locals."
 
 ### Why this matters
 
