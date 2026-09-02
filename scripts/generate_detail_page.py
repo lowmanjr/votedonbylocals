@@ -439,7 +439,17 @@ def build_jsonld_dict(restaurant):
         obj['openingHours'] = restaurant['hours']
     if restaurant.get('priceRange'):
         obj['priceRange'] = restaurant['priceRange']
-    if restaurant.get('websiteURL'):
+    # sameAs: the record's own list when it has one, with websiteURL kept at
+    # the front so a site is never dropped. Mirrors the multi-location path,
+    # which has always read the field. `url` stays the Voted On By Locals
+    # detail page per the template docblock, so the website has nowhere else
+    # to live on this shape.
+    if restaurant.get('sameAs'):
+        obj['sameAs'] = (
+            ([restaurant['websiteURL']] if restaurant.get('websiteURL') else [])
+            + restaurant['sameAs']
+        )
+    elif restaurant.get('websiteURL'):
         obj['sameAs'] = restaurant['websiteURL']
     if restaurant.get('imageURL'):
         obj['image'] = restaurant['imageURL']
