@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.3",
-    "lastUpdated": "2026-09-02",
+    "lastUpdated": "2026-09-06",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -2464,6 +2464,206 @@
       "hoursHumanReadable": "Mon–Sat: 7am–4pm\nSun: 8am–4pm",
       "priceRange": "$$",
       "websiteURL": null
+    },
+    {
+      "slug": "rancho-lewis",
+      "name": "Rancho Lewis",
+      "tagline": "Border Food, Cowboy Cookin'",
+      "cuisine": "Tex-Mex",
+      "neighborhood": "Upper King",
+      "schemaType": "Restaurant",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1503 King St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Pitmaster John Lewis's Tex-Mex room on upper King, with tortillas made in house, Hatch chiles running through the menu, and the Christmas burrito.",
+      "shareTagline": "Hatch chiles and house-made tortillas on upper King, voted best by Charleston locals.",
+      "keywords": "Rancho Lewis Charleston, upper King Tex-Mex, John Lewis Charleston, Hatch chile Charleston, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-mexican.html",
+          "title": "Best Mexican in Charleston"
+        }
+      ],
+      "phone": "+1-843-996-4500",
+      "hours": "Mo-Th 11:00-21:00, Fr-Sa 11:00-22:00, Su 11:00-21:00",
+      "hoursHumanReadable": "Sun–Thu: 11am–9pm\nFri–Sat: 11am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://www.rancholewischs.com/",
+      "sameAs": [
+        "https://www.instagram.com/rancholewis/",
+        "https://www.facebook.com/RanchoLewisCHS/"
+      ]
+    },
+    {
+      "slug": "rebel-taqueria",
+      "name": "Rebel Taqueria",
+      "tagline": "Tacos, Tequila, Cold Beer",
+      "cuisine": "Mexican",
+      "neighborhood": "Chicora-Cherokee",
+      "schemaType": "Restaurant",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1809 Reynolds Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Cali-style tacos, tequila and cold beer on Reynolds Avenue, grown out of the food truck Lewis Kesaris and Paul Nettles started in 2016.",
+      "shareTagline": "Tacos, tequila and cold beer on Reynolds Ave, voted best by Charleston locals.",
+      "keywords": "Rebel Taqueria Charleston, Reynolds Avenue tacos, North Charleston tacos, Charleston tequila bar, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-mexican.html",
+          "title": "Best Mexican in Charleston"
+        }
+      ],
+      "phone": "+1-843-619-0104",
+      "hours": null,
+      "hoursHumanReadable": "Open 7 days a week\nMon–Thu: 11am–11pm\nFri–Sat: 11am–midnight\nKitchen closes at 10pm nightly",
+      "priceRange": null,
+      "websiteURL": "https://www.rebeltaqueria.com/"
+    },
+    {
+      "slug": "maya-del-sol-kitchen",
+      "name": "Maya del Sol Kitchen",
+      "tagline": "Taco Counter by Day, Tasting Menu by Night",
+      "cuisine": "Mexican",
+      "neighborhood": "North Charleston",
+      "schemaType": "Restaurant",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "3225 Rivers Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Chef Raul Sanchez cooks tacos and burritos at a diner counter by day and a five-course, reservation-only Mexican tasting menu by night, behind the Starlight Motor Inn on Rivers Avenue.",
+      "shareTagline": "Taco counter by day, five-course Mexican tasting menu by night.",
+      "keywords": "Maya del Sol Kitchen Charleston, Rivers Avenue Mexican, North Charleston tasting menu, Raul Sanchez Charleston, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-mexican.html",
+          "title": "Best Mexican in Charleston"
+        }
+      ],
+      "phone": "+1-843-202-0792",
+      "hours": null,
+      "hoursHumanReadable": "Lunch Wed–Sat: 11am–3pm\nDinner Thu–Sat: 6pm & 8pm seatings (reservations required)\nBrunch Sun: 10am–3pm",
+      "priceRange": null,
+      "websiteURL": "https://raulsmayadelsol.com/",
+      "sameAs": [
+        "https://www.instagram.com/mayadelsolkitchen",
+        "https://www.facebook.com/RaulsMayaDelSol/"
+      ]
+    },
+    {
+      "slug": "el-molino",
+      "name": "El Molino",
+      "tagline": "Supermarket Taqueria, Handmade Tortillas",
+      "cuisine": "Mexican",
+      "neighborhood": "West Ashley",
+      "schemaType": "Restaurant",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1610 Sam Rittenberg Blvd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29407",
+        "addressCountry": "US"
+      },
+      "description": "A Mexican supermarket with a taqueria counter, now in West Ashley, North Charleston and Johns Island, turning out tacos and burritos at prices the rest of town cannot touch.",
+      "shareTagline": "Supermarket taqueria tacos and burritos, voted best by Charleston locals.",
+      "keywords": "El Molino Charleston, Mexican supermarket Charleston, West Ashley taqueria, North Charleston taqueria, Johns Island tacos, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-mexican.html",
+          "title": "Best Mexican in Charleston"
+        }
+      ],
+      "phone": "+1-843-225-8244",
+      "hours": null,
+      "hoursHumanReadable": null,
+      "priceRange": "$",
+      "websiteURL": null,
+      "sameAs": [
+        "https://www.facebook.com/elmolinosupermarket/",
+        "https://www.instagram.com/elmolinotaqueria/"
+      ],
+      "titleOverride": null,
+      "primaryLocation": {
+        "label": "West Ashley",
+        "name": "El Molino Supermarket – West Ashley",
+        "slug": "west-ashley",
+        "neighborhood": "West Ashley",
+        "url": null
+      },
+      "locations": [
+        {
+          "label": "North Charleston",
+          "name": "El Molino Supermarket – Rivers Ave",
+          "slug": "rivers-ave",
+          "neighborhood": "North Charleston",
+          "address": {
+            "streetAddress": "5900 Rivers Ave",
+            "addressLocality": "North Charleston",
+            "addressRegion": "SC",
+            "postalCode": "29406",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": "Mo-Su 08:00-21:00",
+          "hoursHumanReadable": "Mon–Sun: 8am–9pm",
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        },
+        {
+          "label": "Johns Island",
+          "name": "La Taqueria by El Molino",
+          "slug": "johns-island",
+          "neighborhood": "Johns Island",
+          "address": {
+            "streetAddress": "2901 Maybank Hwy",
+            "addressLocality": "Johns Island",
+            "addressRegion": "SC",
+            "postalCode": "29455",
+            "addressCountry": "US"
+          },
+          "phone": null,
+          "hours": null,
+          "hoursHumanReadable": null,
+          "websiteURL": null,
+          "geoLat": null,
+          "geoLng": null
+        }
+      ]
     }
   ]
 }
