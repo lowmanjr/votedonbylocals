@@ -2524,7 +2524,7 @@
         "postalCode": "29405",
         "addressCountry": "US"
       },
-      "description": "Cali-style tacos, tequila and cold beer on Reynolds Avenue, grown out of the food truck Lewis Kesaris and Paul Nettles started in 2016.",
+      "description": "Cali-style tacos, tequila and cold beer on Reynolds Avenue, grown out of the Taco Tuesday pop-up Lewis Kesaris and Paul Nettles started in 2011.",
       "shareTagline": "Tacos, tequila and cold beer on Reynolds Ave, voted best by Charleston locals.",
       "keywords": "Rebel Taqueria Charleston, Reynolds Avenue tacos, North Charleston tacos, Charleston tequila bar, best Mexican Charleston SC",
       "appearsOn": [
@@ -2664,6 +2664,80 @@
           "geoLng": null
         }
       ]
+    },
+    {
+      "slug": "el-pincho-taco",
+      "name": "El Pincho Taco",
+      "tagline": "Street Tacos, Tortas and Gorditas",
+      "cuisine": "Mexican",
+      "neighborhood": "East Central",
+      "schemaType": "Restaurant",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "616 Meeting St Ste B",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "El Pincho Taco is a family-owned taqueria on Meeting Street in Charleston, SC, serving Mexican street tacos, tortas and gorditas alongside micheladas and margaritas. Voted by Charleston locals as one of the city's best Mexican restaurants.",
+      "shareTagline": "Family-owned Meeting Street taqueria for street tacos, tortas and gorditas.",
+      "keywords": "El Pincho Taco Charleston, Meeting Street tacos, Charleston taqueria, Mexican street tacos Charleston, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-mexican.html",
+          "title": "Best Mexican in Charleston"
+        }
+      ],
+      "phone": "+1-843-406-5958",
+      "hours": null,
+      "hoursHumanReadable": "Hours vary — call (843) 406-5958 or see @elpinchotaco on Instagram for current hours.",
+      "priceRange": null,
+      "websiteURL": null,
+      "sameAs": [
+        "https://www.instagram.com/elpinchotaco/",
+        "https://www.facebook.com/pinchotaco/"
+      ]
+    },
+    {
+      "slug": "pink-cactus",
+      "name": "Pink Cactus",
+      "tagline": "Spring Street Mexican Kitchen",
+      "cuisine": "Mexican",
+      "neighborhood": "Cannonborough-Elliotborough",
+      "schemaType": "Restaurant",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "100 Spring St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Pink Cactus is a Mexican restaurant on Spring Street in Charleston, SC, serving an all-day menu in the Cannonborough-Elliotborough neighborhood. Voted by Charleston locals as one of the city's best Mexican restaurants.",
+      "shareTagline": "All-day Mexican on Spring Street, voted best by Charleston locals.",
+      "keywords": "Pink Cactus Charleston, Spring Street Mexican, Cannonborough Mexican restaurant, downtown Charleston tacos, best Mexican Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-mexican.html",
+          "title": "Best Mexican in Charleston"
+        }
+      ],
+      "phone": "+1-843-764-9343",
+      "hours": null,
+      "hoursHumanReadable": "Hours vary — see pinkcactuschs.com or call (843) 764-9343 for current hours.",
+      "priceRange": null,
+      "websiteURL": "https://www.pinkcactuschs.com/"
     }
   ]
 }
