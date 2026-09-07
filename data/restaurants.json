@@ -1845,7 +1845,7 @@
       "name": "Gustard's Custard",
       "tagline": "Frozen Custard, Dogs Welcome",
       "cuisine": "Frozen Custard",
-      "neighborhood": null,
+      "neighborhood": "Wagener Terrace",
       "schemaType": "IceCreamShop",
       "monthYear": "August 2026",
       "geoLat": null,
@@ -1870,8 +1870,8 @@
         }
       ],
       "phone": null,
-      "hours": null,
-      "hoursHumanReadable": "Hours vary — see gustards.com for current hours.",
+      "hours": "Tu-Su 12:00-22:00",
+      "hoursHumanReadable": "Tue–Sun: 12pm–10pm\nMon: Closed",
       "priceRange": null,
       "websiteURL": "https://gustards.com/"
     },
@@ -2746,6 +2746,251 @@
       "hoursHumanReadable": "Hours vary — see pinkcactuschs.com or call (843) 764-9343 for current hours.",
       "priceRange": null,
       "websiteURL": "https://www.pinkcactuschs.com/"
+    },
+    {
+      "slug": "holy-city-brewing",
+      "name": "Holy City Brewing",
+      "tagline": "Pluff Mud Porter, Creekside Yard",
+      "cuisine": "Brewery",
+      "neighborhood": "Park Circle",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1021 Aragon Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Holy City Brewing is a North Charleston, SC brewery on Noisette Creek in Park Circle, pouring flagship Pluff Mud Porter alongside a full kitchen and raw bar. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "Pluff Mud Porter and a creekside yard, voted best by Charleston locals.",
+      "keywords": "Holy City Brewing Charleston, Park Circle brewery, Pluff Mud Porter, North Charleston taproom, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-459-2948",
+      "hours": "Mo-Th 11:00-22:00, Fr-Sa 11:00-23:00, Su 11:00-22:00",
+      "hoursHumanReadable": "Sun–Thu: 11am–10pm\nFri–Sat: 11am–11pm",
+      "priceRange": null,
+      "websiteURL": "https://holycitybrewing.com/"
+    },
+    {
+      "slug": "over-the-horizon-brewing",
+      "name": "Over the Horizon Brewing",
+      "tagline": "Birria Tacos, Picnic-Table Patio",
+      "cuisine": "Brewery",
+      "neighborhood": "Wagener Terrace",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "2200 Heriot St",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29403",
+        "addressCountry": "US"
+      },
+      "description": "Over the Horizon Brewing is a Charleston, SC brewery on Heriot St in Wagener Terrace, pairing house beer with a taco kitchen and a picnic-table patio. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "House beer and a taco kitchen on Heriot St, voted best by Charleston locals.",
+      "keywords": "Over the Horizon Brewing Charleston, Heriot Street brewery, Wagener Terrace taproom, Charleston brewery tacos, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-867-2337",
+      "hours": "Tu-Th 16:00-22:00, Fr-Su 11:00-22:00",
+      "hoursHumanReadable": "Tue–Thu: 4pm–10pm\nFri–Sun: 11am–10pm\nMon: Closed",
+      "priceRange": null,
+      "websiteURL": "https://overthehorizonbrewing.com/"
+    },
+    {
+      "slug": "commonhouse-aleworks",
+      "name": "Commonhouse Aleworks",
+      "tagline": "The Air Is Salty Gose",
+      "cuisine": "Brewery",
+      "neighborhood": "Park Circle",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "4831 O'Hear Ave",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Commonhouse Aleworks is a North Charleston, SC brewery in Park Circle, known for its The Air Is Salty gose and a kitchen running seven days a week. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "Park Circle gose and a kitchen open daily, voted best by Charleston locals.",
+      "keywords": "Commonhouse Aleworks Charleston, Park Circle brewery, North Charleston taproom, The Air Is Salty gose, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-471-1400",
+      "hours": "Mo-Th 11:00-21:00, Fr-Sa 11:00-23:00, Su 11:00-21:00",
+      "hoursHumanReadable": "Sun–Thu: 11am–9pm\nFri–Sat: 11am–11pm",
+      "priceRange": null,
+      "websiteURL": "https://commonhousealeworks.com/"
+    },
+    {
+      "slug": "low-tide-brewing",
+      "name": "Low Tide Brewing",
+      "tagline": "Aloha Beaches Pineapple Wheat",
+      "cuisine": "Brewery",
+      "neighborhood": "Johns Island",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": 32.741278,
+      "geoLng": -80.041528,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "2863 Maybank Hwy",
+        "addressLocality": "Johns Island",
+        "addressRegion": "SC",
+        "postalCode": "29455",
+        "addressCountry": "US"
+      },
+      "description": "Low Tide Brewing is a Johns Island, SC brewery on Maybank Hwy pouring its Aloha Beaches pineapple wheat, with patio seating and rotating food trucks. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "Pineapple wheat and food trucks on Johns Island, voted best by locals.",
+      "keywords": "Low Tide Brewing Johns Island, Maybank Highway brewery, Aloha Beaches pineapple wheat, Johns Island taproom, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-576-9194",
+      "hours": "Mo-Th 15:00-22:00, Fr-Sa 12:00-24:00, Su 12:00-22:00",
+      "hoursHumanReadable": "Mon–Thu: 3pm–10pm\nFri–Sat: 12pm–12am\nSun: 12pm–10pm",
+      "priceRange": null,
+      "websiteURL": "https://lowtidebrewing.com/"
+    },
+    {
+      "slug": "coast-brewing-co",
+      "name": "Coast Brewing Co.",
+      "tagline": "HopArt IPA, Brewing Since 2007",
+      "cuisine": "Brewery",
+      "neighborhood": "North Charleston",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1250 2nd St N",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29405",
+        "addressCountry": "US"
+      },
+      "description": "Coast Brewing Co. is a family-owned brewery in North Charleston, SC, brewing since 2007 and pouring its HopArt IPA and 32/50 Kölsch in the tasting room. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "HopArt IPA from a family-run brewery going since 2007, voted best by locals.",
+      "keywords": "Coast Brewing Charleston, HopArt IPA, North Charleston tasting room, family owned brewery Charleston, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-343-4727",
+      "hours": "Th 15:00-20:00, Fr 13:00-21:00, Sa 12:00-21:00, Su 12:00-20:00",
+      "hoursHumanReadable": "Thu: 3pm–8pm\nFri: 1pm–9pm\nSat: 12pm–9pm\nSun: 12pm–8pm\nMon–Wed: Closed",
+      "priceRange": null,
+      "websiteURL": "https://www.coastbrewing.com/"
+    },
+    {
+      "slug": "frothy-beard-brewing",
+      "name": "Frothy Beard Brewing Company",
+      "tagline": "Monster Slice, Super Smash Burger",
+      "cuisine": "Brewery",
+      "neighborhood": "West Ashley",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": 32.8143884,
+      "geoLng": -79.995353,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "1401 Sam Rittenberg Blvd",
+        "addressLocality": "Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29407",
+        "addressCountry": "US"
+      },
+      "description": "Frothy Beard Brewing Company is a West Ashley brewery in Charleston, SC, pairing house beer with its Monster Slice pizza and Super Smash Burger. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "Monster Slice pizza and house beer in West Ashley, voted best by locals.",
+      "keywords": "Frothy Beard Brewing Charleston, West Ashley brewery, Monster Slice pizza, Sam Rittenberg taproom, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-872-1075",
+      "hours": "Mo-Tu 11:30-21:00, We-Sa 11:30-22:00, Su 11:30-21:00",
+      "hoursHumanReadable": "Sun–Tue: 11:30am–9pm\nWed–Sat: 11:30am–10pm",
+      "priceRange": "$$",
+      "websiteURL": "https://www.frothybeard.com/"
+    },
+    {
+      "slug": "snafu-brewing",
+      "name": "Snafu Brewing Company",
+      "tagline": "Fruited Sours, N64 and Pool",
+      "cuisine": "Brewery",
+      "neighborhood": "North Charleston",
+      "schemaType": "Brewery",
+      "monthYear": "September 2026",
+      "geoLat": null,
+      "geoLng": null,
+      "imageURL": null,
+      "editorialBody": null,
+      "areaServed": null,
+      "address": {
+        "streetAddress": "3280 Industry Dr",
+        "addressLocality": "North Charleston",
+        "addressRegion": "SC",
+        "postalCode": "29418",
+        "addressCountry": "US"
+      },
+      "description": "Snafu Brewing Company is a North Charleston, SC brewery pouring a dozen-plus fruited sours in a warehouse taproom with N64, pool and ping pong. Voted by Charleston locals as one of the city's best breweries.",
+      "shareTagline": "A dozen fruited sours plus N64 and pool, voted best by Charleston locals.",
+      "keywords": "Snafu Brewing Charleston, North Charleston sour beer, fruited sours Charleston, Industry Drive taproom, best breweries Charleston SC",
+      "appearsOn": [
+        {
+          "url": "/rankings/best-breweries.html",
+          "title": "Best Breweries in Charleston"
+        }
+      ],
+      "phone": "+1-843-767-4121",
+      "hours": "Mo-Th 15:00-20:00, Fr-Sa 12:00-21:00, Su 12:00-18:00",
+      "hoursHumanReadable": "Mon–Thu: 3pm–8pm\nFri–Sat: 12pm–9pm\nSun: 12pm–6pm",
+      "priceRange": null,
+      "websiteURL": "https://www.snafubrewingcompany.com/"
     }
   ]
 }
