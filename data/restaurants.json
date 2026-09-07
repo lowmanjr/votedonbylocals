@@ -1,7 +1,7 @@
 {
   "_meta": {
     "schemaVersion": "1.3",
-    "lastUpdated": "2026-09-06",
+    "lastUpdated": "2026-09-07",
     "fieldDocumentation": "rankings/_detail-page-template.html (top docblock)",
     "designAnchor": "_strategy/DECISIONS.md #13",
     "fieldPolicy": "Required fields must be filled before a detail page ships. Optional fields use null when data is not yet collected. Empty string ('') is NOT a valid placeholder — null means 'absent'; '' means 'present and empty', which is a fabrication. Per intentional decision #2 in the template docblock."
@@ -1310,7 +1310,7 @@
     },
     {
       "slug": "edmunds-oast",
-      "name": "Edmund's Oast",
+      "name": "Edmund's Oast Brewing Co",
       "tagline": "Brewery, Great Food",
       "cuisine": "American",
       "neighborhood": "Pacific Box & Crate",
@@ -1323,7 +1323,7 @@
       "areaServed": null,
       "address": {
         "streetAddress": "1505 King St #115",
-        "addressLocality": "North Charleston",
+        "addressLocality": "Charleston",
         "addressRegion": "SC",
         "postalCode": "29405",
         "addressCountry": "US"
